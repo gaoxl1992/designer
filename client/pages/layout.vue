@@ -129,7 +129,6 @@ export default {
      */
     saveEditTable(e) {
       let templist = this.tpls || []
-      console.log(e)
       const { index, tpl, name, id, rels } = e
       templist.splice(index, 1, {
         tpl,

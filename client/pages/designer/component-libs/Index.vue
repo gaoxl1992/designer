@@ -2,8 +2,7 @@
 <template>
   <div class="components-libs-wrapper scrollbar-wrapper">
     <div>
-      <ul class="scrollbar-wrapper"
-          v-if="cusCompList && cusCompList.length">
+      <ul class="scrollbar-wrapper">
         <div class="components-libs-title">
           <span>常用组件</span>
           <span class="op">
@@ -20,24 +19,26 @@
                            :customComps="cusCompList"
                            @close="dialogVisible = false"></CusCompsSetting>
         </div>
-        <li v-for="(item, index) in cusCompList"
-            :key="index"
-            class="clearfix"
-            v-show="openCusComps">
-          <div class="cus-components-libs-title"
-               v-if="item.components && item.components.length">
-            <p>{{ item.title }}</p>
-          </div>
-          <div v-if="item.components && item.components.length">
-            <div class="cus-components-lib-item"
-                 v-for="(element, i) in item.components"
-                 :key="i"
-                 @click="handleClick(element)"
-                 v-show="element.display">
-              <p class="lib-item-title">{{ element.title }}</p>
+        <template v-if="cusCompList && cusCompList.length">
+          <li v-for="(item, index) in cusCompList"
+              :key="index"
+              class="clearfix"
+              v-show="openCusComps">
+            <div class="cus-components-libs-title"
+                 v-if="item.components && item.components.length">
+              <p>{{ item.title }}</p>
             </div>
-          </div>
-        </li>
+            <div v-if="item.components && item.components.length">
+              <div class="cus-components-lib-item"
+                   v-for="(element, i) in item.components"
+                   :key="i"
+                   @click="handleClick(element)"
+                   v-show="element.display">
+                <p class="lib-item-title">{{ element.title }}</p>
+              </div>
+            </div>
+          </li>
+        </template>
         <el-divider></el-divider>
       </ul>
     </div>

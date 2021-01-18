@@ -1,11 +1,29 @@
 {
-  "name": "rad-designer",
+  "name": "web-reseditor",
   "version": "1.0.0",
   "author": "gaoxl",
+  "keywords": [
+    "component",
+    "vue",
+    "pc",
+    "designer"
+  ],
+  "files": [
+    "client"
+  ],
+  "main": "lib/index.js",
   "scripts": {
     "dev-client": "vue-cli-service serve",
-    "dev": "npm run dev-client",
-    "build-client": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "dev": "npm run dev-client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+http://svn.radonline.cn:3888/PACS/web-RSTEditor.git"
+  },
+  "homepage": "http://svn.radonline.cn:3888/PACS/web-RSTEditor#readme",
+  "bugs": {
+    "url": "http://svn.radonline.cn:3888/PACS/web-RSTEditor/issues"
   },
   "dependencies": {
     "@tinymce/tinymce-vue": "^3.2.0",
