@@ -1,7 +1,8 @@
 <template>
   <div class="attr-rad-datetime">
     <el-form-item label="时间选择器类型">
-      <el-select v-model="tempDatetime">
+      <el-select v-model="tempDatetime"
+                 size="small">
         <el-option v-for="item in typeList"
                    :key="item.value"
                    :label="item.label"
@@ -11,6 +12,7 @@
     </el-form-item>
     <el-form-item label="格式">
       <el-select v-model="tempFormat"
+                 size="small"
                  filterable
                  allow-create
                  default-first-option>

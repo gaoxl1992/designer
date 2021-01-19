@@ -2,6 +2,7 @@
   <div class="attr-rad-radio">
     <el-form-item label="选项">
       <el-input type="text"
+                size="small"
                 :rows="1"
                 placeholder="英文逗号分隔"
                 v-model="tempOptions">
@@ -9,6 +10,7 @@
     </el-form-item>
     <el-form-item label="默认项">
       <el-input-number v-model="tempIndex"
+                       size="small"
                        :min="1"
                        :max="options.length"></el-input-number>
     </el-form-item>

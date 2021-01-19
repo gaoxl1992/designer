@@ -1,7 +1,12 @@
+<!--
+ * @Description: 直线组件
+ * @props: 
+-->
 <template>
   <div class="attr-rad-line">
     <el-form-item label="线宽">
       <el-input-number v-model="tempLine"
+                       size="small"
                        controls-position="right"
                        :min="1"
                        @change="handleChange"></el-input-number>px

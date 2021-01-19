@@ -2,6 +2,7 @@
   <div class="attr-rad-image">
     <el-form-item>
       <el-switch v-model="tempType"
+                 size="small"
                  active-text="本地图片"
                  inactive-text="网络图片">
       </el-switch>
@@ -9,6 +10,7 @@
     <el-form-item v-if="!tempType"
                   label="图片地址">
       <el-input type="text"
+                size="small"
                 placeholder="请输入图片地址"
                 v-model="tempImage">
       </el-input>

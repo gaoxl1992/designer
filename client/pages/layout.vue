@@ -33,7 +33,6 @@
                  @saveEdit="saveTable"
                  @deleteTableTpl="deleteTableTpl"
                  :customComps="customComp"
-                 @saveDesignerData="fetchDesignerData"
                  :tpls="tpls"
                  @updateSpChars="updateSpChars"
                  @saveEditor="saveEditedPage"
@@ -49,11 +48,12 @@ import TableDesigner from './table-designer/Index'
 import Preview from './preview/Index'
 import bus from '@/common/js/bus'
 import { tabs, ops } from './lay-config'
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
       activeName: 'designer',
-      pageHistory: {},
+      pageDataHis: {},
       customComp: () => [],
       tpls: () => [],
       pageTpl: '',
@@ -66,6 +66,11 @@ export default {
     Editor,
     TableDesigner,
     Preview
+  },
+  computed: {
+    ...mapState({
+      pageData: (state) => state.editor.pageData
+    })
   },
   created() {
     // 模拟检查数据，塞到window下
@@ -174,38 +179,30 @@ export default {
      * @return {*}
      */
     reeditTpl() {
-      this.pageHistory = JSON.parse(
+      this.pageDataHis = JSON.parse(
         localStorage.getItem('editedPageData')
       ).editedData
       // 初始化字符集
       let chars = JSON.parse(localStorage.getItem('chars'))
       // 使用方式，通过refs将匹配结构的数据传给页面
-      this.$refs.editor.resetPage(this.pageHistory, chars)
+      this.$refs.editor.resetPage(this.pageDataHis, chars)
     },
-    /*** 编辑器操作 end */
-
-    /*** 设计器操作 start */
     /**
      * @description: 导入设计完成的模版
      * @param {*}
      * @return {*}
      */
     importEditorTpl() {
-      this.pageHistory = JSON.parse(localStorage.getItem('pageData'))
+      this.pageDataHis = JSON.parse(localStorage.getItem('pageData'))
       // 初始化字符集
       let chars = JSON.parse(localStorage.getItem('chars'))
+
       // 使用方式，通过refs将匹配结构的数据传给页面
-      this.$refs.editor.resetPage(this.pageHistory, chars)
+      this.$refs.editor.resetPage(this.pageDataHis, chars)
     },
-    /**
-     * @description: 调用接口保存设计模版数据
-     * @param {*} e
-     * @return {*}
-     */
-    fetchDesignerData(e) {
-      // TODO
-      localStorage.setItem('pageData', JSON.stringify(e))
-    },
+    /*** 编辑器操作 end */
+
+    /*** 设计器操作 start */
     /**
      * @description: 调用内部暴露的saveDesignerData方法将设计器的数据发送到父组件
      * @param {*}
@@ -213,6 +210,8 @@ export default {
      */
     saveDesigner() {
       this.$refs.designer.saveDesignerData()
+      // TODO API 保存设计obj
+      localStorage.setItem('pageData', JSON.stringify(this.pageData))
     },
     /**
      * @description: 导入设计模版，继续设计
@@ -220,9 +219,9 @@ export default {
      * @return {*}
      */
     importDesigner() {
-      this.pageHistory = JSON.parse(localStorage.getItem('pageData'))
+      this.pageDataHis = JSON.parse(localStorage.getItem('pageData'))
       // 使用方式，通过refs将匹配结构的数据传给页面
-      this.$refs.designer.resetPage(this.pageHistory)
+      this.$refs.designer.resetPage(this.pageDataHis)
     }
     /*** 设计器操作 end */
   },

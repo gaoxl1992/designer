@@ -159,6 +159,7 @@ export default {
       ).join('\n')
     },
     handleLeave(event) {
+      console.log(event)
       let editor = document.getElementById(this.editorId + 'container')
       let dialogs = document.getElementsByClassName('el-dialog__wrapper')
       let dialog = null
@@ -172,7 +173,10 @@ export default {
         !dialog.contains(event.target) &&
         !this.inEditor
       ) {
-        this.afterLeave()
+        setTimeout(() => {
+          this.doc.style.zIndex = this.zIndex
+          this.showChars = false
+        }, 50)
       }
     },
     closeDialog() {
@@ -210,12 +214,6 @@ export default {
     },
     addClickFn() {
       document.addEventListener('click', this.handleLeave, false)
-    },
-    afterLeave() {
-      setTimeout(() => {
-        this.doc.style.zIndex = this.zIndex
-        this.showChars = false
-      }, 50)
     },
     addHtml(char) {
       this.reditor.appendHtml(char)
@@ -265,10 +263,12 @@ export default {
           }
         }
       )
-      if (this.element && this.element.value) {
-        _this.reditor.fullHtml(this.element.value)
+      if (_this.reditor) {
+        if (this.element && this.element.value) {
+          _this.reditor.fullHtml(this.element.value)
+        }
+        _this.reditor.readonly(this.pagetype !== 'editor')
       }
-      _this.reditor.readonly(this.pagetype !== 'editor')
     },
     showCharspop() {
       if (this.pagetype !== 'editor') {
@@ -303,11 +303,19 @@ export default {
   },
   activated() {
     // keep-alive 进入时创建
-    this.initEditor()
+    this.doc = document.getElementsByClassName(
+      'rad-element-wrapper-' + this.editorId
+    )[0]
+
+    // 初始访问时创建
+    if (this.pagetype !== 'preview') {
+      this.initEditor()
+    }
   },
   deactivated() {
     // keep-alive 离开时移除
     this.removeEditor()
+    document.removeEventListener('click', this.handleLeave, false)
   },
   beforeDestroy() {
     this.removeEditor()

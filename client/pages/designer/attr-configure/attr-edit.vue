@@ -1,5 +1,6 @@
 <template>
-  <el-scrollbar class="components-attr-edit">
+  <el-scrollbar class="components-attr-edit"
+                v-if="activeElement">
     <div class="attr-header">
       <div>{{ activeElement.title }}</div>
       <div class="attr-header-desc">可修改内容，设置显示效果</div>

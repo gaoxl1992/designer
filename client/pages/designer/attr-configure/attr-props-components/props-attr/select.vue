@@ -2,6 +2,7 @@
   <div class="attr-rad-select">
     <el-form-item label="选项">
       <el-input type="text"
+                size="small"
                 :rows="1"
                 placeholder="英文逗号分隔"
                 v-model="tempOptions">
@@ -9,6 +10,7 @@
     </el-form-item>
     <el-form-item label="默认项">
       <el-select multiple
+                 size="small"
                  v-model="tempSelect"
                  placeholder="请选择">
         <el-option v-for="(item, index) in tempOptions1"
@@ -20,6 +22,7 @@
     </el-form-item>
     <el-form-item label="禁用项">
       <el-select multiple
+                 size="small"
                  v-model="tempDisabledItems"
                  placeholder="请选择">
         <el-option v-for="(item, index) in tempOptions1"

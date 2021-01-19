@@ -237,31 +237,27 @@ export default {
         customWidth,
         customHeight
       } = pageData
-      this.pageData.customWidth = customWidth
-      this.pageData.customHeight = customHeight
-      this.resetPaper(pageType, radio, totalPages)
-      this.resetEles(elements, width, fixedFooter, fixedHeader)
-    },
-    resetPaper(pageType, radio, totalPages) {
-      let width = this.pageData.width
-      let height = width * radio
-      this.pageData.pageType = pageType
-      this.$store.dispatch('updatePages', totalPages)
-      this.$nextTick(() => {
-        this.$store.dispatch('updateCanvasHeight', height)
-      })
-    },
-    resetEles(eles, width = 900, fixedFooter = {}, fixedHeader = {}) {
-      this.pageData.elements = []
       let rd = width / this.pageData.width
-      this.pageData.fixedFooter = {
-        ...fixedFooter,
-        height: fixedFooter.height / rd
-      }
-      this.pageData.fixedHeader = {
-        ...fixedHeader,
-        height: fixedHeader.height / rd
-      }
+      this.$store.dispatch('setPageData', {
+        ...this.pageData,
+        customWidth,
+        customHeight,
+        pageType,
+        totalPages,
+        fixedFooter: {
+          ...fixedFooter,
+          height: fixedFooter.height / rd
+        },
+        fixedHeader: {
+          ...fixedHeader,
+          height: fixedHeader.height / rd
+        }
+      })
+      this.$store.dispatch('updateCanvasHeight', this.pageData.width * radio)
+      this.resetEles(elements, rd)
+    },
+    resetEles(eles, rd) {
+      this.pageData.elements = []
       function compare(args) {
         return function (a, b) {
           return a[args].top - b[args].top

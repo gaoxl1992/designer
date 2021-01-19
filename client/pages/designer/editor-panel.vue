@@ -140,7 +140,6 @@ export default {
       }
     },
     handleClickCanvas(e) {
-      console.log(e)
       if (
         !e.target.classList.contains('element-on-edit-pane') &&
         !e.target.classList.contains('menu-item-on-edit-panel')

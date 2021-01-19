@@ -43,7 +43,7 @@ import AttrEdit from './attr-configure/attr-edit'
 import PageAttrEdit from './attr-configure/page-attr-edit'
 import CommonAttrEdit from './attr-configure/common-attr-edit'
 import ControlBar from '@client/components/control-bar'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import PreviewWrapper from '@client/components/preview-wrapper'
 
 export default {
@@ -84,12 +84,12 @@ export default {
   },
   methods: {
     /**
-     * @description: 该方法用于导出生成的模版数据，供外部调用
+     * @description: 外部触发将pageData数据存入store
      * @param {*}
      * @return {*}
      */
     saveDesignerData() {
-      this.$emit('saveDesignerData', {
+      this.$store.dispatch('setPageData', {
         radio: this.pageData.height / this.pageData.width,
         ...this.pageData
       })
@@ -112,48 +112,33 @@ export default {
         customWidth,
         customHeight
       } = pageData
+      let rd = width / this.pageData.width
       this.$store.dispatch('setPageData', {
         ...this.pageData,
         customWidth,
         customHeight,
-        fixedFooter,
-        fixedHeader,
-        pageType
+        pageType,
+        totalPages,
+        fixedFooter: {
+          ...fixedFooter,
+          height: fixedFooter.height / rd
+        },
+        fixedHeader: {
+          ...fixedHeader,
+          height: fixedHeader.height / rd
+        }
       })
-      this.resetPaper(radio, totalPages)
-      this.resetEles(elements, width, fixedFooter, fixedHeader)
-    },
-    /**
-     * @description: 重载画布属性
-     * @param {*} radio
-     * @param {*} totalPages
-     * @return {*}
-     */
-    resetPaper(radio, totalPages) {
-      let width = this.pageData.width
-      let height = width * radio
-      this.$store.dispatch('updatePages', totalPages)
-      this.$store.dispatch('updateCanvasHeight', height)
+      this.$store.dispatch('updateCanvasHeight', this.pageData.width * radio)
+      this.resetEles(elements, rd)
     },
     /**
      * @description: 重载控件属性
      * @param {*} eles
-     * @param {*} width
-     * @param {*} fixedFooter
-     * @param {*} fixedHeader
+     * @param {*} rd
      * @return {*}
      */
-    resetEles(eles, width = 900, fixedFooter = {}, fixedHeader = {}) {
+    resetEles(eles, rd) {
       this.pageData.elements = []
-      let rd = width / this.pageData.width
-      this.pageData.fixedFooter = {
-        ...fixedFooter,
-        height: fixedFooter.height / rd
-      }
-      this.pageData.fixedHeader = {
-        ...fixedHeader,
-        height: fixedHeader.height / rd
-      }
       eles.forEach((item) => {
         // 处理导入控件的位置，根据当前视窗宽度做换算，高度不处理，因为会产生遮挡hhh
         item.commonStyle.width = item.commonStyle.width / rd

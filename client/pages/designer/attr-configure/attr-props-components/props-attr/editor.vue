@@ -1,3 +1,7 @@
+<!--
+ * @Description: 
+ * @props: 
+-->
 <template>
   <div class="attr-rad-editor">
     <el-form-item label="标题">
@@ -6,6 +10,7 @@
     </el-form-item>
     <el-form-item label="占位高度">
       <el-input-number v-model="tempEditor"
+                       size="small"
                        @change="handleChange"
                        :min="100"></el-input-number>
       px

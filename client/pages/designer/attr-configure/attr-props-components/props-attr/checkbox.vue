@@ -2,6 +2,7 @@
   <div class="attr-rad-checkbox">
     <el-form-item label="选项">
       <el-input type="text"
+                size="small"
                 :rows="1"
                 placeholder="英文逗号分隔"
                 v-model="tempOptions">
@@ -9,6 +10,7 @@
     </el-form-item>
     <el-form-item label="默认项">
       <el-select v-model="tempCheckbox"
+                 size="small"
                  multiple
                  placeholder="无默认项">
         <el-option v-for="(item, index) in tempOptions1"
@@ -20,6 +22,7 @@
     </el-form-item>
     <el-form-item label="禁用项">
       <el-select v-model="tempDisabled"
+                 size="small"
                  multiple
                  placeholder="无禁用项">
         <el-option v-for="(item, index) in tempOptions1"
@@ -30,7 +33,8 @@
       </el-select>
     </el-form-item>
     <el-form-item>
-      <el-checkbox v-model="editable">可编辑</el-checkbox>
+      <el-checkbox v-model="editable"
+                   size="small">可编辑</el-checkbox>
     </el-form-item>
   </div>
 </template>
