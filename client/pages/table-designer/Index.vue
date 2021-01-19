@@ -1,5 +1,8 @@
 <!--
  * @Description: 表格设计器
+ * @props:
+ *  tableTplList 表格模版列表 Array
+ </style>
 -->
 <template>
   <div class="table-designer">

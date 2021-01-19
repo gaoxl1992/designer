@@ -6,18 +6,20 @@
 <template>
   <div class="tpl-list">
     <p>表格模版列表(双击重新编辑)</p>
-    <div class="tpl-item"
+    <div class="tpl-list-item"
          v-for="(item, index) in tableTplList"
          :key="item.id">
-      <el-tooltip class="item"
-                  effect="dark"
-                  :content="item.name"
-                  placement="top-start">
-        <div class="tpl-item-name"
-             @dblclick="editTableTpl(item, index)">{{item.name}}</div>
-      </el-tooltip>
-      <i class="el-icon-close"
-         @click="deleteTableTpl(index)"></i>
+      <div class="tpl-item">
+        <el-tooltip class="item"
+                    effect="dark"
+                    :content="item.name"
+                    placement="top-start">
+          <div class="tpl-item-name"
+               @dblclick="editTableTpl(item, index)">{{item.name}}</div>
+        </el-tooltip>
+        <i class="el-icon-close"
+           @click="deleteTableTpl(index)"></i>
+      </div>
     </div>
     <div v-if="!tableTplList || tableTplList.length === 0">暂无模版</div>
   </div>
@@ -60,6 +62,9 @@ export default {
 .tpl-list {
   width: 280px;
   padding: 10px;
+  height: calc(100% - 38px);
+  overflow-y: auto;
+  overflow-x: hidden;
   p {
     padding: 10px 0;
     font-weight: 500;
