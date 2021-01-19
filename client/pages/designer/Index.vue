@@ -43,7 +43,7 @@ import AttrEdit from './attr-configure/attr-edit'
 import PageAttrEdit from './attr-configure/page-attr-edit'
 import CommonAttrEdit from './attr-configure/common-attr-edit'
 import ControlBar from '@client/components/control-bar'
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import PreviewWrapper from '@client/components/preview-wrapper'
 
 export default {
