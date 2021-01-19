@@ -139,6 +139,11 @@ export default {
         ...pos
       }
     },
+    /**
+     * @description: 点击非控件
+     * @param {*} e
+     * @return {*}
+     */
     handleClickCanvas(e) {
       if (
         !e.target.classList.contains('element-on-edit-pane') &&
@@ -155,6 +160,7 @@ export default {
       let that = this
 
       document.onmousemove = function (event) {
+        console.log(event)
         let end_x = event.layerX
         let end_y = event.layerY
         let divElement = document.getElementById('rectangular')
@@ -163,10 +169,7 @@ export default {
         //从左往右
         if (that.start_x < end_x) {
           divElement.style.width = end_x - that.start_x + 'px'
-          divElement.style.height =
-            (that.start_y > end_y > 0
-              ? that.start_y - end_y
-              : end_y - that.start_y) + 'px'
+          divElement.style.height = Math.abs(that.start_y - end_y) + 'px'
           divElement.style.left = that.start_x + 'px'
           divElement.style.right = end_x + 'px'
           //从下往上
@@ -179,10 +182,7 @@ export default {
           }
         } else {
           divElement.style.width = that.start_x - end_x + 'px'
-          divElement.style.height =
-            (that.start_y > end_y > 0
-              ? that.start_y - end_y
-              : end_y - that.start_y) + 'px'
+          divElement.style.height = Math.abs(that.start_y - end_y) + 'px'
           divElement.style.left = end_x + 'px'
           divElement.style.right = that.start_x + 'px'
           //从下往上
@@ -205,6 +205,10 @@ export default {
     handMouseUp(event) {
       this.end_x = event.layerX
       this.end_y = event.layerY
+
+      let divElement = document.getElementById('rectangular')
+      divElement.style.display = 'block'
+      divElement.removeAttribute('class', 'rectangular')
       //核心内容，根据你的鼠标移动矩形区域来判断控件是否在里面
       this.isRightClick = false
       let elements = document.getElementsByClassName('components-edit-shape')
@@ -212,8 +216,8 @@ export default {
       for (let i = 0; i < elements.length; i++) {
         const element = elements[i]
         let id = element.id
-        let top = element.offsetTop + 10 //上边界
-        let left = element.offsetLeft + 10 //左边界
+        let top = element.offsetTop //上边界
+        let left = element.offsetLeft //左边界
         let right = left + element.offsetWidth //右边界
         let bottom = top + element.offsetHeight //下边界
         //原地点击
@@ -328,7 +332,7 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
-    pointer-events: none;
+    // pointer-events: none;
     display: flex;
     flex-direction: column;
     .page-de {

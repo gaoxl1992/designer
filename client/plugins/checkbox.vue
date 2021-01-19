@@ -1,8 +1,12 @@
+<!--
+ * @Description: 
+ * @props: 
+-->
 <template>
   <div class="rad-checkbox">
     <el-checkbox-group v-model="tempCheckbox"
                        :size="size"
-                       :disabled="disabledValue">
+                       :disabled="disabledValue || pagetype==='designer'">
       <el-checkbox v-for="(option, index) in options"
                    :key="index"
                    :label="option"
@@ -38,7 +42,8 @@ export default {
     element: {
       type: Object,
       default: () => {}
-    }
+    },
+    pagetype: String
   },
   created() {
     this.tempCheckbox = (this.element && this.element.value) || []

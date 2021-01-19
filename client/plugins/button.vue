@@ -5,6 +5,7 @@
 <template>
   <div class="rad-button">
     <el-button :size="tempSize"
+               :disabled="pagetype === 'designer'"
                :plain="tempPlain"
                :round="tempRound"
                :circle="tempCircle"
@@ -46,7 +47,8 @@ export default {
     type: {
       type: String,
       default: 'primary'
-    }
+    },
+    pagetype: String
   },
   data() {
     return {

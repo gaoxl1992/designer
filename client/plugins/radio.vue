@@ -1,8 +1,12 @@
+<!--
+ * @Description: 
+ * @props: 
+-->
 <template>
   <div class="rad-radio">
     <el-radio-group v-model="defaultOption"
                     :size="size"
-                    :disabled="disabledValue">
+                    :disabled="disabledValue || pagetype === 'designer'">
       <el-radio v-for="(option, index) in options"
                 :key="index"
                 :label="index">
@@ -35,7 +39,8 @@ export default {
     element: {
       type: Object,
       default: () => {}
-    }
+    },
+    pagetype: String
   },
   created() {
     this.defaultOption = (this.element && this.element.value) || 0

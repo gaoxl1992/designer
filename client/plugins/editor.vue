@@ -254,7 +254,9 @@ export default {
             let innerHeight = iframe.document.getElementsByClassName(
               'ke-content'
             )[0].offsetHeight
-            this.element.innerHeight = innerHeight
+            if (this.element) {
+              this.element.innerHeight = innerHeight
+            }
 
             this.inEditor = false
           },

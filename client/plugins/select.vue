@@ -1,3 +1,7 @@
+<!--
+ * @Description: 
+ * @props: 
+-->
 <template>
   <div class="rad-select">
     <el-select v-if="pagetype !== 'preview'"
@@ -6,7 +10,7 @@
                v-model="tempSelect"
                placeholder="请选择"
                :size="size"
-               :disabled="disabledValue">
+               :disabled="disabledValue || pagetype==='designer'">
       <el-option v-for="(option, index) in options"
                  :key="index"
                  :label="option"

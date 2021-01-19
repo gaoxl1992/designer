@@ -11,7 +11,7 @@
         <div v-if="pagetype !== 'preview'"
              class="el-input"
              :class="'el-input--' + size">
-          <input :disabled="disabledValue"
+          <input :disabled="disabledValue || pagetype==='designer'"
                  v-model="inputValue"
                  :type="inputTypeValue"
                  autocomplete="off"
