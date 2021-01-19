@@ -160,6 +160,10 @@ export default {
       if (index === -1) {
         obj.index = -1
       }
+
+      this.bindAttr = ''
+      this.bindRel = ''
+      this.bindValue = ''
       this.$emit('submit', obj)
     },
     /**
@@ -168,6 +172,9 @@ export default {
      * @return {*}
      */
     close() {
+      this.bindAttr = ''
+      this.bindRel = ''
+      this.bindValue = ''
       this.$emit('close')
     }
   }

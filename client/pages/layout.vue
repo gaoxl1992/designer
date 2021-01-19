@@ -3,66 +3,43 @@
 -->
 <template>
   <div class="page-layout">
-    <!-- 入口 -->
-    <div class="page-layout-header"
-         id="page-header">
+    <!-- 入口tab -->
+    <div id="page-header"
+         class="page-layout-header">
       <el-tabs v-model="activeName">
-        <el-tab-pane label="表格设计器"
-                     name="tableDesigner"></el-tab-pane>
-        <el-tab-pane label="报告设计器"
-                     name="designer"></el-tab-pane>
-        <el-tab-pane label="编辑器"
-                     name="edit"></el-tab-pane>
-        <el-tab-pane label="预览"
-                     name="preview"></el-tab-pane>
+        <el-tab-pane v-for="(value, key) in tabs"
+                     :key="key"
+                     :label="value"
+                     :name="key"></el-tab-pane>
       </el-tabs>
     </div>
     <!-- 页面操作区 -->
     <div class="page-layout-ops">
-      <template v-if="activeName === 'designer'">
-        <el-button @click="saveDesigner"
-                   type="primary"
-                   size="mini">保存</el-button>
-        <el-button @click="importDesigner"
-                   type="primary"
-                   size="mini">导入上一次编辑</el-button>
-      </template>
-      <template v-if="activeName === 'edit'">
-        <el-button @click="importEditorTpl"
-                   type="primary"
-                   size="mini">导入模板打开编辑器</el-button>
-        <el-button @click="reeditTpl"
-                   type="primary"
-                   size="mini">继续编辑</el-button>
-        <el-button @click="saveEditor"
-                   type="primary"
-                   size="mini">保存</el-button>
-      </template>
-      <template v-if="activeName === 'tableDesigner'">
-        <el-button @click="saveTableTpl"
-                   type="primary"
-                   size="mini">保存</el-button>
+      <template v-for="(value, key) in ops">
+        <div :key="key"
+             v-if="activeName === key">
+          <el-button v-for="(v, k) in value"
+                     :key="k"
+                     @click="v.clickFn"
+                     type="primary"
+                     size="mini">{{ v.label }}</el-button>
+        </div>
       </template>
     </div>
     <!-- 页面主题 -->
-    <TableDesigner ref="tableDesigner"
-                   :tableTplList="tpls"
-                   v-if="activeName === 'tableDesigner'"
-                   @saveContent="saveTable"
-                   @saveEdit="saveEditTable"
-                   @deleteTableTpl="deleteTableTpl"></TableDesigner>
-    <Designer ref="designer"
-              @saveDesignerData="fetchDesignerData"
-              v-if="activeName === 'designer'"
-              :customComps="customComp"></Designer>
-    <Editor ref="editor"
-            v-if="activeName === 'edit'"
-            @updateSpChars="updateSpChars"
-            :tpls="tpls"
-            @saveEditor="saveEditedPage"></Editor>
-    <Preview :tplStr="pageTpl"
-             ref="preview"
-             v-if="activeName === 'preview'"></Preview>
+    <keep-alive>
+      <component :is="activeName"
+                 :tableTplList="tpls"
+                 @saveEdit="saveTable"
+                 @deleteTableTpl="deleteTableTpl"
+                 :customComps="customComp"
+                 @saveDesignerData="fetchDesignerData"
+                 :tpls="tpls"
+                 @updateSpChars="updateSpChars"
+                 @saveEditor="saveEditedPage"
+                 :tplStr="pageTpl"
+                 :ref="activeName"></component>
+    </keep-alive>
   </div>
 </template>
 <script>
@@ -71,6 +48,7 @@ import Editor from './editor/Index'
 import TableDesigner from './table-designer/Index'
 import Preview from './preview/Index'
 import bus from '@/common/js/bus'
+import { tabs, ops } from './lay-config'
 export default {
   data() {
     return {
@@ -78,7 +56,9 @@ export default {
       pageHistory: {},
       customComp: () => [],
       tpls: () => [],
-      pageTpl: ''
+      pageTpl: '',
+      tabs,
+      ops: ops(this)
     }
   },
   components: {
@@ -113,6 +93,7 @@ export default {
     })
   },
   methods: {
+    /** 表格操作 start */
     /**
      * @description: 删除表格模版
      * @param {*} e
@@ -121,24 +102,6 @@ export default {
     deleteTableTpl(e) {
       this.tpls.splice(e, 1)
       localStorage.setItem('tableTemplate', JSON.stringify(this.tpls))
-    },
-    /**
-     * @description: 编辑表格时保存
-     * @param {*} e
-     * @return {*}
-     */
-    saveEditTable(e) {
-      let templist = this.tpls || []
-      const { index, tpl, name, id, rels } = e
-      templist.splice(index, 1, {
-        tpl,
-        name,
-        id,
-        rels
-      })
-
-      localStorage.setItem('tableTemplate', JSON.stringify(templist))
-      this.tpls = templist
     },
     /**
      * @description:  调用接口保存表格编辑器内容
@@ -151,7 +114,19 @@ export default {
       if (!e) {
         return
       }
-      templist.push(e)
+
+      const { index, tpl, name, id, rels } = e
+      const obj = {
+        tpl,
+        name,
+        id,
+        rels
+      }
+      if (index === -1) {
+        templist.push(obj)
+      } else {
+        templist.splice(index, 1, obj)
+      }
 
       localStorage.setItem('tableTemplate', JSON.stringify(templist))
       this.tpls = templist
@@ -164,6 +139,9 @@ export default {
     saveTableTpl() {
       this.$refs.tableDesigner.getContent()
     },
+    /*** 表格操作 end */
+
+    /*** 编辑器操作 start */
     /**
      * @description: 保存编辑器编辑的内容
      * @param {*}
@@ -204,6 +182,9 @@ export default {
       // 使用方式，通过refs将匹配结构的数据传给页面
       this.$refs.editor.resetPage(this.pageHistory, chars)
     },
+    /*** 编辑器操作 end */
+
+    /*** 设计器操作 start */
     /**
      * @description: 导入设计完成的模版
      * @param {*}
@@ -243,6 +224,7 @@ export default {
       // 使用方式，通过refs将匹配结构的数据传给页面
       this.$refs.designer.resetPage(this.pageHistory)
     }
+    /*** 设计器操作 end */
   },
   watch: {
     activeName(val) {

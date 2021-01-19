@@ -9,21 +9,21 @@
     <!-- 表格模版列表 -->
     <TableTplList :tableTplList="tableTplList"
                   @editTableTpl="editTableTpl"
-                  @deleteTableTpl="deleteTableTpl"></TableTplList>
+                  @deleteTableTpl="deleteTableTpl" />
     <!-- 表格编辑器 -->
     <Tinymce ref="editor"
              class="table-designer-tinymce"
              v-model="content"
              @saveContent="save" />
+    <!-- 填写表格模版信息 -->
     <el-dialog title="保存"
                :visible.sync="dialogTableVisible">
-      <!-- 填写表格模版信息 -->
       <TableTplInfo v-if="dialogTableVisible"
                     :bindAttrList="bindAttrList"
                     :tplName="tplName"
                     :editIndex="editIndex"
                     @submit="submit"
-                    @close="close"></TableTplInfo>
+                    @close="close" />
     </el-dialog>
   </div>
 </template>
@@ -34,6 +34,7 @@ import 'codemirror/lib/codemirror.css'
 import bus from '@/common/js/bus'
 import TableTplList from './tableTplList'
 import TableTplInfo from './tableTplInfo'
+import { mapState } from 'vuex'
 export default {
   name: 'TableDesigner',
   components: {
@@ -46,6 +47,11 @@ export default {
       type: Array,
       default: () => []
     }
+  },
+  computed: {
+    ...mapState({
+      tplList: (state) => state.editor.tableTpl
+    })
   },
   data() {
     return {
@@ -72,7 +78,6 @@ export default {
      * @return {*}
      */
     editTableTpl(e) {
-      console.log(e)
       this.editIndex = e.index
       this.bindAttrList = e.rels
       this.content = e.tpl
@@ -104,6 +109,7 @@ export default {
         return
       }
       this.innerContent = e
+      this.content = ''
       this.dialogTableVisible = true
     },
     /**
@@ -122,24 +128,23 @@ export default {
      */
     submit(e) {
       // 编辑保存
-      if (this.editIndex !== -1 && e.index !== -1) {
-        this.$emit('saveEdit', {
-          tpl: this.innerContent,
-          name: e.name,
-          id: this.tableTplList[this.editIndex].id,
-          rels: e.rels,
-          index: this.editIndex
-        })
-      } else {
-        let id = createUUID()
-        this.$emit('saveContent', {
-          tpl: this.innerContent,
-          name: e.name,
-          id,
-          rels: e.rels
-        })
-      }
+      let id =
+        this.editIndex !== -1 && e.index !== -1
+          ? this.tableTplList[this.editIndex].id
+          : createUUID()
+      let index = this.editIndex !== -1 && e.index !== -1 ? this.editIndex : -1
+      this.$emit('saveEdit', {
+        tpl: this.innerContent,
+        name: e.name,
+        id,
+        rels: e.rels,
+        index
+      })
       this.innerContent = ''
+      this.editIndex = -1
+      this.bindAttrList = {}
+      this.content = ''
+      this.tplName = ''
       this.dialogTableVisible = false
     }
   }

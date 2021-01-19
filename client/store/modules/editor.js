@@ -1,8 +1,4 @@
 /*
- * @Author: gaoxl
- * @Date: 2020-12-19 13:51:27
- * @LastEditTime: 2021-01-14 16:27:57
- * @LastEditors: your name
  * @Description: 编辑器数据状态存储
  */
 import {

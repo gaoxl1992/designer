@@ -73,13 +73,13 @@ export default {
         language_url: '/tinymce/langs/zh_CN.js',
         language: 'zh_CN',
         skin_url: './tinymce/skins/ui/oxide',
-        height:
-          document.body.getBoundingClientRect().bottom -
-          document.getElementById('page-header').getBoundingClientRect().bottom,
         fontsize_formats: '10px 12px 14px 16px 18px 20px 24px 36px',
         font_formats:
           '微软雅黑=Microsoft YaHei,Helvetica Neue,PingFang SC,sans-serif;苹果苹方=PingFang SC,Microsoft YaHei,sans-serif;宋体=simsun,serif;仿宋体=FangSong,serif;黑体=SimHei,sans-serif;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;',
         block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3',
+        height:
+          document.body.getBoundingClientRect().bottom -
+          document.getElementById('page-header').getBoundingClientRect().bottom,
         plugins: this.plugins,
         toolbar: `undo redo | fontsizeselect | formatselect | bold italic forecolor backcolor fontselect | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat`,
         content_style:

@@ -1,9 +1,12 @@
-<!-- 设计器主容器 -->
+<!--
+ * @Description: 设计器主容器  控件区+画布区+属性配置区域
+ * @props: 
+-->
 <template>
   <div class="designer-wrapper">
     <!--组件区域-->
     <div class="editor-page-edit-wrapper">
-      <componentLibs :customComps="customComps" />
+      <ComponentLibs :customComps="customComps" />
     </div>
     <!--页面编辑区域-->
     <div class="editor-main">
@@ -11,26 +14,25 @@
         <ControlBar :scale.sync="canvasConfig.scale"
                     @showPreview="showPreview = true" />
       </div>
-      <editorPan :scale.sync="canvasConfig.scale" />
+      <EditorPan :scale.sync="canvasConfig.scale" />
     </div>
     <!--属性编辑区域-->
     <div class="el-attr-edit-wrapper scrollbar-wrapper">
       <!-- 点选单个控件 -->
       <template v-if="activeElementUUID">
-        <attrEdit></attrEdit>
+        <AttrEdit />
       </template>
       <!-- 框选多个控件 -->
       <template v-else-if="activeElementsUUID && activeElementsUUID[0]">
-        <commonAttrEdit :uuids="activeElementsUUID"></commonAttrEdit>
+        <CommonAttrEdit :uuids="activeElementsUUID" />
       </template>
       <!-- 编辑纸张属性 -->
-      <pageAttrEdit v-else></pageAttrEdit>
+      <PageAttrEdit v-else />
     </div>
     <!--预览-->
-    <previewWrapper v-if="showPreview"
+    <PreviewWrapper v-if="showPreview"
                     @closePreview="showPreview = false"
-                    :pageData="pageData">
-    </previewWrapper>
+                    :pageData="pageData" />
   </div>
 </template>
 
@@ -110,20 +112,37 @@ export default {
         customWidth,
         customHeight
       } = pageData
-      this.pageData.customWidth = customWidth
-      this.pageData.customHeight = customHeight
-      this.pageData.fixedFooter = fixedFooter
-      this.pageData.fixedHeader = fixedHeader
-      this.pageData.pageType = pageType
+      this.$store.dispatch('setPageData', {
+        ...this.pageData,
+        customWidth,
+        customHeight,
+        fixedFooter,
+        fixedHeader,
+        pageType
+      })
       this.resetPaper(radio, totalPages)
       this.resetEles(elements, width, fixedFooter, fixedHeader)
     },
+    /**
+     * @description: 重载画布属性
+     * @param {*} radio
+     * @param {*} totalPages
+     * @return {*}
+     */
     resetPaper(radio, totalPages) {
       let width = this.pageData.width
       let height = width * radio
       this.$store.dispatch('updatePages', totalPages)
       this.$store.dispatch('updateCanvasHeight', height)
     },
+    /**
+     * @description: 重载控件属性
+     * @param {*} eles
+     * @param {*} width
+     * @param {*} fixedFooter
+     * @param {*} fixedHeader
+     * @return {*}
+     */
     resetEles(eles, width = 900, fixedFooter = {}, fixedHeader = {}) {
       this.pageData.elements = []
       let rd = width / this.pageData.width
