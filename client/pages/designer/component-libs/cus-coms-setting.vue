@@ -62,12 +62,13 @@
           <div>{{ item.title }}</div>
         </div>
         <span class="cus-components-lib-item"
-              v-for="(element, i) in item.components"
+              v-for="(el, i) in item.components"
               :key="i">
-          <el-checkbox :label="element.title"
-                       v-model="element.display"></el-checkbox>
-          <i class="el-icon-remove"
-             @click="removeCusComp(index, i)"></i>
+          <el-checkbox v-model="el.display">
+            {{el.title}}
+            <i class="el-icon-remove"
+               @click="removeCusComp(index, i)"></i>
+          </el-checkbox>
         </span>
       </el-form-item>
     </el-form>
@@ -82,7 +83,7 @@
   </el-dialog>
 </template>
 <script>
-import bus from '@/common/js/bus'
+import bus from '@/utils/bus'
 import { compsLibs } from '@client/config/attr-config'
 export default {
   name: 'CusCompsSetting',
@@ -102,7 +103,7 @@ export default {
     }
   },
   created() {
-    this.compsList = JSON.parse(JSON.stringify(this.customComps))
+    this.compsList = JSON.parse(JSON.stringify(this.customComps)) || []
     this.dialogVisible = true
     this.element = {}
     this.rules = {
@@ -131,44 +132,63 @@ export default {
     }
   },
   methods: {
+    /**
+     * @description: 新建组件保存
+     * @param {*} ele
+     * @return {*}
+     */
     onSubmit(ele) {
       this.$refs[ele].validate((valid) => {
         if (!valid) {
           return false
         } else {
           let index = -1
-          if (!this.element.type) {
-            this.element.type = '其他'
-          }
-          for (let i = 0; i < this.compsList.length; i++) {
-            if (this.compsList[i].title === this.element.type) {
-              index = i
-              break
+          this.element.type = this.element.type || '其他'
+          if (this.compsList && this.compsList.length) {
+            for (let i = 0; i < this.compsList.length; i++) {
+              if (this.compsList[i].title === this.element.type) {
+                index = i
+                break
+              }
             }
           }
           if (index === -1) {
-            index = this.compsList.length
+            index = 0
             this.compsList.push({
               title: this.element.type,
               components: []
             })
           }
-          if (!this.compsList[index].components) {
-            this.compsList[index].components = []
-          }
           this.compsList[index].components.push(this.element)
+          this.element = {}
           this.addDialogVisible = false
         }
       })
     },
+    /**
+     * @description: 移除常用组件
+     * @param {*} index
+     * @param {*} i
+     * @return {*}
+     */
     removeCusComp(index, i) {
       this.compsList[index].components.splice(i, 1)
     },
+    /**
+     * @description: 保存组件
+     * @param {*}
+     * @return {*}
+     */
     confirm() {
       this.dialogVisible = false
       bus.$emit('updateComps', this.compsList)
       this.$emit('close')
     },
+    /**
+     * @description: 取消操作
+     * @param {*}
+     * @return {*}
+     */
     cancel() {
       if (JSON.stringify(this.customComps) !== JSON.stringify(this.compsList)) {
         this.$confirm('检测到您有未保存的变更，是否关闭？', '确认', {
@@ -200,15 +220,21 @@ export default {
 .cus-components-lib-item {
   padding-right: 10px;
   position: relative;
+  .el-checkbox {
+    margin-right: 0px;
+  }
 }
 .el-icon-remove {
   color: #0a68b3;
+  padding-bottom: 10px;
 }
 .el-icon-remove:before {
   position: absolute;
-  right: 33px;
-  top: 0px;
+  right: -7px;
+  opacity: 0.7;
+  top: 3px;
   font-size: 10px;
+  content: '\E7A2';
 }
 .btn-group {
   text-align: center;

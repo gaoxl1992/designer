@@ -17,7 +17,7 @@ import 'tinymce/plugins/table' // 插入表格插件
 import 'tinymce/plugins/lists' // 列表插件
 import 'tinymce/plugins/charmap' // 特殊字符插件
 import 'tinymce/plugins/code' // 代码插件
-import bus from '@/common/js/bus'
+import bus from '@/utils/bus'
 export default {
   components: {
     Editor

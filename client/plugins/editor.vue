@@ -159,7 +159,6 @@ export default {
       ).join('\n')
     },
     handleLeave(event) {
-      console.log(event)
       let editor = document.getElementById(this.editorId + 'container')
       let dialogs = document.getElementsByClassName('el-dialog__wrapper')
       let dialog = null

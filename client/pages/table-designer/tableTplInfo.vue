@@ -17,6 +17,7 @@
          v-if="options && options.length">
       <p>添加关联</p>
       <el-select v-model="bindAttr"
+                 size="small"
                  placeholder="选择属性">
         <el-option v-for="item in options"
                    :key="item"
@@ -25,6 +26,7 @@
         </el-option>
       </el-select>
       <el-select v-model="bindRel"
+                 size="small"
                  placeholder="选择关联关系">
         <el-option v-for="(value, key) in tableRelations"
                    :key="key"
@@ -32,17 +34,29 @@
                    :value="key">
         </el-option>
       </el-select>
-      <el-input v-model="bindValue" />
-      <el-button type="primary"
-                 :disabled="!bindAttr || !bindRel || !bindValue"
-                 icon="el-icon-plus"
-                 @click="addAttr"
-                 circle></el-button>
+      <el-input v-model="bindValue"
+                size="small" />
+      <i class="el-icon-plus"
+         @click="addAttr"></i>
     </div>
     <!-- 已保存的关联条件 -->
     <div class="tpl-info-attrs"
          v-if="Object.keys(attrsList).length">
       <p>关联条件</p>
+      <div class="attr-rel">
+        <el-button type="info"
+                   size="mini"
+                   plain> ( </el-button>
+        <el-button type="info"
+                   size="mini"
+                   plain> ) </el-button>
+        <el-button type="info"
+                   size="mini"
+                   plain> && </el-button>
+        <el-button type="info"
+                   size="mini"
+                   plain> || </el-button>
+      </div>
       <div v-for="(values, key) in attrsList"
            class="attr-item"
            :key="key">
@@ -135,17 +149,17 @@ export default {
      * @return {*}
      */
     addAttr() {
-      // 判断同一字段的关联条件是否冲突,冲突后者覆盖前者 todo
-
-      // 校验填写值是否匹配当前条件 todo
-
+      // todo
       let attr = this.attrsList[this.bindAttr] || {}
+
+      // 当前属性一绑定关联条件
+      // if (attr) {
+      //   let val = attr[this.bindRel]
+      // }
       attr[this.bindRel] = this.bindValue
       this.attrsList[this.bindAttr] = attr
 
-      this.bindAttr = ''
-      this.bindRel = ''
-      this.bindValue = ''
+      this.resetData()
     },
     /**
      * @description: 提交模版数据
@@ -161,9 +175,7 @@ export default {
         obj.index = -1
       }
 
-      this.bindAttr = ''
-      this.bindRel = ''
-      this.bindValue = ''
+      this.resetData()
       this.$emit('submit', obj)
     },
     /**
@@ -172,10 +184,13 @@ export default {
      * @return {*}
      */
     close() {
+      this.resetData()
+      this.$emit('close')
+    },
+    resetData() {
       this.bindAttr = ''
       this.bindRel = ''
       this.bindValue = ''
-      this.$emit('close')
     }
   }
 }
@@ -216,6 +231,17 @@ export default {
   }
   .tpl-info-btn {
     text-align: right;
+  }
+  .attr-rel {
+    padding: 10px;
+  }
+  .el-icon-plus {
+    font-size: 20px;
+    line-height: 36px;
+    &:hover {
+      color: #409eff;
+      cursor: pointer;
+    }
   }
 }
 </style>

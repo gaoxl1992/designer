@@ -198,6 +198,7 @@ const tableRelations = {
   'not_inlist': '不在列表'
 }
 
+
 export {
   alignTypeList,
   borderStyleList,

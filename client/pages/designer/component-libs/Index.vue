@@ -30,11 +30,10 @@
             </div>
             <div v-if="item.components && item.components.length">
               <div class="cus-components-lib-item"
-                   v-for="(element, i) in item.components"
+                   v-for="(el, i) in item.components"
                    :key="i"
-                   @click="handleClick(element)"
-                   v-show="element.display">
-                <p class="lib-item-title">{{ element.title }}</p>
+                   @click="handleClick(el)">
+                <p class="lib-item-title">{{ el.title }}</p>
               </div>
             </div>
           </li>
@@ -84,7 +83,7 @@ export default {
   data() {
     return {
       componentsList: eleConfig,
-      openCusComps: false,
+      openCusComps: true,
       dialogVisible: false,
       cusCompList: () => []
     }

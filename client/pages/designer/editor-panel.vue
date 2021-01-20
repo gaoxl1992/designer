@@ -157,7 +157,6 @@ export default {
     },
     //鼠标左键按下方法
     onmousedownClick(event) {
-      console.log(event)
       this.isRightClick = true
       this.start_x = event.layerX
       this.start_y = event.layerY

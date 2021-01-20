@@ -46,7 +46,7 @@ import Designer from './designer/Index'
 import Editor from './editor/Index'
 import TableDesigner from './table-designer/Index'
 import Preview from './preview/Index'
-import bus from '@/common/js/bus'
+import bus from '@/utils/bus'
 import { tabs, ops } from './lay-config'
 import { mapState } from 'vuex'
 export default {

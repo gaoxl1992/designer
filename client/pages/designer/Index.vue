@@ -43,8 +43,8 @@ import AttrEdit from './attr-configure/attr-edit'
 import PageAttrEdit from './attr-configure/page-attr-edit'
 import CommonAttrEdit from './attr-configure/common-attr-edit'
 import ControlBar from '@client/components/control-bar'
-import { mapState } from 'vuex'
 import PreviewWrapper from '@client/components/preview-wrapper'
+import mixin from '@client/mixins/mixin'
 
 export default {
   name: 'Designer',
@@ -57,6 +57,7 @@ export default {
     PreviewWrapper,
     CommonAttrEdit
   },
+  mixins: [mixin],
   data() {
     return {
       showPreview: false,
@@ -71,15 +72,7 @@ export default {
       default: () => []
     }
   },
-  computed: {
-    ...mapState({
-      pageData: (state) => state.editor.pageData,
-      activeElementsUUID: (state) => state.editor.activeElementsUUID,
-      activeElementUUID: (state) => state.editor.activeElementUUID
-    })
-  },
   created() {
-    this.$store.dispatch('setPageData')
     this.$store.dispatch('setActiveElementUUID', '')
   },
   methods: {
@@ -92,65 +85,6 @@ export default {
       this.$store.dispatch('setPageData', {
         radio: this.pageData.height / this.pageData.width,
         ...this.pageData
-      })
-    },
-    /**
-     * @description: 该方法提供给外部调用，可以根据数据结构更新当前模版----导入或复用可用此方法
-     * @param {*} pageData
-     * @return {*}
-     */
-    resetPage(pageData) {
-      this.$store.dispatch('setActiveElementUUID', '')
-      const {
-        pageType,
-        radio,
-        totalPages,
-        elements,
-        width,
-        fixedHeader,
-        fixedFooter,
-        customWidth,
-        customHeight
-      } = pageData
-      let rd = width / this.pageData.width
-      this.$store.dispatch('setPageData', {
-        ...this.pageData,
-        customWidth,
-        customHeight,
-        pageType,
-        totalPages,
-        fixedFooter: {
-          ...fixedFooter,
-          height: fixedFooter.height / rd
-        },
-        fixedHeader: {
-          ...fixedHeader,
-          height: fixedHeader.height / rd
-        }
-      })
-      this.$store.dispatch('updateCanvasHeight', this.pageData.width * radio)
-      this.resetEles(elements, rd)
-    },
-    /**
-     * @description: 重载控件属性
-     * @param {*} eles
-     * @param {*} rd
-     * @return {*}
-     */
-    resetEles(eles, rd) {
-      this.pageData.elements = []
-      eles.forEach((item) => {
-        // 处理导入控件的位置，根据当前视窗宽度做换算，高度不处理，因为会产生遮挡hhh
-        item.commonStyle.width = item.commonStyle.width / rd
-        item.commonStyle.left =
-          item.commonStyle.left > 10
-            ? item.commonStyle.left / rd
-            : item.commonStyle.left
-        item.commonStyle.top = item.commonStyle.top / rd
-        item.commonStyle.height = item.commonStyle.height / rd
-        setTimeout(() => {
-          this.$store.dispatch('importElement', item)
-        }, 10)
       })
     }
   }

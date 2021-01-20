@@ -29,9 +29,9 @@
 </template>
 <script>
 import Tinymce from '../../plugins/tinymce'
-import { createUUID } from '@client/common/js/mUtils'
+import { createUUID } from '@client/utils/mUtils'
 import 'codemirror/lib/codemirror.css'
-import bus from '@/common/js/bus'
+import bus from '@/utils/bus'
 import TableTplList from './tableTplList'
 import TableTplInfo from './tableTplInfo'
 import { mapState } from 'vuex'
@@ -65,10 +65,7 @@ export default {
   },
   mounted() {
     bus.$on('initMce', () => {
-      this.editIndex = -1
-      this.bindAttrList = {}
-      this.content = ''
-      this.tplName = ''
+      this.editTableTpl()
     })
   },
   methods: {
@@ -77,11 +74,11 @@ export default {
      * @param {*} item
      * @return {*}
      */
-    editTableTpl(e) {
-      this.editIndex = e.index
-      this.bindAttrList = e.rels
-      this.content = e.tpl
-      this.tplName = e.name
+    editTableTpl(e = {}) {
+      this.editIndex = e?.index || -1
+      this.bindAttrList = e?.rels || {}
+      this.content = e?.tpl || ''
+      this.tplName = e?.name || ''
     },
     /**
      * @description: 删除表格模版
@@ -109,7 +106,6 @@ export default {
         return
       }
       this.innerContent = e
-      this.content = ''
       this.dialogTableVisible = true
     },
     /**
@@ -141,10 +137,7 @@ export default {
         index
       })
       this.innerContent = ''
-      this.editIndex = -1
-      this.bindAttrList = {}
-      this.content = ''
-      this.tplName = ''
+      this.editTableTpl()
       this.dialogTableVisible = false
     }
   }

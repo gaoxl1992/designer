@@ -17,7 +17,7 @@ export const createUUID = () => {
 }
 
 /**
- * 对象深拷贝
+ * @description 对象深拷贝
  * @param {*} obj 拷贝对象(object or array)
  * @param {*} cache 缓存数组
  */
@@ -43,3 +43,18 @@ export const deepClone = (obj, cache = []) => {
 
   return copy
 }
+
+/**
+ * @description: 可选链支持在template中使用
+ * @param {*} obj
+ * @param {array} rest
+ * @return {*}
+ */
+export const optionalChaining = (obj, ...rest) => {
+  let tmp = obj;
+  for (let key in rest) {
+    let name = rest[key];
+    tmp = tmp ?. [name];
+  }
+  return tmp || "";
+};

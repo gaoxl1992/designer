@@ -2,7 +2,7 @@
 import {
   createUUID,
   deepClone
-} from '@client/common/js/mUtils'
+} from '@client/utils/mUtils'
 import {
   cloneDeep,
   merge

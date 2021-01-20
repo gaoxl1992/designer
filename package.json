@@ -26,6 +26,7 @@
     "url": "http://svn.radonline.cn:3888/PACS/web-RSTEditor/issues"
   },
   "dependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.12.7",
     "@tinymce/tinymce-vue": "^3.2.0",
     "axios": "^0.19.0",
     "babel-polyfill": "^6.26.0",

@@ -54,7 +54,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import { createUUID } from '@client/common/js/mUtils'
+import { createUUID } from '@client/utils/mUtils'
 export default {
   name: 'RadTable',
   props: {

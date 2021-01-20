@@ -30,8 +30,8 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
 import EngineH5Swiper from '@client/components/engine-h5-swiper/src/index'
+import mixin from '@client/mixins/mixin'
 import {
   headStr,
   footStr,
@@ -47,6 +47,7 @@ export default {
       default: () => []
     }
   },
+  mixins: [mixin],
   data() {
     return {
       showPreview: false,
@@ -55,17 +56,10 @@ export default {
       pageFooterTpl: () => {}
     }
   },
-  computed: {
-    ...mapState({
-      tableTpl: (state) => state.editor.tableTpl,
-      pageData: (state) => state.editor.pageData
-    })
-  },
   components: {
     EngineH5Swiper
   },
   created() {
-    this.$store.dispatch('setPageData')
     this.$store.dispatch('setTableTpl', this.tpls)
   },
   methods: {
@@ -220,71 +214,7 @@ export default {
             ${footStr}`
         })
       }, 500)
-    },
-    /**
-     * @description: 重置页面数据，供外部通过ref重置编辑页数据 start
-     * @param {*} pageData
-     * @return {*}
-     */
-    resetPage(pageData) {
-      const {
-        pageType,
-        radio,
-        totalPages,
-        elements,
-        width,
-        fixedFooter,
-        fixedHeader,
-        customWidth,
-        customHeight
-      } = pageData
-      let rd = width / this.pageData.width
-      this.$store.dispatch('setPageData', {
-        ...this.pageData,
-        customWidth,
-        customHeight,
-        pageType,
-        totalPages,
-        fixedFooter: {
-          ...fixedFooter,
-          height: fixedFooter.height / rd
-        },
-        fixedHeader: {
-          ...fixedHeader,
-          height: fixedHeader.height / rd
-        }
-      })
-      this.$store.dispatch('updateCanvasHeight', this.pageData.width * radio)
-      this.resetEles(elements, rd)
-    },
-    resetEles(eles, rd) {
-      this.pageData.elements = []
-      function compare(args) {
-        return function (a, b) {
-          return a[args].top - b[args].top
-        }
-      }
-
-      // 为了方便只读模式和打印模版的抽离，对组件按定位排序
-      eles = eles.sort(compare('commonStyle'))
-
-      // 处理换屏宽时，组件的默认样式
-      eles.forEach((item) => {
-        // 处理导入控件的位置，根据当前视窗宽度做换算，高度不算，因为会产生遮挡hhh
-        item.commonStyle.width = item.commonStyle.width / rd
-        item.commonStyle.left =
-          item.commonStyle.left > 10
-            ? item.commonStyle.left / rd
-            : item.commonStyle.left
-        item.commonStyle.top = item.commonStyle.top / rd
-        item.commonStyle.height = item.commonStyle.height / rd
-
-        setTimeout(() => {
-          this.$store.dispatch('importElement', item)
-        }, 10)
-      })
     }
-    /** 重置页面数据，供外部通过ref重置编辑页数据 end */
   },
   watch: {
     'pageData.spCharacters'(val, oldVal) {
