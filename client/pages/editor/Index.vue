@@ -5,7 +5,7 @@
                       pagetype="editor">
       </EngineH5Swiper>
     </div>
-    <!--预览-->
+    <!--预览 用于生成html-->
     <EngineH5Swiper id="header"
                     style="display: none"
                     v-if="showPreview"
@@ -14,6 +14,7 @@
                     pagetype="preview">
     </EngineH5Swiper>
     <EngineH5Swiper id="body"
+                    style="display: none"
                     v-if="showPreview"
                     @closePreview="showPreview = false"
                     :pageData="pageDataTpl"

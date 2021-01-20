@@ -22,6 +22,12 @@
                       :key="item.uuid"
                       :uuid="item.uuid"
                       :defaultStyle="item.commonStyle"
+                      @handleElementClick="handleElementClick(item.uuid)"
+                      @resize="handleElementResize"
+                      :active="
+              item.uuid === activeElementUUID ||
+              activeElementsUUID.indexOf(item.uuid) > -1
+            "
                       :style="
               getCommonStyle({
                 width: item.commonStyle.width,
@@ -30,13 +36,8 @@
                 top: item.commonStyle.top,
                 position: item.commonStyle.position,
               })
-            "
-                      @handleElementClick="handleElementClick(item.uuid)"
-                      @resize="handleElementResize"
-                      :active="
-              item.uuid === activeElementUUID ||
-              activeElementsUUID.indexOf(item.uuid) > -1
             ">
+
             <!-- 组件 -->
             <component class="element-on-edit-pane"
                        :style="getCommonStyle({ ...item.commonStyle, top: 0, left: 0 })"
@@ -53,10 +54,10 @@
         <FixedArea pos="header"></FixedArea>
         <!-- 页脚 -->
         <FixedArea pos="footer"></FixedArea>
-        <!-- 分页 -->
         <div class="page-wrapper-mask">
           <div class="page-de"
                :class="{ 'page-line': item !== 1 }"
+               :style="{'height': (pageData.height / +pageData.totalPages) + 'px' }"
                v-for="item in +pageData.totalPages"
                :key="item"></div>
         </div>
@@ -112,7 +113,9 @@ export default {
     ...mapGetters(['activeElementIndex', 'activeElement'])
   },
   mounted() {
-    this.editorPaneWidth = this.$refs.editorPane.offsetHeight
+    if (this.$refs.editorPane) {
+      this.editorPaneWidth = this.$refs.editorPane.offsetHeight
+    }
   },
   methods: {
     /**
@@ -154,13 +157,13 @@ export default {
     },
     //鼠标左键按下方法
     onmousedownClick(event) {
+      console.log(event)
       this.isRightClick = true
       this.start_x = event.layerX
       this.start_y = event.layerY
       let that = this
 
       document.onmousemove = function (event) {
-        console.log(event)
         let end_x = event.layerX
         let end_y = event.layerY
         let divElement = document.getElementById('rectangular')
@@ -332,7 +335,7 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
-    // pointer-events: none;
+    pointer-events: none;
     display: flex;
     flex-direction: column;
     .page-de {

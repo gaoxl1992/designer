@@ -1,3 +1,6 @@
+<!--
+ * @Description: 图片组件
+-->
 <template>
   <div class="rad-image">
     <el-image v-if="pagetype !== 'preview'"
@@ -9,9 +12,9 @@
         <i class="el-icon-picture-outline"></i>
       </div>
     </el-image>
-    <image v-else
-           style="height100%;width: 100%"
-           :src="imageUrl" />
+    <img v-else
+         style="height: 100%; width: 100%"
+         :src="imageUrl" />
   </div>
 </template>
 

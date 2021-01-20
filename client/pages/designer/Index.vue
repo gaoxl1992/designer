@@ -23,7 +23,7 @@
         <AttrEdit />
       </template>
       <!-- 框选多个控件 -->
-      <template v-else-if="activeElementsUUID && activeElementsUUID[0]">
+      <template v-else-if="activeElementsUUID && activeElementsUUID.length > 1">
         <CommonAttrEdit :uuids="activeElementsUUID" />
       </template>
       <!-- 编辑纸张属性 -->

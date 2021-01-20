@@ -1,8 +1,4 @@
 <!--
- * @Author: gaoxl
- * @Date: 2021-01-07 15:21:38
- * @LastEditTime: 2021-01-15 13:51:47
- * @LastEditors: Please set LastEditors
  * @Description: 预览模式 props: tplStr [String 完整的html模版]
 -->
 <template>
