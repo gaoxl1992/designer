@@ -42,15 +42,15 @@
   </div>
 </template>
 <script>
-import Designer from './designer/Index'
-import Editor from './editor/Index'
-import TableDesigner from './table-designer/Index'
-import Preview from './preview/Index'
+import Designer from './designer/Designer.vue'
+import Editor from './editor/Editor.vue'
+import TableDesigner from './table-designer/TableDesigner.vue'
+import Preview from './preview/Preview.vue'
 import bus from '@/utils/bus'
 import { tabs, ops } from './lay-config'
 import { mapState } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       activeName: 'designer',
       pageDataHis: {},
@@ -72,7 +72,7 @@ export default {
       pageData: (state) => state.editor.pageData
     })
   },
-  created() {
+  created () {
     // 模拟检查数据，塞到window下
     window.mockData = {
       attr1: 4,
@@ -90,7 +90,7 @@ export default {
       this.pageTpl = pageData.header + pageData.bodyTpl + pageData.footer
     }
   },
-  mounted() {
+  mounted () {
     // 通过全局bus更新常用组件列表，模拟接口
     bus.$on('updateComps', (comps) => {
       this.customComp = JSON.parse(JSON.stringify(comps))
@@ -104,7 +104,7 @@ export default {
      * @param {*} e
      * @return {*}
      */
-    deleteTableTpl(e) {
+    deleteTableTpl (e) {
       this.tpls.splice(e, 1)
       localStorage.setItem('tableTemplate', JSON.stringify(this.tpls))
     },
@@ -113,7 +113,7 @@ export default {
      * @param {*} e
      * @return {*}
      */
-    saveTable(e) {
+    saveTable (e) {
       let templist = this.tpls || []
 
       if (!e) {
@@ -141,7 +141,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    saveTableTpl() {
+    saveTableTpl () {
       this.$refs.tableDesigner.getContent()
     },
     /*** 表格操作 end */
@@ -152,7 +152,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    saveEditor() {
+    saveEditor () {
       // 编辑态保存数据
       this.$refs.editor.save()
     },
@@ -161,7 +161,7 @@ export default {
      * @param {*} e
      * @return {*}
      */
-    saveEditedPage(e) {
+    saveEditedPage (e) {
       localStorage.setItem('editedPageData', JSON.stringify(e))
     },
     /**
@@ -169,7 +169,7 @@ export default {
      * @param {*} e
      * @return {*}
      */
-    updateSpChars(e) {
+    updateSpChars (e) {
       // 当特殊字符发生变更
       localStorage.setItem('chars', JSON.stringify(e))
     },
@@ -178,7 +178,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    reeditTpl() {
+    reeditTpl () {
       this.pageDataHis = JSON.parse(
         localStorage.getItem('editedPageData')
       ).editedData
@@ -192,7 +192,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    importEditorTpl() {
+    importEditorTpl () {
       this.pageDataHis = JSON.parse(localStorage.getItem('pageData'))
       console.log(this.pageDataHis)
       // 初始化字符集
@@ -209,7 +209,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    saveDesigner() {
+    saveDesigner () {
       this.$refs.designer.saveDesignerData()
       // TODO API 保存设计obj
       localStorage.setItem('pageData', JSON.stringify(this.pageData))
@@ -219,7 +219,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    importDesigner() {
+    importDesigner () {
       this.pageDataHis = JSON.parse(localStorage.getItem('pageData'))
       // 使用方式，通过refs将匹配结构的数据传给页面
       this.$refs.designer.resetPage(this.pageDataHis)
@@ -227,7 +227,7 @@ export default {
     /*** 设计器操作 end */
   },
   watch: {
-    activeName(val) {
+    activeName (val) {
       if (val === 'preview') {
         if (localStorage.getItem('editedPageData')) {
           let pageData = JSON.parse(localStorage.getItem('editedPageData'))

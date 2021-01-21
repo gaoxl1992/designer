@@ -48,6 +48,7 @@ import mixin from '@client/mixins/mixin'
 
 export default {
   name: 'Designer',
+  componentName: 'Designer',
   components: {
     ComponentLibs,
     EditorPan,
@@ -58,7 +59,7 @@ export default {
     CommonAttrEdit
   },
   mixins: [mixin],
-  data() {
+  data () {
     return {
       showPreview: false,
       canvasConfig: {
@@ -72,7 +73,7 @@ export default {
       default: () => []
     }
   },
-  created() {
+  created () {
     this.$store.dispatch('setActiveElementUUID', '')
   },
   methods: {
@@ -81,7 +82,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    saveDesignerData() {
+    saveDesignerData () {
       this.$store.dispatch('setPageData', {
         radio: this.pageData.height / this.pageData.width,
         ...this.pageData

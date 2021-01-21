@@ -1,22 +1,14 @@
 const path = require('path')
 const fs = require('fs')
 
-let devServer = {
-  proxy: { // 代理
-    '/': {
-      target: 'http://localhost:4000', //设置你调用的接口域名和端口号
-      ws: false,
-      changeOrigin: true,
-      pathRewrite: {},
-    }
-  }
-}
-
 module.exports = {
-  devServer: devServer,
+  devServer: {
+    port: 8080
+  },
   filenameHashing: true,
   // 输出文件目录
-  assetsDir: "static",
+  assetsDir: 'static',
+  outputDir: 'dist',
   // 修改 pages 入口
   pages: {
     index: {
@@ -46,5 +38,22 @@ module.exports = {
         // 修改它的选项...
         return options
       })
+  },
+  configureWebpack: {
+    entry: {
+      'table-designer': './client/pages/table-designer/index.js',
+      designer: './client/pages/designer/index.js',
+      editor: './client/pages/editor/index.js',
+      preview: './client/pages/preview/index.js'
+    },
+    resolve: {
+      extensions: ['.js', '.vue', '.json', '.css'],
+      // 告诉webpack解析模块时应搜索的目录
+      modules: ['node_modules']
+    },
+    output: {
+      filename: `[name].js`,
+      chunkFilename: `[name].js`,
+    }
   }
 }

@@ -41,6 +41,7 @@ import {
 } from './tpl-config'
 export default {
   name: 'Editor',
+  componentName: 'Editor',
   props: {
     tpls: {
       type: Array,
@@ -48,18 +49,18 @@ export default {
     }
   },
   mixins: [mixin],
-  data() {
+  data () {
     return {
       showPreview: false,
-      pageDataTpl: () => {},
-      pageHeaderTpl: () => {},
-      pageFooterTpl: () => {}
+      pageDataTpl: () => { },
+      pageHeaderTpl: () => { },
+      pageFooterTpl: () => { }
     }
   },
   components: {
     EngineH5Swiper
   },
-  created() {
+  created () {
     this.$store.dispatch('setTableTpl', this.tpls)
   },
   methods: {
@@ -68,7 +69,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    save() {
+    save () {
       let obj = {
         radio: this.pageData.height / this.pageData.width,
         ...this.pageData
@@ -80,7 +81,7 @@ export default {
      * @param {*} obj
      * @return {*}
      */
-    savePrintTpl(obj) {
+    savePrintTpl (obj) {
       // 处理全部组件
       let eles = JSON.parse(JSON.stringify(obj)).elements
       let pageHeight = obj.height
@@ -183,33 +184,29 @@ export default {
           },
           bodyTpl: `${headStr}${inner}${footStr}`,
           header: `
-            ${
-              fixedHeader.openFixed && fixedHeader.pageNum
-                ? openFixedAreaStr
-                : headStr
+            ${fixedHeader.openFixed && fixedHeader.pageNum
+              ? openFixedAreaStr
+              : headStr
             }
-            ${
-              fixedHeader.openFixed
-                ? fixedHeader.pageNum === 1
-                  ? pageStr1
-                  : pageStr2
-                : ''
+            ${fixedHeader.openFixed
+              ? fixedHeader.pageNum === 1
+                ? pageStr1
+                : pageStr2
+              : ''
             }
             ${header}
             ${footStr}`,
           footer: `
-            ${
-              fixedFooter.openFixed && fixedFooter.pageNum
-                ? openFixedAreaStr
-                : headStr
+            ${fixedFooter.openFixed && fixedFooter.pageNum
+              ? openFixedAreaStr
+              : headStr
             }
             ${footer}
-            ${
-              fixedFooter.openFixe
-                ? fixedFooter.pageNum === 1
-                  ? pageStr1
-                  : pageStr2
-                : ''
+            ${fixedFooter.openFixe
+              ? fixedFooter.pageNum === 1
+                ? pageStr1
+                : pageStr2
+              : ''
             }
             ${footStr}`
         })
@@ -217,7 +214,7 @@ export default {
     }
   },
   watch: {
-    'pageData.spCharacters'(val, oldVal) {
+    'pageData.spCharacters' (val, oldVal) {
       if (JSON.stringify(val) !== JSON.stringify(oldVal)) {
         this.$emit('updateSpChars', val)
       }

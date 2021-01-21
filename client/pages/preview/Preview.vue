@@ -9,6 +9,7 @@
 <script>
 export default {
   name: 'Preview',
+  componentName: 'Preview',
   props: {
     tplStr: {
       type: String,

@@ -76,7 +76,7 @@ export default {
     flex-wrap: nowrap;
     justify-content: space-between;
     .tpl-item-name {
-      max-width: 240px;
+      width: 240px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

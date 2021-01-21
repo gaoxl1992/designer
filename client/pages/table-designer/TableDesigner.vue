@@ -37,6 +37,7 @@ import TableTplInfo from './tableTplInfo'
 import { mapState } from 'vuex'
 export default {
   name: 'TableDesigner',
+  componentName: 'TableDesigner',
   components: {
     Tinymce,
     TableTplList,
@@ -53,7 +54,7 @@ export default {
       tplList: (state) => state.editor.tableTpl
     })
   },
-  data() {
+  data () {
     return {
       dialogTableVisible: false,
       content: '',
@@ -63,7 +64,7 @@ export default {
       editIndex: -1
     }
   },
-  mounted() {
+  mounted () {
     bus.$on('initMce', () => {
       this.editTableTpl()
     })
@@ -74,7 +75,7 @@ export default {
      * @param {*} item
      * @return {*}
      */
-    editTableTpl(e = {}) {
+    editTableTpl (e = {}) {
       this.editIndex = e?.index || -1
       this.bindAttrList = e?.rels || {}
       this.content = e?.tpl || ''
@@ -85,7 +86,7 @@ export default {
      * @param {*} index
      * @return {*}
      */
-    deleteTableTpl(e) {
+    deleteTableTpl (e) {
       this.$emit('deleteTableTpl', e)
     },
     /**
@@ -93,7 +94,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    getContent() {
+    getContent () {
       this.$refs.editor.getContent()
     },
     /**
@@ -101,7 +102,7 @@ export default {
      * @param {*} e
      * @return {*}
      */
-    save(e) {
+    save (e) {
       if (!e) {
         return
       }
@@ -113,7 +114,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    close() {
+    close () {
       this.innerContent = ''
       this.dialogTableVisible = false
     },
@@ -122,7 +123,7 @@ export default {
      * @param {*} e
      * @return {*}
      */
-    submit(e) {
+    submit (e) {
       // 编辑保存
       let id =
         this.editIndex !== -1 && e.index !== -1
