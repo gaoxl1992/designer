@@ -2,6 +2,7 @@
   <div :id="editorId + 'container'"
        class="rad-editor">
     <div class="title">{{ label }}</div>
+    <!-- 设计和编辑模式 -->
     <div v-if="pagetype!=='preview'"
          class="rad-editor-inner"
          :class="'rad-editor-inner-' + pagetype"
@@ -33,6 +34,7 @@
                 :name="'content' + editorId"
                 v-model="outContent"></textarea>
     </div>
+    <!-- 只读模式 -->
     <div v-else
          class="preview-content"
          :style="defaultStyle"

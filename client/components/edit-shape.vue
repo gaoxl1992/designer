@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'EditShape',
   props: {
@@ -28,6 +29,11 @@ export default {
       type: Object
     },
     uuid: String
+  },
+  computed: {
+    ...mapState({
+      activeElementsUUID: (state) => state.editor.activeElementsUUID
+    })
   },
   data() {
     return {
@@ -91,6 +97,7 @@ export default {
      * 点击事件，点击后设置当前元素为选中元素
      */
     handleTopWrapperClick(e) {
+      this.$store.dispatch('setActiveElementsUUID', [])
       e.stopPropagation()
       e.preventDefault()
     },

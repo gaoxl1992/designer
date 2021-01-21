@@ -32,13 +32,14 @@ import request from './request';
 
 let services = {};
 
-const reportModule = '/report/template'
+const reportModule = '/report'
 // 接口url统一维护
 const apiUrl = {
-  saveDesignerData: '/output/save', // 设计器保存
-  fetchDesignerData: '/output/detail', // 设计器打开重新编辑
-  saveSymbolword: '/symbolword/set', //设置特殊词汇
-  fetchSymbolword: '/symbolword/get', // 查询特殊词汇
+  saveDesignerData: '/template/output/save', // 设计器保存
+  fetchDesignerData: '/template/output/detail', // 设计器打开重新编辑
+  saveSymbolword: '/template/symbolword/set', //设置特殊词汇
+  fetchSymbolword: '/template/symbolword/get', // 查询特殊词汇
+  fetchDomin: '/domain' // 查询阈值
 }
 
 Object.entries(apiUrl).forEach((item) => {

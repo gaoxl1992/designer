@@ -40,7 +40,7 @@
             <el-input v-model="element.threshold"></el-input>
           </el-form-item>
           <el-form-item size="mini"
-                        class="btn-group">
+                        class="pop-btn-group">
             <el-button type="primary"
                        @click="onSubmit('element')">确定</el-button>
             <el-button @click="addDialogVisible = false">取消</el-button>
@@ -237,6 +237,9 @@ export default {
   content: '\E7A2';
 }
 .btn-group {
-  text-align: center;
+  text-align: right;
+}
+.pop-btn-group {
+  float: right;
 }
 </style>

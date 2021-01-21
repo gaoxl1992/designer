@@ -65,6 +65,7 @@ export default {
   height: calc(100% - 38px);
   overflow-y: auto;
   overflow-x: hidden;
+  margin-bottom: 20px;
   p {
     padding: 10px 0;
     font-weight: 500;

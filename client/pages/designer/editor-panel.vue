@@ -326,6 +326,7 @@ export default {
     height: 100%;
     position: relative;
     margin: 10px;
+    pointer-events: inherit;
   }
   .page-wrapper-mask {
     height: 100%;

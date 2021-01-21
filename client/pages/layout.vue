@@ -194,6 +194,7 @@ export default {
      */
     importEditorTpl() {
       this.pageDataHis = JSON.parse(localStorage.getItem('pageData'))
+      console.log(this.pageDataHis)
       // 初始化字符集
       let chars = JSON.parse(localStorage.getItem('chars'))
 
