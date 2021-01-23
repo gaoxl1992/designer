@@ -41,7 +41,7 @@ module.exports = {
   },
   configureWebpack: {
     entry: {
-      viewcomp: './client/pages/index.js'
+      viewcomp: './client/pages/viewcomp.js'
     },
     resolve: {
       extensions: ['.js', '.vue', '.json', '.css'],
