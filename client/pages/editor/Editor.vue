@@ -30,8 +30,8 @@
   </div>
 </template>
 <script>
-import EngineH5Swiper from '@client/components/engine-h5-swiper/src/index'
-import mixin from '@client/mixins/mixin'
+import EngineH5Swiper from '@/components/engine-h5-swiper/src/index'
+import mixin from '@/mixins/mixin'
 import {
   headStr,
   footStr,

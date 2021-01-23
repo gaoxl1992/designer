@@ -84,7 +84,7 @@
 </template>
 <script>
 import bus from '@/utils/bus'
-import { compsLibs } from '@client/config/attr-config'
+import { compsLibs } from '@/config/attr-config'
 export default {
   name: 'CusCompsSetting',
   props: {
@@ -93,16 +93,16 @@ export default {
       default: () => []
     }
   },
-  data() {
+  data () {
     return {
       compsList: () => [],
       addDialogVisible: false,
-      element: () => {},
+      element: () => { },
       options: compsLibs,
       rules: () => []
     }
   },
-  created() {
+  created () {
     this.compsList = JSON.parse(JSON.stringify(this.customComps)) || []
     this.dialogVisible = true
     this.element = {}
@@ -137,7 +137,7 @@ export default {
      * @param {*} ele
      * @return {*}
      */
-    onSubmit(ele) {
+    onSubmit (ele) {
       this.$refs[ele].validate((valid) => {
         if (!valid) {
           return false
@@ -171,7 +171,7 @@ export default {
      * @param {*} i
      * @return {*}
      */
-    removeCusComp(index, i) {
+    removeCusComp (index, i) {
       this.compsList[index].components.splice(i, 1)
     },
     /**
@@ -179,7 +179,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    confirm() {
+    confirm () {
       this.dialogVisible = false
       bus.$emit('updateComps', this.compsList)
       this.$emit('close')
@@ -189,7 +189,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    cancel() {
+    cancel () {
       if (JSON.stringify(this.customComps) !== JSON.stringify(this.compsList)) {
         this.$confirm('检测到您有未保存的变更，是否关闭？', '确认', {
           confirmButtonText: '关闭',

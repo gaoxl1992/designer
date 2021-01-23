@@ -1,3 +1,7 @@
+<!--
+ * @Description: 
+ * @props: 
+-->
 <template>
   <div class="rad-element-wrapper"
        :class="'rad-element-wrapper-preview' + editorId"
@@ -14,7 +18,7 @@
 </template>
 
 <script>
-import { _register_components_object } from '@client/plugins/index'
+import { _register_components_object } from '@/plugins/index'
 
 export default {
   name: 'components-template',
@@ -36,10 +40,10 @@ export default {
     }
   },
   methods: {
-    async handleClick() {
+    async handleClick () {
       this.$emit('handleElementClick', this.element.events, this.element)
     },
-    updateValue(e) {
+    updateValue (e) {
       this.element.value = e
     }
   }

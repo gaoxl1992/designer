@@ -209,10 +209,10 @@ import {
   alignTypeList,
   borderStyleList,
   fontFamilyList
-} from '@client/config/attr-config'
+} from '@/config/attr-config'
 
 export default {
-  data() {
+  data () {
     return {
       activeNames: ['1'],
       alignTypeList,
@@ -229,28 +229,28 @@ export default {
     ...mapGetters(['activeElementIndex', 'activeElement'])
   },
   watch: {
-    activeNames() {
+    activeNames () {
       this.$store.commit('updateActiveAttrEditCollapse', this.activeNames)
     }
   },
-  created() {
+  created () {
     this.throttleAddHistory = throttle(this.addHistory, 3000)
   },
-  mounted() {
+  mounted () {
     this.activeNames = this.activeAttrEditCollapse
   },
   methods: {
     /**
      * 纪录一条历史纪录
      * */
-    addHistory() {
+    addHistory () {
       this.$store.dispatch('addHistoryCache')
     },
     /**
      * 对齐方式
      * @param type
      */
-    changeAlignType(type) {
+    changeAlignType (type) {
       let canvasW = this.pageData.width
       let canvasH = this.pageData.height
       let eleW = this.activeElement.commonStyle.width
@@ -286,14 +286,14 @@ export default {
      * 字体样式设置对齐方式
      * @param str
      */
-    handleTextAlignClick(str) {
+    handleTextAlignClick (str) {
       this.activeElement.commonStyle.textAlign = str
     },
     /**
      * 字体样式设置对齐方式
      * @param str
      */
-    handleResizeClick(type) {
+    handleResizeClick (type) {
       if (type.includes('w')) {
         this.activeElement.commonStyle.left = 0
         this.activeElement.commonStyle.width = this.pageData.width - 20

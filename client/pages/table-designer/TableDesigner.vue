@@ -29,7 +29,7 @@
 </template>
 <script>
 import Tinymce from '../../plugins/tinymce'
-import { createUUID } from '@client/utils/mUtils'
+import { createUUID } from '@/utils/mUtils'
 import 'codemirror/lib/codemirror.css'
 import bus from '@/utils/bus'
 import TableTplList from './tableTplList'

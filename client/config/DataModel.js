@@ -2,12 +2,12 @@
 import {
   createUUID,
   deepClone
-} from '@client/utils/mUtils'
+} from '@/utils/mUtils'
 import {
   cloneDeep,
   merge
 } from 'lodash';
-import $config from '@client/config'
+import $config from '@/config'
 
 // 表单元素配置信息字段
 let elementConfig = {

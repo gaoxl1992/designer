@@ -85,7 +85,7 @@
   </div>
 </template>
 <script>
-import { tableRelations } from '@client/config/attr-config'
+import { tableRelations } from '@/config/attr-config'
 import Vue from 'vue'
 export default {
   name: 'TableTplInfo',
@@ -96,25 +96,25 @@ export default {
     },
     bindAttrList: {
       type: Object,
-      default: () => {}
+      default: () => { }
     },
     editIndex: {
       type: Number,
       default: -1
     }
   },
-  data() {
+  data () {
     return {
       options: ['attr1', 'attr2', 'attr3', 'attr4'], // mock
       bindAttr: '',
       tableRelations,
       bindRel: '',
       bindValue: '',
-      attrsList: () => {},
+      attrsList: () => { },
       tempTplName: ''
     }
   },
-  created() {
+  created () {
     this.attrsList = this.bindAttrList
     this.tempTplName = this.tplName
   },
@@ -124,7 +124,7 @@ export default {
      * @param {*} key
      * @return {*}
      */
-    deleteAttr(key) {
+    deleteAttr (key) {
       Vue.delete(this.attrsList, key)
     },
     /**
@@ -133,7 +133,7 @@ export default {
      * @param {*} k
      * @return {*}
      */
-    deleteRel(key, k) {
+    deleteRel (key, k) {
       let obj = {
         ...this.attrsList[key]
       }
@@ -148,7 +148,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    addAttr() {
+    addAttr () {
       // todo
       let attr = this.attrsList[this.bindAttr] || {}
 
@@ -166,7 +166,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    onSubmit(index) {
+    onSubmit (index) {
       let obj = {
         name: this.tempTplName,
         rels: this.bindAttrList
@@ -183,11 +183,11 @@ export default {
      * @param {*}
      * @return {*}
      */
-    close() {
+    close () {
       this.resetData()
       this.$emit('close')
     },
-    resetData() {
+    resetData () {
       this.bindAttr = ''
       this.bindRel = ''
       this.bindValue = ''

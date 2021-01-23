@@ -68,9 +68,9 @@
   </div>
 </template>
 <script>
-import { _register_components_object } from '@client/plugins/index'
+import { _register_components_object } from '@/plugins/index'
 import editShape from '@/components/edit-shape'
-import editorProjectConfig from '@client/config/DataModel'
+import editorProjectConfig from '@/config/DataModel'
 import { mapState, mapGetters } from 'vuex'
 import FixedArea from '@/components/fixed-area'
 import QuickOp from '@/components/quick-op'
@@ -91,7 +91,7 @@ export default {
     FixedArea,
     QuickOp
   },
-  data() {
+  data () {
     return {
       getCommonStyle: editorProjectConfig.getCommonStyle,
       editorPaneWidth: 0,
@@ -112,7 +112,7 @@ export default {
     }),
     ...mapGetters(['activeElementIndex', 'activeElement'])
   },
-  mounted() {
+  mounted () {
     if (this.$refs.editorPane) {
       this.editorPaneWidth = this.$refs.editorPane.offsetHeight
     }
@@ -122,7 +122,7 @@ export default {
      * 元素被点击
      * @param uuid
      */
-    handleElementClick(uuid) {
+    handleElementClick (uuid) {
       this.$store.dispatch('setActiveElementUUID', uuid)
     },
     /**
@@ -130,7 +130,7 @@ export default {
      * @param pos 当pos有值表示移动中需要实时同步样式变化，pos为undefind时则表示移动结束，记一次历史纪录
      * 鼠标移动完成时才记入历史纪录
      */
-    handleElementResize(pos) {
+    handleElementResize (pos) {
       if (!pos) {
         this.$store.dispatch('addHistoryCache')
         return
@@ -147,7 +147,7 @@ export default {
      * @param {*} e
      * @return {*}
      */
-    handleClickCanvas(e) {
+    handleClickCanvas (e) {
       if (
         !e.target.classList.contains('element-on-edit-pane') &&
         !e.target.classList.contains('menu-item-on-edit-panel')
@@ -156,7 +156,7 @@ export default {
       }
     },
     //鼠标左键按下方法
-    onmousedownClick(event) {
+    onmousedownClick (event) {
       this.isRightClick = true
       this.start_x = event.layerX
       this.start_y = event.layerY
@@ -204,7 +204,7 @@ export default {
         }
       }
     },
-    handMouseUp(event) {
+    handMouseUp (event) {
       this.end_x = event.layerX
       this.end_y = event.layerY
 

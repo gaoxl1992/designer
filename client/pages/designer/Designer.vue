@@ -42,9 +42,9 @@ import EditorPan from './editor-panel'
 import AttrEdit from './attr-configure/attr-edit'
 import PageAttrEdit from './attr-configure/page-attr-edit'
 import CommonAttrEdit from './attr-configure/common-attr-edit'
-import ControlBar from '@client/components/control-bar'
-import PreviewWrapper from '@client/components/preview-wrapper'
-import mixin from '@client/mixins/mixin'
+import ControlBar from '@/components/control-bar'
+import PreviewWrapper from '@/components/preview-wrapper'
+import mixin from '@/mixins/mixin'
 
 export default {
   name: 'Designer',

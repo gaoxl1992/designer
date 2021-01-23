@@ -5,7 +5,7 @@ import {
   cloneDeep,
   merge
 } from 'lodash'
-import editorProjectConfig from '@client/config/DataModel'
+import editorProjectConfig from '@/config/DataModel'
 
 const state = {
   // 当前编辑器编辑工程项目数据

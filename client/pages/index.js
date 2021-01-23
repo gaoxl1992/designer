@@ -2,12 +2,16 @@ import TableDesigner from './table-designer/TableDesigner.vue'
 import Designer from './designer/Designer.vue'
 import Editor from './editor/Editor.vue'
 import Preview from './preview/Preview.vue'
+import _Vue from 'vue'
 
 const components = [
   TableDesigner, Designer, Editor, Preview
 ]
 
 const install = function (Vue) {
+  if (!Vue) {
+    window.Vue = Vue = _Vue
+  }
   // 判断是否安装，安装过就不继续往下执行
   if (install.installed) return
   install.installed = true

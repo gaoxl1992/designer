@@ -65,8 +65,8 @@
 
 <script>
 import { camelCase } from 'lodash'
-import eleConfig from '@client/config/ele-config'
-import { _register_components_object } from '@client/plugins/index'
+import eleConfig from '@/config/ele-config'
+import { _register_components_object } from '@/plugins/index'
 import CusCompsSetting from './cus-coms-setting'
 
 export default {
@@ -80,7 +80,7 @@ export default {
   components: {
     CusCompsSetting
   },
-  data() {
+  data () {
     return {
       componentsList: eleConfig,
       openCusComps: true,
@@ -88,23 +88,23 @@ export default {
       cusCompList: () => []
     }
   },
-  created() {
+  created () {
     this.cusCompList = JSON.parse(JSON.stringify(this.customComps))
   },
   watch: {
-    customComps(val) {
+    customComps (val) {
       this.cusCompList = JSON.parse(JSON.stringify(val))
     }
   },
   methods: {
-    handleArrow() {
+    handleArrow () {
       this.openCusComps = !this.openCusComps
     },
     /**
      * 点击事件, 向父组件派发add-element事件，参数： 当前组件对象
      * @param item
      */
-    handleClick(item) {
+    handleClick (item) {
       let props = this.getComponentProps(item.elName)
       this.$store.dispatch('addElement', { ...item, needProps: props })
     },
@@ -112,7 +112,7 @@ export default {
      * 根据elname获取组件默认props数据
      * @param elName
      */
-    getComponentProps(elName) {
+    getComponentProps (elName) {
       let elComponentData
       for (let key in _register_components_object) {
         if (key.toLowerCase() === camelCase(elName).toLowerCase()) {

@@ -7,24 +7,16 @@
     <div class="attr-header-line"></div>
     <div class="attr-item-edit-wrapper">
       <el-form>
-        <el-form-item
-          label="等分布局"
-          v-if="formQuickOp"
-        >
-          <el-input-number
-            v-model="numb"
-            :min="1"
-          ></el-input-number>等分
+        <el-form-item label="等分布局"
+                      v-if="formQuickOp">
+          <el-input-number v-model="numb"
+                           :min="1"></el-input-number>等分
         </el-form-item>
-        <el-form-item
-          :inline="true"
-          label="混合布局(逗号分割，每行24）"
-          v-if="numb === 1"
-        >
-          <el-input
-            v-model="mixLayout"
-            size="mini"
-          ></el-input>
+        <el-form-item :inline="true"
+                      label="混合布局(逗号分割，每行24）"
+                      v-if="numb === 1">
+          <el-input v-model="mixLayout"
+                    size="mini"></el-input>
         </el-form-item>
         <el-form-item>
           <el-checkbox v-model="hideOnPrint">打印隐藏</el-checkbox>
@@ -34,17 +26,13 @@
     <div class="attr-item-edit-wrapper">
       <p class="attr-item-title">快捷定位：</p>
       <div class="sizeAndPosition-wrapper">
-        <div
-          class="align-type-item"
-          v-for="item in alignTypeList"
-          :key="item.type"
-          @click="changeAlignType(item.type)"
-        >
-          <el-tooltip
-            effect="dark"
-            :content="item.title"
-            placement="bottom"
-          >
+        <div class="align-type-item"
+             v-for="item in alignTypeList"
+             :key="item.type"
+             @click="changeAlignType(item.type)">
+          <el-tooltip effect="dark"
+                      :content="item.title"
+                      placement="bottom">
             <i :class="[item.icon]"></i>
           </el-tooltip>
         </div>
@@ -53,18 +41,14 @@
     <div class="attr-item-edit-wrapper">
       <p class="attr-item-title">字体：</p>
       <div class="attr-item-edit-input">
-        <el-select
-          size="mini"
-          v-model="fontFamily"
-          placeholder="请选择"
-          @change="throttleAddHistory"
-        >
-          <el-option
-            v-for="item in fontFamilyList"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
+        <el-select size="mini"
+                   v-model="fontFamily"
+                   placeholder="请选择"
+                   @change="throttleAddHistory">
+          <el-option v-for="item in fontFamilyList"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value">
           </el-option>
         </el-select>
       </div>
@@ -78,61 +62,45 @@
     <div class="attr-item-edit-wrapper">
       <p class="attr-item-title">字体大小：</p>
       <div class="col-2 attr-item-edit-input">
-        <el-input-number
-          size="mini"
-          v-model="fontSize"
-          controls-position="right"
-        />
+        <el-input-number size="mini"
+                         v-model="fontSize"
+                         controls-position="right" />
       </div>
     </div>
     <div class="attr-item-edit-wrapper">
       <p class="attr-item-title">字体粗细：</p>
       <div class="col-2 attr-item-edit-input">
-        <el-input-number
-          size="mini"
-          v-model="fontWeight"
-          controls-position="right"
-          :step="100"
-          :max="900"
-        />
+        <el-input-number size="mini"
+                         v-model="fontWeight"
+                         controls-position="right"
+                         :step="100"
+                         :max="900" />
       </div>
     </div>
     <div class="attr-item-edit-wrapper">
       <p class="attr-item-title">对齐方式：</p>
       <div class="sizeAndPosition-wrapper">
-        <div
-          class="align-type-item clearFlex"
-          @click="updateStyle('textAlign', 'left')"
-        >
-          <el-tooltip
-            effect="dark"
-            content="左对齐"
-            placement="bottom"
-          >
+        <div class="align-type-item clearFlex"
+             @click="updateStyle('textAlign', 'left')">
+          <el-tooltip effect="dark"
+                      content="左对齐"
+                      placement="bottom">
             <i class="iconfont iconzuoduiqi1"></i>
           </el-tooltip>
         </div>
-        <div
-          class="align-type-item clearFlex"
-          @click="updateStyle('textAlign', 'center')"
-        >
-          <el-tooltip
-            effect="dark"
-            content="居中对齐"
-            placement="bottom"
-          >
+        <div class="align-type-item clearFlex"
+             @click="updateStyle('textAlign', 'center')">
+          <el-tooltip effect="dark"
+                      content="居中对齐"
+                      placement="bottom">
             <i class="iconfont iconjuzhongduiqi"></i>
           </el-tooltip>
         </div>
-        <div
-          class="align-type-item clearFlex"
-          @click="updateStyle('textAlign', 'right')"
-        >
-          <el-tooltip
-            effect="dark"
-            content="右对齐"
-            placement="bottom"
-          >
+        <div class="align-type-item clearFlex"
+             @click="updateStyle('textAlign', 'right')">
+          <el-tooltip effect="dark"
+                      content="右对齐"
+                      placement="bottom">
             <i class="iconfont iconyouduiqi2"></i>
           </el-tooltip>
         </div>
@@ -141,10 +109,8 @@
     <div class="attr-item-edit-wrapper">
       <p class="attr-item-title">字体颜色：</p>
       <div class="attr-item-edit-input">
-        <el-color-picker
-          size="mini"
-          v-model="color"
-        ></el-color-picker>
+        <el-color-picker size="mini"
+                         v-model="color"></el-color-picker>
       </div>
     </div>
   </el-scrollbar>
@@ -152,7 +118,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import { alignTypeList, fontFamilyList } from '@client/config/attr-config'
+import { alignTypeList, fontFamilyList } from '@/config/attr-config'
 import { ceil, subtract, divide, throttle } from 'lodash'
 
 export default {
@@ -164,7 +130,7 @@ export default {
     }),
     ...mapGetters(['activeElementIndex', 'activeElement']),
   },
-  data() {
+  data () {
     return {
       alignTypeList,
       fontFamilyList,
@@ -181,14 +147,14 @@ export default {
       activeElements: () => [],
     }
   },
-  created() {
+  created () {
     this.throttleAddHistory = throttle(this.addHistory, 3000)
   },
-  mounted() {
+  mounted () {
     this.diffElementStyle()
   },
   watch: {
-    mixLayout(val) {
+    mixLayout (val) {
       let l = (val && val.split(',')) || []
 
       let elements = this.activeElements
@@ -223,10 +189,10 @@ export default {
         }
       }
     },
-    activeElementsUUID() {
+    activeElementsUUID () {
       this.diffElementStyle()
     },
-    numb(val) {
+    numb (val) {
       if (val === 1) {
         return
       }
@@ -243,34 +209,34 @@ export default {
         element.commonStyle.left = left + (i % val) * width
       }
     },
-    hideOnPrint(val) {
+    hideOnPrint (val) {
       let elements = this.activeElements
       for (let i = 0; i < elements.length; i++) {
         let element = elements[i]
         element.hideOnPrint = val
       }
     },
-    selFontFamily(val, oldVal) {
+    selFontFamily (val, oldVal) {
       if (oldVal) {
         this.updateStyle('fontFamily', val)
       }
     },
-    fontStyle(val, oldVal) {
+    fontStyle (val, oldVal) {
       if (oldVal !== null) {
         this.updateStyle('fontStyle', val)
       }
     },
-    fontSize(val, oldVal) {
+    fontSize (val, oldVal) {
       if (oldVal) {
         this.updateStyle('fontSize', val)
       }
     },
-    fontWeight(val, oldVal) {
+    fontWeight (val, oldVal) {
       if (oldVal) {
         this.updateStyle('fontWeight', val)
       }
     },
-    color(val, oldVal) {
+    color (val, oldVal) {
       if (oldVal) {
         this.updateStyle('color', val)
       }
@@ -278,7 +244,7 @@ export default {
   },
   methods: {
     // 更新匹配组件的对应样式---公共方法，勿改
-    updateStyle(commonStyle, val = '', type = '') {
+    updateStyle (commonStyle, val = '', type = '') {
       for (let i = 0; i < this.activeElements.length; i++) {
         let element = this.activeElements[i]
         if (commonStyle === 'alignType') {
@@ -290,7 +256,7 @@ export default {
       this.addHistory()
     },
     // 初始化的时候对比多个element
-    diffElementStyle() {
+    diffElementStyle () {
       let elements = this.pageData.elements
       this.activeElements = []
       for (let i = 0; i < elements.length; i++) {
@@ -304,7 +270,7 @@ export default {
       this.diffType(this.activeElements)
     },
     // 判断form节点
-    diffType(eles) {
+    diffType (eles) {
       let onlyFormEle = true
       let formEles = [
         'rad-input',
@@ -324,7 +290,7 @@ export default {
       }
     },
     // 执行激活控件的diff样式操作
-    doDiff(eles) {
+    doDiff (eles) {
       let styles = [
         'fontFamily',
         'alignType',
@@ -362,15 +328,15 @@ export default {
       }
     },
     // 纪录一条历史纪录
-    addHistory() {
+    addHistory () {
       this.$store.dispatch('addHistoryCache')
     },
     // 更新样式
-    changeAlignType(type) {
+    changeAlignType (type) {
       this.updateStyle('alignType', '', type)
     },
     // 处理吸边操作
-    delWithElementAlignType(element, type) {
+    delWithElementAlignType (element, type) {
       let canvasW = this.pageData.width
       let canvasH = this.pageData.height
       let eleW = element.commonStyle.width

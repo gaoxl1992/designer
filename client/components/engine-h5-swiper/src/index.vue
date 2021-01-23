@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import editorProjectConfig from '@client/config/DataModel'
+import editorProjectConfig from '@/config/DataModel'
 import componentsTemplate from './components-template'
 export default {
   name: 'EngineH5Swiper',
@@ -58,21 +58,21 @@ export default {
   props: {
     pageData: {
       type: Object,
-      default: () => {}
+      default: () => { }
     },
     pagetype: {
       type: String,
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       getCommonStyle: editorProjectConfig.getCommonStyle,
       scalingRatio: 1,
       showTableModel: false
     }
   },
-  created() {
+  created () {
     // 将组件加个状态标识
     this.pageData.elements.forEach((e) => {
       e._loaded = true

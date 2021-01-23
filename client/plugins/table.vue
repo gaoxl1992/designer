@@ -54,7 +54,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import { createUUID } from '@client/utils/mUtils'
+import { createUUID } from '@/utils/mUtils'
 export default {
   name: 'RadTable',
   props: {
@@ -66,7 +66,7 @@ export default {
     },
     element: {
       type: Object,
-      default: () => {}
+      default: () => { }
     }
   },
   computed: {
@@ -74,7 +74,7 @@ export default {
       tableTpl: (state) => state.editor.tableTpl,
       ...mapGetters(['activeElement'])
     }),
-    isActiveTpl() {
+    isActiveTpl () {
       let attr = window.mockData
       let _this = this
       return function (tpl) {
@@ -97,7 +97,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       showTableModel: false,
       tableList: () => [],
@@ -106,17 +106,17 @@ export default {
       hasMatchTpl: false
     }
   },
-  mounted() {
+  mounted () {
     this.tableList = this.tableTpl
     this.activeTpl = (this.element && this.element.value) || []
   },
   methods: {
-    selectTableModel() {
+    selectTableModel () {
       if (this.pagetype === 'editor') {
         this.showTableModel = true
       }
     },
-    applyTemplate(template) {
+    applyTemplate (template) {
       if (
         this.activeTpl &&
         this.activeTpl.id &&
@@ -133,7 +133,7 @@ export default {
     /*
      * 编辑后修改当前单元格为span标签
      */
-    changeInner(event) {
+    changeInner (event) {
       let target = null
       if (event && event.target) {
         target = event.target
@@ -167,7 +167,7 @@ export default {
     /*
      * 绑定所点击元素的父元素
      */
-    bindUrFather(event) {
+    bindUrFather (event) {
       if (this.pagetype === 'preview') {
         return
       }
