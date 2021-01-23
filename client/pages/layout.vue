@@ -42,10 +42,7 @@
   </div>
 </template>
 <script>
-import Designer from './designer/Designer.vue'
-import Editor from './editor/Editor.vue'
-import TableDesigner from './table-designer/TableDesigner.vue'
-import Preview from './preview/Preview.vue'
+import { Designer, Editor, TableDesigner, Preview } from './index.js'
 import bus from '@/utils/bus'
 import { tabs, ops } from './lay-config'
 import { mapState } from 'vuex'

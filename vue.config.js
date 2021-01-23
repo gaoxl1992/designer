@@ -41,10 +41,7 @@ module.exports = {
   },
   configureWebpack: {
     entry: {
-      'table-designer': './client/pages/table-designer/index.js',
-      designer: './client/pages/designer/index.js',
-      editor: './client/pages/editor/index.js',
-      preview: './client/pages/preview/index.js'
+      viewcomp: './client/pages/index.js'
     },
     resolve: {
       extensions: ['.js', '.vue', '.json', '.css'],
