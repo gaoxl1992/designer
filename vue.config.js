@@ -8,7 +8,7 @@ module.exports = {
   filenameHashing: true,
   // 输出文件目录
   assetsDir: 'static',
-  outputDir: 'dist',
+  outputDir: 'lib',
   // 修改 pages 入口
   pages: {
     index: {
@@ -41,7 +41,7 @@ module.exports = {
   },
   configureWebpack: {
     entry: {
-      viewcomp: './client/pages/viewcomp.js'
+      app: './client/pages/index.js'
     },
     resolve: {
       extensions: ['.js', '.vue', '.json', '.css'],
@@ -49,8 +49,11 @@ module.exports = {
       modules: ['node_modules']
     },
     output: {
-      filename: `[name].js`,
-      chunkFilename: `[name].js`,
+      path: path.resolve(process.cwd(), './lib'),
+      filename: 'designer.common.js',
+      chunkFilename: `[id].js`,
+      libraryExport: 'default',
+      libraryTarget: 'commonjs2'
     }
   }
 }

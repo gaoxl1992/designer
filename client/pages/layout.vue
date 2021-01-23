@@ -42,10 +42,13 @@
   </div>
 </template>
 <script>
-import { Designer, Editor, TableDesigner, Preview } from './index'
 import bus from '@/utils/bus'
 import { tabs, ops } from './lay-config'
 import { mapState } from 'vuex'
+import Designer from './index'
+import Vue from 'vue'
+Vue.use(Designer)
+
 export default {
   data () {
     return {
@@ -57,12 +60,6 @@ export default {
       tabs,
       ops: ops(this)
     }
-  },
-  components: {
-    Designer,
-    Editor,
-    TableDesigner,
-    Preview
   },
   computed: {
     ...mapState({

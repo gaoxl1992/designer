@@ -1,6 +1,6 @@
 {
   "name": "web-reseditor",
-  "version": "1.0.9",
+  "version": "1.0.12",
   "author": "gaoxl",
   "keywords": [
     "component",
@@ -9,13 +9,10 @@
     "designer"
   ],
   "private": false,
-  "files": [
-    "dist"
-  ],
-  "main": "lib/index.js",
+  "main": "lib/design.umd.min.js",
   "scripts": {
     "dev-client": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib --name design --dest lib client/pages/index.js",
     "dev": "npm run dev-client"
   },
   "repository": {
