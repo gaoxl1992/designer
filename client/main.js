@@ -3,20 +3,14 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import RadUI from 'radui'
+import ElementUI from 'element-ui'
 import 'radui/lib/theme-chalk/index.css';
 import '@/common/styles/index.scss' // 自定义 css
 import VueClipboard from 'vue-clipboard2'
 import 'xe-utils'
-import {
-  optionalChaining
-} from "@/utils/mUtils";
 
-Vue.use(RadUI);
+Vue.use(ElementUI);
 Vue.use(VueClipboard)
-
-// 支持在template中使用可选链 {{$$(userInfo, 'wxInfo', 'addressInfo', 'address')}}
-Vue.prototype.$$ = optionalChaining;
 
 String.prototype.replaceAll = function (s1, s2) {
   return this.replace(new RegExp(s1, "gm"), s2);

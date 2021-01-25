@@ -45,6 +45,7 @@ import CommonAttrEdit from './attr-configure/common-attr-edit'
 import ControlBar from '@/components/control-bar'
 import PreviewWrapper from '@/components/preview-wrapper'
 import mixin from '@/mixins/mixin'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Designer',
@@ -73,8 +74,15 @@ export default {
       default: () => []
     }
   },
+  computed: {
+    ...mapState({
+      pageData: (state) => state.editor.pageData,
+      activeElementUUID: (state) => state.editor.activeElementUUID,
+      activeElementsUUID: (state) => state.editor.activeElementsUUID
+    })
+  },
   created () {
-    this.$store.dispatch('setActiveElementUUID', '')
+    // this.$store.dispatch('setActiveElementUUID', '')
   },
   methods: {
     /**
@@ -83,10 +91,18 @@ export default {
      * @return {*}
      */
     saveDesignerData () {
-      this.$store.dispatch('setPageData', {
-        radio: this.pageData.height / this.pageData.width,
-        ...this.pageData
-      })
+      this.$prompt('请输入模版名称', '保存', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(({ value }) => {
+        this.$emit('saveDesignerData', {
+          radio: this.pageData.height / this.pageData.width,
+          ...this.pageData,
+          name: value
+        })
+      }).catch(() => {
+        // 取消
+      });
     }
   }
 }

@@ -168,6 +168,13 @@
         <el-color-picker size="mini"
                          @change="throttleAddHistory"
                          v-model="activeElement.commonStyle.borderColor"></el-color-picker>
+        <div class="attr-item-edit-input-des">颜色</div>
+      </div>
+      <div class="col-2 attr-item-edit-input">
+        <el-color-picker size="mini"
+                         @change="throttleAddHistory"
+                         v-model="activeElement.commonStyle.backgroundColor"></el-color-picker>
+        <div class="attr-item-edit-input-des">背景色</div>
       </div>
     </div>
     <p class="attr-title">对齐方式：</p>

@@ -32,6 +32,7 @@
 <script>
 import EngineH5Swiper from '@/components/engine-h5-swiper/src/index'
 import mixin from '@/mixins/mixin'
+import { mapState } from 'vuex'
 import {
   headStr,
   footStr,
@@ -57,6 +58,11 @@ export default {
       pageFooterTpl: () => { }
     }
   },
+  ...mapState({
+      pageData: (state) => state.editor.pageData,
+      activeElementUUID: (state) => state.editor.activeElementUUID,
+      activeElementsUUID: (state) => state.editor.activeElementsUUID
+    }),
   components: {
     EngineH5Swiper
   },
@@ -183,32 +189,16 @@ export default {
             height: pageHeight
           },
           bodyTpl: `${headStr}${inner}${footStr}`,
-          header: `
-            ${fixedHeader.openFixed && fixedHeader.pageNum
-              ? openFixedAreaStr
-              : headStr
-            }
-            ${fixedHeader.openFixed
-              ? fixedHeader.pageNum === 1
-                ? pageStr1
-                : pageStr2
-              : ''
-            }
+          header: fixedHeader.openFixed ? `
+            ${fixedHeader.pageNum ? openFixedAreaStr : headStr}
+            ${fixedHeader.pageNum ? (fixedFooter.page === 1 ? pageStr1 : pageStr2) : ''}
             ${header}
-            ${footStr}`,
-          footer: `
-            ${fixedFooter.openFixed && fixedFooter.pageNum
-              ? openFixedAreaStr
-              : headStr
-            }
+            ${footStr}` : '',
+          footer: fixedFooter.openFixed ? `
+            ${fixedFooter.pageNum ? openFixedAreaStr : headStr}
             ${footer}
-            ${fixedFooter.openFixe
-              ? fixedFooter.pageNum === 1
-                ? pageStr1
-                : pageStr2
-              : ''
-            }
-            ${footStr}`
+            ${fixedFooter.pageNum ? (fixedFooter.page === 1 ? pageStr1 : pageStr2) : ''}
+            ${footStr}` : ''
         })
       }, 500)
     }

@@ -94,6 +94,13 @@ export default [{
       },
       hasThreshold: true,
       isForm: true
+    },
+    {
+      elName: 'rad-rectangle',
+      title: '矩形区域',
+      defaultStyle: {
+        height: 200
+      }
     }
   ]
 }]

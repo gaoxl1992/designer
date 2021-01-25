@@ -2,7 +2,7 @@
 <template>
   <div class="components-edit-shape"
        :editorId="uuid"
-       :id="uuid"
+       :uuid="uuid"
        @click.stop="handleTopWrapperClick"
        @mousedown="handleMouseDownOnElement"
        :class="{ active: this.active }">

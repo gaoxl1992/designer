@@ -37,6 +37,7 @@
                  @updateSpChars="updateSpChars"
                  @saveEditor="saveEditedPage"
                  :tplStr="pageTpl"
+                 @saveDesignerData="saveDesignerData"
                  :ref="activeName"></component>
     </keep-alive>
   </div>
@@ -205,8 +206,14 @@ export default {
      */
     saveDesigner () {
       this.$refs.designer.saveDesignerData()
-      // TODO API 保存设计obj
-      localStorage.setItem('pageData', JSON.stringify(this.pageData))
+    },
+    /**
+     * @description: 保存设计器的数据
+     * @param {*} e
+     * @return {*}
+     */
+    saveDesignerData (e) {
+      localStorage.setItem('pageData', JSON.stringify(e))
     },
     /**
      * @description: 导入设计模版，继续设计

@@ -5,7 +5,7 @@ import {
   cloneDeep,
   merge
 } from 'lodash'
-import editorProjectConfig from '@/config/DataModel'
+import editorProjectConfig from '../../config/DataModel'
 
 const state = {
   // 当前编辑器编辑工程项目数据
@@ -470,6 +470,9 @@ const getters = {
    * @returns {*}
    */
   activeElementIndex(state) {
+    if (!state.pageData || !state.pageData.elements) {
+      return
+    }
     return state.pageData.elements.findIndex(v => {
       return v.uuid === state.activeElementUUID
     })
@@ -478,7 +481,9 @@ const getters = {
    * 当前选中元素
    */
   activeElement() {
-    // 如果不存在页面返回-1
+    if(!state.pageData || !state.pageData.elements){
+			return {commonStyle: {}, propsValue: {}};
+		}
     return state.pageData.elements.find(v => {
       return v.uuid === state.activeElementUUID
     })
