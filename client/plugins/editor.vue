@@ -324,14 +324,17 @@ export default {
   },
   deactivated () {
     // keep-alive 离开时移除
-    this.removeEditor()
-    document.removeEventListener('click', this.handleLeave, false)
-    delete window.reditor[this.element.threshold]
+    this.destroyOp()
   },
   beforeDestroy () {
+    this.destroyOp()
+  },
+  destroyOp () {
     this.removeEditor()
     document.removeEventListener('click', this.handleLeave, false)
-    delete window.reditor[this.element.threshold]
+    if (this.element && this.element.threshold) {
+      delete window.reditor[this.element.threshold]
+    }
   }
 }
 </script>
