@@ -1,7 +1,7 @@
 <template>
   <div class="rad-line">
     <div class="el-divider el-divider--horizontal"
-         :style="{ height: tempLine + 'px', backgroundColor: tempColor }"></div>
+         :style="{ height: line + 'px', backgroundColor: tempColor }"></div>
   </div>
 </template>
 
@@ -18,19 +18,10 @@ export default {
       default: '#333'
     }
   },
-  data () {
-    return {
-      tempLine: this.line,
-      tempColor: this.lineColor
+  computed: {
+    tempColor () {
+      return this.lineColor
     }
   },
-  watch: {
-    line (val) {
-      this.tempLine = val
-    },
-    lineColor (val) {
-      this.tempColor = val
-    }
-  }
 }
 </script>

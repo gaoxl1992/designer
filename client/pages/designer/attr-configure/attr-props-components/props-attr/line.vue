@@ -13,6 +13,7 @@
     <el-form-item label="线色">
       <div class="attr-item-edit-input">
         <el-color-picker size="mini"
+                         @change="handleColorChange"
                          v-model="tempColor"></el-color-picker>
     </el-form-item>
   </div>
@@ -41,14 +42,13 @@ export default {
     },
     lineColor (val) {
       this.tempColor = val
-    },
-    tempColor (val, oldVal) {
-      if (val !== oldVal) {
-        this.$emit('update:lineColor', val)
-      }
     }
   },
   methods: {
+    handleColorChange (val) {
+      console.log(val)
+      this.$emit('update:lineColor', val)
+    },
     handleChange (val) {
       this.$emit('update:line', val)
     }
