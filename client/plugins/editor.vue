@@ -69,6 +69,7 @@
 import 'kindeditor/kindeditor-all-min.js'
 import 'kindeditor/themes/default/default.css'
 import { mapState } from 'vuex'
+import bus from '@/utils/bus'
 export default {
   name: 'RadEditor',
   props: {
@@ -196,6 +197,7 @@ export default {
               }
             }
             this.pageData.spCharacters = JSON.parse(JSON.stringify(arr))
+            bus.$emit('updateSpChars', this.pageData.spCharacters)
           }
           this.showDialog = false
         })
@@ -211,6 +213,7 @@ export default {
         }
       }
       this.pageData.spCharacters = JSON.parse(JSON.stringify(arr))
+      bus.$emit('updateSpChars', this.pageData.spCharacters)
       this.showDialog = false
     },
     addClickFn () {
@@ -324,12 +327,13 @@ export default {
   },
   deactivated () {
     // keep-alive 离开时移除
-    this.destroyOp()
+    this.removeEditor()
+    document.removeEventListener('click', this.handleLeave, false)
+    if (this.element && this.element.threshold) {
+      delete window.reditor[this.element.threshold]
+    }
   },
   beforeDestroy () {
-    this.destroyOp()
-  },
-  destroyOp () {
     this.removeEditor()
     document.removeEventListener('click', this.handleLeave, false)
     if (this.element && this.element.threshold) {

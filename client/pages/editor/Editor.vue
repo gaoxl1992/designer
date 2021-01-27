@@ -33,6 +33,7 @@
 import EngineH5Swiper from '@/components/engine-h5-swiper/src/index'
 import mixin from '@/mixins/mixin'
 import { mapState } from 'vuex'
+import bus from '@/utils/bus'
 import {
   headStr,
   footStr,
@@ -70,6 +71,10 @@ export default {
   },
   created () {
     this.$store.dispatch('setTableTpl', this.tpls)
+
+    bus.$on('updateSpChars', (spCharacters) => {
+      this.$emit('updateSpChars', spCharacters)
+    })
   },
   methods: {
     /**
@@ -204,13 +209,6 @@ export default {
           ext
         })
       }, 500)
-    }
-  },
-  watch: {
-    'pageData.spCharacters' (val, oldVal) {
-      if (JSON.stringify(val) !== JSON.stringify(oldVal)) {
-        this.$emit('updateSpChars', val)
-      }
     }
   }
 }
