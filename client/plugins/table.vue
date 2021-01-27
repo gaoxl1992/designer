@@ -34,10 +34,9 @@
                append-to-body
                modal-append-to-body>
       <ul class="table-model-list"
-          v-if="tableList && tableList.length && hasMatchTpl">
+          v-if="tableList && tableList.length">
         <template v-for="(item, index) in tableList">
           <li class="table-model-item"
-              v-if="isActiveTpl(item)"
               :key="index">
             <i class="el-icon-document"></i>{{ item.name }}
             <el-button class="apply-btn"
@@ -75,26 +74,27 @@ export default {
       ...mapGetters(['activeElement'])
     }),
     isActiveTpl () {
-      let attr = window.mockData
-      let _this = this
-      return function (tpl) {
-        let tplAttrs = tpl.rels
-        let t = Object.getOwnPropertyNames(tplAttrs)
-        // let w = Object.getOwnPropertyNames(attr)
-        let flag = true
-        for (var i = 0; i < t.length; i++) {
-          let key = t[i]
-          // 根据key 是min max等做判断计算逻辑
-          if (attr[key] !== tplAttrs[key]) {
-            flag = false
-            break
-          }
-        }
-        if (flag) {
-          _this.hasMatchTpl = true
-        }
-        return flag
-      }
+      // let attr = window.mockData
+      // let _this = this
+      // return function (tpl) {
+      //   let tplAttrs = tpl.rels
+      //   let t = Object.getOwnPropertyNames(tplAttrs)
+      //   // let w = Object.getOwnPropertyNames(attr)
+      //   let flag = true
+      //   for (var i = 0; i < t.length; i++) {
+      //     let key = t[i]
+      //     // 根据key 是min max等做判断计算逻辑
+      //     if (attr[key] !== tplAttrs[key]) {
+      //       flag = false
+      //       break
+      //     }
+      //   }
+      //   if (flag) {
+      //     _this.hasMatchTpl = true
+      //   }
+      //   return flag
+      // }
+      return true
     }
   },
   data () {

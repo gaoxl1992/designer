@@ -51,7 +51,7 @@ module.exports = {
     output: {
       path: path.resolve(process.cwd(), './lib'),
       filename: 'designer.common.js',
-      chunkFilename: `[id].js`,
+      chunkFilename: `[name].js`,
       libraryExport: 'default',
       libraryTarget: 'commonjs2'
     }
