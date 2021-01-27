@@ -1,3 +1,7 @@
+<!--
+ * @Description: 
+ * @props: 
+-->
 <template>
   <div class="page-wrapper-menu-operation menu-item-on-edit-panel"
        :style="getMenuOptionsPositionStyle"
@@ -27,7 +31,7 @@ export default {
       activeElementsUUID: (state) => state.editor.activeElementsUUID
     }),
     ...mapGetters(['activeElementIndex', 'activeElement']),
-    getMenuOptionsPositionStyle() {
+    getMenuOptionsPositionStyle () {
       let both = (this.editorPaneWidth - this.pageData.width * this.scale) / 2
       let right = both < 60 ? 16 : both
       return {
@@ -35,7 +39,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       menuOptions
     }
@@ -44,7 +48,7 @@ export default {
     /**
      * 对元素进行操作命令
      */
-    handleElementCommand(command) {
+    handleElementCommand (command) {
       this.$store.dispatch('elementCommand', command)
     }
   }
@@ -53,7 +57,7 @@ export default {
 <style lang="scss">
 .page-wrapper-menu-operation {
   position: absolute;
-  right: 0;
+  right: 10px;
   top: 45px;
   width: 0;
   background: white;

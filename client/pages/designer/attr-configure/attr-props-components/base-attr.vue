@@ -86,7 +86,7 @@
           <el-tooltip effect="dark"
                       content="满屏"
                       placement="bottom">
-            <i class="iconfont iconquanping"></i>
+            <i class="icon iconfont iconfit"></i>
           </el-tooltip>
         </div>
         <div class="align-type-item clearFlex"
@@ -94,7 +94,7 @@
           <el-tooltip effect="dark"
                       content="宽100%"
                       placement="bottom">
-            <i class="iconfont iconcolumn-width"></i>
+            <i class="icon iconfont iconfitw"></i>
           </el-tooltip>
         </div>
         <div class="align-type-item clearFlex"
@@ -102,7 +102,7 @@
           <el-tooltip effect="dark"
                       content="高100%"
                       placement="bottom">
-            <i class="iconfont iconcolum-height"></i>
+            <i class="icon iconfont iconfith"></i>
           </el-tooltip>
         </div>
       </div>
@@ -185,7 +185,7 @@
           <el-tooltip effect="dark"
                       content="左对齐"
                       placement="bottom">
-            <i class="iconfont iconzuoduiqi1"></i>
+            <i class="icon iconfont iconalignt_l"></i>
           </el-tooltip>
         </div>
         <div class="align-type-item clearFlex"
@@ -193,7 +193,7 @@
           <el-tooltip effect="dark"
                       content="居中对齐"
                       placement="bottom">
-            <i class="iconfont iconjuzhongduiqi"></i>
+            <i class="icon iconfont iconalignt_c"></i>
           </el-tooltip>
         </div>
         <div class="align-type-item clearFlex"
@@ -201,7 +201,7 @@
           <el-tooltip effect="dark"
                       content="右对齐"
                       placement="bottom">
-            <i class="iconfont iconyouduiqi2"></i>
+            <i class="icon iconfont iconalignt_r"></i>
           </el-tooltip>
         </div>
       </div>

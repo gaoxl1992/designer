@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs')
 
 module.exports = {
+  publicPath: './',
   devServer: {
     port: 8080
   },
@@ -13,6 +14,7 @@ module.exports = {
   pages: {
     index: {
       entry: 'client/main.js', // 入口
+      template: 'public/index.html',
       filename: 'index.html' // 输出文件
     }
   },
@@ -50,7 +52,7 @@ module.exports = {
     },
     output: {
       path: path.resolve(process.cwd(), './lib'),
-      filename: 'designer.common.js',
+      filename: 'design.common.js',
       chunkFilename: `[name].js`,
       libraryExport: 'default',
       libraryTarget: 'commonjs2'

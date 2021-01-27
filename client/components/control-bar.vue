@@ -7,7 +7,7 @@
       <div class="button-item"
            :class="{ disabled: !canUndo }"
            @click="editorUndo">
-        <i class="iconfont iconundo1"></i>
+        <i class="icon iconfont iconundo"></i>
       </div>
     </el-tooltip>
     <el-tooltip class="item"
@@ -17,7 +17,7 @@
       <div class="button-item"
            :class="{ disabled: !canRedo }"
            @click="editorRedo">
-        <i class="iconfont iconredo1"></i>
+        <i class="icon iconfont iconredo"></i>
       </div>
     </el-tooltip>
     <el-tooltip class="item"
@@ -26,7 +26,7 @@
                 placement="right">
       <div class="button-item"
            @click="showPreview">
-        <i class="el-icon-full-screen"></i>
+        <i class="icon iconfont iconlscreen"></i>
       </div>
     </el-tooltip>
     <el-tooltip class="item"
@@ -35,7 +35,7 @@
                 placement="right">
       <span class="button-item"
             @click="updateScale('plus')">
-        <i class="el-icon-plus"></i>
+        <i class="icon iconfont iconplus"></i>
       </span>
     </el-tooltip>
     <el-tooltip class="item"
@@ -44,7 +44,7 @@
                 placement="right">
       <span class="button-item"
             @click="updateScale('reduce')">
-        <i class="el-icon-minus"></i>
+        <i class="icon iconfont icondelete"></i>
       </span>
     </el-tooltip>
   </div>
@@ -65,7 +65,7 @@ export default {
       default: 1
     }
   },
-  data() {
+  data () {
     return {
       // 画板缩放
       scaleValue: 1
@@ -74,7 +74,7 @@ export default {
   computed: {
     ...mapGetters(['canUndo', 'canRedo'])
   },
-  created() {
+  created () {
     this.scaleValue = this.scale
   },
   methods: {
@@ -82,7 +82,7 @@ export default {
     /**
      * 更新画板大小
      */
-    updateScale(type, value) {
+    updateScale (type, value) {
       if (type === 'plus') {
         this.scaleValue =
           this.scaleValue + (value || 0.1) > 2
@@ -102,7 +102,7 @@ export default {
     /**
      * 显示预览
      */
-    showPreview() {
+    showPreview () {
       this.$emit('showPreview')
     }
   }

@@ -63,7 +63,7 @@
         </div>
       </div>
       <!-- 快捷操作区 -->
-      <QuickOp v-if="!activeElementsUUID || !activeElementsUUID[0]"></QuickOp>
+      <QuickOp v-if="activeElementUUID && (!activeElementsUUID || !activeElementsUUID[0])"></QuickOp>
     </div>
   </div>
 </template>

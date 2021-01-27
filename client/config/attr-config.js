@@ -1,27 +1,27 @@
 // 属性配置
 const alignTypeList = [{
   title: '左对齐',
-  icon: 'iconfont iconzuoduiqi',
+  icon: 'icon iconfont iconalign_l',
   type: 'l'
 }, {
   title: '上对齐',
-  icon: 'iconfont iconshangduiqi',
+  icon: 'icon iconfont iconalign_t',
   type: 't'
 }, {
   title: '右对齐',
-  icon: 'iconfont iconyouduiqi',
+  icon: 'icon iconfont iconalign_r',
   type: 'r'
 }, {
   title: '下对齐',
-  icon: 'iconfont iconxiaduiqi',
+  icon: 'icon iconfont iconalign_b',
   type: 'b'
 }, {
   title: '垂直居中对齐',
-  icon: 'iconfont iconchuizhijuzhongduiqi',
+  icon: 'icon iconfont iconalign_hcenter',
   type: 'tb'
 }, {
   title: '水平居中对齐',
-  icon: 'iconfont iconshuipingjuzhongduiqi',
+  icon: 'icon iconfont iconalign_vcenter',
   type: 'lr'
 }]
 
@@ -131,47 +131,47 @@ const compsLibs = [{
 // 快捷操作
 const menuOptions = [{
     title: '复制',
-    icon: 'iconfont iconfuzhi',
+    icon: 'icon iconfont iconcopy',
     value: 'copy',
   },
   {
     title: '删除',
-    icon: 'iconfont iconshanchu',
+    icon: 'icon iconfont icondelete-border',
     value: 'delete',
   },
   {
     title: '字体放大',
-    icon: 'iconfont iconzitifangda',
+    icon: 'icon iconfont iconA',
     value: 'fontA+',
   },
   {
     title: '字体缩小',
-    icon: 'iconfont iconzitisuoxiao',
+    icon: 'icon iconfont iconA-',
     value: 'fontA-',
   },
   {
     title: '字体加粗',
-    icon: 'iconfont iconzitijiacu',
+    icon: 'icon iconfont iconbold',
     value: 'fontB',
   },
   {
     title: '图层上移',
-    icon: 'iconfont iconziyuan1',
+    icon: 'icon iconfont iconup_one',
     value: 'layerUp',
   },
   {
     title: '图层下移',
-    icon: 'iconfont iconxiayiyiceng',
+    icon: 'icon iconfont icondown_one',
     value: 'layerDown',
   },
   {
     title: '图层置顶',
-    icon: 'iconfont iconcontrol-top',
+    icon: 'icon iconfont iconup_top',
     value: 'layerTop',
   },
   {
     title: '图层置底',
-    icon: 'iconfont iconcontrol-bottom',
+    icon: 'icon iconfont iconup_btm',
     value: 'layerBottom',
   },
 ]
