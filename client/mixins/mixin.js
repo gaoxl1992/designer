@@ -20,7 +20,11 @@ export default {
      * @return {*}
      */
     resetPage(pageData) {
+      this.$store.dispatch('setPageData')
       this.$store.dispatch('setActiveElementUUID', '')
+      if (!pageData) {
+        return
+      }
       const {
         pageType,
         radio,
@@ -30,23 +34,27 @@ export default {
         fixedHeader,
         fixedFooter,
         customWidth,
-        customHeight
+        customHeight,
+        name,
+        id
       } = pageData
       let rd = width / this.pageData.width
       this.$store.dispatch('setPageData', {
         ...this.pageData,
         customWidth,
         customHeight,
-        pageType,
+        pageType: pageType ? pageType : 'a4',
         totalPages,
-        fixedFooter: {
+        name,
+        id,
+        fixedFooter: fixedFooter ? {
           ...fixedFooter,
-          height: fixedFooter.height / rd
-        },
-        fixedHeader: {
+          height: fixedFooter.openFixed ? fixedFooter.height / rd : 0
+        } : {},
+        fixedHeader: fixedHeader ? {
           ...fixedHeader,
-          height: fixedHeader.height / rd
-        }
+          height: fixedHeader.openFixed ? fixedHeader.height / rd : 0
+        } : {}
       })
       this.$store.dispatch('updateCanvasHeight', this.pageData.width * radio)
       this.resetEles(elements, rd)

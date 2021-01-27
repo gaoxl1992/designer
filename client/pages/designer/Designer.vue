@@ -91,18 +91,13 @@ export default {
      * @return {*}
      */
     saveDesignerData () {
-      this.$prompt('请输入模版名称', '保存', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消'
-      }).then(({ value }) => {
-        this.$emit('saveDesignerData', {
-          radio: this.pageData.height / this.pageData.width,
-          ...this.pageData,
-          name: value
-        })
-      }).catch(() => {
-        // 取消
-      });
+      if (!this.pageData || !this.pageData.elements || !this.pageData.elements[0]) {
+        return
+      }
+      this.$emit('saveDesignerData', {
+        radio: this.pageData.height / this.pageData.width,
+        ...this.pageData
+      })
     }
   }
 }
@@ -138,7 +133,7 @@ export default {
   }
   .control-bar-wrapper {
     position: fixed;
-    right: 400px;
+    right: 410px;
     bottom: 10px;
     z-index: 1000;
     width: 38px;

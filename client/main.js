@@ -3,13 +3,13 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import ElementUI from 'element-ui'
+import RadUI from 'radui'
 import 'radui/lib/theme-chalk/index.css';
 import '@/common/styles/index.scss' // 自定义 css
 import VueClipboard from 'vue-clipboard2'
 import 'xe-utils'
 
-Vue.use(ElementUI);
+Vue.use(RadUI);
 Vue.use(VueClipboard)
 
 String.prototype.replaceAll = function (s1, s2) {

@@ -12,64 +12,18 @@
       <p>模版名称</p>
       <el-input v-model="tempTplName"></el-input>
     </div>
-    <!-- 添加关联条件 -->
     <div class="tpl-info-item"
-         v-if="options && options.length">
-      <p>添加关联</p>
-      <el-select v-model="bindAttr"
-                 size="small"
-                 placeholder="选择属性">
-        <el-option v-for="item in options"
-                   :key="item"
-                   :label="item"
-                   :value="item">
+         v-for="(value, key) in extent"
+         :key="key">
+      <p>{{ value.name }}</p>
+      <el-select v-model="value.option"
+                 placeholder="请选择">
+        <el-option v-for="item in value.options"
+                   :key="item.id"
+                   :label="item.name"
+                   :value="item.id">
         </el-option>
       </el-select>
-      <el-select v-model="bindRel"
-                 size="small"
-                 placeholder="选择关联关系">
-        <el-option v-for="(value, key) in tableRelations"
-                   :key="key"
-                   :label="value"
-                   :value="key">
-        </el-option>
-      </el-select>
-      <el-input v-model="bindValue"
-                size="small" />
-      <i class="el-icon-plus"
-         @click="addAttr"></i>
-    </div>
-    <!-- 已保存的关联条件 -->
-    <div class="tpl-info-attrs"
-         v-if="Object.keys(attrsList).length">
-      <p>关联条件</p>
-      <div class="attr-rel">
-        <el-button type="info"
-                   size="mini"
-                   plain> ( </el-button>
-        <el-button type="info"
-                   size="mini"
-                   plain> ) </el-button>
-        <el-button type="info"
-                   size="mini"
-                   plain> && </el-button>
-        <el-button type="info"
-                   size="mini"
-                   plain> || </el-button>
-      </div>
-      <div v-for="(values, key) in attrsList"
-           class="attr-item"
-           :key="key">
-        {{key}}
-        <span v-for="(v, k) in values"
-              :key="k">
-          <span class="attr-item-rel">{{tableRelations[k]}}</span> {{v}}
-          <i class="el-icon-close"
-             @click="deleteRel(key, k)"></i>
-        </span>
-        <i class="el-icon-delete"
-           @click="deleteAttr(key)"></i>
-      </div>
     </div>
     <!-- 操作按钮 -->
     <div class="tpl-info-btn">
@@ -101,6 +55,10 @@ export default {
     editIndex: {
       type: Number,
       default: -1
+    },
+    extent: {
+      type: Object,
+      default: () => { }
     }
   },
   data () {
@@ -169,7 +127,7 @@ export default {
     onSubmit (index) {
       let obj = {
         name: this.tempTplName,
-        rels: this.bindAttrList
+        extent: this.extent
       }
       if (index === -1) {
         obj.index = -1

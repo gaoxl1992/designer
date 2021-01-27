@@ -72,6 +72,7 @@ let pageConfig = {
     pageNum: false,
     page: '1'
   },
+  name: '',
   pageType: 'a4',
   spCharacters: [],
   script: '',

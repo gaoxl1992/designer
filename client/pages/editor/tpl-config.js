@@ -39,8 +39,9 @@ const openFixedAreaStr = `
 </head>
 <body style="border:0; margin: 0;" onload="subst()">`
 
+const pageStrStyle = '<table style="width: 100%;position:absolute;">'
+const pageStrStyleB = '<table style="width: 100%;position:absolute;bottom:0;">'
 const pageStr1 = `
-<table style="border-bottom: 1px solid black; width: 100%;">
   <tr>
     <td class="section"></td>
     <td style="text-align:right">
@@ -51,7 +52,6 @@ const pageStr1 = `
 `
 
 const pageStr2 = `
-<table style="border-bottom: 1px solid black; width: 100%;">
   <tr>
     <td class="section"></td>
     <td style="text-align:right">
@@ -66,5 +66,7 @@ export {
   footStr,
   openFixedAreaStr,
   pageStr1,
-  pageStr2
+  pageStr2,
+  pageStrStyle,
+  pageStrStyleB
 }

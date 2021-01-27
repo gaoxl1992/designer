@@ -27,7 +27,6 @@ module.exports = {
   chainWebpack: config => {
     config.resolve.alias
       .set('@', path.resolve('client'))
-      .set('@client', path.resolve('client'))
       .set('@plugins', path.resolve('plugins'))
     config.module
       .rule('js')
@@ -40,6 +39,7 @@ module.exports = {
       })
   },
   configureWebpack: {
+    devtool: 'source-map',
     entry: {
       app: './client/pages/index.js'
     },

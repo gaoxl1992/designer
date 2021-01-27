@@ -38,7 +38,9 @@ import {
   footStr,
   openFixedAreaStr,
   pageStr1,
-  pageStr2
+  pageStr2,
+  pageStrStyle,
+  pageStrStyleB
 } from './tpl-config'
 export default {
   name: 'Editor',
@@ -59,10 +61,10 @@ export default {
     }
   },
   ...mapState({
-      pageData: (state) => state.editor.pageData,
-      activeElementUUID: (state) => state.editor.activeElementUUID,
-      activeElementsUUID: (state) => state.editor.activeElementsUUID
-    }),
+    pageData: (state) => state.editor.pageData,
+    activeElementUUID: (state) => state.editor.activeElementUUID,
+    activeElementsUUID: (state) => state.editor.activeElementsUUID
+  }),
   components: {
     EngineH5Swiper
   },
@@ -75,19 +77,19 @@ export default {
      * @param {*}
      * @return {*}
      */
-    save () {
+    save (ext = false) {
       let obj = {
         radio: this.pageData.height / this.pageData.width,
         ...this.pageData
       }
-      this.savePrintTpl(obj)
+      this.savePrintTpl(obj, ext)
     },
     /**
      * @description: 保存打印模版对象，用于后端生成打印快照和预览
      * @param {*} obj
      * @return {*}
      */
-    savePrintTpl (obj) {
+    savePrintTpl (obj, ext) {
       // 处理全部组件
       let eles = JSON.parse(JSON.stringify(obj)).elements
       let pageHeight = obj.height
@@ -156,7 +158,7 @@ export default {
         }
         offsetHeight += setHeight - clientHeight
         eles[i].commonStyle.top =
-          eles[i].commonStyle.top - offsetHeight - fixedHeader.height
+          eles[i].commonStyle.top - offsetHeight - (fixedHeader.openFixed ? fixedHeader.height : 0)
         bodyEles.push(eles[i])
       }
 
@@ -191,14 +193,15 @@ export default {
           bodyTpl: `${headStr}${inner}${footStr}`,
           header: fixedHeader.openFixed ? `
             ${fixedHeader.pageNum ? openFixedAreaStr : headStr}
-            ${fixedHeader.pageNum ? (fixedFooter.page === 1 ? pageStr1 : pageStr2) : ''}
+            ${fixedHeader.pageNum ? pageStrStyle + (+fixedHeader.page === 1 ? pageStr1 : pageStr2) : ''}
             ${header}
             ${footStr}` : '',
           footer: fixedFooter.openFixed ? `
             ${fixedFooter.pageNum ? openFixedAreaStr : headStr}
+            ${fixedFooter.pageNum ? pageStrStyleB + (+fixedFooter.page === 1 ? pageStr1 : pageStr2) : ''}
             ${footer}
-            ${fixedFooter.pageNum ? (fixedFooter.page === 1 ? pageStr1 : pageStr2) : ''}
-            ${footStr}` : ''
+            ${footStr}` : '',
+          ext
         })
       }, 500)
     }

@@ -2,7 +2,6 @@
  * @Description: 表格设计器
  * @props:
  *  tableTplList 表格模版列表 Array
- </style>
 -->
 <template>
   <div class="table-designer">
@@ -22,6 +21,7 @@
                     :bindAttrList="bindAttrList"
                     :tplName="tplName"
                     :editIndex="editIndex"
+                    :extent="extent"
                     @submit="submit"
                     @close="close" />
     </el-dialog>
@@ -47,6 +47,10 @@ export default {
     tableTplList: {
       type: Array,
       default: () => []
+    },
+    extent: {
+      type: Object,
+      default: () => { }
     }
   },
   computed: {
@@ -76,7 +80,7 @@ export default {
      * @return {*}
      */
     editTableTpl (e = {}) {
-      this.editIndex = e?.index || -1
+      this.editIndex = e.index !== null && e.index >= 0 ? e.index : -1
       this.bindAttrList = e?.rels || {}
       this.content = e?.tpl || ''
       this.tplName = e?.name || ''
@@ -135,7 +139,8 @@ export default {
         name: e.name,
         id,
         rels: e.rels,
-        index
+        index,
+        extend: e.extent
       })
       this.innerContent = ''
       this.editTableTpl()

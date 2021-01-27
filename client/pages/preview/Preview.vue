@@ -3,7 +3,8 @@
 -->
 <template>
   <div class="editor-preview">
-    <div v-html="tplStr"></div>
+    <div style="position: relative;"
+         v-html="tplStr"></div>
   </div>
 </template>
 <script>

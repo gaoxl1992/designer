@@ -46,9 +46,10 @@
 import bus from '@/utils/bus'
 import { tabs, ops } from './lay-config'
 import { mapState } from 'vuex'
-import Designer from './index'
-import Vue from 'vue'
-Vue.use(Designer)
+import TableDesigner from './table-designer/index.js'
+import Designer from './designer/index.js'
+import Editor from './editor/index.js'
+import Preview from './preview/index.js'
 
 export default {
   data () {
@@ -61,6 +62,12 @@ export default {
       tabs,
       ops: ops(this)
     }
+  },
+  components: {
+    TableDesigner,
+    Designer,
+    Editor,
+    Preview
   },
   computed: {
     ...mapState({
@@ -189,7 +196,6 @@ export default {
      */
     importEditorTpl () {
       this.pageDataHis = JSON.parse(localStorage.getItem('pageData'))
-      console.log(this.pageDataHis)
       // 初始化字符集
       let chars = JSON.parse(localStorage.getItem('chars'))
 

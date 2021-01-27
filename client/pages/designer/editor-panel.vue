@@ -148,6 +148,9 @@ export default {
      * @return {*}
      */
     handleClickCanvas (e) {
+      if (!e.target || !e.target.classList) {
+        return
+      }
       if (
         !e.target.classList.contains('element-on-edit-pane') &&
         !e.target.classList.contains('menu-item-on-edit-panel')
