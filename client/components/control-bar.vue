@@ -166,5 +166,8 @@ export default {
       font-size: 14px;
     }
   }
+  .icon {
+    line-height: 18px;
+  }
 }
 </style>

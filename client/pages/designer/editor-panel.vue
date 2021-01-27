@@ -54,13 +54,13 @@
         <FixedArea pos="header"></FixedArea>
         <!-- 页脚 -->
         <FixedArea pos="footer"></FixedArea>
-        <!-- <div class="page-wrapper-mask">
+        <div class="page-wrapper-mask">
           <div class="page-de"
                :class="{ 'page-line': item !== 1 }"
                :style="{'height': (pageData.height / +pageData.totalPages) + 'px' }"
                v-for="item in +pageData.totalPages"
                :key="item"></div>
-        </div> -->
+        </div>
       </div>
       <!-- 快捷操作区 -->
       <QuickOp v-if="activeElementUUID && (!activeElementsUUID || !activeElementsUUID[0])"></QuickOp>
@@ -220,7 +220,7 @@ export default {
       let a = 0
       for (let i = 0; i < elements.length; i++) {
         const element = elements[i]
-        let id = element.id
+        let id = element.children[0].id
         let top = element.offsetTop //上边界
         let left = element.offsetLeft //左边界
         let right = left + element.offsetWidth //右边界
@@ -286,6 +286,7 @@ export default {
       if (a == elements.length) {
         this.selectIdList = []
       }
+      console.log(this.selectIdList)
       this.$store.dispatch('setActiveElementsUUID', this.selectIdList)
     }
   }
