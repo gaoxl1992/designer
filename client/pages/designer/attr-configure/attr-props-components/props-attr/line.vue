@@ -15,6 +15,7 @@
         <el-color-picker size="mini"
                          @change="handleColorChange"
                          v-model="tempColor"></el-color-picker>
+      </div>
     </el-form-item>
   </div>
 </template>
