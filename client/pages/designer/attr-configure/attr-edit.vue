@@ -14,6 +14,7 @@
         <el-form>
           <el-form-item label="阈值">
             <el-input size="small"
+                      clearable
                       v-model="activeElement.threshold"></el-input>
           </el-form-item>
           <el-form-item>
@@ -62,7 +63,7 @@ export default {
     PropsAttr,
     codemirror
   },
-  data() {
+  data () {
     return {
       showDialog: false,
       code: '',
@@ -82,25 +83,25 @@ export default {
     }),
     ...mapGetters(['activeElementIndex', 'activeElement'])
   },
-  mounted() {
+  mounted () {
     this.code = this.pageData.script
   },
   watch: {
-    'activeElement.threshold'(val) {
+    'activeElement.threshold' (val) {
       if (val) {
         this.activeElement.threshold = val.replace(/[^\w]/gi, '')
       }
     }
   },
   methods: {
-    onCmCodeChange(newCode) {
+    onCmCodeChange (newCode) {
       this.code = newCode
     },
-    confirmDialog() {
+    confirmDialog () {
       this.pageData.script = this.code
       this.showDialog = false
     },
-    closeDialog() {
+    closeDialog () {
       this.showDialog = false
     }
   }

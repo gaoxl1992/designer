@@ -10,10 +10,17 @@ export default {
   props: {
     text: {
       type: String,
-      default: '这是一段文字'
+      default: '占位'
+    },
+    element: {
+      type: Object,
+      default: () => { }
     }
   },
-  data() {
+  created () {
+    this.text = (this.element && this.element.value) || this.text
+  },
+  data () {
     return {
       defaultStyle: {
         height: 40

@@ -10,6 +10,7 @@
     <el-form-item v-if="!tempType"
                   label="图片地址">
       <el-input type="text"
+                clearable
                 size="small"
                 placeholder="请输入图片地址"
                 v-model="tempImage">
@@ -56,20 +57,20 @@ export default {
       default: () => []
     }
   },
-  data() {
+  data () {
     return {
       tempImage: '',
       tempType: false,
       tempFile: ''
     }
   },
-  mounted() {
+  mounted () {
     this.tempImage = this.image
     this.tempType = this.type
     this.tempFile = this.file[0]
   },
   methods: {
-    fileChange(e) {
+    fileChange (e) {
       let file = e.target.files[0]
       let imgSrc = []
       let reader = new FileReader()
@@ -81,19 +82,19 @@ export default {
     }
   },
   watch: {
-    file(val) {
+    file (val) {
       this.tempFile = val[0]
     },
-    type(val) {
+    type (val) {
       this.tempType = val
     },
-    image(val) {
+    image (val) {
       this.tempImage = val
     },
-    tempImage(val) {
+    tempImage (val) {
       this.$emit('update:image', val)
     },
-    tempType(val) {
+    tempType (val) {
       this.$emit('update:type', val)
     }
   }

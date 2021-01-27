@@ -19,10 +19,11 @@ export default {
      * @param {*} pageData
      * @return {*}
      */
-    resetPage(pageData) {
+    resetPage(pageData = null, spCharacters = []) {
       this.$store.dispatch('setPageData')
       this.$store.dispatch('setActiveElementUUID', '')
       if (!pageData) {
+        pageData.spCharacters = spCharacters
         return
       }
       const {
@@ -47,6 +48,7 @@ export default {
         totalPages,
         name,
         id,
+        spCharacters,
         fixedFooter: fixedFooter ? {
           ...fixedFooter,
           height: fixedFooter.openFixed ? fixedFooter.height / rd : 0

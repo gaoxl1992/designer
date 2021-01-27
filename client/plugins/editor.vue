@@ -91,14 +91,14 @@ export default {
     pagetype: String,
     element: {
       type: Object,
-      default: () => {}
+      default: () => { }
     }
   },
   watch: {
-    editor() {
+    editor () {
       this.initEditor()
     },
-    inner(val) {
+    inner (val) {
       this.$emit('update:value', val)
     }
   },
@@ -107,13 +107,13 @@ export default {
       pageData: (state) => state.editor.pageData
     })
   },
-  created() {
+  created () {
     if (this.pagetype === 'editor') {
       this.addClickFn()
     }
     this.outContent = (this.element && this.element.value) || ''
   },
-  data() {
+  data () {
     return {
       defaultStyle: {
         'line-height': '1.2',
@@ -154,13 +154,13 @@ export default {
     }
   },
   methods: {
-    showEditDialog() {
+    showEditDialog () {
       this.showDialog = true
       this.mngCharStr = JSON.parse(
         JSON.stringify(this.pageData.spCharacters)
       ).join('\n')
     },
-    handleLeave(event) {
+    handleLeave (event) {
       let editor = document.getElementById(this.editorId + 'container')
       let dialogs = document.getElementsByClassName('el-dialog__wrapper')
       let dialog = null
@@ -180,7 +180,7 @@ export default {
         }, 50)
       }
     },
-    closeDialog() {
+    closeDialog () {
       let old = JSON.parse(JSON.stringify(this.pageData.spCharacters))
       if (old.join('\n') !== this.mngCharStr) {
         this.$alert('您有未保存的修改，是否保存?', '提示', {
@@ -203,7 +203,7 @@ export default {
         this.showDialog = false
       }
     },
-    confirmDialog() {
+    confirmDialog () {
       let arr = this.mngCharStr.split('\n')
       for (let i = arr.length; i--; i >= 0) {
         if (!arr[i]) {
@@ -213,13 +213,13 @@ export default {
       this.pageData.spCharacters = JSON.parse(JSON.stringify(arr))
       this.showDialog = false
     },
-    addClickFn() {
+    addClickFn () {
       document.addEventListener('click', this.handleLeave, false)
     },
-    addHtml(char) {
+    addHtml (char) {
       this.reditor.appendHtml(char)
     },
-    removeEditor() {
+    removeEditor () {
       if (this.reditor) {
         this.reditor.remove()
         let ins = window.KindEditor.instances
@@ -230,7 +230,7 @@ export default {
         }
       }
     },
-    initEditor() {
+    initEditor () {
       let _this = this
       _this.removeEditor()
       _this.reditor = window.KindEditor.create(
@@ -271,9 +271,16 @@ export default {
           _this.reditor.fullHtml(this.element.value)
         }
         _this.reditor.readonly(this.pagetype !== 'editor')
+        // 有阈值的富文本挂载到widnow上 供外部读写
+        if (this.pagetype === 'editor') {
+          window.reditor = window.reditor || {}
+          if (this.element && this.element.threshold) {
+            window.reditor[this.element.threshold] = _this.reditor
+          }
+        }
       }
     },
-    showCharspop() {
+    showCharspop () {
       if (this.pagetype !== 'editor') {
         return
       }
@@ -288,13 +295,13 @@ export default {
       this.doc.style.zIndex = 999
       this.showChars = true
     },
-    innerChange() {
+    innerChange () {
       if (this.reditor) {
         this.inner = this.reditor.fullHtml()
       }
     }
   },
-  mounted() {
+  mounted () {
     this.doc = document.getElementsByClassName(
       'rad-element-wrapper-' + this.editorId
     )[0]
@@ -304,7 +311,7 @@ export default {
       this.initEditor()
     }
   },
-  activated() {
+  activated () {
     // keep-alive 进入时创建
     this.doc = document.getElementsByClassName(
       'rad-element-wrapper-' + this.editorId
@@ -315,14 +322,16 @@ export default {
       this.initEditor()
     }
   },
-  deactivated() {
+  deactivated () {
     // keep-alive 离开时移除
     this.removeEditor()
     document.removeEventListener('click', this.handleLeave, false)
+    delete window.reditor[this.element.threshold]
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.removeEditor()
     document.removeEventListener('click', this.handleLeave, false)
+    delete window.reditor[this.element.threshold]
   }
 }
 </script>
@@ -340,7 +349,7 @@ export default {
   .special-icon {
     position: absolute;
     right: 0;
-    max-width: 75%;
+    max-width: 76%;
     max-height: 252px;
     font-size: 13px;
     color: #131313;
@@ -376,6 +385,9 @@ export default {
       font-weight: 400;
       color: #161616;
       margin-top: 5px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      word-break: keep-all;
       &:hover {
         background: #b8cde2;
         border-color: #cbced4;

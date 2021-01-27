@@ -2,6 +2,7 @@
   <div class="attr-rad-button">
     <el-form-item label="文字">
       <el-input size="small"
+                clearable
                 type="text"
                 placeholder="请输出按钮的文案"
                 v-model="tempButton">
@@ -27,6 +28,7 @@
     <el-form-item>
       <el-checkbox v-model="tempCircle">icon按钮</el-checkbox>
       <el-input size="small"
+                clearable
                 type="text"
                 placeholder="请输出icon类名"
                 v-model="tempIcon"></el-input>
@@ -56,7 +58,7 @@ export default {
     icon: String,
     type: String
   },
-  data() {
+  data () {
     return {
       tempButton: '',
       tempSize: '',
@@ -68,7 +70,7 @@ export default {
       options: ['primary', 'success', 'info', 'warning', 'danger']
     }
   },
-  mounted() {
+  mounted () {
     this.tempButton = this.button
     this.tempSize = this.size
     this.tempPlain = this.plain
@@ -78,46 +80,46 @@ export default {
     this.tempType = this.type
   },
   watch: {
-    button(val) {
+    button (val) {
       this.tempButton = val
     },
-    size(val) {
+    size (val) {
       this.tempSize = val
     },
-    plain(val) {
+    plain (val) {
       this.tempPlain = val
     },
-    round(val) {
+    round (val) {
       this.tempRound = val
     },
-    circle(val) {
+    circle (val) {
       this.tempCircle = val
     },
-    icon(val) {
+    icon (val) {
       this.tempIcon = val
     },
-    type(val) {
+    type (val) {
       this.tempType = val
     },
-    tempButton(val) {
+    tempButton (val) {
       this.$emit('update:button', val)
     },
-    tempSize(val) {
+    tempSize (val) {
       this.$emit('update:size', val)
     },
-    tempPlain(val) {
+    tempPlain (val) {
       this.$emit('update:plain', val)
     },
-    tempRound(val) {
+    tempRound (val) {
       this.$emit('update:round', val)
     },
-    tempCircle(val) {
+    tempCircle (val) {
       this.$emit('update:circle', val)
     },
-    tempIcon(val) {
+    tempIcon (val) {
       this.$emit('update:icon', val)
     },
-    tempType(val) {
+    tempType (val) {
       this.$emit('update:type', val)
     }
   }

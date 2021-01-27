@@ -1,7 +1,12 @@
+<!--
+ * @Description: 
+ * @props: 
+-->
 <template>
   <div class="attr-rad-radio">
     <el-form-item label="选项">
       <el-input type="text"
+                clearable
                 size="small"
                 :rows="1"
                 placeholder="英文逗号分隔"
@@ -34,32 +39,32 @@ export default {
     },
     disabled: Boolean
   },
-  data() {
+  data () {
     return {
       tempOptions: '',
       tempIndex: 1,
       editable: true
     }
   },
-  mounted() {
+  mounted () {
     this.tempIndex = this.radio
     this.tempOptions = this.options.join(',')
     this.editable = !this.disabled
   },
   watch: {
-    radio(val) {
+    radio (val) {
       this.tempIndex = val
     },
-    options(val) {
+    options (val) {
       this.tempOptions = val.join(',')
     },
-    disabled(val) {
+    disabled (val) {
       this.tempDisabled = val
     },
-    tempIndex(val) {
+    tempIndex (val) {
       this.$emit('update:radio', val)
     },
-    tempOptions(val, oldVal) {
+    tempOptions (val, oldVal) {
       let temp = val.split(',')
       let oldTemp = oldVal.split(',')
       if (temp[this.tempIndex - 1] !== oldTemp[this.tempIndex - 1]) {
@@ -68,7 +73,7 @@ export default {
 
       this.$emit('update:options', temp)
     },
-    editable(val) {
+    editable (val) {
       this.$emit('update:disabled', !val)
     }
   }

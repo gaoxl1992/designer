@@ -2,6 +2,7 @@
   <div class="attr-rad-text">
     <el-form-item label="文本内容">
       <el-input type="textarea"
+                clearable
                 :rows="2"
                 placeholder="请输入文本内容"
                 v-model="tempText">
@@ -16,19 +17,19 @@ export default {
   props: {
     text: String
   },
-  data() {
+  data () {
     return {
       tempText: ''
     }
   },
-  mounted() {
+  mounted () {
     this.tempText = this.text
   },
   watch: {
-    text(val) {
+    text (val) {
       this.tempText = val
     },
-    tempText(val) {
+    tempText (val) {
       this.$emit('update:text', val)
     }
   }

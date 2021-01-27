@@ -2,6 +2,7 @@
   <div class="attr-rad-select">
     <el-form-item label="选项">
       <el-input type="text"
+                clearable
                 size="small"
                 :rows="1"
                 placeholder="英文逗号分隔"
@@ -68,7 +69,7 @@ export default {
       default: () => []
     }
   },
-  data() {
+  data () {
     return {
       tempOptions: '',
       editable: true,
@@ -78,7 +79,7 @@ export default {
       tempDisabledItems: []
     }
   },
-  mounted() {
+  mounted () {
     this.tempOptions = (this.options && this.options.join(',')) || ''
     this.editable = !this.disabled
     this.tempSize = this.size
@@ -87,22 +88,22 @@ export default {
     this.tempOptions1 = this.options
   },
   watch: {
-    size(val) {
+    size (val) {
       this.tempSize = val
     },
-    disabledItems(val) {
+    disabledItems (val) {
       this.tempDisabledItems = val
     },
-    options(val) {
+    options (val) {
       this.tempOptions = (val && val.join(',')) || ''
     },
-    disabled(val) {
+    disabled (val) {
       this.tempDisabled = val
     },
-    tempSize(val) {
+    tempSize (val) {
       this.$emit('update:size', val)
     },
-    tempOptions(val) {
+    tempOptions (val) {
       let list = val.split(',')
       this.tempOptions1 = []
       for (let value of list) {
@@ -112,13 +113,13 @@ export default {
       }
       this.$emit('update:options', list)
     },
-    editable(val) {
+    editable (val) {
       this.$emit('update:disabled', !val)
     },
-    tempDisabledItems(val) {
+    tempDisabledItems (val) {
       this.$emit('update:disabledItems', val)
     },
-    tempSelect(val) {
+    tempSelect (val) {
       this.$emit('update:select', val)
     }
   }

@@ -2,6 +2,7 @@
   <div class="attr-rad-checkbox">
     <el-form-item label="选项">
       <el-input type="text"
+                clearable
                 size="small"
                 :rows="1"
                 placeholder="英文逗号分隔"
@@ -57,7 +58,7 @@ export default {
       default: () => []
     }
   },
-  data() {
+  data () {
     return {
       tempOptions: '',
       editable: true,
@@ -66,23 +67,23 @@ export default {
       tempOptions1: []
     }
   },
-  mounted() {
+  mounted () {
     this.tempOptions = this.options.join(',')
     this.editable = !this.disabled
     this.tempCheckbox = this.checkbox
     this.tempDisabled = this.disabeldList
   },
   watch: {
-    checkbox(val) {
+    checkbox (val) {
       this.tempCheckbox = val
     },
-    options(val) {
+    options (val) {
       this.tempOptions = val.join(',')
     },
-    disabeldList(val) {
+    disabeldList (val) {
       this.tempDisabled = val
     },
-    tempOptions(val) {
+    tempOptions (val) {
       let list = val.split(',')
       this.tempOptions1 = []
       for (let value of list) {
@@ -93,13 +94,13 @@ export default {
 
       this.$emit('update:options', list)
     },
-    tempCheckbox(val) {
+    tempCheckbox (val) {
       this.$emit('update:checkbox', val)
     },
-    tempDisabled(val) {
+    tempDisabled (val) {
       this.$emit('update:disabledItems', val)
     },
-    editable(val) {
+    editable (val) {
       this.$emit('update:disabled', !val)
     }
   }

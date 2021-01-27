@@ -16,7 +16,8 @@
          v-for="(value, key) in extent"
          :key="key">
       <p>{{ value.name }}</p>
-      <el-select v-model="value.option"
+      <el-select v-if="values.options && values.options[0]"
+                 v-model="value.option"
                  placeholder="请选择">
         <el-option v-for="item in value.options"
                    :key="item.id"
@@ -24,6 +25,8 @@
                    :value="item.id">
         </el-option>
       </el-select>
+      <el-input v-else
+                v-model="values.options"></el-input>
     </div>
     <!-- 操作按钮 -->
     <div class="tpl-info-btn">

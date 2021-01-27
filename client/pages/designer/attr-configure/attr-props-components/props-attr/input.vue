@@ -2,16 +2,19 @@
   <div>
     <el-form-item label="默认值">
       <el-input small="small"
+                clearable
                 type="text"
                 v-model="tempInput"> </el-input>
     </el-form-item>
     <el-form-item label="标签">
       <el-input small="small"
+                clearable
                 type="text"
                 v-model="tempLabel"> </el-input>
     </el-form-item>
     <el-form-item label="placeholder">
       <el-input size="small"
+                clearable
                 type="text"
                 v-model="tempPlaceholder"> </el-input>
     </el-form-item>
@@ -52,7 +55,7 @@ export default {
     size: String,
     disabled: Boolean
   },
-  data() {
+  data () {
     return {
       tempInput: '',
       tempLabel: '',
@@ -62,7 +65,7 @@ export default {
       editable: true
     }
   },
-  mounted() {
+  mounted () {
     this.tempInput = this.input
     this.tempLabel = this.label
     this.tempPlaceholder = this.placeholder
@@ -71,40 +74,40 @@ export default {
     this.editable = !this.disabled
   },
   watch: {
-    input(val) {
+    input (val) {
       this.tempInput = val
     },
-    label(val) {
+    label (val) {
       this.tempLabel = val
     },
-    placeholder(val) {
+    placeholder (val) {
       this.tempPlaceholder = val
     },
-    inputType(val) {
+    inputType (val) {
       this.tempInputType = val
     },
-    size(val) {
+    size (val) {
       this.tempSize = val
     },
-    disabled(val) {
+    disabled (val) {
       this.tempDisabled = val
     },
-    tempInput(val) {
+    tempInput (val) {
       this.$emit('update:input', val)
     },
-    tempLabel(val) {
+    tempLabel (val) {
       this.$emit('update:label', val)
     },
-    tempPlaceholder(val) {
+    tempPlaceholder (val) {
       this.$emit('update:placeholder', val)
     },
-    tempInputType(val) {
+    tempInputType (val) {
       this.$emit('update:inputType', val)
     },
-    tempSize(val) {
+    tempSize (val) {
       this.$emit('update:size', val)
     },
-    editable(val) {
+    editable (val) {
       this.$emit('update:disabled', !val)
     }
   }

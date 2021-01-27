@@ -1,11 +1,11 @@
 <!--
- * @Description: 
- * @props: 
+ * @Description: 富文本
 -->
 <template>
   <div class="attr-rad-editor">
     <el-form-item label="标题">
       <el-input size="small"
+                clearable
                 v-model="tempLabel"></el-input>
     </el-form-item>
     <el-form-item label="占位高度">
@@ -31,29 +31,29 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       tempEditor: 200,
       tempLabel: ''
     }
   },
-  mounted() {
+  mounted () {
     this.tempEditor = this.editor
     this.tempLabel = this.label
   },
   watch: {
-    editor(val) {
+    editor (val) {
       this.tempEditor = val
     },
-    label(val) {
+    label (val) {
       this.tempLabel = val
     },
-    tempLabel(val) {
+    tempLabel (val) {
       this.$emit('update:label', val)
     }
   },
   methods: {
-    handleChange() {
+    handleChange () {
       this.$emit('update:editor', this.tempEditor)
     }
   }

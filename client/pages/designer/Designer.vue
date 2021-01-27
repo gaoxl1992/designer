@@ -81,9 +81,6 @@ export default {
       activeElementsUUID: (state) => state.editor.activeElementsUUID
     })
   },
-  created () {
-    // this.$store.dispatch('setActiveElementUUID', '')
-  },
   methods: {
     /**
      * @description: 外部触发将pageData数据存入store

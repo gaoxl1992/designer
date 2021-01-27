@@ -1,3 +1,6 @@
+<!--
+ * @Description: 时间选择器
+-->
 <template>
   <div class="attr-rad-datetime">
     <el-form-item label="时间选择器类型">
@@ -49,7 +52,7 @@ export default {
     datetime: String,
     format: String
   },
-  data() {
+  data () {
     return {
       editable: true,
       tempSize: '',
@@ -114,38 +117,38 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.editable = !this.disabled
     this.tempSize = this.size
     this.tempDatetime = this.datetime
     this.tempFormat = this.format || this.formatList.date[0]
   },
   watch: {
-    size(val) {
+    size (val) {
       this.tempSize = val
     },
-    disabled(val) {
+    disabled (val) {
       this.tempDisabled = val
     },
-    datetime(val) {
+    datetime (val) {
       this.tempDatetime = val
     },
-    tempSize(val) {
+    tempSize (val) {
       this.$emit('update:size', val)
     },
-    format(val) {
+    format (val) {
       this.tempFormat = val
     },
-    editable(val) {
+    editable (val) {
       this.$emit('update:disabled', !val)
     },
-    tempDatetime(val, oldVal) {
+    tempDatetime (val, oldVal) {
       if (val !== oldVal) {
         this.tempFormat = this.formatList[val][0]
       }
       this.$emit('update:datetime', val)
     },
-    tempFormat(val) {
+    tempFormat (val) {
       this.$emit('update:format', val)
     }
   }
