@@ -1,27 +1,35 @@
 <template>
   <div class="rad-line">
     <div class="el-divider el-divider--horizontal"
-         :style="{ height: tempLine + 'px' }"></div>
+         :style="{ height: tempLine + 'px', backgroundColor: tempColor }"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'RadLine', // 这个名字很重要，它就是未来的标签名<rad-text></rad-text>
+  name: 'RadLine',
   props: {
     line: {
       type: Number,
       default: 1
+    },
+    lineColor: {
+      type: String,
+      default: '#333'
     }
   },
-  data() {
+  data () {
     return {
-      tempLine: this.line
+      tempLine: this.line,
+      tempColor: this.lineColor
     }
   },
   watch: {
-    line(val) {
+    line (val) {
       this.tempLine = val
+    },
+    lineColor (val) {
+      this.tempColor = val
     }
   }
 }

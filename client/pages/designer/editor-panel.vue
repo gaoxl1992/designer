@@ -54,13 +54,13 @@
         <FixedArea pos="header"></FixedArea>
         <!-- 页脚 -->
         <FixedArea pos="footer"></FixedArea>
-        <div class="page-wrapper-mask">
+        <!-- <div class="page-wrapper-mask">
           <div class="page-de"
                :class="{ 'page-line': item !== 1 }"
                :style="{'height': (pageData.height / +pageData.totalPages) + 'px' }"
                v-for="item in +pageData.totalPages"
                :key="item"></div>
-        </div>
+        </div> -->
       </div>
       <!-- 快捷操作区 -->
       <QuickOp v-if="activeElementUUID && (!activeElementsUUID || !activeElementsUUID[0])"></QuickOp>

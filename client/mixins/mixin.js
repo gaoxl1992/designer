@@ -23,7 +23,6 @@ export default {
       this.$store.dispatch('setPageData')
       this.$store.dispatch('setActiveElementUUID', '')
       if (!pageData) {
-        pageData.spCharacters = spCharacters
         return
       }
       const {
@@ -48,7 +47,7 @@ export default {
         totalPages,
         name,
         id,
-        spCharacters,
+        spCharacters: spCharacters || [],
         fixedFooter: fixedFooter ? {
           ...fixedFooter,
           height: fixedFooter.openFixed ? fixedFooter.height / rd : 0

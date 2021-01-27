@@ -1,6 +1,5 @@
 <!--
  * @Description: 直线组件
- * @props: 
 -->
 <template>
   <div class="attr-rad-line">
@@ -11,6 +10,11 @@
                        :min="1"
                        @change="handleChange"></el-input-number>px
     </el-form-item>
+    <el-form-item label="线色">
+      <div class="attr-item-edit-input">
+        <el-color-picker size="mini"
+                         v-model="tempColor"></el-color-picker>
+    </el-form-item>
   </div>
 </template>
 
@@ -18,23 +22,34 @@
 export default {
   name: 'attr-rad-line',
   props: {
-    line: Number
+    line: Number,
+    lineColor: String
   },
-  data() {
+  data () {
     return {
-      tempLine: 1
+      tempLine: 1,
+      tempColor: '#666'
     }
   },
-  mounted() {
+  mounted () {
     this.tempLine = this.line
+    this.tempColor = this.lineColor
   },
   watch: {
-    line(val) {
+    line (val) {
       this.tempLine = val
+    },
+    lineColor (val) {
+      this.tempColor = val
+    },
+    tempColor (val, oldVal) {
+      if (val !== oldVal) {
+        this.$emit('update:lineColor', val)
+      }
     }
   },
   methods: {
-    handleChange(val) {
+    handleChange (val) {
       this.$emit('update:line', val)
     }
   }
