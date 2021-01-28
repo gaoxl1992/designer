@@ -4,7 +4,11 @@
 <template>
   <div class="editor-preview">
     <div style="position: relative;"
-         v-html="tplStr"></div>
+         v-html="tplStr.PROP_HEADER_HTML"></div>
+    <div style="position: relative;"
+         v-html="tplStr.PROP_PAGE_HTML"></div>
+    <div style="position: relative;"
+         v-html="tplStr.PROP_FOOTER_HTML"></div>
   </div>
 </template>
 <script>
@@ -13,8 +17,8 @@ export default {
   componentName: 'Preview',
   props: {
     tplStr: {
-      type: String,
-      default: ''
+      type: Object,
+      default: () => { }
     }
   }
 }

@@ -239,7 +239,11 @@ export default {
       if (val === 'preview') {
         if (localStorage.getItem('editedPageData')) {
           let pageData = JSON.parse(localStorage.getItem('editedPageData'))
-          this.pageTpl = pageData.header + pageData.bodyTpl + pageData.footer
+          this.pageTpl = {
+            PROP_HEADER_HTML: pageData.header,
+            PROP_PAGE_HTML: pageData.bodyTpl,
+            PROP_FOOTER_HTML: pageData.footer
+          }
         }
       }
     }

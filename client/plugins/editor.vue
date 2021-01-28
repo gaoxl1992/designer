@@ -176,10 +176,7 @@ export default {
         (dialog && !dialog.contains(event.target)) &&
         !this.inEditor
       ) {
-        setTimeout(() => {
-          this.doc.style.zIndex = this.zIndex
-          this.showChars = false
-        }, 50)
+        this.doc.style.zIndex = this.zIndex
       }
     },
     closeDialog () {

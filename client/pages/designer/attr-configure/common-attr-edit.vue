@@ -374,103 +374,103 @@ export default {
 <style lang="scss">
 .common-attr-edit {
   height: 100%;
-}
-.attr-title {
-  font-weight: bold;
-}
-.attr-header {
-  font-size: 14px;
-  font-weight: 500;
-  padding: 20px 20px 10px 20px;
-  color: #161616;
-  line-height: 22px;
-  .attr-header-desc {
-    font-weight: 400;
-    color: #707070;
-    line-height: 22px;
-    padding-top: 4px;
+  .attr-title {
+    font-weight: bold;
   }
-}
-.attr-header-line {
-  height: 1px;
-  width: 100%;
-  background-color: #adb1b8;
-}
-.sizeAndPosition-wrapper {
-  display: flex;
-  width: 100%;
-}
-.align-type-item {
-  margin-right: 10px;
-  cursor: pointer;
-  &.clearFlex {
-    width: 42px;
-    flex: none;
-  }
-  i {
-    line-height: 1;
-    display: inline-block;
-    padding: 6px;
-    border-radius: 4px;
-    background: rgba(37, 165, 137, 0.08);
-  }
-  &:hover {
-    i {
-      color: white;
-      background: $primary;
-    }
-  }
-}
-.attr-item-edit-wrapper {
-  text-align: left;
-  padding: 10px 20px;
-  font-weight: 500;
-  .attr-item-title {
-    text-align: left;
-    min-width: 78px;
+  .attr-header {
     font-size: 14px;
+    font-weight: 500;
+    padding: 20px 20px 10px 20px;
     color: #161616;
     line-height: 22px;
-    padding-bottom: 4px;
+    .attr-header-desc {
+      font-weight: 400;
+      color: #707070;
+      line-height: 22px;
+      padding-top: 4px;
+    }
   }
-  .el-form-item {
-    margin-bottom: 0;
+  .attr-header-line {
+    height: 1px;
+    width: 100%;
+    background-color: #adb1b8;
   }
-  .attr-item-edit-input {
-    &.col-2 {
-      margin-left: 10px;
+  .sizeAndPosition-wrapper {
+    display: flex;
+    width: 100%;
+  }
+  .align-type-item {
+    margin-right: 10px;
+    cursor: pointer;
+    &.clearFlex {
+      width: 42px;
+      flex: none;
     }
-    &.col-1 {
-      width: 250px;
-    }
-    &.col-3 {
-      width: 60px;
-      margin-left: 10px;
-    }
-    &.col-4 {
-      width: 50px;
-      margin-left: 10px;
-    }
-    .attr-item-edit-input-des {
-      text-align: center;
+    i {
       line-height: 1;
-      margin-top: 2px;
-      font-size: 12px;
-      color: $gray;
+      display: inline-block;
+      padding: 6px;
+      border-radius: 4px;
+      background: rgba(37, 165, 137, 0.08);
+    }
+    &:hover {
+      i {
+        color: white;
+        background: $primary;
+      }
     }
   }
-}
-.attr-item-edit-wrapper {
-  .el-input-number.is-controls-right .el-input__inner {
-    padding-left: 2px;
-    padding-right: 32px;
-    width: 90px;
+  .attr-item-edit-wrapper {
+    text-align: left;
+    padding: 10px 20px;
+    font-weight: 500;
+    .attr-item-title {
+      text-align: left;
+      min-width: 78px;
+      font-size: 14px;
+      color: #161616;
+      line-height: 22px;
+      padding-bottom: 4px;
+    }
+    .el-form-item {
+      margin-bottom: 0;
+    }
+    .attr-item-edit-input {
+      &.col-2 {
+        margin-left: 10px;
+      }
+      &.col-1 {
+        width: 250px;
+      }
+      &.col-3 {
+        width: 60px;
+        margin-left: 10px;
+      }
+      &.col-4 {
+        width: 50px;
+        margin-left: 10px;
+      }
+      .attr-item-edit-input-des {
+        text-align: center;
+        line-height: 1;
+        margin-top: 2px;
+        font-size: 12px;
+        color: $gray;
+      }
+    }
   }
-  .el-input-number--mini {
-    width: 90px;
-  }
-  .el-slider__runway.show-input {
-    margin-right: 108px;
+  .attr-item-edit-wrapper {
+    .el-input-number.is-controls-right .el-input__inner {
+      padding-left: 2px;
+      padding-right: 32px;
+      width: 90px;
+    }
+    .el-input-number--mini {
+      width: 90px;
+    }
+    .el-slider__runway.show-input {
+      margin-right: 108px;
+    }
   }
 }
 </style>

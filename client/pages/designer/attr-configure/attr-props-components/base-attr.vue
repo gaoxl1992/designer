@@ -86,7 +86,7 @@
           <el-tooltip effect="dark"
                       content="满屏"
                       placement="bottom">
-            <i class="icon iconfont iconfit"></i>
+            <i class="iconfont iconfit"></i>
           </el-tooltip>
         </div>
         <div class="align-type-item clearFlex"
@@ -94,7 +94,7 @@
           <el-tooltip effect="dark"
                       content="宽100%"
                       placement="bottom">
-            <i class="icon iconfont iconfitw"></i>
+            <i class="iconfont iconfitw"></i>
           </el-tooltip>
         </div>
         <div class="align-type-item clearFlex"
@@ -102,7 +102,7 @@
           <el-tooltip effect="dark"
                       content="高100%"
                       placement="bottom">
-            <i class="icon iconfont iconfith"></i>
+            <i class="iconfont iconfith"></i>
           </el-tooltip>
         </div>
       </div>
@@ -185,7 +185,7 @@
           <el-tooltip effect="dark"
                       content="左对齐"
                       placement="bottom">
-            <i class="icon iconfont iconalignt_l"></i>
+            <i class="iconfont iconalignt_l"></i>
           </el-tooltip>
         </div>
         <div class="align-type-item clearFlex"
@@ -193,7 +193,7 @@
           <el-tooltip effect="dark"
                       content="居中对齐"
                       placement="bottom">
-            <i class="icon iconfont iconalignt_c"></i>
+            <i class="iconfont iconalignt_c"></i>
           </el-tooltip>
         </div>
         <div class="align-type-item clearFlex"
@@ -201,7 +201,7 @@
           <el-tooltip effect="dark"
                       content="右对齐"
                       placement="bottom">
-            <i class="icon iconfont iconalignt_r"></i>
+            <i class="iconfont iconalignt_r"></i>
           </el-tooltip>
         </div>
       </div>
@@ -335,7 +335,9 @@ export default {
     }
     i {
       line-height: 1;
-      display: inline-block;
+      display: inline;
+      height: 18px;
+      width: 18px;
       padding: 6px;
       border-radius: 4px;
       background: rgba(37, 165, 137, 0.08);

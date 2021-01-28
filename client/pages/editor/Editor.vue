@@ -113,6 +113,9 @@ export default {
         height: fixedFooter.openFixed ? fixedFooter.height : 0,
         elements: []
       }
+      if (!eles || eles.length === 0) {
+        return
+      }
       for (let i = 0; i < eles.length; i++) {
         let last = eles[i - 1] || null
         let setHeight = 0
@@ -135,12 +138,14 @@ export default {
 
           // 处理富文本框高度
           if (last.elName === 'rad-editor') {
+            console.log(last)
             if (!last.innerHeight) {
               last.innerHeight = 200
             }
             const { fontSize, lineHeight } = last.commonStyle
             let titleHeight = last.title ? parseInt(fontSize) * lineHeight : 0
             clientHeight = last.innerHeight + titleHeight
+            last.innerHeight = clientHeight
           }
         }
 
@@ -154,28 +159,24 @@ export default {
             obj.height - eles[i].commonStyle.top - eles[i].commonStyle.height
           eles[i].commonStyle.top = null
           footerObj.elements.push(eles[i])
-          continue
-        }
-
-        // 处理页眉内部元素
-        if (
+        } else if (
           fixedHeader.openFixed &&
           fixedHeader.height > parseInt(tp) + eles[i].commonStyle.height
         ) {
+          // 处理页眉内部元素
           headerObj.elements.push(eles[i])
-          continue
+        } else {
+          offsetHeight += setHeight - clientHeight
+          eles[i].commonStyle.top =
+            eles[i].commonStyle.top - offsetHeight - (fixedHeader.openFixed ? fixedHeader.height : 0)
+          bodyEles.push(eles[i])
         }
-        offsetHeight += setHeight - clientHeight
-        eles[i].commonStyle.top =
-          eles[i].commonStyle.top - offsetHeight - (fixedHeader.openFixed ? fixedHeader.height : 0)
-        bodyEles.push(eles[i])
       }
 
       pageHeight =
         bodyEles[bodyEles.length - 1].commonStyle.top +
-        bodyEles[bodyEles.length - 1].commonStyle.height +
-        20 -
-        fixedHeader.height
+        bodyEles[bodyEles.length - 1].innerHeight +
+        40
 
       // 构建渲染预览页面obj
       this.pageDataTpl = JSON.parse(
