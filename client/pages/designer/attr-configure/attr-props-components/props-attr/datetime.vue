@@ -128,7 +128,7 @@ export default {
       this.tempSize = val
     },
     disabled (val) {
-      this.tempDisabled = val
+      this.editable = val
     },
     datetime (val) {
       this.tempDatetime = val

@@ -60,6 +60,7 @@ export default {
     },
     disabled (val) {
       this.tempDisabled = val
+      this.editable = !val
     },
     tempIndex (val) {
       this.$emit('update:radio', val)

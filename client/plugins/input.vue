@@ -8,7 +8,7 @@
              v-if="labelValue">{{ labelValue }}</label>
       <div class="el-form-item__content"
            :style="itemContentStyle">
-        <div v-if="pagetype !== 'preview'"
+        <div v-if="pagetype === 'designer' || (pagetype ==='editor' && !disabledValue)"
              class="el-input"
              :class="'el-input--' + size">
           <input :disabled="disabledValue || pagetype==='designer'"
@@ -58,13 +58,13 @@ export default {
     pagetype: String,
     element: {
       type: Object,
-      default: () => {}
+      default: () => { }
     }
   },
-  created() {
+  created () {
     this.inputValue = (this.element && this.element.value) || ''
   },
-  data() {
+  data () {
     return {
       inputValue: this.input,
       placeholderValue: this.placeholder,
@@ -90,25 +90,25 @@ export default {
     }
   },
   watch: {
-    input(val) {
+    input (val) {
       this.inputValue = val
     },
-    inputType(val) {
+    inputType (val) {
       this.inputTypeValue = val
     },
-    placeholder(val) {
+    placeholder (val) {
       this.placeholderValue = val
     },
-    size(val) {
+    size (val) {
       this.sizeValue = val
     },
-    label(val) {
+    label (val) {
       this.labelValue = val
     },
-    disabled(val) {
+    disabled (val) {
       this.disabledValue = val
     },
-    inputValue(val) {
+    inputValue (val) {
       this.$emit('update:value', val)
     }
   }
@@ -158,7 +158,7 @@ export default {
     font-style: inherit;
   }
   .preview-input {
-    padding-left: 10px;
+    padding-left: 0;
     text-align: left;
     text-overflow: ellipsis;
     overflow: hidden;

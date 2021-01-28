@@ -171,8 +171,9 @@ export default {
         }
       }
       if (
-        !editor.contains(event.target) &&
-        !dialog.contains(event.target) &&
+        (editor &&
+          !editor.contains(event.target)) &&
+        (dialog && !dialog.contains(event.target)) &&
         !this.inEditor
       ) {
         setTimeout(() => {

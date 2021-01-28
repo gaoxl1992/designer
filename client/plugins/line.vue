@@ -1,7 +1,6 @@
 <template>
   <div class="rad-line">
-    <div class="el-divider el-divider--horizontal"
-         :style="{ height: line + 'px', backgroundColor: tempColor }"></div>
+    <div :style="{ height: line + 'px', backgroundColor: tempColor }"></div>
   </div>
 </template>
 

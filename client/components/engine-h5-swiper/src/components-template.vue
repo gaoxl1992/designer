@@ -1,6 +1,5 @@
 <!--
- * @Description: 
- * @props: 
+ * @Description: 模版引擎
 -->
 <template>
   <div class="rad-element-wrapper"

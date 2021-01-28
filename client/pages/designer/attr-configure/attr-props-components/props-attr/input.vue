@@ -90,7 +90,7 @@ export default {
       this.tempSize = val
     },
     disabled (val) {
-      this.tempDisabled = val
+      this.editable = !val
     },
     tempInput (val) {
       this.$emit('update:input', val)

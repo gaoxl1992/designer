@@ -126,7 +126,7 @@ export default {
           // 处理表格高度
           if (last.elName === 'rad-table') {
             clientHeight = document.getElementById(`preview${i - 1}container`)
-              .clientHeight
+              .clientHeight || 0
           }
 
           // 处理富文本框高度

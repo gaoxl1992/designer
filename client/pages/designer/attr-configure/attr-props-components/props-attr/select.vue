@@ -99,6 +99,7 @@ export default {
     },
     disabled (val) {
       this.tempDisabled = val
+      this.editable = !val
     },
     tempSize (val) {
       this.$emit('update:size', val)

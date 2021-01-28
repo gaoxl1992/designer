@@ -108,7 +108,7 @@ export default {
   },
   mounted () {
     this.tableList = this.tableTpl
-    this.activeTpl = (this.element && this.element.value) || []
+    this.activeTpl = (this.element && this.element.value) || null
   },
   methods: {
     selectTableModel () {
