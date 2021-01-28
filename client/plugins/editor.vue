@@ -330,14 +330,14 @@ export default {
     // keep-alive 离开时移除
     this.removeEditor()
     document.removeEventListener('click', this.handleLeave, false)
-    if (this.element && this.element.threshold) {
+    if (this.element && this.element.threshold && window.reditor[this.element.threshold]) {
       delete window.reditor[this.element.threshold]
     }
   },
   beforeDestroy () {
     this.removeEditor()
     document.removeEventListener('click', this.handleLeave, false)
-    if (this.element && this.element.threshold) {
+    if (this.element && this.element.threshold && window.reditor[this.element.threshold]) {
       delete window.reditor[this.element.threshold]
     }
   }

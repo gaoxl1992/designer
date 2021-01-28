@@ -7,6 +7,7 @@
     </div>
     <!--预览 用于生成html-->
     <EngineH5Swiper id="header"
+                    :nopb="true"
                     style="display: none"
                     v-if="showPreview"
                     @closePreview="showPreview = false"
@@ -14,6 +15,8 @@
                     pagetype="preview">
     </EngineH5Swiper>
     <EngineH5Swiper id="body"
+                    :nopt="true"
+                    :nopb="true"
                     style="display: none"
                     v-if="showPreview"
                     @closePreview="showPreview = false"
@@ -21,6 +24,7 @@
                     pagetype="preview">
     </EngineH5Swiper>
     <EngineH5Swiper id="footer"
+                    :nopt="true"
                     style="display: none"
                     v-if="showPreview"
                     @closePreview="showPreview = false"
@@ -136,7 +140,7 @@ export default {
             }
             const { fontSize, lineHeight } = last.commonStyle
             let titleHeight = last.title ? parseInt(fontSize) * lineHeight : 0
-            clientHeight = last.innerHeight + titleHeight - 46
+            clientHeight = last.innerHeight + titleHeight
           }
         }
 

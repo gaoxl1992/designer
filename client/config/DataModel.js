@@ -75,6 +75,7 @@ let pageConfig = {
   name: '',
   pageType: 'a4',
   spCharacters: [],
+  domainList: [],
   script: '',
   customHeight: 297,
   customWidth: 210,

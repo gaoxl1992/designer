@@ -19,7 +19,7 @@ export default {
      * @param {*} pageData
      * @return {*}
      */
-    resetPage(pageData = null, spCharacters = []) {
+    resetPage(pageData = null, spCharacters = [], domainList = []) {
       this.$store.dispatch('setPageData')
       this.$store.dispatch('setActiveElementUUID', '')
       if (!pageData) {
@@ -48,6 +48,7 @@ export default {
         name,
         id,
         spCharacters: spCharacters || [],
+        domainList: domainList || [],
         fixedFooter: fixedFooter ? {
           ...fixedFooter,
           height: fixedFooter.openFixed ? fixedFooter.height / rd : 0

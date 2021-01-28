@@ -13,9 +13,12 @@
       <div class="common-attr-style">
         <el-form>
           <el-form-item label="阈值">
-            <el-input size="small"
-                      clearable
-                      v-model="activeElement.threshold"></el-input>
+            <el-autocomplete class="inline-input"
+                             size="small"
+                             v-model="activeElement.threshold"
+                             :fetch-suggestions="querySearch"
+                             placeholder="请输入内容"
+                             :trigger-on-focus="true"></el-autocomplete>
           </el-form-item>
           <el-form-item>
             <el-checkbox v-model="activeElement.hideOnPrint">打印隐藏</el-checkbox>
@@ -94,6 +97,22 @@ export default {
     }
   },
   methods: {
+    querySearch (queryString, cb) {
+      let domains = []
+      this.pageData.domainList.forEach((item) => {
+        domains.push({
+          value: item.option
+        })
+      });
+      let results = queryString ? domains.filter(this.createFilter(queryString)) : domains;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilter (queryString) {
+      return (domains) => {
+        return (domains.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+      };
+    },
     onCmCodeChange (newCode) {
       this.code = newCode
     },

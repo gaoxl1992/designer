@@ -5,7 +5,12 @@
       <div class="swiper-slide flat relative"
            style="padding: 10px"
            :style="
-          getCommonStyle({ ...pageData.commonStyle, width: pageData.width })
+          getCommonStyle({ 
+            ...pageData.commonStyle,
+            width: pageData.width,
+            paddingTop: nopt ? 0 : 10,
+            paddingBottom: nopb ? 0 : 10
+          })
         ">
         <!--页面内容区域-->
         <div class="rad-page-wrapper"
@@ -63,6 +68,14 @@ export default {
     pagetype: {
       type: String,
       default: ''
+    },
+    nopt: {
+      type: Boolean,
+      default: false
+    },
+    nopb: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
