@@ -286,7 +286,6 @@ export default {
       if (a == elements.length) {
         this.selectIdList = []
       }
-      console.log(this.selectIdList)
       this.$store.dispatch('setActiveElementsUUID', this.selectIdList)
     }
   }

@@ -16,7 +16,7 @@
          v-for="(value, key) in extent"
          :key="key">
       <p>{{ value.name }}</p>
-      <el-select v-if="values.options && values.options[0]"
+      <el-select v-if="value.options && value.options[0]"
                  v-model="value.option"
                  placeholder="请选择">
         <el-option v-for="item in value.options"

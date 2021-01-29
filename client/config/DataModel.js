@@ -36,7 +36,6 @@ let elementConfig = {
     borderColor: '',
     borderStyle: 'solid',
     borderRadius: 0,
-    boxShadow: '',
     fontSize: 20,
     fontFamily: 'Microsoft YaHei',
     fontWeight: 500,

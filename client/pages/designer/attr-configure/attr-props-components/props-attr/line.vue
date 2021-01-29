@@ -47,7 +47,6 @@ export default {
   },
   methods: {
     handleColorChange (val) {
-      console.log(val)
       this.$emit('update:lineColor', val)
     },
     handleChange (val) {

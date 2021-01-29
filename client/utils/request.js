@@ -98,7 +98,6 @@ const request = async function (opt) {
     options.baseURL = autoMatch(options.prefix);
 
     const res = await instance(options);
-    // console.log(res);
     if (!res.success && options.ifHandleError) {
       // 自定义参数，是否允许全局提示错误信息
       Toast(res.error || '请求处理失败！')

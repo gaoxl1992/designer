@@ -173,10 +173,10 @@ export default {
       if (
         (editor &&
           !editor.contains(event.target)) &&
-        (dialog && !dialog.contains(event.target)) &&
-        !this.inEditor
+        (dialog && !dialog.contains(event.target))
       ) {
         this.doc.style.zIndex = this.zIndex
+        this.showChars = false
       }
     },
     closeDialog () {
@@ -259,7 +259,7 @@ export default {
             if (this.element) {
               this.element.innerHeight = innerHeight
             }
-
+            this.innerChange()
             this.inEditor = false
           },
           afterChange: () => {

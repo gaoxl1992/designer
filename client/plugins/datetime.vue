@@ -11,7 +11,9 @@
                     :disabled="disabledValue"
                     placeholder="选择日期时间">
     </el-date-picker>
-    <div v-else>{{ previewDate }}</div>
+    <div class="rad-datatime-preview"
+         :style="{height: element.commonStyle.height + 'px', lineHeight: element.commonStyle.height + 'px'}"
+         v-else>{{ previewDate }}</div>
   </div>
 </template>
 
@@ -38,10 +40,10 @@ export default {
     pagetype: String,
     element: {
       type: Object,
-      default: () => {}
+      default: () => { }
     }
   },
-  data() {
+  data () {
     return {
       datemodel: '',
       disabledValue: this.disabled || this.pagetype === 'designer',
@@ -51,7 +53,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.datemodel = (this.element && this.element.value) || ''
     if (this.pagetype === 'preview') {
       this.previewDate = this.formatDate(
@@ -61,15 +63,18 @@ export default {
     }
   },
   watch: {
-    disabled(val) {
+    disabled (val) {
       this.disabledValue = val
     },
-    datemodel(val) {
+    datemodel (val) {
       this.$emit('update:value', val)
     }
   },
   methods: {
-    formatDate(date, fmt) {
+    formatDate (date, fmt = 'yyyy-MM-dd') {
+      if (!data) {
+        return ''
+      }
       date = new Date(date)
       let o = {
         'M+': date.getMonth() + 1, //月份
@@ -128,6 +133,9 @@ export default {
   }
   .el-input__inner {
     padding: 0;
+  }
+  .rad-datatime-preview {
+    padding-top: 4px;
   }
 }
 </style>

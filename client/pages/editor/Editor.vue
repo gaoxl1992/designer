@@ -116,19 +116,20 @@ export default {
       if (!eles || eles.length === 0) {
         return
       }
+      let clientHeight = 0
+      let inFooter = false
       for (let i = 0; i < eles.length; i++) {
         let last = eles[i - 1] || null
         let setHeight = 0
-        let clientHeight = 0
         if (last) {
           setHeight = last.commonStyle.height
-          clientHeight = last.commonStyle.height
+          clientHeight = inFooter ? clientHeight : last.commonStyle.height
           // 处理imagepicker高度
           if (last.elName === 'rad-imagepicker') {
             const { imagepicker, linepics } = last.propsValue
-            clientHeight =
-              (setHeight * Math.ceil(last.value.length / linepics)) /
-              Math.ceil(imagepicker / linepics)
+            clientHeight = last.value.length > 0 ?
+              ((setHeight * Math.ceil(last.value.length / linepics)) /
+                Math.ceil(imagepicker / linepics)) : 0
           }
           // 处理表格高度
           if (last.elName === 'rad-table') {
@@ -138,7 +139,6 @@ export default {
 
           // 处理富文本框高度
           if (last.elName === 'rad-editor') {
-            console.log(last)
             if (!last.innerHeight) {
               last.innerHeight = 200
             }
@@ -151,31 +151,36 @@ export default {
 
         // 碰到页尾内部的元素，因为元素是按top排序的，所以走到这一步，下面的元素都在页尾区域
         let tp = eles[i].commonStyle.top
+        let eleStyle = eles[i].commonStyle
         if (
           fixedFooter.openFixed &&
           fixedFooter.height > this.pageData.height - parseInt(tp)
         ) {
-          eles[i].commonStyle.bottom =
-            obj.height - eles[i].commonStyle.top - eles[i].commonStyle.height
-          eles[i].commonStyle.top = null
-          footerObj.elements.push(eles[i])
+          eleStyle.top =
+            fixedFooter.height - this.pageData.height + parseInt(tp)
+          footerObj.elements.push({
+            ...eles[i],
+            ...eleStyle
+          })
+          inFooter = true
         } else if (
           fixedHeader.openFixed &&
-          fixedHeader.height > parseInt(tp) + eles[i].commonStyle.height
+          fixedHeader.height > parseInt(tp) + eleStyle.height
         ) {
           // 处理页眉内部元素
           headerObj.elements.push(eles[i])
         } else {
+          // 主体元素处理
           offsetHeight += setHeight - clientHeight
-          eles[i].commonStyle.top =
-            eles[i].commonStyle.top - offsetHeight - (fixedHeader.openFixed ? fixedHeader.height : 0)
+          eleStyle.top =
+            eleStyle.top - offsetHeight - (fixedHeader.openFixed ? fixedHeader.height : 0)
           bodyEles.push(eles[i])
         }
       }
 
       pageHeight =
         bodyEles[bodyEles.length - 1].commonStyle.top +
-        bodyEles[bodyEles.length - 1].innerHeight +
+        clientHeight +
         40
 
       // 构建渲染预览页面obj

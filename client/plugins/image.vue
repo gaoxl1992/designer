@@ -12,7 +12,7 @@
         <i class="el-icon-picture-outline"></i>
       </div>
     </el-image>
-    <img v-else
+    <img v-else-if="imageUrl"
          style="height: 100%; width: 100%"
          :src="imageUrl" />
   </div>
@@ -39,25 +39,25 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       imageUrl: this.type ? this.file[0] : this.image
     }
   },
   watch: {
-    type(val) {
+    type (val) {
       if (val) {
         this.imageUrl = this.file[0]
       } else {
         this.imageUrl = this.image
       }
     },
-    image(val) {
+    image (val) {
       if (!this.type) {
         this.imageUrl = val
       }
     },
-    file(val) {
+    file (val) {
       if (this.type && val && val[0]) {
         this.imageUrl = val[0]
       }

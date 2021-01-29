@@ -9,7 +9,6 @@ import '@/common/styles/index.scss' // 自定义 css
 import VueClipboard from 'vue-clipboard2'
 import 'xe-utils'
 
-console.log('----')
 Vue.use(RadUI);
 Vue.use(VueClipboard)
 
