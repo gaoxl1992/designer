@@ -54,7 +54,7 @@ export default {
     }
   },
   created () {
-    this.datemodel = (this.element && this.element.value) || ''
+    this.datemodel = (this.element && this.element.value) || new Date()
     if (this.pagetype === 'preview') {
       this.previewDate = this.formatDate(
         this.datemodel,
@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     formatDate (date, fmt = 'yyyy-MM-dd') {
-      if (!data) {
+      if (!date) {
         return ''
       }
       date = new Date(date)
