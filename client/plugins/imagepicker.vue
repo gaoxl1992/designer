@@ -230,7 +230,7 @@ export default {
     margin-top: 0;
     float: left;
     .el-icon-delete {
-      color: #fff;
+      color: $white;
     }
   }
   .el-upload-list__item-actions {
@@ -241,7 +241,7 @@ export default {
     top: 0;
     cursor: default;
     text-align: center;
-    color: #fff;
+    color: $white;
     font-size: 20px;
     background-color: rgba(0, 0, 0, 0.5);
     .el-upload-list__item-delete {

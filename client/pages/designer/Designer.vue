@@ -49,6 +49,7 @@ import ControlBar from '@/components/control-bar'
 import PreviewWrapper from '@/components/preview-wrapper'
 import mixin from '@/mixins/mixin'
 import { mapState } from 'vuex'
+import '@/common/styles/index.scss'
 
 export default {
   name: 'Designer',
@@ -120,7 +121,7 @@ export default {
     flex: 1;
     overflow: auto;
     width: 0;
-    background: #cfd6e6;
+    background-color: $page-bg-deepcolor;
     position: relative;
   }
   .el-attr-edit-wrapper {

@@ -1,49 +1,69 @@
 <template>
   <div class="components-contrl-bar">
-    <el-tooltip class="item"
-                effect="dark"
-                content="撤销"
-                placement="right">
-      <div class="button-item"
-           :class="{ disabled: !canUndo }"
-           @click="editorUndo">
+    <el-tooltip
+      class="item"
+      effect="dark"
+      content="撤销"
+      placement="right"
+    >
+      <div
+        class="button-item"
+        :class="{ disabled: !canUndo }"
+        @click="editorUndo"
+      >
         <i class="icon iconfont iconundo"></i>
       </div>
     </el-tooltip>
-    <el-tooltip class="item"
-                effect="dark"
-                content="重做"
-                placement="right">
-      <div class="button-item"
-           :class="{ disabled: !canRedo }"
-           @click="editorRedo">
+    <el-tooltip
+      class="item"
+      effect="dark"
+      content="重做"
+      placement="right"
+    >
+      <div
+        class="button-item"
+        :class="{ disabled: !canRedo }"
+        @click="editorRedo"
+      >
         <i class="icon iconfont iconredo"></i>
       </div>
     </el-tooltip>
-    <el-tooltip class="item"
-                effect="dark"
-                content="预览"
-                placement="right">
-      <div class="button-item"
-           @click="showPreview">
+    <el-tooltip
+      class="item"
+      effect="dark"
+      content="预览"
+      placement="right"
+    >
+      <div
+        class="button-item"
+        @click="showPreview"
+      >
         <i class="icon iconfont iconlscreen"></i>
       </div>
     </el-tooltip>
-    <el-tooltip class="item"
-                effect="dark"
-                :content="'放大 ' + parseFloat(scaleValue * 100).toFixed(0) + '%'"
-                placement="right">
-      <span class="button-item"
-            @click="updateScale('plus')">
+    <el-tooltip
+      class="item"
+      effect="dark"
+      :content="'放大 ' + parseFloat(scaleValue * 100).toFixed(0) + '%'"
+      placement="right"
+    >
+      <span
+        class="button-item"
+        @click="updateScale('plus')"
+      >
         <i class="icon iconfont iconplus"></i>
       </span>
     </el-tooltip>
-    <el-tooltip class="item"
-                effect="dark"
-                :content="'缩小 ' + parseFloat(scaleValue * 100).toFixed(0) + '%'"
-                placement="right">
-      <span class="button-item"
-            @click="updateScale('reduce')">
+    <el-tooltip
+      class="item"
+      effect="dark"
+      :content="'缩小 ' + parseFloat(scaleValue * 100).toFixed(0) + '%'"
+      placement="right"
+    >
+      <span
+        class="button-item"
+        @click="updateScale('reduce')"
+      >
         <i class="icon iconfont icondelete"></i>
       </span>
     </el-tooltip>
@@ -120,7 +140,7 @@ export default {
     width: 38px;
     height: 38px;
     line-height: 38px;
-    background: #e4e7ee;
+    background: $page-bg-color;
     border-radius: 50%;
     box-shadow: 0px 2px 6px 0px #bdc5cd;
     cursor: pointer;
@@ -130,6 +150,7 @@ export default {
     transition: color 0.28s, transform 0.28s;
     user-select: none;
     margin-bottom: 24px;
+    color: #434343;
     &.scale-wrappper {
       width: 110px;
       margin-right: 10px;
@@ -153,10 +174,6 @@ export default {
       transform: scale(1.02);
       font-weight: bold;
     }
-    &.disabled {
-      cursor: not-allowed;
-      color: $gray !important;
-    }
     & > i {
       font-size: 18px;
       display: inline-block;
@@ -165,6 +182,10 @@ export default {
     & > p {
       font-size: 14px;
     }
+  }
+  .disabled {
+    cursor: not-allowed;
+    color: $gray !important;
   }
   .icon {
     line-height: 18px;

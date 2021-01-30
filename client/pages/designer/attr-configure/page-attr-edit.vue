@@ -1,98 +1,129 @@
 <template>
-  <el-scrollbar class="components-attr-edit">
-    <div class="attr-header">
-      <div>标题模版设置</div>
-      <div class="attr-header-desc">设置模板名称及纸张大小</div>
-    </div>
-    <div class="attr-header-line"></div>
-    <div class="attr-item-edit-wrapper top">
+  <el-scrollbar class="page-attr-edit">
+    <AreaTitle
+      title="标题模版设置"
+      desc="设置模版名称和纸张大小"
+    />
+    <div class="page-item-edit-wrapper top">
       <p class="attr-item-title">模版名称</p>
-      <el-input size="mini"
-                v-model="pageData.name"
-                placeholder=""></el-input>
+      <el-input
+        size="mini"
+        v-model="pageData.name"
+        placeholder=""
+      ></el-input>
     </div>
-    <div class="attr-item-edit-wrapper">
+    <div class="page-item-edit-wrapper">
       <p class="attr-item-title">纸张</p>
-      <el-select v-model="pageData.pageType"
-                 size="mini"
-                 @change="changePaper">
-        <el-option multiple="false"
-                   v-for="item in options"
-                   :key="item.value"
-                   :label="item.label"
-                   :value="item.value">
+      <el-select
+        v-model="pageData.pageType"
+        size="mini"
+        @change="changePaper"
+      >
+        <el-option
+          multiple="false"
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        >
         </el-option>
       </el-select>
     </div>
-    <div class="attr-item-edit-wrapper"
-         v-if="pageData.pageType === 'custom'">
+    <div
+      class="page-item-edit-wrapper"
+      v-if="pageData.pageType === 'custom'"
+    >
       <p class="attr-item-title">页面宽度（mm）</p>
-      <el-input size="small"
-                v-model="customWidth"></el-input>
+      <el-input
+        size="small"
+        v-model="customWidth"
+      ></el-input>
     </div>
-    <div class="attr-item-edit-wrapper"
-         v-if="pageData.pageType === 'custom'">
+    <div
+      class="page-item-edit-wrapper"
+      v-if="pageData.pageType === 'custom'"
+    >
       <p class="attr-item-title">页面高度（mm）</p>
-      <el-input size="small"
-                v-model="customHeight"></el-input>
+      <el-input
+        size="small"
+        v-model="customHeight"
+      ></el-input>
     </div>
-    <div class="attr-item-edit-wrapper">
+    <div class="page-item-edit-wrapper">
       <p class="attr-item-title">页数</p>
-      <el-input-number size="small"
-                       v-model="pageData.totalPages"
-                       :min="1"
-                       @change="handleChange"></el-input-number>
+      <el-input-number
+        size="small"
+        v-model="pageData.totalPages"
+        :min="1"
+        @change="handleChange"
+      ></el-input-number>
     </div>
-    <div class="attr-item-edit-wrapper">
+    <div class="page-item-edit-wrapper">
       <el-checkbox v-model="pageData.fixedHeader.openFixed">开启页眉</el-checkbox>
     </div>
-    <div class="attr-item-edit-wrapper lf-30"
-         v-if="pageData.fixedHeader.openFixed">
+    <div
+      class="page-item-edit-wrapper lf-30"
+      v-if="pageData.fixedHeader.openFixed"
+    >
       <span>页码</span>
-      <el-switch style="float: right"
-                 v-model="pageData.fixedHeader.pageNum">
+      <el-switch
+        style="float: right"
+        v-model="pageData.fixedHeader.pageNum"
+      >
       </el-switch>
     </div>
-    <div class="attr-item-edit-wrapper lf-30"
-         v-if="pageData.fixedHeader.openFixed && pageData.fixedHeader.pageNum">
+    <div
+      class="page-item-edit-wrapper lf-30"
+      v-if="pageData.fixedHeader.openFixed && pageData.fixedHeader.pageNum"
+    >
       <el-radio-group v-model="pageData.fixedHeader.page">
         <el-radio label="1">第 1 页</el-radio>
         <el-radio label="2">第 1/n 页</el-radio>
       </el-radio-group>
     </div>
-    <div class="attr-item-edit-wrapper">
+    <div class="page-item-edit-wrapper">
       <el-checkbox v-model="pageData.fixedFooter.openFixed">开启页脚</el-checkbox>
     </div>
-    <div class="attr-item-edit-wrapper lf-30"
-         v-if="pageData.fixedFooter.openFixed">
-      <span>页码</span>
-      <el-switch style="float: right"
-                 v-model="pageData.fixedFooter.pageNum">
+    <div
+      class="page-item-edit-wrapper lf-30"
+      v-if="pageData.fixedFooter.openFixed"
+    >
+      <p>页码</p>
+      <el-switch
+        size="mini"
+        style="float: right"
+        v-model="pageData.fixedFooter.pageNum"
+      >
       </el-switch>
     </div>
-    <div class="attr-item-edit-wrapper lf-30"
-         v-if="pageData.fixedFooter.openFixed && pageData.fixedFooter.pageNum">
+    <div
+      class="page-item-edit-wrapper lf-30"
+      v-if="pageData.fixedFooter.openFixed && pageData.fixedFooter.pageNum"
+    >
       <el-radio-group v-model="pageData.fixedFooter.page">
         <el-radio label="1">第 1 页</el-radio>
         <el-radio label="2">第 1/n 页</el-radio>
       </el-radio-group>
     </div>
-    <div class="attr-item-edit-wrapper">
-      <el-switch v-model="openPixel"
-                 active-text="开启辅助线"
-                 inactive-text="关闭辅助线">
-      </el-switch>
+    <div class="page-item-edit-wrapper">
+      <el-checkbox v-model="openPixel">辅助线</el-checkbox>
     </div>
-    <div class="attr-item-edit-wrapper"
-         v-if="openPixel">
+    <div
+      class="page-item-edit-wrapper"
+      v-if="openPixel"
+    >
       <p class="attr-item-title">网格密度(px)</p>
-      <el-select v-model="pixelSize"
-                 size="mini"
-                 placeholder="请选择">
-        <el-option v-for="item in pixels"
-                   :key="item"
-                   :label="item"
-                   :value="item">
+      <el-select
+        v-model="pixelSize"
+        size="mini"
+        placeholder="请选择"
+      >
+        <el-option
+          v-for="item in pixels"
+          :key="item"
+          :label="item"
+          :value="item"
+        >
         </el-option>
       </el-select>
     </div>
@@ -101,6 +132,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import AreaTitle from '@/components/area-title'
 export default {
   data () {
     return {
@@ -128,6 +160,9 @@ export default {
       pixels: [5, 10, 20, 25, 50],
       pixelSize: 20
     }
+  },
+  components: {
+    AreaTitle,
   },
   computed: {
     ...mapState({
@@ -212,38 +247,18 @@ export default {
 </script>
 
 <style lang="scss">
-.components-attr-edit {
+.page-attr-edit {
   .attr-title {
     font-weight: bold;
   }
   .top {
     padding-top: 10px;
   }
-  .attr-header {
-    font-size: 14px;
-    font-weight: 500;
-    padding: 20px 20px 10px 20px;
-    color: #161616;
-    line-height: 22px;
-    .attr-header-desc {
-      font-weight: 400;
-      color: #707070;
-      line-height: 22px;
-      padding-top: 4px;
-    }
-  }
-  .attr-header-line {
-    height: 1px;
-    width: 100%;
-    background-color: #adb1b8;
-  }
   .lf-30 {
     margin-left: 30px;
   }
-  .attr-item-edit-wrapper {
-    padding-left: 20px;
-    padding-bottom: 16px;
-    padding-right: 20px;
+  .page-item-edit-wrapper {
+    padding: 16px 20px 0 20px;
     .attr-item-title {
       height: 30px;
       line-height: 30px;
@@ -251,6 +266,8 @@ export default {
       min-width: 60px;
       font-size: 14px;
       padding-bottom: 4px;
+      color: $font-color-base;
+      font-weight: 500;
     }
     .attr-item-edit-input {
       &.col-2 {

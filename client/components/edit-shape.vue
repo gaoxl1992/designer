@@ -1,16 +1,20 @@
 <!-- 组件编辑外层拖拽，可编辑按钮，缩放改变盒子大小 -->
 <template>
-  <div class="components-edit-shape"
-       :editorId="uuid"
-       :uuid="uuid"
-       @click.stop="handleTopWrapperClick"
-       @mousedown="handleMouseDownOnElement"
-       :class="{ active: this.active }">
-    <div class="edit-shape-point"
-         v-for="item in active ? pointList : []"
-         :key="item"
-         @mousedown="handleMouseDownOnPoint(item)"
-         :style="getPointStyle(item)"></div>
+  <div
+    class="components-edit-shape"
+    :editorId="uuid"
+    :uuid="uuid"
+    @click.stop="handleTopWrapperClick"
+    @mousedown="handleMouseDownOnElement"
+    :class="{ active: this.active }"
+  >
+    <div
+      class="edit-shape-point"
+      v-for="item in active ? pointList : []"
+      :key="item"
+      @mousedown="handleMouseDownOnPoint(item)"
+      :style="getPointStyle(item)"
+    ></div>
     <slot></slot>
   </div>
 </template>
@@ -35,7 +39,7 @@ export default {
       activeElementsUUID: (state) => state.editor.activeElementsUUID
     })
   },
-  data() {
+  data () {
     return {
       // l = left, t = top, r = right, b = bottom
       pointList: ['lt', 'rt', 'lb', 'rb', 'l', 'r', 't', 'b'],
@@ -54,7 +58,7 @@ export default {
      * @param point
      * @returns {{}}
      */
-    getPointStyle(point) {
+    getPointStyle (point) {
       const pos = this.defaultStyle
       const height = pos.height
       const width = pos.width
@@ -96,7 +100,7 @@ export default {
     /**
      * 点击事件，点击后设置当前元素为选中元素
      */
-    handleTopWrapperClick(e) {
+    handleTopWrapperClick (e) {
       this.$store.dispatch('setActiveElementsUUID', [])
       e.stopPropagation()
       e.preventDefault()
@@ -105,14 +109,14 @@ export default {
      * 鼠标选中元素拖拽事件
      * @param e
      */
-    handleMouseDownOnElement(e) {
+    handleMouseDownOnElement (e) {
       // 抛出事件让父组件设置当前元素选中状态
       this.$emit('handleElementClick')
 
       this.moveProcess(e)
       return true
     },
-    moveProcess(e) {
+    moveProcess (e) {
       const pos = { ...this.defaultStyle }
       let startY = e.clientY
       let startX = e.clientX
@@ -148,7 +152,7 @@ export default {
      * @param point
      * @param downEvent
      */
-    handleMouseDownOnPoint(point) {
+    handleMouseDownOnPoint (point) {
       let downEvent = event
       // 抛出事件让父组件设置当前元素选中状态
       this.$emit('handleElementClick')
@@ -194,7 +198,7 @@ export default {
 .edit-shape-point {
   width: 10px;
   height: 10px;
-  background-color: #fff;
+  background-color: $white;
   border: 1px solid #59c7f9;
   border-radius: 10px;
   position: absolute;

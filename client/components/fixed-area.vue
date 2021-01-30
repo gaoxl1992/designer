@@ -1,9 +1,13 @@
 <template>
-  <div :class="'fixed-' + pos"
-       :style="{ height: pageData[pos === 'header' ? 'fixedHeader' : 'fixedFooter'].height + 'px' }"
-       v-if="pageData[pos === 'header' ? 'fixedHeader' : 'fixedFooter'].openFixed">
-    <div :class="'edit-shape-point-' + pos"
-         @mousedown="handleMouseDownOnPoint"> </div>
+  <div
+    :class="'fixed-' + pos"
+    :style="{ height: pageData[pos === 'header' ? 'fixedHeader' : 'fixedFooter'].height + 'px' }"
+    v-if="pageData[pos === 'header' ? 'fixedHeader' : 'fixedFooter'].openFixed"
+  >
+    <div
+      :class="'edit-shape-point-' + pos"
+      @mousedown="handleMouseDownOnPoint"
+    > </div>
     <div :class="'fixed-tip-' + pos">{{pos==='header' ? '头部': '底部'}}固定区域，编辑时不可见，打印可见</div>
   </div>
 </template>
@@ -28,7 +32,7 @@ export default {
      * @param point
      * @param downEvent
      */
-    handleMouseDownOnPoint() {
+    handleMouseDownOnPoint () {
       let downEvent = event
       downEvent.stopPropagation()
       downEvent.preventDefault()
@@ -63,7 +67,7 @@ export default {
 .edit-shape-point-header {
   width: 10px;
   height: 10px;
-  background-color: #fff;
+  background-color: $white;
   border: 1px solid #59c7f9;
   border-radius: 10px;
   position: absolute;
@@ -108,7 +112,7 @@ export default {
   font-size: 10px;
   z-index: 1000;
   left: calc(50% + 10px);
-  background-color: #e4e7ee;
+  background-color: $page-bg-color;
   padding: 0 5px;
   opacity: 0.8;
   color: #59c7f9;

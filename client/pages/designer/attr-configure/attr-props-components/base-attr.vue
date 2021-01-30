@@ -4,206 +4,268 @@
     <p class="attr-title">字体</p>
     <div class="attr-item-edit-wrapper">
       <div class="attr-item-edit-input sel-width">
-        <el-select size="mini"
-                   v-model="activeElement.commonStyle.fontFamily"
-                   placeholder="请选择"
-                   @change="throttleAddHistory">
-          <el-option v-for="item in fontFamilyList"
-                     :key="item.value"
-                     :label="item.label"
-                     :value="item.value">
+        <el-select
+          size="mini"
+          v-model="activeElement.commonStyle.fontFamily"
+          placeholder="请选择"
+          @change="throttleAddHistory"
+        >
+          <el-option
+            v-for="item in fontFamilyList"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
           </el-option>
         </el-select>
         <div class="attr-item-edit-input-des">字体</div>
       </div>
       <div class="ml attr-item-edit-input">
-        <el-input-number size="mini"
-                         @change="throttleAddHistory"
-                         v-model="activeElement.commonStyle.fontSize"
-                         controls-position="right"
-                         :min="0" />
+        <el-input-number
+          size="mini"
+          @change="throttleAddHistory"
+          v-model="activeElement.commonStyle.fontSize"
+          controls-position="right"
+          :min="0"
+        />
         <div class="attr-item-edit-input-des">字号</div>
       </div>
       <div class="ml attr-item-edit-input">
-        <el-input-number size="mini"
-                         @change="throttleAddHistory"
-                         v-model="activeElement.commonStyle.fontWeight"
-                         controls-position="right"
-                         :min="300"
-                         :step="100"
-                         :max="900" />
+        <el-input-number
+          size="mini"
+          @change="throttleAddHistory"
+          v-model="activeElement.commonStyle.fontWeight"
+          controls-position="right"
+          :min="300"
+          :step="100"
+          :max="900"
+        />
         <div class="attr-item-edit-input-des">粗细</div>
       </div>
       <div class="ml attr-item-edit-input">
-        <el-color-picker size="mini"
-                         @change="throttleAddHistory"
-                         v-model="activeElement.commonStyle.color"></el-color-picker>
+        <el-color-picker
+          size="mini"
+          @change="throttleAddHistory"
+          v-model="activeElement.commonStyle.color"
+        ></el-color-picker>
       </div>
       <div class="ml attr-item-edit-input">
-        <el-checkbox v-model="activeElement.commonStyle.fontStyle"
-                     @change="throttleAddHistory">
+        <el-checkbox
+          v-model="activeElement.commonStyle.fontStyle"
+          @change="throttleAddHistory"
+        >
           <span class="ita">A</span>
         </el-checkbox>
-      </div>
-    </div>
-    <p class="attr-title">快捷定位</p>
-    <div class="attr-item-edit-wrapper marginB15">
-      <div class="sizeAndPosition-wrapper">
-        <div class="align-type-item"
-             v-for="item in alignTypeList"
-             :key="item.type"
-             @click="changeAlignType(item.type)">
-          <el-tooltip effect="dark"
-                      :content="item.title"
-                      placement="bottom">
-            <i :class="[item.icon]"></i>
-          </el-tooltip>
-        </div>
-      </div>
-    </div>
-    <p class="attr-title">尺寸</p>
-    <div class="attr-item-edit-wrapper">
-      <div class="attr-item-edit-input">
-        <el-input-number size="mini"
-                         v-model="activeElement.commonStyle.width"
-                         controls-position="right"
-                         :min="0" />
-        <div class="attr-item-edit-input-des">宽度</div>
-      </div>
-      <div class="col-2 attr-item-edit-input">
-        <el-input-number size="mini"
-                         v-model="activeElement.commonStyle.height"
-                         controls-position="right"
-                         :min="0" />
-        <div class="attr-item-edit-input-des">高度</div>
-      </div>
-    </div>
-    <p class="attr-title">铺满：</p>
-    <div class="attr-item-edit-wrapper">
-      <div class="sizeAndPosition-wrapper">
-        <div class="align-type-item clearFlex"
-             @click="handleResizeClick('wh')">
-          <el-tooltip effect="dark"
-                      content="满屏"
-                      placement="bottom">
-            <i class="iconfont iconfit"></i>
-          </el-tooltip>
-        </div>
-        <div class="align-type-item clearFlex"
-             @click="handleResizeClick('w')">
-          <el-tooltip effect="dark"
-                      content="宽100%"
-                      placement="bottom">
-            <i class="iconfont iconfitw"></i>
-          </el-tooltip>
-        </div>
-        <div class="align-type-item clearFlex"
-             @click="handleResizeClick('h')">
-          <el-tooltip effect="dark"
-                      content="高100%"
-                      placement="bottom">
-            <i class="iconfont iconfith"></i>
-          </el-tooltip>
-        </div>
-      </div>
-    </div>
-    <p class="attr-title">位置：</p>
-    <div class="attr-item-edit-wrapper">
-      <div class="col-2 attr-item-edit-input">
-        <el-input-number size="mini"
-                         v-model="activeElement.commonStyle.top"
-                         controls-position="right" />
-        <div class="attr-item-edit-input-des">X</div>
-      </div>
-      <div class="col-2 attr-item-edit-input">
-        <el-input-number size="mini"
-                         v-model="activeElement.commonStyle.left"
-                         controls-position="right" />
-        <div class="attr-item-edit-input-des">Y</div>
-      </div>
-    </div>
-    <p class="attr-title">旋转：</p>
-    <div class="attr-item-edit-wrapper">
-      <div class="col-1 attr-item-edit-input">
-        <el-slider v-model="activeElement.commonStyle.rotate"
-                   @change="throttleAddHistory"
-                   show-input
-                   :min="-180"
-                   :max="180"
-                   :marks="{ 0: '', 90: '', '-90': '' }"
-                   input-size="mini"></el-slider>
       </div>
     </div>
     <!--边框-->
     <p class="attr-title">边框：</p>
     <div class="attr-item-edit-wrapper">
       <div class="attr-item-edit-input">
-        <el-input-number size="mini"
-                         v-model="activeElement.commonStyle.borderWidth"
-                         @change="throttleAddHistory"
-                         controls-position="right"
-                         :min="0" />
+        <el-input-number
+          size="mini"
+          v-model="activeElement.commonStyle.borderWidth"
+          @change="throttleAddHistory"
+          controls-position="right"
+          :min="0"
+        />
         <div class="attr-item-edit-input-des">尺寸</div>
       </div>
       <div class="attr-item-edit-input sel-width ml">
-        <el-select v-model="activeElement.commonStyle.borderStyle"
-                   @change="throttleAddHistory"
-                   size="mini">
-          <el-option v-for="item in borderStyleList"
-                     :key="item.value"
-                     :label="item.label"
-                     :value="item.value" />
+        <el-select
+          v-model="activeElement.commonStyle.borderStyle"
+          @change="throttleAddHistory"
+          size="mini"
+        >
+          <el-option
+            v-for="item in borderStyleList"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
         </el-select>
         <div class="attr-item-edit-input-des">样式</div>
       </div>
       <div class="attr-item-edit-input ml">
-        <el-input-number size="mini"
-                         @change="throttleAddHistory"
-                         v-model="activeElement.commonStyle.borderRadius"
-                         controls-position="right"
-                         :min="0" />
+        <el-input-number
+          size="mini"
+          @change="throttleAddHistory"
+          v-model="activeElement.commonStyle.borderRadius"
+          controls-position="right"
+          :min="0"
+        />
         <div class="attr-item-edit-input-des">圆弧</div>
       </div>
       <div class="attr-item-edit-input ml">
-        <el-color-picker size="mini"
-                         @change="throttleAddHistory"
-                         v-model="activeElement.commonStyle.borderColor"></el-color-picker>
+        <el-color-picker
+          size="mini"
+          @change="throttleAddHistory"
+          v-model="activeElement.commonStyle.borderColor"
+        ></el-color-picker>
         <div class="attr-item-edit-input-des">颜色</div>
       </div>
       <div class="attr-item-edit-input ml">
-        <el-color-picker size="mini"
-                         @change="throttleAddHistory"
-                         v-model="activeElement.commonStyle.backgroundColor"></el-color-picker>
+        <el-color-picker
+          size="mini"
+          @change="throttleAddHistory"
+          v-model="activeElement.commonStyle.backgroundColor"
+        ></el-color-picker>
         <div class="attr-item-edit-input-des">背景色</div>
+      </div>
+    </div>
+    <p class="attr-title">位置：</p>
+    <div class="attr-item-edit-wrapper">
+      <div class="col-2 attr-item-edit-input">
+        <el-input-number
+          size="mini"
+          v-model="activeElement.commonStyle.top"
+          controls-position="right"
+        />
+        <div class="attr-item-edit-input-des">X</div>
+      </div>
+      <div class="col-2 attr-item-edit-input">
+        <el-input-number
+          size="mini"
+          v-model="activeElement.commonStyle.left"
+          controls-position="right"
+        />
+        <div class="attr-item-edit-input-des">Y</div>
+      </div>
+    </div>
+    <p class="attr-title">尺寸</p>
+    <div class="attr-item-edit-wrapper">
+      <div class="attr-item-edit-input">
+        <el-input-number
+          size="mini"
+          v-model="activeElement.commonStyle.width"
+          controls-position="right"
+          :min="0"
+        />
+        <div class="attr-item-edit-input-des">宽度</div>
+      </div>
+      <div class="col-2 attr-item-edit-input">
+        <el-input-number
+          size="mini"
+          v-model="activeElement.commonStyle.height"
+          controls-position="right"
+          :min="0"
+        />
+        <div class="attr-item-edit-input-des">高度</div>
+      </div>
+    </div>
+    <p class="attr-title">快捷定位</p>
+    <div class="attr-item-edit-wrapper marginB15">
+      <div class="sizeAndPosition-wrapper">
+        <div
+          class="align-type-item"
+          v-for="item in alignTypeList"
+          :key="item.type"
+          @click="changeAlignType(item.type)"
+        >
+          <el-tooltip
+            effect="dark"
+            :content="item.title"
+            placement="bottom"
+          >
+            <i :class="[item.icon]"></i>
+          </el-tooltip>
+        </div>
       </div>
     </div>
     <p class="attr-title">对齐方式：</p>
     <div class="attr-item-edit-wrapper">
       <div class="sizeAndPosition-wrapper">
-        <div class="align-type-item clearFlex"
-             @click="handleTextAlignClick('left')">
-          <el-tooltip effect="dark"
-                      content="左对齐"
-                      placement="bottom">
+        <div
+          class="align-type-item clearFlex"
+          @click="handleTextAlignClick('left')"
+        >
+          <el-tooltip
+            effect="dark"
+            content="左对齐"
+            placement="bottom"
+          >
             <i class="iconfont iconalignt_l"></i>
           </el-tooltip>
         </div>
-        <div class="align-type-item clearFlex"
-             @click="handleTextAlignClick('center')">
-          <el-tooltip effect="dark"
-                      content="居中对齐"
-                      placement="bottom">
+        <div
+          class="align-type-item clearFlex"
+          @click="handleTextAlignClick('center')"
+        >
+          <el-tooltip
+            effect="dark"
+            content="居中对齐"
+            placement="bottom"
+          >
             <i class="iconfont iconalignt_c"></i>
           </el-tooltip>
         </div>
-        <div class="align-type-item clearFlex"
-             @click="handleTextAlignClick('right')">
-          <el-tooltip effect="dark"
-                      content="右对齐"
-                      placement="bottom">
+        <div
+          class="align-type-item clearFlex"
+          @click="handleTextAlignClick('right')"
+        >
+          <el-tooltip
+            effect="dark"
+            content="右对齐"
+            placement="bottom"
+          >
             <i class="iconfont iconalignt_r"></i>
           </el-tooltip>
         </div>
+      </div>
+    </div>
+    <p class="attr-title">铺满：</p>
+    <div class="attr-item-edit-wrapper">
+      <div class="sizeAndPosition-wrapper">
+        <div
+          class="align-type-item clearFlex"
+          @click="handleResizeClick('wh')"
+        >
+          <el-tooltip
+            effect="dark"
+            content="满屏"
+            placement="bottom"
+          >
+            <i class="iconfont iconfit"></i>
+          </el-tooltip>
+        </div>
+        <div
+          class="align-type-item clearFlex"
+          @click="handleResizeClick('w')"
+        >
+          <el-tooltip
+            effect="dark"
+            content="宽100%"
+            placement="bottom"
+          >
+            <i class="iconfont iconfitw"></i>
+          </el-tooltip>
+        </div>
+        <div
+          class="align-type-item clearFlex"
+          @click="handleResizeClick('h')"
+        >
+          <el-tooltip
+            effect="dark"
+            content="高100%"
+            placement="bottom"
+          >
+            <i class="iconfont iconfith"></i>
+          </el-tooltip>
+        </div>
+      </div>
+    </div>
+    <p class="attr-title">旋转：</p>
+    <div class="attr-item-edit-wrapper">
+      <div class="col-1 attr-item-edit-input">
+        <el-slider
+          v-model="activeElement.commonStyle.rotate"
+          @change="throttleAddHistory"
+          show-input
+          :min="-180"
+          :max="180"
+          :marks="{ 0: '', 90: '', '-90': '' }"
+          input-size="mini"
+        ></el-slider>
       </div>
     </div>
   </div>
@@ -360,7 +422,7 @@ export default {
       text-align: left;
       min-width: 78px;
       font-size: 14px;
-      color: #161616;
+      color: $font-color-base;
     }
     .sel-width {
       min-width: 95px;
@@ -398,8 +460,8 @@ export default {
   }
   .attr-title {
     font-size: 14px;
-    font-weight: inherit;
-    color: inherit;
+    font-weight: 500;
+    color: $font-color-base;
     padding: 10px 0;
   }
   .attr-item-edit-wrapper {

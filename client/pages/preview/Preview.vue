@@ -3,15 +3,22 @@
 -->
 <template>
   <div class="editor-preview">
-    <div style="position: relative;"
-         v-html="tplStr.PROP_HEADER_HTML"></div>
-    <div style="position: relative;"
-         v-html="tplStr.PROP_PAGE_HTML"></div>
-    <div style="position: relative;"
-         v-html="tplStr.PROP_FOOTER_HTML"></div>
+    <div
+      style="position: relative;"
+      v-html="tplStr.PROP_HEADER_HTML"
+    ></div>
+    <div
+      style="position: relative;"
+      v-html="tplStr.PROP_PAGE_HTML"
+    ></div>
+    <div
+      style="position: relative;"
+      v-html="tplStr.PROP_FOOTER_HTML"
+    ></div>
   </div>
 </template>
 <script>
+import '@/common/styles/index.scss'
 export default {
   name: 'Preview',
   componentName: 'Preview',
@@ -29,6 +36,6 @@ export default {
   width: fit-content;
   height: 100%;
   margin: 0 auto;
-  background: #fff;
+  background: $white;
 }
 </style>

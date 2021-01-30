@@ -1,11 +1,12 @@
 <template>
-  <el-scrollbar class="components-attr-edit"
-                v-if="activeElement">
-    <div class="attr-header">
-      <div>{{ activeElement.title }}</div>
-      <div class="attr-header-desc">可修改内容，设置显示效果</div>
-    </div>
-    <div class="attr-header-line"></div>
+  <el-scrollbar
+    class="components-attr-edit"
+    v-if="activeElement"
+  >
+    <AreaTitle
+      :title="activeElement.title"
+      desc="可修改内容，设置显示效果"
+    />
     <div class="attr-edit-inner">
       <div class="props-attr-style">
         <propsAttr></propsAttr>
@@ -13,19 +14,23 @@
       <div class="common-attr-style">
         <el-form>
           <el-form-item label="阈值">
-            <el-autocomplete class="inline-input"
-                             size="small"
-                             v-model="activeElement.threshold"
-                             :fetch-suggestions="querySearch"
-                             placeholder="请输入内容"
-                             :trigger-on-focus="true"></el-autocomplete>
+            <el-autocomplete
+              class="inline-input"
+              size="small"
+              v-model="activeElement.threshold"
+              :fetch-suggestions="querySearch"
+              placeholder="请输入内容"
+              :trigger-on-focus="true"
+            ></el-autocomplete>
           </el-form-item>
           <el-form-item>
             <el-checkbox v-model="activeElement.hideOnPrint">打印隐藏</el-checkbox>
           </el-form-item>
           <el-form-item v-if="activeElement.threshold">
-            <el-button size="small"
-                       @click="showDialog = true">编辑事件</el-button>
+            <el-button
+              size="small"
+              @click="showDialog = true"
+            >编辑事件</el-button>
           </el-form-item>
         </el-form>
         <baseAttr></baseAttr>
@@ -34,19 +39,27 @@
     <el-dialog :visible.sync="showDialog">
       <template slot="title">编辑事件 #{{ activeElement.threshold }}</template>
       <template>
-        <codemirror class="mirror"
-                    ref="cmEditor"
-                    :value="code"
-                    :options="cmOptions"
-                    @input="onCmCodeChange" />
+        <codemirror
+          class="mirror"
+          ref="cmEditor"
+          :value="code"
+          :options="cmOptions"
+          @input="onCmCodeChange"
+        />
       </template>
-      <span slot="footer"
-            class="dialog-footer">
-        <el-button size="mini"
-                   type="primary"
-                   @click="confirmDialog">确认</el-button>
-        <el-button size="mini"
-                   @click="closeDialog">取消</el-button>
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          size="mini"
+          type="primary"
+          @click="confirmDialog"
+        >确认</el-button>
+        <el-button
+          size="mini"
+          @click="closeDialog"
+        >取消</el-button>
       </span>
     </el-dialog>
   </el-scrollbar>
@@ -58,13 +71,15 @@ import PropsAttr from './attr-props-components/props-attr/index.vue'
 import { codemirror } from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
 import { mapState, mapGetters } from 'vuex'
+import AreaTitle from '@/components/area-title'
 
 export default {
   props: {},
   components: {
     BaseAttr,
     PropsAttr,
-    codemirror
+    codemirror,
+    AreaTitle
   },
   data () {
     return {
@@ -138,11 +153,6 @@ export default {
 .attr-title {
   font-weight: bold;
 }
-
-.sizeAndPosition-wrapper {
-  display: flex;
-  width: 100%;
-}
 .common-attr-style {
   .el-form-item {
     margin-bottom: 0;
@@ -159,7 +169,7 @@ export default {
   font-size: 14px;
   font-weight: 500;
   padding: 20px 20px 10px 20px;
-  color: #161616;
+  color: $font-color-base;
   line-height: 22px;
   .attr-header-desc {
     font-weight: 400;

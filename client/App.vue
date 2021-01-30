@@ -22,7 +22,7 @@ body {
     position: relative;
     height: 100%;
     overflow: hidden;
-    background-color: #e4e7ee;
+    background-color: $page-bg-color;
   }
   td span {
     padding: 0 !important;

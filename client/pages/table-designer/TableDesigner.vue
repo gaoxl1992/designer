@@ -6,24 +6,32 @@
 <template>
   <div class="table-designer">
     <!-- 表格模版列表 -->
-    <TableTplList :tableTplList="tableTplList"
-                  @editTableTpl="editTableTpl"
-                  @deleteTableTpl="deleteTableTpl" />
+    <TableTplList
+      :tableTplList="tableTplList"
+      @editTableTpl="editTableTpl"
+      @deleteTableTpl="deleteTableTpl"
+    />
     <!-- 表格编辑器 -->
-    <Tinymce ref="editor"
-             class="table-designer-tinymce"
-             v-model="content"
-             @saveContent="save" />
+    <Tinymce
+      ref="editor"
+      class="table-designer-tinymce"
+      v-model="content"
+      @saveContent="save"
+    />
     <!-- 填写表格模版信息 -->
-    <el-dialog title="保存"
-               :visible.sync="dialogTableVisible">
-      <TableTplInfo v-if="dialogTableVisible"
-                    :bindAttrList="bindAttrList"
-                    :tplName="tplName"
-                    :editIndex="editIndex"
-                    :extent="extent"
-                    @submit="submit"
-                    @close="close" />
+    <el-dialog
+      title="保存"
+      :visible.sync="dialogTableVisible"
+    >
+      <TableTplInfo
+        v-if="dialogTableVisible"
+        :bindAttrList="bindAttrList"
+        :tplName="tplName"
+        :editIndex="editIndex"
+        :extent="extent"
+        @submit="submit"
+        @close="close"
+      />
     </el-dialog>
   </div>
 </template>
@@ -35,6 +43,7 @@ import bus from '@/utils/bus'
 import TableTplList from './tableTplList'
 import TableTplInfo from './tableTplInfo'
 import { mapState } from 'vuex'
+import '@/common/styles/index.scss'
 export default {
   name: 'TableDesigner',
   componentName: 'TableDesigner',

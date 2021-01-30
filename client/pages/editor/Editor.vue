@@ -55,6 +55,8 @@ import {
   pageStrStyle,
   pageStrStyleB
 } from './tpl-config'
+import '@/common/styles/index.scss'
+
 export default {
   name: 'Editor',
   componentName: 'Editor',
@@ -239,12 +241,12 @@ export default {
   .editor-main {
     flex: 1;
     overflow: auto;
-    background: #cfd6e6;
+    background-color: $page-bg-deepcolor;
     position: relative;
   }
   .swiper-slide {
     margin: 0 auto;
-    background: #fff;
+    background: $white;
     padding: 10px;
   }
   .el-input__inner {

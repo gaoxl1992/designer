@@ -1,20 +1,24 @@
-<!--
- * @Description: 
- * @props: 
--->
 <template>
-  <div class="page-wrapper-menu-operation menu-item-on-edit-panel"
-       :style="getMenuOptionsPositionStyle"
-       :class="{ active: activeElementUUID }">
-    <el-tooltip v-for="(item, index) in menuOptions"
-                :key="index"
-                effect="dark"
-                :content="item.title"
-                placement="right">
-      <div class="menu-item menu-item-on-edit-panel"
-           @click="handleElementCommand(item.value)">
-        <i class="menu-item-on-edit-panel"
-           :class="[item.icon]"></i>
+  <div
+    class="page-wrapper-menu-operation menu-item-on-edit-panel"
+    :style="getMenuOptionsPositionStyle"
+    :class="{ active: activeElementUUID }"
+  >
+    <el-tooltip
+      v-for="(item, index) in menuOptions"
+      :key="index"
+      effect="dark"
+      :content="item.title"
+      placement="right"
+    >
+      <div
+        class="menu-item menu-item-on-edit-panel"
+        @click="handleElementCommand(item.value)"
+      >
+        <i
+          class="menu-item-on-edit-panel"
+          :class="[item.icon]"
+        ></i>
       </div>
     </el-tooltip>
   </div>
@@ -71,22 +75,18 @@ export default {
   .menu-item {
     padding: 10px;
     cursor: pointer;
-    &.i {
-      font-size: 24px;
-      line-height: 30px;
+    .iconfont {
+      font-size: 16px;
+      line-height: 20px;
     }
     &:hover {
-      background: rgba(37, 165, 137, 0.09);
+      background: $active-bg-color;
       color: $primary;
-      &.i {
-        font-weight: bold;
-        font-size: 26px;
-      }
     }
   }
   &.active {
     display: block;
-    width: 60px;
+    width: 45px;
     opacity: 1;
   }
 }

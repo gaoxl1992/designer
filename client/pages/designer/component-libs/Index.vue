@@ -1,21 +1,19 @@
 <!-- 左侧控件区 -->
 <template>
-  <div class="components-libs-wrapper scrollbar-wrapper">
-    <ul class="scrollbar-wrapper">
+  <div class="components-libs">
+    <ul class="components-lib-cus">
       <div class="components-libs-title">
         <span>常用组件</span>
         <span class="op">
           <i
             v-if="!unableEdit"
-            class="el-icon-setting"
+            class="el-icon-setting cursor-pointer"
             slot="reference"
             @click="dialogVisible = true"
           ></i>
           <i
-            :class="{
-                'el-icon-arrow-up': !openCusComps,
-                'el-icon-arrow-down': openCusComps,
-              }"
+            :class="{ 'el-icon-arrow-up': !openCusComps, 'el-icon-arrow-down': openCusComps,}"
+            class="cursor-pointer"
             @click="handleArrow"
           ></i>
         </span>
@@ -32,12 +30,10 @@
           class="clearfix"
           v-show="openCusComps"
         >
-          <div
-            class="cus-components-libs-title"
+          <p
             v-if="item.components && item.components.length"
-          >
-            <p>{{ item.title }}</p>
-          </div>
+            class="cus-components-libs-title"
+          >{{ item.title }}</p>
           <div v-if="item.components && item.components.length">
             <div
               class="cus-components-lib-item"
@@ -50,17 +46,13 @@
           </div>
         </li>
       </template>
-      <el-divider></el-divider>
     </ul>
-    <ul class="scrollbar-wrapper">
+    <ul class="components-lib-base">
       <li
         v-for="(item, index) in componentsList"
         :key="index"
-        class="clearfix paddingB30"
       >
-        <div class="components-libs-title">
-          <p>{{ item.title }}</p>
-        </div>
+        <p class="components-libs-title">{{ item.title }}</p>
         <div v-if="item.components && item.components.length">
           <div
             class="components-lib-item"
@@ -108,12 +100,12 @@ export default {
   created () {
     this.cusCompList = JSON.parse(JSON.stringify(this.customComps))
   },
-  watch: {
-    customComps (val) {
-      this.cusCompList = JSON.parse(JSON.stringify(val))
-    }
-  },
   methods: {
+    /**
+     * @description: 尖角状态
+     * @param {*}
+     * @return {*}
+     */
     handleArrow () {
       this.openCusComps = !this.openCusComps
     },
@@ -147,19 +139,25 @@ export default {
       }
       return props
     }
-  }
+  },
+  watch: {
+    customComps (val) {
+      this.cusCompList = JSON.parse(JSON.stringify(val))
+    }
+  },
 }
 </script>
 
 <style lang="scss">
-.components-libs-wrapper {
+.components-libs {
   user-select: none;
   height: 100%;
+  width: 260px;
   position: relative;
   font-size: 14px;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
-  color: #161616;
+  color: $font-color-base;
   overflow: auto;
   ul {
     padding: 20px;
@@ -193,12 +191,12 @@ export default {
 
   .components-lib-item,
   .cus-components-lib-item {
-    color: #161616;
+    color: $font-color-base;
     text-align: center;
     background: transparent;
     width: calc(50% - 10px);
     float: left;
-    border: 1px solid #cbced4;
+    border: 1px solid $border-color;
     font-size: 12px;
     cursor: pointer;
     transition: All 0.3s ease-in-out;
@@ -206,10 +204,10 @@ export default {
     line-height: 32px;
     margin-bottom: 10px;
     border-radius: 4px;
-    background: #e4e7ee;
+    background: $page-bg-color;
     font-weight: 400;
     &:hover {
-      border: 1px solid #0a68b3;
+      border: 1px solid $border-color-active;
       color: $primary;
     }
     .lib-item-title {
@@ -232,18 +230,24 @@ export default {
     &:hover {
       border: transparent;
       color: $primary;
+      background-color: $active-bg-color;
     }
-  }
-  .el-divider--horizontal {
-    margin: 0;
-    margin-top: 16px;
   }
   .components-lib-item:nth-of-type(odd) {
     margin-right: 16px;
   }
-  .scrollbar-wrapper ul {
-    padding-top: 16px;
-    padding-bottom: 0;
+  .components-lib-cus {
+    position: relative;
+    &::after {
+      height: 1px;
+      width: 100%;
+      background-color: $line-color;
+      content: ' ';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      width: 220px;
+    }
   }
 }
 </style>

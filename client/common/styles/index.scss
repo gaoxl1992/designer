@@ -224,9 +224,11 @@ img {
 .success {
   color: $success;
 }
-.bg-white{
+
+.bg-white {
   background-color: white;
 }
+
 .bg-gray {
   background: $gray;
 }
@@ -250,11 +252,6 @@ img {
 .link {
   color: #337ab7;
   cursor: pointer;
-}
-
-// 背景渐变
-.bg-color-gradient {
-  background: $color-gradient;
 }
 
 /*=================================================================
@@ -531,7 +528,7 @@ img {
   鼠标样式
   =================================================================*/
 
-.cursor-pointer {
+.cursor-pointer, .iconfont {
   cursor: pointer;
 }
 
@@ -633,11 +630,6 @@ img {
   padding: 20px 0;
 }
 
-
-// 背景渐变
-.bg-color-gradient {
-  background: $color-gradient;
-}
 .scrollbar-wrapper .el-scrollbar__wrap {
   overflow-x: auto;
 }
@@ -647,7 +639,8 @@ img {
 .page-content {
   padding: $content-both-sides-padding;
 }
-.layout-container{
+
+.layout-container {
   padding-left: 16px;
   padding-right: 16px;
   margin-left: auto;
@@ -656,25 +649,29 @@ img {
 }
 
 
-.scroll-wrapper{
-  ::-webkit-scrollbar-track-piece{
-    background-color:#fff;
-    -webkit-border-radius:3px
+.scroll-wrapper {
+  ::-webkit-scrollbar-track-piece {
+    background-color: $white;
+    -webkit-border-radius: 3px
   }
-  ::-webkit-scrollbar{
-    width:12px;height:10px
+
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 10px
   }
-  ::-webkit-scrollbar-thumb{
-    height:30px;
-    background-color:#999;
-    -webkit-border-radius:7px;
-    outline:2px solid #fff;
-    outline-offset:-2px;
-    border:2px solid #fff
+
+  ::-webkit-scrollbar-thumb {
+    height: 30px;
+    background-color: #999;
+    -webkit-border-radius: 7px;
+    outline: 2px solid $white;
+    outline-offset: -2px;
+    border: 2px solid $white;
   }
-  ::-webkit-scrollbar-thumb:hover{
-    height:30px;
-    background-color:#9f9f9f;
-    -webkit-border-radius:8px
+
+  ::-webkit-scrollbar-thumb:hover {
+    height: 30px;
+    background-color: #9f9f9f;
+    -webkit-border-radius: 8px
   }
 }

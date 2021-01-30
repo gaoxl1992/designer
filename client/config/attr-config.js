@@ -171,7 +171,7 @@ const menuOptions = [{
   },
   {
     title: '图层置底',
-    icon: 'iconfont iconup_btm',
+    icon: 'iconfont icondown_btm',
     value: 'layerBottom',
   },
 ]

@@ -6,7 +6,7 @@
   >
     <div class="editor-pane-inner">
       <div
-        class="editor-main"
+        class="editor-pane-main"
         :style="{
           transform: 'scale(' + scale + ')',
           width: pageData.width + 'px',
@@ -45,7 +45,6 @@
               })
             "
           >
-
             <!-- 组件 -->
             <component
               class="element-on-edit-pane"
@@ -64,7 +63,7 @@
         <FixedArea pos="header"></FixedArea>
         <!-- 页脚 -->
         <FixedArea pos="footer"></FixedArea>
-        <div class="page-wrapper-mask">
+        <!-- <div class="page-wrapper-mask">
           <div
             class="page-de"
             :class="{ 'page-line': item !== 1 }"
@@ -72,7 +71,7 @@
             v-for="item in +pageData.totalPages"
             :key="item"
           ></div>
-        </div>
+        </div> -->
       </div>
       <!-- 快捷操作区 -->
       <QuickOp v-if="activeElementUUID && (!activeElementsUUID || !activeElementsUUID[0])"></QuickOp>
@@ -313,14 +312,15 @@ export default {
   overflow: auto;
   height: 100%;
   width: 100%;
-  border: 1px solid #ccc;
+  border: 1px solid $white;
   border-width: 0 1px;
   background-position: 0 0, 13px 13px;
   background-size: 26px 26px;
+  background-color: $page-bg-deepcolor;
   .rectangular {
     background-color: rgba(235, 239, 243, 0.45);
     position: fixed;
-    border: 1px solid #cbced4;
+    border: 1px solid $border-color;
     z-index: 1001;
   }
   .editor-pane-inner {
@@ -329,16 +329,15 @@ export default {
     margin: 0 auto;
     margin-bottom: 50px;
   }
-  .editor-main {
+  .editor-pane-main {
     overflow: hidden !important;
     border-radius: 3px;
     box-shadow: 0 3px 10px #dae1ed;
     border: 1px dashed #0a68b3;
-    margin: 0 auto;
+    margin: 20px auto;
     position: relative;
-    background: #e4e7ee;
+    background: $page-bg-color;
     transform-origin: center top;
-    margin-bottom: 20px;
     min-width: 700px;
   }
   .page-preview-wrapper {

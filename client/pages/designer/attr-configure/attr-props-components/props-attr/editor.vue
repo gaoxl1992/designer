@@ -152,7 +152,7 @@ export default {
     text-align: left;
     min-width: 78px;
     font-size: 14px;
-    color: #161616;
+    color: $font-color-base;
   }
   .sel-width {
     min-width: 95px;

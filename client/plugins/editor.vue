@@ -435,7 +435,7 @@ export default {
     max-height: 252px;
     font-size: 13px;
     color: #131313;
-    background: #e4e7ee;
+    background: $page-bg-color;
     box-shadow: 0px -2px 4px 0px #c8ced4;
     padding: 4px;
   }
@@ -463,16 +463,16 @@ export default {
       padding: 4px;
       line-height: 21px;
       border-radius: 1px;
-      border: 1px solid #cbced4;
+      border: 1px solid $border-color;
       font-weight: 400;
-      color: #161616;
+      color: $font-color-base;
       margin-top: 5px;
       text-overflow: ellipsis;
       overflow: hidden;
       word-break: keep-all;
       &:hover {
         background: #b8cde2;
-        border-color: #cbced4;
+        border-color: $border-color;
       }
     }
   }
@@ -499,7 +499,7 @@ export default {
     line-height: 13px;
     .title {
       font-weight: 500;
-      color: #161616;
+      color: $font-color-base;
       font-size: 14px;
     }
     .tip {
