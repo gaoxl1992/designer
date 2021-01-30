@@ -1,34 +1,41 @@
 <template>
-  <div class="editor-pane"
-       @click="handleClickCanvas"
-       ref="editorPane">
+  <div
+    class="editor-pane"
+    @click="handleClickCanvas"
+    ref="editorPane"
+  >
     <div class="editor-pane-inner">
-      <div class="editor-main"
-           :style="{
+      <div
+        class="editor-main"
+        :style="{
           transform: 'scale(' + scale + ')',
           width: pageData.width + 'px',
           height: pageData.height + 'px',
           'background-image': pageData.backgroundImage,
           'background-size': pageData.backgroundSize + 'px',
         }"
-           @mouseup="handMouseUp"
-           @mousedown.left="onmousedownClick">
-        <div class="page-preview-wrapper"
-             ref="canvas-panel"
-             id="canvas-panel"
-             :style="getCommonStyle(pageData.commonStyle)">
+        @mouseup="handMouseUp"
+        @mousedown.left="onmousedownClick"
+      >
+        <div
+          class="page-preview-wrapper"
+          ref="canvas-panel"
+          id="canvas-panel"
+          :style="getCommonStyle(pageData.commonStyle)"
+        >
           <!--页面组件列表展示-->
-          <edit-shape v-for="item in pageData.elements"
-                      :key="item.uuid"
-                      :uuid="item.uuid"
-                      :defaultStyle="item.commonStyle"
-                      @handleElementClick="handleElementClick(item.uuid)"
-                      @resize="handleElementResize"
-                      :active="
+          <edit-shape
+            v-for="item in pageData.elements"
+            :key="item.uuid"
+            :uuid="item.uuid"
+            :defaultStyle="item.commonStyle"
+            @handleElementClick="handleElementClick(item.uuid)"
+            @resize="handleElementResize"
+            :active="
               item.uuid === activeElementUUID ||
               activeElementsUUID.indexOf(item.uuid) > -1
             "
-                      :style="
+            :style="
               getCommonStyle({
                 width: item.commonStyle.width,
                 height: item.commonStyle.height,
@@ -36,16 +43,19 @@
                 top: item.commonStyle.top,
                 position: item.commonStyle.position,
               })
-            ">
+            "
+          >
 
             <!-- 组件 -->
-            <component class="element-on-edit-pane"
-                       :style="getCommonStyle({ ...item.commonStyle, top: 0, left: 0 })"
-                       :is="item.elName"
-                       :editorId="item.uuid"
-                       :id="item.uuid"
-                       pagetype="designer"
-                       v-bind="item.propsValue" />
+            <component
+              class="element-on-edit-pane"
+              :style="getCommonStyle({ ...item.commonStyle, top: 0, left: 0 })"
+              :is="item.elName"
+              :editorId="item.uuid"
+              :id="item.uuid"
+              pagetype="designer"
+              v-bind="item.propsValue"
+            />
           </edit-shape>
         </div>
         <!-- 多选区域 -->
@@ -55,11 +65,13 @@
         <!-- 页脚 -->
         <FixedArea pos="footer"></FixedArea>
         <div class="page-wrapper-mask">
-          <div class="page-de"
-               :class="{ 'page-line': item !== 1 }"
-               :style="{'height': (pageData.height / +pageData.totalPages) + 'px' }"
-               v-for="item in +pageData.totalPages"
-               :key="item"></div>
+          <div
+            class="page-de"
+            :class="{ 'page-line': item !== 1 }"
+            :style="{'height': (pageData.height / +pageData.totalPages) + 'px' }"
+            v-for="item in +pageData.totalPages"
+            :key="item"
+          ></div>
         </div>
       </div>
       <!-- 快捷操作区 -->
@@ -158,7 +170,11 @@ export default {
         this.$store.dispatch('setActiveElementUUID', '')
       }
     },
-    //鼠标左键按下方法
+    /**
+     * @description: 鼠标左键按下方法
+     * @param {*} event
+     * @return {*}
+     */
     onmousedownClick (event) {
       this.isRightClick = true
       this.start_x = event.layerX

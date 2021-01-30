@@ -1,35 +1,43 @@
 <template>
   <div class="edit-wrapper">
     <div class="editor-main">
-      <EngineH5Swiper :pageData="pageData"
-                      pagetype="editor">
+      <EngineH5Swiper
+        :pageData="pageData"
+        pagetype="editor"
+      >
       </EngineH5Swiper>
     </div>
     <!--预览 用于生成html-->
-    <EngineH5Swiper id="header"
-                    :nopb="true"
-                    style="display: none"
-                    v-if="showPreview"
-                    @closePreview="showPreview = false"
-                    :pageData="pageHeaderTpl"
-                    pagetype="preview">
+    <EngineH5Swiper
+      id="header"
+      :nopb="true"
+      style="display: none"
+      v-if="showPreview"
+      @closePreview="showPreview = false"
+      :pageData="pageHeaderTpl"
+      pagetype="preview"
+    >
     </EngineH5Swiper>
-    <EngineH5Swiper id="body"
-                    :nopt="true"
-                    :nopb="true"
-                    style="display: none"
-                    v-if="showPreview"
-                    @closePreview="showPreview = false"
-                    :pageData="pageDataTpl"
-                    pagetype="preview">
+    <EngineH5Swiper
+      id="body"
+      :nopt="true"
+      :nopb="true"
+      style="display: none"
+      v-if="showPreview"
+      @closePreview="showPreview = false"
+      :pageData="pageDataTpl"
+      pagetype="preview"
+    >
     </EngineH5Swiper>
-    <EngineH5Swiper id="footer"
-                    :nopt="true"
-                    style="display: none"
-                    v-if="showPreview"
-                    @closePreview="showPreview = false"
-                    :pageData="pageFooterTpl"
-                    pagetype="preview">
+    <EngineH5Swiper
+      id="footer"
+      :nopt="true"
+      style="display: none"
+      v-if="showPreview"
+      @closePreview="showPreview = false"
+      :pageData="pageFooterTpl"
+      pagetype="preview"
+    >
     </EngineH5Swiper>
   </div>
 </template>
@@ -244,11 +252,6 @@ export default {
   }
   .el-input__prefix {
     display: none !important;
-  }
-  .editor-page-edit-wrapper {
-    width: 260px;
-    min-width: 260px;
-    padding: 0 1px;
   }
 }
 </style>

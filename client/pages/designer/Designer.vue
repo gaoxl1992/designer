@@ -1,38 +1,41 @@
 <!--
  * @Description: 设计器主容器  控件区+画布区+属性配置区域
- * @props: 
 -->
 <template>
   <div class="designer-wrapper">
     <!--组件区域-->
-    <div class="editor-page-edit-wrapper">
-      <ComponentLibs :customComps="customComps" />
-    </div>
+    <ComponentLibs
+      class="designer-lib-wrapper"
+      :unableEdit="unableEdit"
+      :customComps="customComps"
+    />
     <!--页面编辑区域-->
     <div class="editor-main">
-      <div class="control-bar-wrapper">
-        <ControlBar :scale.sync="canvasConfig.scale"
-                    @showPreview="showPreview = true" />
-      </div>
+      <ControlBar
+        class="control-bar-wrapper"
+        :scale.sync="canvasConfig.scale"
+        @showPreview="showPreview = true"
+      />
       <EditorPan :scale.sync="canvasConfig.scale" />
     </div>
     <!--属性编辑区域-->
     <div class="el-attr-edit-wrapper scrollbar-wrapper">
       <!-- 点选单个控件 -->
-      <template v-if="activeElementUUID">
-        <AttrEdit />
-      </template>
+      <AttrEdit v-if="activeElementUUID" />
       <!-- 框选多个控件 -->
-      <template v-else-if="activeElementsUUID && activeElementsUUID.length > 1">
-        <CommonAttrEdit :uuids="activeElementsUUID" />
-      </template>
+      <CommonAttrEdit
+        v-else-if="activeElementsUUID && activeElementsUUID.length > 1"
+        :uuids="activeElementsUUID"
+      />
       <!-- 编辑纸张属性 -->
       <PageAttrEdit v-else />
     </div>
     <!--预览-->
-    <PreviewWrapper v-if="showPreview"
-                    @closePreview="showPreview = false"
-                    :pageData="pageData" />
+    <PreviewWrapper
+      v-if="showPreview"
+      @closePreview="showPreview = false"
+      :pageData="pageData"
+    />
   </div>
 </template>
 
@@ -60,18 +63,22 @@ export default {
     CommonAttrEdit
   },
   mixins: [mixin],
+  props: {
+    customComps: { // 常用组件
+      type: Array,
+      default: () => []
+    },
+    unableEdit: { // 常用组件是否可增删改
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       showPreview: false,
       canvasConfig: {
         scale: 1
       }
-    }
-  },
-  props: {
-    customComps: {
-      type: Array,
-      default: () => []
     }
   },
   computed: {
@@ -106,13 +113,8 @@ export default {
   position: relative;
   overflow-x: auto;
   overflow-y: hidden;
-  .editor-side-bar {
-    width: 55px;
-  }
-  .editor-page-edit-wrapper {
+  .designer-lib-wrapper {
     width: 260px;
-    min-width: 260px;
-    padding: 0 1px;
   }
   .editor-main {
     flex: 1;
@@ -131,14 +133,9 @@ export default {
   .control-bar-wrapper {
     position: fixed;
     right: 410px;
-    bottom: 10px;
+    bottom: 275px;
     z-index: 1000;
     width: 38px;
-  }
-  .editor-side-bar {
-    .el-tabs__item.is-active {
-      background: rgba(37, 165, 137, 0.09);
-    }
   }
   .el-attr-edit-wrapper {
     .el-tabs {
@@ -168,9 +165,6 @@ export default {
         padding-right: 16px;
       }
     }
-  }
-  .swiper-slide {
-    padding: 10px;
   }
 }
 </style>

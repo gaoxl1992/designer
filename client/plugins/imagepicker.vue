@@ -1,44 +1,59 @@
 <template>
   <div class="rad-imagepicker">
-    <div class="rad-imagepicker-inner"
-         v-if="pagetype === 'designer'">
+    <div
+      class="rad-imagepicker-inner"
+      v-if="pagetype === 'designer'"
+    >
       <div class="imagepicker-placeholder">
         <i class="el-icon-picture"></i>
         <div class="imagepicker-placeholder-text">图片占位符</div>
       </div>
     </div>
-    <div class="pic-group"
-         :style="groupStyle"
-         v-else>
-      <div :style="liStyle(idx)"
-           class="is-ready"
-           :class="{
+    <div
+      class="pic-group"
+      :style="groupStyle"
+      v-else
+    >
+      <div
+        :style="liStyle(idx)"
+        class="is-ready"
+        :class="{
           'el-upload-list__item': pagetype === 'editor',
           'el-upload-list__item_readonly': pagetype==='preview'
         }"
-           v-for="(item, idx) in fileList"
-           :key="idx"
-           @mouseover="hoverIndex = idx"
-           @mouseleave="hoverIndex = -1">
-        <div class="img-container"
-             style="height: 100%;width: 100%;">
-          <el-image :id="idx"
-                    class="el-upload-list__item-thumbnail"
-                    style="height: 100%;"
-                    :src="item.url"
-                    fit="contain"></el-image>
-          <span class="el-upload-list__item-actions"
-                v-show="hoverIndex === idx && pagetype==='editor'">
-            <span class="el-upload-list__item-delete"
-                  @click="handleRemove(idx)">
+        v-for="(item, idx) in fileList"
+        :key="idx"
+        @mouseover="hoverIndex = idx"
+        @mouseleave="hoverIndex = -1"
+      >
+        <div
+          class="img-container"
+          style="height: 100%;width: 100%;"
+        >
+          <el-image
+            :id="idx"
+            class="el-upload-list__item-thumbnail"
+            style="height: 100%;"
+            :src="item.url"
+            fit="contain"
+          ></el-image>
+          <span
+            class="el-upload-list__item-actions"
+            v-show="hoverIndex === idx && pagetype==='editor'"
+          >
+            <span
+              class="el-upload-list__item-delete"
+              @click="handleRemove(idx)"
+            >
               <i class="el-icon-delete"></i>
             </span>
           </span>
         </div>
       </div>
-      <el-upload v-if="pagetype==='editor'"
-                 v-show="fileList.length < +imagepicker"
-                 :style="{
+      <el-upload
+        v-if="pagetype==='editor'"
+        v-show="fileList.length < +imagepicker"
+        :style="{
           width:
             'calc((100% - ' +
             picDis * (linepics - 1) +
@@ -48,19 +63,22 @@
             ')',
           height: perHeight + 'px',
         }"
-                 class="upload-demo"
-                 drag
-                 list-type="picture-card"
-                 :auto-upload="false"
-                 action="#"
-                 :file-list="fileList"
-                 :show-file-list="false"
-                 :limit="imagepicker"
-                 :on-exceed="handleExceed"
-                 :on-change="handleFiles"
-                 multiple>
-        <i slot="default"
-           class="el-icon-plus"></i>
+        class="upload-demo"
+        drag
+        list-type="picture-card"
+        :auto-upload="false"
+        action="#"
+        :file-list="fileList"
+        :show-file-list="false"
+        :limit="imagepicker"
+        :on-exceed="handleExceed"
+        :on-change="handleFiles"
+        multiple
+      >
+        <i
+          slot="default"
+          class="el-icon-plus"
+        ></i>
       </el-upload>
     </div>
   </div>
@@ -89,32 +107,32 @@ export default {
     pagetype: String,
     commonStyle: {
       type: Object,
-      default: () => {}
+      default: () => { }
     },
     element: {
       type: Object,
-      default: () => {}
+      default: () => { }
     }
   },
-  data() {
+  data () {
     return {
       fileList: [],
       hoverIndex: -1,
       groupStyle: {
-        display: 'flex',
-        'flex-wrap': 'wrap',
-        'justify-content': 'flex-start'
+        display: 'table',
+        height: '100%',
+        width: '100%'
       }
     }
   },
   computed: {
-    perHeight() {
+    perHeight () {
       let rows = Math.ceil(this.imagepicker / this.linepics)
       return (
         (this.commonStyle.height - rows * this.element.propsValue.rowDis) / rows
       )
     },
-    liStyle() {
+    liStyle () {
       return function (idx) {
         return {
           width: `calc((100% -
@@ -129,14 +147,14 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.fileList = (this.element && this.element.value) || []
   },
   methods: {
-    handleRemove(idx) {
+    handleRemove (idx) {
       this.fileList.splice(idx, 1)
     },
-    handleFiles(file) {
+    handleFiles (file) {
       let reader = new FileReader()
       let _this = this
       reader.onload = function (e) {
@@ -146,12 +164,10 @@ export default {
       }
       reader.readAsDataURL(file.raw)
     },
-    handleExceed(files, fileList) {
+    handleExceed (files, fileList) {
       this.$confirm(
-        `当前限制选择 ${this.imagepicker} 个文件,本次选择了 ${
-          files.length
-        } 个文件，共选择了 ${
-          files.length + fileList.length
+        `当前限制选择 ${this.imagepicker} 个文件,本次选择了 ${files.length
+        } 个文件，共选择了 ${files.length + fileList.length
         } 个文件, 请重新选择。`,
         '提示',
         {
@@ -160,22 +176,17 @@ export default {
           showCancelButton: false,
           center: true
         }
-      ).then(() => {})
+      ).then(() => { })
     }
   },
   watch: {
-    fileList(val) {
+    fileList (val) {
       this.$emit('update:value', val)
     }
   }
 }
 </script>
 <style lang="scss">
-.pic-group {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
 .rad-imagepicker {
   height: 100%;
   width: 100%;
@@ -217,6 +228,7 @@ export default {
     align-items: center;
     display: flex;
     margin-top: 0;
+    float: left;
     .el-icon-delete {
       color: #fff;
     }
@@ -236,14 +248,19 @@ export default {
       display: block;
       font-size: 40px;
       top: calc(50% - 32px);
-      left: 10px;
+      left: 0;
       width: 100%;
     }
   }
   .el-upload-dragger {
     height: 100%;
-    display: inline-grid;
     align-items: center;
+    position: relative;
+    .el-icon-plus {
+      position: absolute;
+      top: calc(50% - 15px);
+      left: calc(50% - 15px);
+    }
   }
   .el-upload-list__item-thumbnail {
     height: 100%;

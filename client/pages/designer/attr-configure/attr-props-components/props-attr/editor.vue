@@ -2,53 +2,69 @@
  * @Description: 富文本
 -->
 <template>
-  <div class="attr-rad-editor">
+  <el-form
+    class="attr-rad-editor"
+    inline
+  >
     <el-form-item label="标题">
-      <el-input size="small"
-                clearable
-                v-model="tempLabel"></el-input>
+      <el-input
+        size="mini"
+        clearable
+        v-model="tempLabel"
+      ></el-input>
     </el-form-item>
     <el-form-item label="占位高度">
-      <el-input-number v-model="tempEditor"
-                       size="small"
-                       @change="handleChange"
-                       :min="100"></el-input-number>
+      <el-input-number
+        v-model="tempEditor"
+        size="mini"
+        @change="handleChange"
+        :min="100"
+      ></el-input-number>
       px
     </el-form-item>
-    <el-form-item>
-      <p>预设富文本样式</p>
+    <el-form-item label="预设富文本样式">
       <div class="attr-edit-wrapper">
         <div class="attr-item-edit-input sel-width">
-          <el-select size="mini"
-                     v-model="fontFamilyTemp"
-                     placeholder="请选择">
-            <el-option v-for="item in fontFamilyList"
-                       :key="item.value"
-                       :label="item.label"
-                       :value="item.value">
+          <el-select
+            size="mini"
+            v-model="fontFamilyTemp"
+            placeholder="请选择"
+          >
+            <el-option
+              v-for="item in fontFamilyList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
             </el-option>
           </el-select>
           <div class="attr-item-edit-input-des">字体</div>
         </div>
         <div class="ml attr-item-edit-input">
-          <el-input-number size="mini"
-                           v-model="fontSizeTemp"
-                           controls-position="right"
-                           :min="0" />
+          <el-input-number
+            size="mini"
+            v-model="fontSizeTemp"
+            controls-position="right"
+            :min="0"
+          />
           <div class="attr-item-edit-input-des">字号</div>
         </div>
         <div class="ml attr-item-edit-input">
-          <el-input-number size="mini"
-                           v-model="fontWeightTemp"
-                           controls-position="right"
-                           :min="300"
-                           :step="100"
-                           :max="900" />
+          <el-input-number
+            size="mini"
+            v-model="fontWeightTemp"
+            controls-position="right"
+            :min="300"
+            :step="100"
+            :max="900"
+          />
           <div class="attr-item-edit-input-des">粗细</div>
         </div>
         <div class="ml attr-item-edit-input">
-          <el-color-picker size="mini"
-                           v-model="colorTemp"></el-color-picker>
+          <el-color-picker
+            size="mini"
+            v-model="colorTemp"
+          ></el-color-picker>
         </div>
         <div class="ml attr-item-edit-input">
           <el-checkbox v-model="fontStyleTemp">
@@ -57,7 +73,7 @@
         </div>
       </div>
     </el-form-item>
-  </div>
+  </el-form>
 </template>
 
 <script>

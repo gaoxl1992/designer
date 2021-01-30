@@ -1,65 +1,90 @@
 <template>
-  <div :id="editorId + 'container'"
-       class="rad-editor">
+  <div
+    :id="editorId + 'container'"
+    class="rad-editor"
+  >
     <div class="title">{{ label }}</div>
     <!-- 设计和编辑模式 -->
-    <div v-if="pagetype!=='preview'"
-         class="rad-editor-inner"
-         :class="'rad-editor-inner-' + pagetype"
-         @click="showCharspop">
-      <div class="special-icon"
-           :style="{ bottom: editor + 40 + 'px' }"
-           v-if="pagetype === 'editor' && showChars">
+    <div
+      v-if="pagetype !== 'preview'"
+      class="rad-editor-inner"
+      :class="'rad-editor-inner-' + pagetype"
+      @click="showCharspop"
+    >
+      <div
+        class="special-icon"
+        :style="{ bottom: editor + 40 + 'px' }"
+        v-if="pagetype === 'editor' && showChars"
+      >
         <div class="flx">
           <div class="title">
-            特殊符号<span class="tip">（双击应用）</span>
-            <i class="el-icon-s-tools"
-               @click.prevent="showEditDialog"></i>
+            特殊符号
+            <span class="tip">（双击应用）</span>
+            <i
+              class="el-icon-s-tools"
+              @click.prevent="showEditDialog"
+            ></i>
           </div>
         </div>
         <ul class="charas">
-          <el-tooltip effect="dark"
-                      :content="char"
-                      placement="top-start"
-                      v-for="(char, index) in pageData.spCharacters"
-                      :key="index">
-            <li class="ellipsis"
-                @dblclick="addHtml(char)">
-              {{ char }}
-            </li>
+          <el-tooltip
+            effect="dark"
+            :content="char"
+            placement="top-start"
+            v-for="(char, index) in pageData.spCharacters"
+            :key="index"
+          >
+            <li
+              class="ellipsis"
+              @dblclick="addHtml(char)"
+            >{{ char }}</li>
           </el-tooltip>
         </ul>
       </div>
-      <textarea :id="editorId"
-                :name="'content' + editorId"
-                v-model="outContent"></textarea>
+      <textarea
+        :id="editorId"
+        :name="'content' + editorId"
+        v-model="outContent"
+      ></textarea>
     </div>
     <!-- 只读模式 -->
-    <div v-else
-         class="preview-content"
-         :style="defaultStyle"
-         v-html="outContent"></div>
+    <div
+      v-else
+      class="preview-content"
+      :style="defaultStyle"
+      v-html="outContent"
+    ></div>
 
     <!-- 管理字符和词汇 -->
-    <el-dialog title="管理字符和词汇"
-               :visible.sync="showDialog"
-               append-to-body
-               modal-append-to-body
-               :id="'wrapper-'+editorId">
+    <el-dialog
+      title="管理字符和词汇"
+      :visible.sync="showDialog"
+      append-to-body
+      modal-append-to-body
+      :id="'wrapper-' + editorId"
+    >
       <div class="mng-chars">
         <div class="mng-chars-tip">每个选项单列一行</div>
-        <el-input type="textarea"
-                  class="mng-char-input"
-                  v-model="mngCharStr"
-                  resize="none"></el-input>
+        <el-input
+          type="textarea"
+          class="mng-char-input"
+          v-model="mngCharStr"
+          resize="none"
+        ></el-input>
       </div>
-      <span slot="footer"
-            class="dialog-footer">
-        <el-button size="mini"
-                   type="primary"
-                   @click="confirmDialog">确认</el-button>
-        <el-button size="mini"
-                   @click="closeDialog">取消</el-button>
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          size="mini"
+          type="primary"
+          @click="confirmDialog"
+        >确认</el-button>
+        <el-button
+          size="mini"
+          @click="closeDialog"
+        >取消</el-button>
       </span>
     </el-dialog>
   </div>

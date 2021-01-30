@@ -1,27 +1,41 @@
 <template>
-  <el-form class="rad-input"
-           :inline="true">
-    <div class="el-form-item"
-         :style="formItemStyle">
-      <label class="el-form-item__label"
-             :class="'el-form-item__label_' + pagetype"
-             v-if="labelValue">{{ labelValue }}</label>
-      <div class="el-form-item__content"
-           :style="itemContentStyle">
-        <div v-if="pagetype === 'designer' || (pagetype ==='editor' && !disabledValue)"
-             class="el-input"
-             :class="'el-input--' + size">
-          <input :disabled="disabledValue || pagetype==='designer'"
-                 v-model="inputValue"
-                 :type="inputTypeValue"
-                 autocomplete="off"
-                 :placeholder="placeholderValue"
-                 class="el-input__inner"
-                 :class="'el-input__inner_' +  pagetype" />
+  <el-form
+    class="rad-input"
+    :inline="true"
+  >
+    <div
+      class="el-form-item"
+      :style="formItemStyle"
+    >
+      <label
+        class="el-form-item__label"
+        :class="'el-form-item__label_' + pagetype"
+        v-if="labelValue"
+      >{{ labelValue }}</label>
+      <div
+        class="el-form-item__content"
+        :style="itemContentStyle"
+      >
+        <div
+          v-if="pagetype === 'designer' || (pagetype ==='editor' && !disabledValue)"
+          class="el-input"
+          :class="'el-input--' + size"
+        >
+          <input
+            :disabled="disabledValue || pagetype==='designer'"
+            v-model="inputValue"
+            :type="inputTypeValue"
+            autocomplete="off"
+            :placeholder="placeholderValue"
+            class="el-input__inner"
+            :class="'el-input__inner_' +  pagetype"
+          />
         </div>
-        <div class="preview-input"
-             :style="previewStyle"
-             v-else>{{inputValue}}</div>
+        <div
+          class="preview-input"
+          :style="previewStyle"
+          v-else
+        >{{inputValue}}</div>
       </div>
     </div>
   </el-form>
@@ -73,7 +87,6 @@ export default {
       labelValue: this.label,
       disabledValue: this.disabled,
       formItemStyle: {
-        display: 'flex',
         width: '100%',
         'white-space': 'nowrap',
         'text-align': 'left'
@@ -84,8 +97,7 @@ export default {
         'white-space': 'nowrap'
       },
       itemContentStyle: {
-        flex: 1,
-        width: 0
+        display: 'block'
       }
     }
   },
@@ -133,20 +145,16 @@ export default {
     padding: 5px;
   }
   .el-form-item {
-    display: flex;
     width: 100%;
     white-space: nowrap;
   }
   .el-form-item__label {
     width: fit-content;
     min-width: fit-content;
+    float: left;
   }
   .el-form-item__label_preview {
     padding-right: 0;
-  }
-  .el-form-item__content {
-    flex: 1;
-    width: 0;
   }
   .el-input--small,
   .el-form-item__label,
@@ -157,8 +165,11 @@ export default {
     color: inherit !important;
     font-style: inherit;
   }
+  .el-form-item__content {
+    overflow: hidden;
+  }
   .preview-input {
-    padding-left: 0;
+    padding-left: 2px;
     text-align: left;
     text-overflow: ellipsis;
     overflow: hidden;

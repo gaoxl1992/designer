@@ -4,41 +4,52 @@
 <template>
   <div class="page-layout">
     <!-- 入口tab -->
-    <div id="page-header"
-         class="page-layout-header">
+    <div
+      id="page-header"
+      class="page-layout-header"
+    >
       <el-tabs v-model="activeName">
-        <el-tab-pane v-for="(value, key) in tabs"
-                     :key="key"
-                     :label="value"
-                     :name="key"></el-tab-pane>
+        <el-tab-pane
+          v-for="(value, key) in tabs"
+          :key="key"
+          :label="value"
+          :name="key"
+        ></el-tab-pane>
       </el-tabs>
     </div>
     <!-- 页面操作区 -->
     <div class="page-layout-ops">
       <template v-for="(value, key) in ops">
-        <div :key="key"
-             v-if="activeName === key">
-          <el-button v-for="(v, k) in value"
-                     :key="k"
-                     @click="v.clickFn"
-                     type="primary"
-                     size="mini">{{ v.label }}</el-button>
+        <div
+          :key="key"
+          v-if="activeName === key"
+        >
+          <el-button
+            v-for="(v, k) in value"
+            :key="k"
+            @click="v.clickFn"
+            type="primary"
+            size="mini"
+          >{{ v.label }}</el-button>
         </div>
       </template>
     </div>
     <!-- 页面主题 -->
     <keep-alive>
-      <component :is="activeName"
-                 :tableTplList="tpls"
-                 @saveEdit="saveTable"
-                 @deleteTableTpl="deleteTableTpl"
-                 :customComps="customComp"
-                 :tpls="tpls"
-                 @updateSpChars="updateSpChars"
-                 @saveEditor="saveEditedPage"
-                 :tplStr="pageTpl"
-                 @saveDesignerData="saveDesignerData"
-                 :ref="activeName"></component>
+      <component
+        :is="activeName"
+        :tableTplList="tpls"
+        @saveEdit="saveTable"
+        @deleteTableTpl="deleteTableTpl"
+        :customComps="customComp"
+        :tpls="tpls"
+        @updateSpChars="updateSpChars"
+        @saveEditor="saveEditedPage"
+        :tplStr="pageTpl"
+        @saveDesignerData="saveDesignerData"
+        :unableEdit="true"
+        :ref="activeName"
+      ></component>
     </keep-alive>
   </div>
 </template>
