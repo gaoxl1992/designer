@@ -1,9 +1,9 @@
 <template>
   <div class="base-attr">
-    <p class="page-title fontBold">基础样式</p>
+    <p class="page-title">基础样式</p>
     <p class="attr-title">字体</p>
     <div class="attr-item-edit-wrapper">
-      <div class="attr-item-edit-input">
+      <div class="attr-item-edit-input sel-width">
         <el-select size="mini"
                    v-model="activeElement.commonStyle.fontFamily"
                    placeholder="请选择"
@@ -16,7 +16,7 @@
         </el-select>
         <div class="attr-item-edit-input-des">字体</div>
       </div>
-      <div class="col-2 attr-item-edit-input">
+      <div class="ml attr-item-edit-input">
         <el-input-number size="mini"
                          @change="throttleAddHistory"
                          v-model="activeElement.commonStyle.fontSize"
@@ -24,7 +24,7 @@
                          :min="0" />
         <div class="attr-item-edit-input-des">字号</div>
       </div>
-      <div class="col-2 attr-item-edit-input">
+      <div class="ml attr-item-edit-input">
         <el-input-number size="mini"
                          @change="throttleAddHistory"
                          v-model="activeElement.commonStyle.fontWeight"
@@ -34,12 +34,12 @@
                          :max="900" />
         <div class="attr-item-edit-input-des">粗细</div>
       </div>
-      <div class="attr-item-edit-input">
+      <div class="ml attr-item-edit-input">
         <el-color-picker size="mini"
                          @change="throttleAddHistory"
                          v-model="activeElement.commonStyle.color"></el-color-picker>
       </div>
-      <div class="col-2 attr-item-edit-input">
+      <div class="ml attr-item-edit-input">
         <el-checkbox v-model="activeElement.commonStyle.fontStyle"
                      @change="throttleAddHistory">
           <span class="ita">A</span>
@@ -137,7 +137,7 @@
     <!--边框-->
     <p class="attr-title">边框：</p>
     <div class="attr-item-edit-wrapper">
-      <div class="col-2 attr-item-edit-input">
+      <div class="attr-item-edit-input">
         <el-input-number size="mini"
                          v-model="activeElement.commonStyle.borderWidth"
                          @change="throttleAddHistory"
@@ -145,7 +145,7 @@
                          :min="0" />
         <div class="attr-item-edit-input-des">尺寸</div>
       </div>
-      <div class="col-2 attr-item-edit-input">
+      <div class="attr-item-edit-input sel-width ml">
         <el-select v-model="activeElement.commonStyle.borderStyle"
                    @change="throttleAddHistory"
                    size="mini">
@@ -156,7 +156,7 @@
         </el-select>
         <div class="attr-item-edit-input-des">样式</div>
       </div>
-      <div class="col-2 attr-item-edit-input">
+      <div class="attr-item-edit-input ml">
         <el-input-number size="mini"
                          @change="throttleAddHistory"
                          v-model="activeElement.commonStyle.borderRadius"
@@ -164,13 +164,13 @@
                          :min="0" />
         <div class="attr-item-edit-input-des">圆弧</div>
       </div>
-      <div class="col-2 attr-item-edit-input">
+      <div class="attr-item-edit-input ml">
         <el-color-picker size="mini"
                          @change="throttleAddHistory"
                          v-model="activeElement.commonStyle.borderColor"></el-color-picker>
         <div class="attr-item-edit-input-des">颜色</div>
       </div>
-      <div class="col-2 attr-item-edit-input">
+      <div class="attr-item-edit-input ml">
         <el-color-picker size="mini"
                          @change="throttleAddHistory"
                          v-model="activeElement.commonStyle.backgroundColor"></el-color-picker>
@@ -319,6 +319,7 @@ export default {
   .page-title {
     position: relative;
     top: 0;
+    font-weight: 700;
   }
   .sizeAndPosition-wrapper {
     display: flex;
@@ -361,7 +362,14 @@ export default {
       font-size: 14px;
       color: #161616;
     }
+    .sel-width {
+      min-width: 95px;
+    }
     .attr-item-edit-input {
+      &.ml {
+        margin-left: 5px;
+        flex: 1;
+      }
       &.col-2 {
         margin-left: 10px;
       }

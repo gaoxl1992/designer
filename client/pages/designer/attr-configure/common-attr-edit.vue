@@ -8,11 +8,13 @@
     <div class="attr-item-edit-wrapper">
       <el-form>
         <el-form-item label="等分布局"
+                      size="mini"
                       v-if="formQuickOp">
           <el-input-number v-model="numb"
                            :min="1"></el-input-number>等分
         </el-form-item>
         <el-form-item :inline="true"
+                      size="mini"
                       label="混合布局(逗号分割，每行24）"
                       v-if="numb === 1">
           <el-input v-model="mixLayout"
@@ -85,7 +87,7 @@
           <el-tooltip effect="dark"
                       content="左对齐"
                       placement="bottom">
-            <i class="iconfont iconzuoduiqi1"></i>
+            <i class="iconfont iconalignt_l"></i>
           </el-tooltip>
         </div>
         <div class="align-type-item clearFlex"
@@ -93,7 +95,7 @@
           <el-tooltip effect="dark"
                       content="居中对齐"
                       placement="bottom">
-            <i class="iconfont iconjuzhongduiqi"></i>
+            <i class="iconfont iconalignt_c"></i>
           </el-tooltip>
         </div>
         <div class="align-type-item clearFlex"
@@ -101,7 +103,7 @@
           <el-tooltip effect="dark"
                       content="右对齐"
                       placement="bottom">
-            <i class="iconfont iconyouduiqi2"></i>
+            <i class="iconfont iconalignt_r"></i>
           </el-tooltip>
         </div>
       </div>
@@ -422,9 +424,10 @@ export default {
   }
   .attr-item-edit-wrapper {
     text-align: left;
-    padding: 10px 20px;
     font-weight: 500;
     .attr-item-title {
+      height: 30px;
+      line-height: 30px;
       text-align: left;
       min-width: 78px;
       font-size: 14px;

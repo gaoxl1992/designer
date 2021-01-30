@@ -93,6 +93,26 @@ export default {
     element: {
       type: Object,
       default: () => { }
+    },
+    fontStyle: {
+      type: String,
+      default: ''
+    },
+    color: {
+      type: String,
+      default: '#000000'
+    },
+    fontWeight: {
+      type: Number,
+      default: 500
+    },
+    fontSize: {
+      type: Number,
+      default: 14
+    },
+    fontFamily: {
+      type: String,
+      default: 'Microsoft YaHei'
     }
   },
   watch: {
@@ -101,6 +121,26 @@ export default {
     },
     inner (val) {
       this.$emit('update:value', val)
+    },
+    fontStyle (val) {
+      this.cssData['font-style'] = val
+      this.initEditor()
+    },
+    color (val) {
+      this.cssData['color'] = val
+      this.initEditor()
+    },
+    fontWeight (val) {
+      this.cssData['font-weight'] = val
+      this.initEditor()
+    },
+    fontSize (val) {
+      this.cssData['font-size'] = val
+      this.initEditor()
+    },
+    fontFamily (val) {
+      this.cssData['font-family'] = val
+      this.initEditor()
     }
   },
   computed: {
@@ -151,7 +191,14 @@ export default {
       doc: null,
       inEditor: false,
       showDialog: false,
-      mngCharStr: ''
+      mngCharStr: '',
+      cssData: {
+        'font-style': this.fontStyle,
+        'font-family': this.fontFamily,
+        'font-weight': this.fontWeight,
+        'font-size': this.fontSize,
+        'color': this.color
+      }
     }
   },
   methods: {
@@ -234,6 +281,7 @@ export default {
     initEditor () {
       let _this = this
       _this.removeEditor()
+      let cssData = ('body' + JSON.stringify(_this.cssData)).replace(/,/g, ';').replace(/"/g, "")
       _this.reditor = window.KindEditor.create(
         `textarea[name='content${this.editorId}']`,
         {
@@ -245,6 +293,7 @@ export default {
           resizeType: 0,
           filterMode: false,
           themeType: this.editorId,
+          cssData: cssData,
           afterFocus: () => {
             if (this.pagetype === 'editor') {
               this.inEditor = true
@@ -268,8 +317,11 @@ export default {
         }
       )
       if (_this.reditor) {
+        if (this.pagetype === 'designer') {
+          _this.reditor.html('默认样式')
+        }
         if (this.element && this.element.value) {
-          _this.reditor.fullHtml(this.element.value)
+          _this.reditor.html(this.element.value)
         }
         _this.reditor.readonly(this.pagetype !== 'editor')
         // 有阈值的富文本挂载到widnow上 供外部读写

@@ -236,7 +236,7 @@ export default {
     .table-placeholder {
       position: absolute;
       top: calc(50% - 28px);
-      left: calc(50% - 50px);
+      left: calc(50% - 80px);
       vertical-align: baseline;
       display: inline-block;
     }

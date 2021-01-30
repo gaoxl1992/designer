@@ -7,14 +7,14 @@
     <div class="attr-header-line"></div>
     <div class="attr-item-edit-wrapper top">
       <p class="attr-item-title">模版名称</p>
-      <el-input size="small"
+      <el-input size="mini"
                 v-model="pageData.name"
                 placeholder=""></el-input>
     </div>
     <div class="attr-item-edit-wrapper">
       <p class="attr-item-title">纸张</p>
       <el-select v-model="pageData.pageType"
-                 size="small"
+                 size="mini"
                  @change="changePaper">
         <el-option multiple="false"
                    v-for="item in options"
@@ -87,6 +87,7 @@
          v-if="openPixel">
       <p class="attr-item-title">网格密度(px)</p>
       <el-select v-model="pixelSize"
+                 size="mini"
                  placeholder="请选择">
         <el-option v-for="item in pixels"
                    :key="item"
@@ -101,7 +102,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       options: [
         {
@@ -135,15 +136,15 @@ export default {
     }),
     ...mapGetters(['activeElementIndex', 'activeElement'])
   },
-  created() {
+  created () {
     this.customWidth = +this.pageData.customWidth || this.customWidth
     this.customHeight = +this.pageData.customHeight || this.customHeight
   },
   methods: {
-    handleChange() {
+    handleChange () {
       this.changePaper()
     },
-    changePaper() {
+    changePaper () {
       let customWidth = this.pageData.width
       let radio
       switch (this.pageData.pageType) {
@@ -173,7 +174,7 @@ export default {
     }
   },
   watch: {
-    customWidth(val) {
+    customWidth (val) {
       this.pageData.customWidth = +val
       this.pageData.customHeight = +this.customHeight
       if (this.pageData.pageType === 'custom') {
@@ -184,7 +185,7 @@ export default {
         )
       }
     },
-    customHeight(val) {
+    customHeight (val) {
       this.pageData.customWidth = +this.customWidth
       this.pageData.customHeight = +val
       if (this.pageData.pageType === 'custom') {
@@ -195,7 +196,7 @@ export default {
         )
       }
     },
-    openPixel(val) {
+    openPixel (val) {
       let image
       if (val) {
         image =
@@ -203,7 +204,7 @@ export default {
       }
       this.$store.dispatch('updateGuideLine', image)
     },
-    pixelSize(val) {
+    pixelSize (val) {
       this.$store.dispatch('updateBackSize', val)
     }
   }
@@ -211,65 +212,69 @@ export default {
 </script>
 
 <style lang="scss">
-.attr-title {
-  font-weight: bold;
-}
-.top {
-  padding-top: 10px;
-}
-.attr-header {
-  font-size: 14px;
-  font-weight: 500;
-  padding: 20px 20px 10px 20px;
-  color: #161616;
-  line-height: 22px;
-  .attr-header-desc {
-    font-weight: 400;
-    color: #707070;
-    line-height: 22px;
-    padding-top: 4px;
+.components-attr-edit {
+  .attr-title {
+    font-weight: bold;
   }
-}
-.attr-header-line {
-  height: 1px;
-  width: 100%;
-  background-color: #adb1b8;
-}
-.lf-30 {
-  margin-left: 30px;
-}
-.attr-item-edit-wrapper {
-  padding-left: 20px;
-  padding-bottom: 16px;
-  padding-right: 20px;
-  .attr-item-title {
-    text-align: left;
-    min-width: 60px;
+  .top {
+    padding-top: 10px;
+  }
+  .attr-header {
     font-size: 14px;
-    padding-bottom: 4px;
+    font-weight: 500;
+    padding: 20px 20px 10px 20px;
+    color: #161616;
+    line-height: 22px;
+    .attr-header-desc {
+      font-weight: 400;
+      color: #707070;
+      line-height: 22px;
+      padding-top: 4px;
+    }
   }
-  .attr-item-edit-input {
-    &.col-2 {
-      width: 90px;
-      margin-left: 10px;
+  .attr-header-line {
+    height: 1px;
+    width: 100%;
+    background-color: #adb1b8;
+  }
+  .lf-30 {
+    margin-left: 30px;
+  }
+  .attr-item-edit-wrapper {
+    padding-left: 20px;
+    padding-bottom: 16px;
+    padding-right: 20px;
+    .attr-item-title {
+      height: 30px;
+      line-height: 30px;
+      text-align: left;
+      min-width: 60px;
+      font-size: 14px;
+      padding-bottom: 4px;
     }
-    &.col-1 {
-      width: 250px;
-    }
-    &.col-3 {
-      width: 60px;
-      margin-left: 10px;
-    }
-    &.col-4 {
-      width: 50px;
-      margin-left: 10px;
-    }
-    .attr-item-edit-input-des {
-      text-align: center;
-      line-height: 1;
-      margin-top: 2px;
-      font-size: 12px;
-      color: $gray;
+    .attr-item-edit-input {
+      &.col-2 {
+        width: 90px;
+        margin-left: 10px;
+      }
+      &.col-1 {
+        width: 250px;
+      }
+      &.col-3 {
+        width: 60px;
+        margin-left: 10px;
+      }
+      &.col-4 {
+        width: 50px;
+        margin-left: 10px;
+      }
+      .attr-item-edit-input-des {
+        text-align: center;
+        line-height: 1;
+        margin-top: 2px;
+        font-size: 12px;
+        color: $gray;
+      }
     }
   }
 }
