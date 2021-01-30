@@ -1,11 +1,13 @@
 <template>
   <div v-if="currentElementProps.length">
-    <div class="attr-title marginB10 fontBold">组件属性</div>
+    <div class="attr-title fontBold">组件属性</div>
     <el-form>
-      <component v-for="item in currentElementProps"
-                 :key="item"
-                 :is="'attr-rad-' + item"
-                 v-bind.sync="activeElement.propsValue" />
+      <component
+        v-for="item in currentElementProps"
+        :key="item"
+        :is="'attr-rad-' + item"
+        v-bind.sync="activeElement.propsValue"
+      />
     </el-form>
   </div>
 </template>
@@ -27,7 +29,7 @@ export default {
     /**
      * 当前选中元素需要编辑得props 列表
      */
-    currentElementProps() {
+    currentElementProps () {
       if (!this.activeElement.propsValue) {
         return []
       }
@@ -42,3 +44,8 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.el-form-item {
+  margin-top: 16px;
+}
+</style>

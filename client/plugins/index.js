@@ -14,10 +14,11 @@ import Imagepicker from './imagepicker.vue'
 import Drcode from './drcode.vue'
 import Line from './line.vue'
 import Editor from './editor.vue'
+import Rectangle from './rectangle.vue'
 
 // 所有组件列表
 const components = [
-  Text, Input, Button, Table, Radio, Checkbox, Select, Datetime, Image, Imagepicker, Drcode, Line, Editor
+  Text, Input, Button, Table, Radio, Checkbox, Select, Datetime, Image, Imagepicker, Drcode, Line, Editor, Rectangle
 ]
 
 // 定义 install 方法，接收 Vue 作为参数
@@ -54,6 +55,7 @@ export {
   Drcode,
   Line,
   Editor,
+  Rectangle,
   _register_components_object
 }
 

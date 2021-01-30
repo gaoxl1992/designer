@@ -148,42 +148,46 @@ export default {
   .el-form-item {
     margin-bottom: 0;
   }
-}
-
-.attr-title {
-  font-weight: bold;
-}
-.common-attr-style {
-  .el-form-item {
-    margin-bottom: 0;
+  .attr-title {
+    font-weight: bold;
   }
-  .el-button--default {
-    width: 100%;
+  .common-attr-style {
+    .el-form-item {
+      margin-bottom: 0;
+    }
+    .el-button--default {
+      width: 100%;
+    }
   }
-}
-.attr-edit-inner {
-  padding: 16px 20px;
-  margin-bottom: 50px;
-}
-.attr-header {
-  font-size: 14px;
-  font-weight: 500;
-  padding: 20px 20px 10px 20px;
-  color: $font-color-base;
-  line-height: 22px;
-  .attr-header-desc {
-    font-weight: 400;
-    color: #707070;
+  .attr-edit-inner {
+    padding: 16px 20px;
+    margin-bottom: 50px;
+  }
+  .attr-header {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 20px 20px 10px 20px;
+    color: $font-color-base;
     line-height: 22px;
-    padding-top: 4px;
+    .attr-header-desc {
+      font-weight: 400;
+      color: #707070;
+      line-height: 22px;
+      padding-top: 4px;
+    }
   }
-}
-.attr-header-line {
-  height: 1px;
-  width: 100%;
-  background-color: #adb1b8;
-}
-.mirror {
-  margin-top: 20px;
+  .attr-header-line {
+    height: 1px;
+    width: 100%;
+    background-color: #adb1b8;
+  }
+  .mirror {
+    margin-top: 20px;
+  }
+  .el-form-item__label {
+    font-weight: 500;
+    color: $font-color-base;
+    font-size: 14px;
+  }
 }
 </style>
