@@ -115,6 +115,15 @@ export default {
       fontFamilyTemp: this.fontFamily || 'Microsoft YaHei'
     }
   },
+  mounted () {
+    this.tempEditor = this.editor || 200
+    this.tempLabel = this.label || ''
+    this.fontStyleTemp = this.fontStyle === 'italic' ? true : false
+    this.colorTemp = this.color || '#000'
+    this.fontWeightTemp = this.fontWeight || 500
+    this.fontSizeTemp = this.fontSize || 14
+    this.fontFamilyTemp = this.fontFamily || 'Microsoft YaHei'
+  },
   watch: {
     tempLabel (val) {
       this.$emit('update:label', val)

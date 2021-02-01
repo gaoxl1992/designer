@@ -51,7 +51,7 @@
     <div
       v-else
       class="preview-content"
-      :style="defaultStyle"
+      :style="cssData"
       v-html="outContent"
     ></div>
 
@@ -181,10 +181,6 @@ export default {
   },
   data () {
     return {
-      defaultStyle: {
-        'line-height': '1.2',
-        'font-size': '14px'
-      },
       reditor: null,
       outContent: this.content,
       items: [
