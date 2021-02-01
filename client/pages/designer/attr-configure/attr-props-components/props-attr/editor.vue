@@ -132,7 +132,6 @@ export default {
       this.$emit('update:fontStyle', val ? 'italic' : 'normal')
     },
     colorTemp (val) {
-      console.log(val)
       this.$emit('update:color', val)
     },
     fontWeightTemp (val) {

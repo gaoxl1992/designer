@@ -1,5 +1,5 @@
 // 基础控件配置
-export default [{
+let eleConfig = [{
   title: '控件',
   components: [{
       elName: 'rad-text',
@@ -104,3 +104,20 @@ export default [{
     }
   ]
 }]
+
+function list2Map() {
+  let eles = {}
+  eleConfig.forEach((els) => {
+    els.components.forEach((ele) => {
+      eles[ele.elName] = ele.title
+    })
+  })
+  return eles
+}
+
+let eleMap = list2Map()
+
+export {
+  eleConfig,
+  eleMap
+}

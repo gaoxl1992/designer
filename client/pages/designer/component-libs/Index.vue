@@ -67,7 +67,7 @@
 
 <script>
 import { camelCase } from 'lodash'
-import eleConfig from '@/config/ele-config'
+import { eleConfig, eleMap } from '@/config/ele-config'
 import { _register_components_object } from '@/plugins/index'
 import CusCompsSetting from './cus-coms-setting'
 
@@ -96,7 +96,6 @@ export default {
     }
   },
   created () {
-    console.log(this.customComps)
     this.cusCompList = JSON.parse(JSON.stringify(this.customComps))
   },
   methods: {
@@ -131,6 +130,7 @@ export default {
         let props = this.getComponentProps(item.types[i])
         this.$store.dispatch('addElement', {
           elName: item.types[i],
+          title: eleMap[item.types[i]],
           threshold: item.option,
           defaultStyle: {
             left: oneEle || i === 0 ? 0 : left + 170 + 10,
@@ -148,9 +148,7 @@ export default {
      * @param item
      */
     handleClick (item) {
-      console.log(item)
       let props = this.getComponentProps(item.elName)
-      console.log(props)
       this.$store.dispatch('addElement', { ...item, needProps: props })
     },
     /**
