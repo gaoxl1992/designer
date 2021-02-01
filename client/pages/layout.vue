@@ -94,7 +94,269 @@ export default {
       attr4: 5
     }
     // 定制组件数据，首次通过mock存入localstorage，模拟数据库存储规则
-    this.customComp = JSON.parse(localStorage.getItem('customComp'))
+    this.customComp = [
+      {
+        "category": "编号",
+        "domains": [
+          {
+            "option": "studyId",
+            "name": "检查号",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "deptStudyId",
+            "name": "影像号",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "patientOutPatientId",
+            "name": "门诊号",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "patientInPatientId",
+            "name": "住院号",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "patientIdNumber",
+            "name": "身份证号",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          }
+        ]
+      },
+      {
+        "category": "基础信息",
+        "domains": [
+          {
+            "option": "patientName",
+            "name": "患者姓名",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "patientEName",
+            "name": "患者拼音姓名",
+            "types": [
+              "rad-nput"
+            ],
+            "values": null
+          },
+          {
+            "option": "patientAge",
+            "name": "年龄",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "patientAgeUnit",
+            "name": "年龄单位",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "patientSex",
+            "name": "性别",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "patientFolk",
+            "name": "民族",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "patientPhoneNumber",
+            "name": "联系电话",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "patientAddress",
+            "name": "地址",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "patientSickRoom",
+            "name": "患者病房",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "patientSickBed",
+            "name": "患者病床",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          }
+        ]
+      },
+      {
+        "category": "检查信息",
+        "domains": [
+          {
+            "option": "deviceTypeName",
+            "name": "设备类型",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "deviceName",
+            "name": "设备",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "studyDescribe",
+            "name": "检查描述",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "applyDepartment",
+            "name": "申请科室",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "clinicalInfo",
+            "name": "临床诊断",
+            "types": [
+              "rad-input"
+            ],
+            "values": null
+          },
+          {
+            "option": "reportDesc",
+            "name": "检查所见",
+            "types": [
+              "rad-editor"
+            ],
+            "values": null
+          },
+          {
+            "option": "reportDiagnose",
+            "name": "报告诊断",
+            "types": [
+              "rad-editor"
+            ],
+            "values": null
+          },
+          {
+            "option": "reportAdvice",
+            "name": "报告建议",
+            "types": [
+              "rad-editor"
+            ],
+            "values": null
+          }
+        ]
+      },
+      {
+        "category": "操作人",
+        "domains": [
+          {
+            "option": "applyDoctor",
+            "name": "申请医生",
+            "types": [
+              "rad-input",
+              "rad-image"
+            ],
+            "values": null
+          },
+          {
+            "option": "doctorId1",
+            "name": "诊断医生",
+            "types": [
+              "rad-input",
+              "rad-image"
+            ],
+            "values": null
+          },
+          {
+            "option": "doctorId2",
+            "name": "审核医生",
+            "types": [
+              "rad-input",
+              "rad-image"
+            ],
+            "values": null
+          },
+          {
+            "option": "performingPhysicianName",
+            "name": "技师",
+            "types": [
+              "rad-input",
+              "rad-image"
+            ],
+            "values": null
+          }
+        ]
+      },
+      {
+        "category": "日期时间",
+        "domains": [
+          {
+            "option": "studyTime",
+            "name": "检查时间",
+            "types": [
+              "rad-datetime"
+            ],
+            "values": null
+          },
+          {
+            "option": "reportTime",
+            "name": "报告时间",
+            "types": [
+              "rad-datetime"
+            ],
+            "values": null
+          }
+        ]
+      }
+    ];
     this.tpls = localStorage.getItem('tableTemplate')
       ? JSON.parse(localStorage.getItem('tableTemplate'))
       : []

@@ -181,9 +181,6 @@ export default {
     width: 100%;
     background-color: #adb1b8;
   }
-  .mirror {
-    margin-top: 20px;
-  }
   .el-form-item__label {
     font-weight: 500;
     color: $font-color-base;

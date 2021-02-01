@@ -30,20 +30,17 @@
           class="clearfix"
           v-show="openCusComps"
         >
-          <p
-            v-if="item.components && item.components.length"
-            class="cus-components-libs-title"
-          >{{ item.title }}</p>
-          <div v-if="item.components && item.components.length">
+          <template v-if="item.domains && item.domains.length">
+            <p class="cus-components-libs-title">{{ item.category }}</p>
             <div
               class="cus-components-lib-item"
-              v-for="(el, i) in item.components"
+              v-for="(el, i) in item.domains"
               :key="i"
-              @click="handleClick(el)"
+              @click="handleCusClick(el)"
             >
-              <p class="lib-item-title">{{ el.title }}</p>
+              <p class="lib-item-title">{{ el.name }}</p>
             </div>
-          </div>
+          </template>
         </li>
       </template>
     </ul>
@@ -94,10 +91,12 @@ export default {
       componentsList: eleConfig,
       openCusComps: true,
       dialogVisible: false,
-      cusCompList: () => []
+      cusCompList: () => [],
+      moreHeight: ['rad-image', 'rad-imagepicker', 'rad-drcode', 'rad-editor', 'rad-rectangle']
     }
   },
   created () {
+    console.log(this.customComps)
     this.cusCompList = JSON.parse(JSON.stringify(this.customComps))
   },
   methods: {
@@ -110,11 +109,48 @@ export default {
       this.openCusComps = !this.openCusComps
     },
     /**
+     * @description: 处理客户自定义组合式组件
+     * @param {*} item
+     * @return {*}
+     */
+    handleCusClick (item) {
+      let defaultStyle = {}
+      if (item.types.length === 1) {
+        defaultStyle = {
+          height: this.moreHeight.indexOf(item.types[0]) > -1 ? 200 : 40
+        }
+      } else {
+        defaultStyle = {
+          height: 40,
+          width: 170
+        }
+      }
+      for (let i = 0; i < item.types.length; i++) {
+        let left = 0
+        let oneEle = item.types.length === 1
+        let props = this.getComponentProps(item.types[i])
+        this.$store.dispatch('addElement', {
+          elName: item.types[i],
+          threshold: item.option,
+          defaultStyle: {
+            left: oneEle || i === 0 ? 0 : left + 170 + 10,
+            ...defaultStyle
+          },
+          needProps: {
+            ...props,
+            label: item.name
+          }
+        })
+      }
+    },
+    /**
      * 点击事件, 向父组件派发add-element事件，参数： 当前组件对象
      * @param item
      */
     handleClick (item) {
+      console.log(item)
       let props = this.getComponentProps(item.elName)
+      console.log(props)
       this.$store.dispatch('addElement', { ...item, needProps: props })
     },
     /**

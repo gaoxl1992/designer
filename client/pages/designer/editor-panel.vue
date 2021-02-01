@@ -235,6 +235,7 @@ export default {
       let a = 0
       for (let i = 0; i < elements.length; i++) {
         const element = elements[i]
+        console.log(element)
         let id = element.children[0].id
         let top = element.offsetTop //上边界
         let left = element.offsetLeft //左边界

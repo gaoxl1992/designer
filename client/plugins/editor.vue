@@ -50,7 +50,7 @@
     <!-- 只读模式 -->
     <div
       v-else
-      class="preview-content"
+      class="preview-conFtent"
       :style="cssData"
       v-html="outContent"
     ></div>

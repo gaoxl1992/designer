@@ -19,13 +19,6 @@ export default {
   },
   created () {
     this.text = (this.element && this.element.value) || this.text
-  },
-  data () {
-    return {
-      defaultStyle: {
-        height: 40
-      }
-    }
   }
 }
 </script>

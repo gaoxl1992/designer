@@ -1,20 +1,34 @@
 <template>
-  <div class="rad-datetime"
-       :class="'rad-datetime-'+pagetype"
-       :style="previewStyle">
-    <el-date-picker v-if="pagetype !== 'preview'"
-                    v-model="datemodel"
-                    :type="datetime"
-                    :format="format"
-                    editable
-                    :size="size"
-                    :disabled="disabledValue"
-                    placeholder="选择日期时间">
-    </el-date-picker>
-    <div class="rad-datatime-preview"
-         :style="{height: element.commonStyle.height + 'px', lineHeight: element.commonStyle.height + 'px'}"
-         v-else>{{ previewDate }}</div>
-  </div>
+  <el-form
+    class="rad-datetime"
+    :class="'rad-datetime-'+pagetype"
+    :style="previewStyle"
+    :inline="true"
+  >
+    <div class="el-form-item">
+      <label
+        class="el-form-item__label"
+        :class="'el-form-item__label_' + pagetype"
+        v-if="labelValue"
+      >{{ labelValue }}</label>
+      <el-date-picker
+        v-if="pagetype !== 'preview'"
+        v-model="datemodel"
+        :type="datetime"
+        :format="format"
+        editable
+        :size="size"
+        :disabled="disabledValue"
+        placeholder="选择日期时间"
+      >
+      </el-date-picker>
+      <div
+        class="rad-datatime-preview"
+        :style="{height: element.commonStyle.height + 'px', lineHeight: element.commonStyle.height + 'px'}"
+        v-else
+      >{{ previewDate }}</div>
+    </div>
+  </el-form>
 </template>
 
 <script>
@@ -41,6 +55,10 @@ export default {
     element: {
       type: Object,
       default: () => { }
+    },
+    label: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -50,7 +68,8 @@ export default {
       previewDate: '',
       previewStyle: {
         'text-align': 'left'
-      }
+      },
+      labelValue: this.label
     }
   },
   created () {
@@ -68,6 +87,9 @@ export default {
     },
     datemodel (val) {
       this.$emit('update:value', val)
+    },
+    label (val) {
+      this.labelValue = val
     }
   },
   methods: {
@@ -108,34 +130,53 @@ export default {
 </script>
 <style lang="scss">
 .rad-datetime {
-  .el-checkbox-group {
-    font-size: inherit;
+  .el-input {
+    height: 100%;
   }
-  .el-checkbox__label,
-  .el-checkbox__input,
-  .el-checkbox {
-    color: inherit !important;
-    font-size: inherit !important;
-    font-weight: inherit;
+  input {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
-  .el-checkbox__label {
-    vertical-align: middle;
-  }
-}
-.rad-datetime-preview {
   .el-input__inner {
     background-color: transparent;
+    border: 1px solid #adb1b8;
+  }
+  .el-input__inner_preview {
     border: none;
+    padding: 5px;
   }
-  .el-input__prefix,
-  .el-input__suffix {
-    display: none;
+  .el-form-item {
+    width: 100%;
+    white-space: nowrap;
   }
-  .el-input__inner {
-    padding: 0;
+  .el-form-item__label {
+    width: fit-content;
+    min-width: fit-content;
+    float: left;
+    line-height: 1.5;
   }
-  .rad-datatime-preview {
-    padding-top: 4px;
+  .el-form-item__label_preview {
+    padding-right: 0;
+  }
+  .el-input--small,
+  .el-form-item__label,
+  .el-form-item__content,
+  input {
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit !important;
+    font-style: inherit;
+  }
+  .el-form-item__content {
+    overflow: hidden;
+  }
+  .preview-input {
+    padding-left: 2px;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
 </style>
