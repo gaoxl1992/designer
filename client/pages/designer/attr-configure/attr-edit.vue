@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar
+  <div
     class="components-attr-edit"
     v-if="activeElement"
   >
@@ -62,7 +62,7 @@
         >取消</el-button>
       </span>
     </el-dialog>
-  </el-scrollbar>
+  </div>
 </template>
 
 <script>

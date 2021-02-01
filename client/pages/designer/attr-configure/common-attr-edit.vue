@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar class="common-attr-edit">
+  <div class="common-attr-edit">
     <AreaTitle
       title="合并编辑"
       desc="编辑后同步更新选中组件"
@@ -151,7 +151,7 @@
         </div>
       </div>
     </div>
-  </el-scrollbar>
+  </div>
 </template>
 
 <script>

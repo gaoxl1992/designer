@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar class="page-attr-edit">
+  <div class="page-attr-edit">
     <AreaTitle
       title="标题模版设置"
       desc="设置模版名称和纸张大小"
@@ -127,7 +127,7 @@
         </el-option>
       </el-select>
     </div>
-  </el-scrollbar>
+  </div>
 </template>
 
 <script>

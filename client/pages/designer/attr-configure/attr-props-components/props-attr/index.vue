@@ -1,3 +1,7 @@
+<!--
+ * @Description: 
+ * @props: 
+-->
 <template>
   <div v-if="currentElementProps.length">
     <div class="attr-title fontBold">组件属性</div>
@@ -44,8 +48,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.el-form-item {
-  margin-top: 16px;
-}
-</style>
