@@ -39,8 +39,8 @@ const openFixedAreaStr = `
 </head>
 <body style="border:0; margin: 0;" onload="subst()">`
 
-const pageStrStyle = '<table style="width: 100%;position:absolute;">'
-const pageStrStyleB = '<table style="width: 100%;position:absolute;bottom:0;">'
+const pageStrStyle = '<table style="width: 100%;position:absolute;right:10px;top:10px">'
+const pageStrStyleB = '<table style="width: 100%;position:absolute;bottom:10px;right:10px;">'
 const pageStr1 = `
   <tr>
     <td class="section"></td>

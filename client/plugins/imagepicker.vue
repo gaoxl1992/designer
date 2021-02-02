@@ -18,8 +18,7 @@
         :style="liStyle(idx)"
         class="is-ready"
         :class="{
-          'el-upload-list__item': pagetype === 'editor',
-          'el-upload-list__item_readonly': pagetype==='preview'
+          'el-upload-list__item': pagetype === 'editor'
         }"
         v-for="(item, idx) in fileList"
         :key="idx"
@@ -142,7 +141,8 @@ export default {
           height: `${this.perHeight}px`,
           marginBottom:
             this.imagepicker - idx <= this.linepics ? 0 : `${this.rowDis}px`,
-          paddingRight: (idx + 1) % this.linepics === 0 ? 0 : `${this.picDis}px`
+          paddingRight: (idx + 1) % this.linepics === 0 ? 0 : `${this.picDis}px`,
+          float: 'left'
         }
       }
     }

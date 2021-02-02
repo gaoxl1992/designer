@@ -9,7 +9,7 @@
     >
       <label
         class="el-form-item__label"
-        :class="'el-form-item__label_' + pagetype"
+        :style="pagetype === 'preview' ? labelStyle : {}"
         v-if="labelValue"
       >{{ labelValue }}</label>
       <div
@@ -94,7 +94,15 @@ export default {
       previewStyle: {
         'text-overflow': 'ellipsis',
         overflow: 'hidden',
-        'white-space': 'nowrap'
+        'white-space': 'nowrap',
+        'padding-left': '2px',
+        'text-align': 'left'
+      },
+      labelStyle: {
+        width: 'fit-content',
+        'min-width': 'fit-content',
+        float: 'left',
+        'padding-right': '5px'
       },
       itemContentStyle: {
         display: 'block'
@@ -167,13 +175,6 @@ export default {
   }
   .el-form-item__content {
     overflow: hidden;
-  }
-  .preview-input {
-    padding-left: 2px;
-    text-align: left;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
   }
 }
 </style>
