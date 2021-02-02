@@ -1,20 +1,25 @@
 <template>
   <div class="engine-template-wrapper">
-    <div class="swiper-container"
-         :class="'swiper-container-' + pagetype">
-      <div class="swiper-slide flat relative"
-           style="padding: 10px"
-           :style="
+    <div
+      class="swiper-container"
+      :class="'swiper-container-' + pagetype"
+    >
+      <div
+        class="swiper-slide flat relative"
+        style="padding: 10px"
+        :style="
           getCommonStyle({ 
             ...pageData.commonStyle,
             width: pageData.width,
             paddingTop: nopt ? 0 : 10,
             paddingBottom: nopb ? 0 : 10
           })
-        ">
+        "
+      >
         <!--页面内容区域-->
-        <div class="rad-page-wrapper"
-             :style="
+        <div
+          class="rad-page-wrapper"
+          :style="
             getCommonStyle(
               {
                 ...pageData.commonStyle,
@@ -25,27 +30,36 @@
               },
               scalingRatio
             )
-          ">
-          <componentsTemplate v-for="(item, index) in pageData.elements"
-                              :ref="'preview' + index"
-                              :key="index"
-                              :loaded="item._loaded"
-                              :element="item"
-                              :editorId="index"
-                              :pagetype="pagetype"
-                              :style="getCommonStyle({
-              ...item.commonStyle,
-              scalingRatio,
-              fontSize: item.elName === 'rad-table' ? 'auto' : item.commonStyle.fontSize
-            })">
+          "
+        >
+          <componentsTemplate
+            v-for="(item, index) in pageData.elements"
+            :ref="'preview' + index"
+            :key="index"
+            :loaded="item._loaded"
+            :element="item"
+            :editorId="index"
+            :pagetype="pagetype"
+            :style="
+              getCommonStyle(
+                {
+                  ...item.commonStyle,
+                  scalingRatio,
+                  fontSize: item.elName === 'rad-table' ? 'auto' : item.commonStyle.fontSize
+                })"
+          >
           </componentsTemplate>
         </div>
-        <div class="page-wrapper-mask"
-             v-if="pagetype!=='preview'">
-          <div class="page-de"
-               :class="{ 'page-line': item !== 1 }"
-               v-for="item in +pageData.totalPages"
-               :key="item"></div>
+        <div
+          class="page-wrapper-mask"
+          v-if="pagetype!=='preview'"
+        >
+          <div
+            class="page-de"
+            :class="{ 'page-line': item !== 1 }"
+            v-for="item in +pageData.totalPages"
+            :key="item"
+          ></div>
         </div>
       </div>
     </div>

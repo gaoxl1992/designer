@@ -23,7 +23,7 @@
       >
       </el-date-picker>
       <div
-        class="rad-datatime-preview"
+        style="line-height: 30px"
         v-else
       >{{ previewDate }}</div>
     </div>
@@ -76,7 +76,8 @@ export default {
         width: 'fit-content',
         'min-width': 'fit-content',
         float: 'left',
-        'padding-right': '5px'
+        'padding-right': '5px',
+        'line-height': '30px'
       },
       labelValue: this.label
     }
@@ -163,6 +164,7 @@ export default {
     width: fit-content;
     min-width: fit-content;
     float: left;
+    line-height: 30px;
   }
   .el-form-item__label_preview {
     padding-right: 0;

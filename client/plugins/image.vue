@@ -2,19 +2,28 @@
  * @Description: 图片组件
 -->
 <template>
-  <div class="rad-image">
-    <el-image v-if="pagetype !== 'preview'"
-              :src="imageUrl"
-              alt=""
-              fit="fit">
-      <div slot="error"
-           class="image-slot">
+  <div
+    class="rad-image"
+    style="height: 100%; width: 100%"
+  >
+    <el-image
+      v-if="pagetype !== 'preview'"
+      :src="imageUrl"
+      alt=""
+      fit="fit"
+    >
+      <div
+        slot="error"
+        class="image-slot"
+      >
         <i class="el-icon-picture-outline"></i>
       </div>
     </el-image>
-    <img v-else-if="imageUrl"
-         style="height: 100%; width: 100%"
-         :src="imageUrl" />
+    <img
+      v-else-if="imageUrl"
+      style="height: 100%; width: 100%"
+      :src="imageUrl"
+    />
   </div>
 </template>
 

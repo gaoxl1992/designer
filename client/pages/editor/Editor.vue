@@ -117,10 +117,12 @@ export default {
       const { fixedHeader, fixedFooter } = this.pageData
       let headerObj = {
         height: fixedHeader.openFixed ? fixedHeader.height : 0,
+        width: this.pageData.width,
         elements: []
       }
       let footerObj = {
         height: fixedFooter.openFixed ? fixedFooter.height : 0,
+        width: this.pageData.width,
         elements: []
       }
       if (!eles || eles.length === 0) {
@@ -210,6 +212,7 @@ export default {
         let inner = document.getElementById('body').innerHTML
         let header = document.getElementById('header').innerHTML
         let footer = document.getElementById('footer').innerHTML
+        console.log(header)
         this.$emit('saveEditor', {
           editedData: {
             ...obj,

@@ -29,13 +29,11 @@
           class="img-container"
           style="height: 100%;width: 100%;"
         >
-          <el-image
-            :id="idx"
-            class="el-upload-list__item-thumbnail"
+          <img
             style="height: 100%;"
             :src="item.url"
-            fit="contain"
-          ></el-image>
+            :style="imageStyle"
+          />
           <span
             class="el-upload-list__item-actions"
             v-show="hoverIndex === idx && pagetype==='editor'"
@@ -121,6 +119,11 @@ export default {
         display: 'table',
         height: '100%',
         width: '100%'
+      },
+      imageStyle: {
+        height: '100%',
+        margin: '0 auto',
+        display: 'block'
       }
     }
   },
@@ -134,10 +137,7 @@ export default {
     liStyle () {
       return function (idx) {
         return {
-          width: `calc((100% -
-          ${this.picDis * (this.linepics - 1)}px)/
-          ${this.linepics}
-          )`,
+          width: `${(this.commonStyle.width - this.picDis * (this.linepics - 1)) / this.linepics}px`,
           height: `${this.perHeight}px`,
           marginBottom:
             this.imagepicker - idx <= this.linepics ? 0 : `${this.rowDis}px`,
