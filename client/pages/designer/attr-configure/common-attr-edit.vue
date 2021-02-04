@@ -446,7 +446,7 @@ export default {
   }
   .common-item-edit-wrapper {
     text-align: left;
-    padding: 16px 20px 0 20px;
+    padding: 16px 10px 0 10px;
     font-weight: 500;
     .attr-item-title {
       height: 30px;

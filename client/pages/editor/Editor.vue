@@ -219,13 +219,13 @@ export default {
           },
           bodyTpl: `${headStr}${inner}${footStr}`,
           header: fixedHeader.openFixed ? `
-            ${fixedHeader.pageNum ? openFixedAreaStr : headStr}
-            ${fixedHeader.pageNum ? pageStrStyle + (+fixedHeader.page === 1 ? pageStr1 : pageStr2) : ''}
+            ${+fixedHeader.page ? openFixedAreaStr : headStr}
+            ${+fixedHeader.page ? pageStrStyle + (+fixedHeader.page === 1 ? pageStr1 : pageStr2) : ''}
             ${header}
             ${footStr}` : '',
           footer: fixedFooter.openFixed ? `
-            ${fixedFooter.pageNum ? openFixedAreaStr : headStr}
-            ${fixedFooter.pageNum ? pageStrStyleB + (+fixedFooter.page === 1 ? pageStr1 : pageStr2) : ''}
+            ${+fixedFooter.page ? openFixedAreaStr : headStr}
+            ${+fixedFooter.page ? pageStrStyleB + (+fixedFooter.page === 1 ? pageStr1 : pageStr2) : ''}
             ${footer}
             ${footStr}` : '',
           ext
@@ -242,7 +242,8 @@ export default {
   flex: 1;
   .editor-main {
     flex: 1;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     background-color: $page-bg-deepcolor;
     position: relative;
   }

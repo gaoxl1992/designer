@@ -11,6 +11,10 @@
       :class="'rad-editor-inner-' + pagetype"
       @click="showCharspop"
     >
+      <i
+        class="icon iconfont iconmore"
+        @click="showCharspopAgain"
+      ></i>
       <div
         class="special-icon"
         :style="{ bottom: iconBottom }"
@@ -25,21 +29,36 @@
               @click.prevent="showEditDialog"
             ></i>
           </div>
+          <i
+            class="icon iconfont iconclose"
+            @click="closeSp"
+          ></i>
         </div>
-        <ul class="charas">
-          <el-tooltip
-            effect="dark"
-            :content="char"
-            placement="top-start"
+        <el-row
+          class="charas"
+          justify="start"
+        >
+          <el-col
+            :xs="8"
+            :sm="6"
+            :md="4"
+            :lg="3"
             v-for="(char, index) in pageData.spCharacters"
             :key="index"
           >
-            <li
-              class="ellipsis"
-              @dblclick="addHtml(char)"
-            >{{ char }}</li>
-          </el-tooltip>
-        </ul>
+            <el-tooltip
+              effect="dark"
+              :content="char"
+              placement="top-start"
+              :open-delay="200"
+            >
+              <span
+                class="char ellipsis"
+                @dblclick="addHtml(char)"
+              >{{ char }}</span>
+            </el-tooltip>
+          </el-col>
+        </el-row>
       </div>
       <textarea
         :id="editorId"
@@ -172,7 +191,7 @@ export default {
     ...mapState({
       pageData: (state) => state.editor.pageData
     }),
-    iconBottom() {
+    iconBottom () {
       let rd = this.element?.rd || 1
       return this.editor / rd + 25 + 'px'
     }
@@ -227,6 +246,15 @@ export default {
     }
   },
   methods: {
+    closeSp () {
+      this.doc.style.zIndex = this.zIndex
+      this.showChars = false
+      window.hiddenChars = true
+    },
+    showCharspopAgain () {
+      window.hiddenChars = false
+      this.showCharspop()
+    },
     showEditDialog () {
       this.showDialog = true
       this.mngCharStr = JSON.parse(
@@ -360,7 +388,7 @@ export default {
       }
     },
     showCharspop () {
-      if (this.pagetype !== 'editor') {
+      if (this.pagetype !== 'editor' || window.hiddenChars) {
         return
       }
       this.doc =
@@ -408,6 +436,7 @@ export default {
     if (this.element && this.element.threshold && window.reditor[this.element.threshold]) {
       delete window.reditor[this.element.threshold]
     }
+    window.hiddenChars = false
   },
   beforeDestroy () {
     this.removeEditor()
@@ -415,6 +444,7 @@ export default {
     if (this.element && this.element.threshold && window.reditor[this.element.threshold]) {
       delete window.reditor[this.element.threshold]
     }
+    window.hiddenChars = false
   }
 }
 </script>
@@ -422,6 +452,10 @@ export default {
 .rad-editor {
   .rad-editor-inner {
     position: relative;
+    .iconmore {
+      right: 10px;
+      position: absolute;
+    }
   }
   .title {
     padding: 2px;
@@ -439,7 +473,7 @@ export default {
     color: #131313;
     background: $page-bg-color;
     box-shadow: 0px -2px 4px 0px #c8ced4;
-    padding: 4px;
+    padding: 10px;
   }
   .ke-toolbar {
     background-color: transparent;
@@ -455,11 +489,9 @@ export default {
     border: none;
   }
   .charas {
-    display: flex;
-    flex-wrap: wrap;
-    li {
+    .char {
       margin-right: 12px;
-      width: 70px;
+      width: calc(100% - 10px);
       height: 30px;
       padding: 4px;
       line-height: 21px;
@@ -471,10 +503,14 @@ export default {
       text-overflow: ellipsis;
       overflow: hidden;
       word-break: keep-all;
+      display: inline-block;
       &:hover {
         background: #b8cde2;
         border-color: $border-color;
       }
+    }
+    .el-col {
+      min-width: 70px;
     }
   }
   .rad-editor-inner-preview {
@@ -497,7 +533,7 @@ export default {
   .flx {
     display: flex;
     justify-content: space-between;
-    line-height: 13px;
+    margin-bottom: 10px;
     .title {
       font-weight: 500;
       color: $font-color-base;
@@ -507,6 +543,10 @@ export default {
       font-weight: 400;
       color: #707070;
       font-size: 13px;
+    }
+    .iconclose {
+      font-size: 13px;
+      line-height: 13px;
     }
   }
 }

@@ -12,27 +12,38 @@
         <propsAttr></propsAttr>
       </div>
       <div class="common-attr-style">
-        <el-form>
-          <el-form-item label="阈值">
-            <el-autocomplete
-              class="inline-input"
-              size="small"
-              v-model="activeElement.threshold"
-              :fetch-suggestions="querySearch"
-              placeholder="请输入内容"
-              :trigger-on-focus="true"
-            ></el-autocomplete>
-          </el-form-item>
-          <el-form-item>
-            <el-checkbox v-model="activeElement.hideOnPrint">打印隐藏</el-checkbox>
-          </el-form-item>
-          <el-form-item v-if="activeElement.threshold">
-            <el-button
-              size="small"
-              @click="showDialog = true"
-            >编辑事件</el-button>
-          </el-form-item>
-        </el-form>
+        <p class="attr-item-title">域值</p>
+        <el-select
+          v-model="activeElement.threshold"
+          placeholder="请选择"
+          size="mini"
+          clearable
+          ref="singleSelect"
+        >
+          <i
+            slot="prefix"
+            class="el-input__icon el-icon-circle-plus-outline"
+            @click.stop="openaddFieldDialog"
+          ></i>
+          <el-option
+            v-for="item in pageData.domainList"
+            :key="item.option"
+            :label="item.option"
+            :value="item.option"
+          >
+          </el-option>
+        </el-select>
+        <el-button
+          :type="activeElement.threshold ? 'primary' : ''"
+          plain
+          size="small"
+          @click="showDialog = true"
+          :disabled="!activeElement.threshold"
+        >编辑事件</el-button>
+        <el-checkbox
+          class="hidden-on-print"
+          v-model="activeElement.hideOnPrint"
+        >打印隐藏</el-checkbox>
         <baseAttr></baseAttr>
       </div>
     </div>
@@ -60,6 +71,44 @@
           size="mini"
           @click="closeDialog"
         >取消</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog
+      title="添加域值"
+      :visible.sync="dialogVisible"
+      custom-class="add-field-dialog"
+      :close-on-click-modal="false"
+      :append-to-body="true"
+      @closed="handleClose"
+    >
+      <div class="field">
+        <label>域值名：</label>
+        <el-input
+          v-model="fieldName"
+          placeholder="请输入域值名"
+          size="small"
+          class="field-name"
+        ></el-input>
+      </div>
+      <div class="radio-style">
+        <el-radio
+          :label="1"
+          v-model="radio"
+        >存储数据</el-radio>
+        <el-radio
+          :label="2"
+          v-model="radio"
+        >临时显示</el-radio>
+      </div>
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          type="primary"
+          @click="transmiteValue"
+        >确 定</el-button>
+        <el-button @click="dialogVisible = false">取 消</el-button>
       </span>
     </el-dialog>
   </div>
@@ -91,7 +140,11 @@ export default {
         theme: 'base16-dark',
         lineNumbers: true,
         line: true
-      }
+      },
+      showAdd: false,
+      dialogVisible: false,
+      fieldName: '',
+      radio: 1
     }
   },
   computed: {
@@ -112,21 +165,13 @@ export default {
     }
   },
   methods: {
-    querySearch (queryString, cb) {
-      let domains = []
-      this.pageData.domainList.forEach((item) => {
-        domains.push({
-          value: item.option
-        })
-      });
-      let results = queryString ? domains.filter(this.createFilter(queryString)) : domains;
-      // 调用 callback 返回建议列表的数据
-      cb(results);
+    handleClose () {
+      this.fieldName = ''
+      this.radio = 1
     },
-    createFilter (queryString) {
-      return (domains) => {
-        return (domains.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
-      };
+    openaddFieldDialog () {
+      this.dialogVisible = true
+      this.$refs.singleSelect.blur()
     },
     onCmCodeChange (newCode) {
       this.code = newCode
@@ -137,36 +182,60 @@ export default {
     },
     closeDialog () {
       this.showDialog = false
+    },
+    transmiteValue () {
+      if (this.fieldName && this.fieldName.trim()) { // 添加的域值不为空
+        let fieldVal = (this.radio === 1 ? 'props_' : 'temp_') + this.fieldName.trim()
+        // 处理域值重复
+        if (this.pageData.domainList && this.pageData.domainList.length) {
+          if (this.pageData.domainList.find(cols => cols.option === fieldVal)) {
+            this.$message({
+              message: '与已有域值重复，请重新输入！',
+              type: 'error',
+              showClose: true,
+            })
+            return false
+          }
+        }
+        this.fieldVal = fieldVal
+        this.activeElement.threshold = fieldVal
+        this.dialogVisible = false
+      } else {
+        this.$message({
+          message: '域值名不能为空！',
+          type: 'error',
+          showClose: true,
+        })
+      }
     }
   }
 }
 </script>
-
 <style lang="scss">
 .components-attr-edit {
   height: 100%;
   .el-form-item {
-    margin-bottom: 0;
+    margin-bottom: 10px;
   }
   .attr-title {
     font-weight: bold;
   }
   .common-attr-style {
     .el-form-item {
-      margin-bottom: 0;
+      margin-bottom: 10;
     }
     .el-button--default {
       width: 100%;
     }
   }
   .attr-edit-inner {
-    padding: 16px 20px;
+    padding: 16px 10px;
     margin-bottom: 50px;
   }
   .attr-header {
     font-size: 14px;
     font-weight: 500;
-    padding: 20px 20px 10px 20px;
+    padding: 20px 10px 10px 10px;
     color: $font-color-base;
     line-height: 22px;
     .attr-header-desc {
@@ -185,6 +254,61 @@ export default {
     font-weight: 500;
     color: $font-color-base;
     font-size: 14px;
+  }
+  .common-attr-style {
+    .el-icon-circle-plus-outline {
+      position: absolute;
+      right: 30px;
+      height: 22px;
+      font-size: 16px;
+      color: #0a68b3;
+      cursor: pointer;
+      bottom: 0;
+    }
+    .el-input__prefix {
+      position: relative;
+    }
+    .el-select {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .el-button {
+      margin-bottom: 20px;
+      width: 100%;
+    }
+    .hidden-on-print {
+      padding-bottom: 20px;
+      position: relative;
+      width: 100%;
+      &::after {
+        content: ' ';
+        width: 100%;
+        height: 1px;
+        display: inline-block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-color: $border-color;
+      }
+    }
+  }
+  .attr-item-title {
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    min-width: 60px;
+    font-size: 14px;
+    padding-bottom: 4px;
+    color: $font-color-base;
+    font-weight: 500;
+  }
+}
+.field {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 20px;
+  label {
+    width: 80px;
   }
 }
 </style>

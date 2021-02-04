@@ -59,22 +59,14 @@
       ></el-input-number>
     </div>
     <div class="page-item-edit-wrapper">
-      <el-checkbox v-model="pageData.fixedHeader.openFixed">开启页眉</el-checkbox>
+      <el-checkbox
+        v-model="pageData.fixedHeader.openFixed"
+        @change="opFixedArea('fixedHeader')"
+      >开启页眉</el-checkbox>
     </div>
     <div
       class="page-item-edit-wrapper lf-30"
       v-if="pageData.fixedHeader.openFixed"
-    >
-      <span>页码</span>
-      <el-switch
-        style="float: right"
-        v-model="pageData.fixedHeader.pageNum"
-      >
-      </el-switch>
-    </div>
-    <div
-      class="page-item-edit-wrapper lf-30"
-      v-if="pageData.fixedHeader.openFixed && pageData.fixedHeader.pageNum"
     >
       <el-radio-group v-model="pageData.fixedHeader.page">
         <el-radio label="1">第 1 页</el-radio>
@@ -82,23 +74,14 @@
       </el-radio-group>
     </div>
     <div class="page-item-edit-wrapper">
-      <el-checkbox v-model="pageData.fixedFooter.openFixed">开启页脚</el-checkbox>
+      <el-checkbox
+        v-model="pageData.fixedFooter.openFixed"
+        @change="opFixedArea('fixedFooter')"
+      >开启页脚</el-checkbox>
     </div>
     <div
       class="page-item-edit-wrapper lf-30"
       v-if="pageData.fixedFooter.openFixed"
-    >
-      <p>页码</p>
-      <el-switch
-        size="mini"
-        style="float: right"
-        v-model="pageData.fixedFooter.pageNum"
-      >
-      </el-switch>
-    </div>
-    <div
-      class="page-item-edit-wrapper lf-30"
-      v-if="pageData.fixedFooter.openFixed && pageData.fixedFooter.pageNum"
     >
       <el-radio-group v-model="pageData.fixedFooter.page">
         <el-radio label="1">第 1 页</el-radio>
@@ -176,6 +159,11 @@ export default {
     this.customHeight = +this.pageData.customHeight || this.customHeight
   },
   methods: {
+    opFixedArea (posi) {
+      if (!this.pageData[posi].openFixed) {
+        this.pageData[posi].page = '0'
+      }
+    },
     handleChange () {
       this.changePaper()
     },
@@ -258,7 +246,7 @@ export default {
     margin-left: 30px;
   }
   .page-item-edit-wrapper {
-    padding: 16px 20px 0 20px;
+    padding: 16px 10px 0 10px;
     .attr-item-title {
       height: 30px;
       line-height: 30px;
@@ -270,21 +258,6 @@ export default {
       font-weight: 500;
     }
     .attr-item-edit-input {
-      &.col-2 {
-        width: 90px;
-        margin-left: 10px;
-      }
-      &.col-1 {
-        width: 250px;
-      }
-      &.col-3 {
-        width: 60px;
-        margin-left: 10px;
-      }
-      &.col-4 {
-        width: 50px;
-        margin-left: 10px;
-      }
       .attr-item-edit-input-des {
         text-align: center;
         line-height: 1;

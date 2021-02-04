@@ -62,14 +62,12 @@ let pageConfig = {
   fixedHeader: {
     openFixed: false,
     height: 50,
-    pageNum: false,
-    page: '1'
+    page: '0'
   },
   fixedFooter: {
     openFixed: false,
     height: 50,
-    pageNum: false,
-    page: '1'
+    page: '0'
   },
   name: '',
   pageType: 'a4',

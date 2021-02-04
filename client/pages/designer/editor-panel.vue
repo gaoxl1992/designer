@@ -136,6 +136,7 @@ export default {
      * @param uuid
      */
     handleElementClick (uuid) {
+      this.inCanvas = true
       this.$store.dispatch('setActiveElementUUID', uuid)
     },
     /**
@@ -161,7 +162,6 @@ export default {
      * @return {*}
      */
     handleClickCanvas (e) {
-      console.log(e)
       if (e.toElement.className === 'editor-pane-inner') {
         this.inCanvas = false
       } else {
@@ -326,9 +326,9 @@ export default {
   background-size: 26px 26px;
   background-color: $page-bg-deepcolor;
   &::-webkit-scrollbar {
-    width: 10px;
+    width: 0;
     height: 10px;
-    background: transparent;
+    background: transparent !important;
   }
   .rectangular {
     background-color: rgba(235, 239, 243, 0.45);
@@ -338,15 +338,13 @@ export default {
   }
   .editor-pane-inner {
     width: 100%;
-    overflow: auto;
     margin: 0 auto;
-    margin-bottom: 50px;
   }
   .editor-pane-main {
     border-radius: 3px;
     box-shadow: 0 3px 10px #dae1ed;
     border: 1px dashed $primary;
-    margin: 20px auto;
+    margin: 0 auto;
     position: relative;
     background: $page-bg-color;
     transform-origin: center top;

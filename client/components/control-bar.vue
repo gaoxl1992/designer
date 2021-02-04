@@ -47,6 +47,20 @@
     <el-tooltip
       class="item"
       effect="dark"
+      :content="fitScreenType === 0 ? '适应屏宽' : (fitScreenType === 1 ? '适应屏高' : '还原')"
+      placement="right"
+      :open-delay="500"
+    >
+      <span
+        class="button-item"
+        @click="fitScreen"
+      >
+        <i class="icon iconfont iconfit"></i>
+      </span>
+    </el-tooltip>
+    <el-tooltip
+      class="item"
+      effect="dark"
       :content="'放大 ' + parseFloat(scaleValue * 100).toFixed(0) + '%'"
       placement="right"
       :open-delay="500"
@@ -76,7 +90,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex'
 export default {
   name: 'ControlBar',
   props: {
@@ -93,17 +107,50 @@ export default {
   data () {
     return {
       // 画板缩放
-      scaleValue: 1
+      scaleValue: this.scale,
+      fitScreenType: 0
     }
   },
   computed: {
-    ...mapGetters(['canUndo', 'canRedo'])
+    ...mapGetters(['canUndo', 'canRedo']),
+    ...mapState({
+      pageData: (state) => state.editor.pageData
+    })
   },
   created () {
     this.scaleValue = this.scale
   },
   methods: {
     ...mapActions(['editorUndo', 'editorRedo']),
+    /**
+     * @description: 使用屏宽或屏高
+     * @param {*}
+     * @return {*}
+     */
+    fitScreen () {
+      let el = document.getElementsByClassName('editor-main')[0]
+      let width = window.innerWidth - 520
+      let height = window.innerHeight - 50
+      if (this.fitScreenType === 0) {
+        this.scaleValue = width / this.pageData.width
+        this.fitScreenType++
+        this.$emit('update:scale', this.scaleValue)
+        el.style.overflow = 'auto'
+        el.style.height = '100%'
+      } else if (this.fitScreenType === 1) {
+        this.scaleValue = height / this.pageData.height
+        this.fitScreenType++
+        this.$emit('update:scale', this.scaleValue)
+        el.style.overflow = 'hidden'
+        el.style.height = height + 'px'
+      } else {
+        this.scaleValue = 1
+        this.fitScreenType = 0
+        this.$emit('update:scale', this.scaleValue)
+        el.style.overflow = 'auto'
+        el.style.height = '100%'
+      }
+    },
     /**
      * 更新画板大小
      */

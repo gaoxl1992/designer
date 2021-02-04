@@ -99,7 +99,7 @@ export default {
      * @param {*} domainList
      * @return {*}
      */
-    conform(pageData = null, spCharacters = [], domainList = []) {
+    conform (pageData = null, spCharacters = [], domainList = []) {
       if (this.tempCacheLength !== this.historyCache.length) {
         this.$confirm(`${pageData?.name || ''}模版内容已更改，是否保存?`, '提示', {
           confirmButtonText: '保存',
@@ -150,16 +150,16 @@ export default {
     position: relative;
   }
   .el-attr-edit-wrapper {
-    min-width: 380px;
-    width: 380px;
+    min-width: 260px;
+    width: 260px;
     padding: 0;
     height: 100%;
     overflow-y: auto;
   }
   .control-bar-wrapper {
     position: fixed;
-    right: 410px;
-    bottom: 275px;
+    right: 290px;
+    bottom: 330px;
     z-index: 1000;
     width: 38px;
   }
@@ -187,8 +187,8 @@ export default {
         height: 100%;
       }
       .attr-edit-inner {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left: 10px;
+        padding-right: 10px;
       }
     }
   }

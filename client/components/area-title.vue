@@ -26,7 +26,7 @@ export default {
 .attr-header {
   font-size: 14px;
   font-weight: 500;
-  padding: 20px 20px 10px 20px;
+  padding: 20px 10px 10px 10px;
   color: $font-color-base;
   line-height: 22px;
   position: relative;
@@ -39,7 +39,7 @@ export default {
   &::after {
     height: 1px;
     width: 100%;
-    background-color:$line-color;
+    background-color: $line-color;
     content: ' ';
     display: block;
     position: absolute;
