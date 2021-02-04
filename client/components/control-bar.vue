@@ -5,6 +5,7 @@
       effect="dark"
       content="撤销"
       placement="right"
+      :open-delay="500"
     >
       <div
         class="button-item"
@@ -19,6 +20,7 @@
       effect="dark"
       content="重做"
       placement="right"
+      :open-delay="500"
     >
       <div
         class="button-item"
@@ -33,12 +35,13 @@
       effect="dark"
       content="预览"
       placement="right"
+      :open-delay="500"
     >
       <div
         class="button-item"
         @click="showPreview"
       >
-        <i class="icon iconfont iconlscreen"></i>
+        <i class="icon iconfont iconpreview"></i>
       </div>
     </el-tooltip>
     <el-tooltip
@@ -46,6 +49,7 @@
       effect="dark"
       :content="'放大 ' + parseFloat(scaleValue * 100).toFixed(0) + '%'"
       placement="right"
+      :open-delay="500"
     >
       <span
         class="button-item"
@@ -59,6 +63,7 @@
       effect="dark"
       :content="'缩小 ' + parseFloat(scaleValue * 100).toFixed(0) + '%'"
       placement="right"
+      :open-delay="500"
     >
       <span
         class="button-item"

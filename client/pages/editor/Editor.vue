@@ -212,7 +212,6 @@ export default {
         let inner = document.getElementById('body').innerHTML
         let header = document.getElementById('header').innerHTML
         let footer = document.getElementById('footer').innerHTML
-        console.log(header)
         this.$emit('saveEditor', {
           editedData: {
             ...obj,
@@ -250,7 +249,7 @@ export default {
   .swiper-slide {
     margin: 0 auto;
     background: $white;
-    padding: 10px;
+    overflow: visible;
   }
   .el-input__inner {
     padding: 1px !important;

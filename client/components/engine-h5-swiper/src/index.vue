@@ -146,7 +146,7 @@ export default {
     }
     .page-line {
       flex: 1;
-      border-top: 1px dashed #0a68b3;
+      border-top: 1px dashed $primary;
     }
   }
 }

@@ -502,7 +502,7 @@ export default {
     importDesigner () {
       this.pageDataHis = JSON.parse(localStorage.getItem('pageData'))
       // 使用方式，通过refs将匹配结构的数据传给页面
-      this.$refs.designer.resetPage(this.pageDataHis)
+      this.$refs.designer.conform(this.pageDataHis)
     }
     /*** 设计器操作 end */
   },

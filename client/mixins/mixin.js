@@ -11,6 +11,7 @@ export default {
       activeElementsUUID: (state) => state.editor.activeElementsUUID,
       activeElementUUID: (state) => state.editor.activeElementUUID,
       tableTpl: (state) => state.editor.tableTpl,
+      historyCache: (state) => state.editor.historyCache
     })
   },
   methods: {
@@ -23,6 +24,7 @@ export default {
       this.$store.dispatch('setPageData')
       this.$store.dispatch('setActiveElementUUID', '')
       if (!pageData) {
+        this.tempCacheLength = this.historyCache.length
         return
       }
       const {
@@ -69,6 +71,7 @@ export default {
      */
     resetEles(eles, rd) {
       this.pageData.elements = []
+      this.tempCacheLength = 0
 
       function compare(args) {
         return function (a, b) {
@@ -87,8 +90,10 @@ export default {
           item.commonStyle.left
         item.commonStyle.top = item.commonStyle.top / rd
         item.commonStyle.height = item.commonStyle.height / rd
+        item.rd = rd
         setTimeout(() => {
           this.$store.dispatch('importElement', item)
+          this.tempCacheLength ++
         }, 10)
       })
     }

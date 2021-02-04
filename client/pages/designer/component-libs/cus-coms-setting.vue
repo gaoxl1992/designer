@@ -225,7 +225,7 @@ export default {
   }
 }
 .el-icon-remove {
-  color: #0a68b3;
+  color: $primary;
   padding-bottom: 10px;
 }
 .el-icon-remove:before {

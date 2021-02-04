@@ -79,17 +79,42 @@ export default {
       showPreview: false,
       canvasConfig: {
         scale: 1
-      }
+      },
+      tempCacheLength: 0
     }
   },
   computed: {
     ...mapState({
       pageData: (state) => state.editor.pageData,
       activeElementUUID: (state) => state.editor.activeElementUUID,
-      activeElementsUUID: (state) => state.editor.activeElementsUUID
+      activeElementsUUID: (state) => state.editor.activeElementsUUID,
+      historyCache: (state) => state.editor.historyCache
     })
   },
   methods: {
+    /**
+     * @description: 外部新建页面时，如果有未保存操作，则提示
+     * @param {*} pageData
+     * @param {*} spCharacters
+     * @param {*} domainList
+     * @return {*}
+     */
+    conform(pageData = null, spCharacters = [], domainList = []) {
+      if (this.tempCacheLength !== this.historyCache.length) {
+        this.$confirm(`${pageData?.name}模版内容已更改，是否保存?`, '提示', {
+          confirmButtonText: '保存',
+          cancelButtonText: '不保存',
+          type: 'warning'
+        }).then(() => {
+          this.saveDesignerData()
+        }).catch(() => {
+          this.tempCacheLength = this.historyCache.length
+          this.resetPage(pageData, spCharacters, domainList)
+        });
+      } else {
+        this.resetPage(pageData, spCharacters, domainList)
+      }
+    },
     /**
      * @description: 外部触发将pageData数据存入store
      * @param {*}

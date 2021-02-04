@@ -246,13 +246,13 @@ export default {
     position: absolute;
     top: -20px;
     left: 3px;
-    color: #0a68b3;
+    color: $primary;
   }
 }
 .table-model-item {
   .el-icon-document {
     padding-right: 16px;
-    color: #0a68b3;
+    color: $primary;
   }
   &::after {
     display: block;

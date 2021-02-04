@@ -22,7 +22,7 @@ const state = {
   activeAttrEditCollapse: ['1'],
   // 表格模版列表
   tableTpl: []
-};
+}
 const actions = {
   /**
    * @description: 设置表格模版
@@ -42,11 +42,12 @@ const actions = {
   setPageData({
     commit
   }, data) {
-    let pageData = data;
+    let pageData = data
     if (!pageData) {
       pageData = editorProjectConfig.getPageConfig()
     }
-    commit('setPageData', pageData);
+    commit('setPageData', pageData)
+    commit('clearHistoryCache')
   },
   /**
    * @description: 设置当前选中激活元素uuid
@@ -56,7 +57,7 @@ const actions = {
   setActiveElementUUID({
     commit
   }, uuid) {
-    commit('setActiveElementUUID', uuid);
+    commit('setActiveElementUUID', uuid)
   },
   /**
    * @description: 多选时激活uuid
@@ -120,7 +121,7 @@ const actions = {
     let data = editorProjectConfig.getElementConfig(elData, {
       zIndex: state.pageData.elements.length + 1
     })
-    commit('addElement', data);
+    commit('addElement', data)
     commit('setActiveElementUUID', data.uuid)
     commit('setActiveElementsUUID', [])
     commit('addHistoryCache')
@@ -140,55 +141,60 @@ const actions = {
     switch (command) {
       case 'copy':
         dispatch('copyElement', elData)
-        break;
+        commit('addHistoryCache')
+        break
       case 'delete':
         dispatch('deleteElement', elData.uuid)
-        break;
+        commit('addHistoryCache')
+        break
       case 'fontA+':
         dispatch('resetElementCommonStyle', {
           fontSize: elData.commonStyle.fontSize + 1
         })
-        break;
+        commit('addHistoryCache')
+        break
       case 'fontA-':
         dispatch('resetElementCommonStyle', {
           fontSize: elData.commonStyle.fontSize - 1
         })
-        break;
+        commit('addHistoryCache')
+        break
       case 'fontB':
         dispatch('resetElementCommonStyle', {
           fontWeight: elData.commonStyle.fontWeight === 'bold' ? 'normal' : 'bold'
         })
-        break;
+        commit('addHistoryCache')
+        break
       case 'layerUp':
         commit('resetElementZIndex', {
           uuid: elData.uuid,
           type: 'layerUp'
         })
         commit('addHistoryCache')
-        break;
+        break
       case 'layerDown':
         commit('resetElementZIndex', {
           uuid: elData.uuid,
           type: 'layerDown'
         })
         commit('addHistoryCache')
-        break;
+        break
       case 'layerTop':
         commit('resetElementZIndex', {
           uuid: elData.uuid,
           type: 'layerTop'
         })
         commit('addHistoryCache')
-        break;
+        break
       case 'layerBottom':
         commit('resetElementZIndex', {
           uuid: elData.uuid,
           type: 'layerBottom'
         })
         commit('addHistoryCache')
-        break;
+        break
       default:
-        break;
+        break
     }
   },
   /**
@@ -207,7 +213,7 @@ const actions = {
     let data = editorProjectConfig.copyElement(copyOrignData, {
       zIndex: state.pageData.elements.length
     }, 'import')
-    commit('addElement', data);
+    commit('addElement', data)
     commit('setActiveElementUUID', data.uuid)
     commit('setActiveElementsUUID', [])
     commit('addHistoryCache')
@@ -225,7 +231,7 @@ const actions = {
     let data = editorProjectConfig.copyElement(copyOrignData, {
       zIndex: state.pageData.elements.length + 1
     })
-    commit('addElement', data);
+    commit('addElement', data)
     commit('setActiveElementUUID', data.uuid)
     commit('setActiveElementsUUID', [])
     commit('addHistoryCache')
@@ -292,7 +298,7 @@ const actions = {
     state
   }) {
     if (!getters.canUndo(state)) {
-      return;
+      return
     }
     const prevState = state.historyCache[state.currentHistoryIndex - 1]
     commit('relapceEditorState', cloneDeep(prevState))
@@ -309,25 +315,25 @@ const actions = {
     commit
   }) {
     if (!getters.canRedo(state)) {
-      return;
+      return
     }
     const prevState = state.historyCache[state.currentHistoryIndex + 1]
     commit('relapceEditorState', cloneDeep(prevState))
     commit('editorRedo')
   }
-};
+}
 const mutations = {
   setTableTpl(state, data) {
     state.tableTpl = JSON.parse(JSON.stringify(data))
   },
   setPageData(state, data) {
-    state.pageData = data;
+    state.pageData = data
   },
   setActiveElementUUID(state, data) {
-    state.activeElementUUID = data;
+    state.activeElementUUID = data
   },
   setActiveElementsUUID(state, data) {
-    state.activeElementsUUID = data;
+    state.activeElementsUUID = data
   },
   updateCanvasHeight(state, height) {
     state.pageData.height = height
@@ -342,7 +348,7 @@ const mutations = {
     state.pageData.backgroundSize = size
   },
   addElement(state, elData) {
-    state.pageData.elements.push(elData);
+    state.pageData.elements.push(elData)
   },
   /**
    * 往画板添加元素
@@ -376,13 +382,13 @@ const mutations = {
     uuid,
     type
   }) {
-    uuid = uuid || state.activeElementUUID;
+    uuid = uuid || state.activeElementUUID
     let currentElement = state.pageData.elements.find(v => {
       return v.uuid === uuid
-    });
-    let itemZIndex = currentElement.commonStyle.zIndex;
-    let maxIndex = state.pageData.elements.length;
-    let mminIndex = 1;
+    })
+    let itemZIndex = currentElement.commonStyle.zIndex
+    let maxIndex = state.pageData.elements.length
+    let mminIndex = 1
     let zIndexDirc = {
       layerUp: Math.min(itemZIndex + 1, maxIndex),
       layerDown: Math.max(itemZIndex - 1, mminIndex),
@@ -390,11 +396,11 @@ const mutations = {
       layerBottom: mminIndex,
       set0: 0
     }
-    if (zIndexDirc[type] === undefined) return;
+    if (zIndexDirc[type] === undefined) return
     let currentZIndex = zIndexDirc[type]
-    currentElement.commonStyle.zIndex = currentZIndex;
+    currentElement.commonStyle.zIndex = currentZIndex
     state.pageData.elements.forEach(item => {
-      if (uuid === item.uuid) return;
+      if (uuid === item.uuid) return
       // 上面一位zIndex减一
       if (type === 'layerUp' && item.commonStyle.zIndex === currentZIndex) {
         item.commonStyle.zIndex--
@@ -431,6 +437,10 @@ const mutations = {
     state.historyCache.splice(100)
     state.currentHistoryIndex++
   },
+  clearHistoryCache(state) {
+    state.historyCache = []
+    state.currentHistoryIndex = -1
+  },
   /**
    * 重做
    * @param state
@@ -460,9 +470,9 @@ const mutations = {
    * @param data
    */
   updateActiveAttrEditCollapse(state, data) {
-    state.activeAttrEditCollapse = [...data];
+    state.activeAttrEditCollapse = [...data]
   }
-};
+}
 const getters = {
   /**
    * 当前选中的页面index
@@ -482,7 +492,7 @@ const getters = {
    */
   activeElement() {
     if(!state.pageData || !state.pageData.elements){
-			return {commonStyle: {}, propsValue: {}};
+			return {commonStyle: {}, propsValue: {}}
 		}
     return state.pageData.elements.find(v => {
       return v.uuid === state.activeElementUUID
@@ -494,7 +504,7 @@ const getters = {
   canRedo(state) {
     return state.historyCache.length > state.currentHistoryIndex + 1
   }
-};
+}
 
 export default {
   state,

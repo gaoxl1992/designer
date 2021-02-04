@@ -199,7 +199,7 @@ export default {
   width: 10px;
   height: 10px;
   background-color: $white;
-  border: 1px solid #59c7f9;
+  border: 1px solid $primary;
   border-radius: 10px;
   position: absolute;
   z-index: 1001;
@@ -208,10 +208,10 @@ export default {
 .components-edit-shape {
   cursor: move;
   &.active {
-    outline: 1px dashed #25a589;
+    outline: 1px dashed $primary;
   }
   &:hover {
-    outline: 1px dashed #25a589;
+    outline: 1px dashed $primary;
   }
 }
 </style>

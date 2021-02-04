@@ -312,11 +312,16 @@ export default {
   overflow: auto;
   height: 100%;
   width: 100%;
-  border: 1px solid $white;
+  border: 1px solid $line-color;
   border-width: 0 1px;
   background-position: 0 0, 13px 13px;
   background-size: 26px 26px;
   background-color: $page-bg-deepcolor;
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background: transparent;
+  }
   .rectangular {
     background-color: rgba(235, 239, 243, 0.45);
     position: fixed;
@@ -330,10 +335,9 @@ export default {
     margin-bottom: 50px;
   }
   .editor-pane-main {
-    overflow: hidden !important;
     border-radius: 3px;
     box-shadow: 0 3px 10px #dae1ed;
-    border: 1px dashed #0a68b3;
+    border: 1px dashed $primary;
     margin: 20px auto;
     position: relative;
     background: $page-bg-color;
@@ -361,7 +365,7 @@ export default {
     }
     .page-line {
       flex: 1;
-      border-top: 1px dashed #0a68b3;
+      border-top: 1px dashed $primary;
     }
   }
   .element-on-edit-pane {

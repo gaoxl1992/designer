@@ -1,3 +1,7 @@
+<!--
+ * @Description: 
+ * @props: 
+-->
 <template>
   <div
     class="page-wrapper-menu-operation menu-item-on-edit-panel"
@@ -10,6 +14,7 @@
       effect="dark"
       :content="item.title"
       placement="right"
+      :open-delay="100"
     >
       <div
         class="menu-item menu-item-on-edit-panel"

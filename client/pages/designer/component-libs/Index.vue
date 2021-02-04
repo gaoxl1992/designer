@@ -2,7 +2,7 @@
 <template>
   <div class="components-libs">
     <ul class="components-lib-cus">
-      <div class="components-libs-title">
+      <div class="components-lib-cus-title">
         <span>常用组件</span>
         <span class="op">
           <i
@@ -44,13 +44,13 @@
         </li>
       </template>
     </ul>
-    <ul class="components-lib-base">
-      <li
+    <div class="components-lib-base">
+      <div
         v-for="(item, index) in componentsList"
         :key="index"
       >
         <p class="components-libs-title">{{ item.title }}</p>
-        <div v-if="item.components && item.components.length">
+        <div v-if="item.components && item.components.length" class="base-components-libs-wrapper">
           <div
             class="components-lib-item"
             v-for="(element, i) in item.components"
@@ -60,8 +60,8 @@
             <p class="lib-item-title">{{ element.title }}</p>
           </div>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -196,6 +196,9 @@ export default {
   ul {
     padding: 20px;
   }
+  .components-lib-base {
+    padding: 20px 20px 10px 20px;
+  }
   .page-title {
     position: absolute;
     top: 16px;
@@ -206,12 +209,8 @@ export default {
   .components-libs-title {
     margin-bottom: 16px;
   }
-  .cus-components-libs-title {
-    font-size: 12px;
-    font-weight: 400;
-    color: #666666;
-    line-height: 20px;
-    padding-bottom: 4px;
+  .components-lib-cus-title {
+    margin-bottom: 6px
   }
   .op {
     float: right;
@@ -249,12 +248,23 @@ export default {
       font-weight: 400;
     }
   }
+
+  .cus-components-libs-title {
+    font-size: 12px;
+    font-weight: 400;
+    color: #666666;
+    line-height: 20px;
+    padding-bottom: 4px;
+    padding-top: 10px;
+  }
   .cus-components-lib-item {
     border: transparent;
     text-align: left;
     width: 30%;
     max-width: 33%;
-    margin-bottom: 0;
+    height: 22px;
+    margin-bottom: 5px;
+    line-height: 22px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -282,6 +292,9 @@ export default {
       bottom: 0;
       width: 220px;
     }
+  }
+  .base-components-libs-wrapper {
+    overflow: hidden;
   }
 }
 </style>

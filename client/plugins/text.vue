@@ -1,3 +1,7 @@
+<!--
+ * @Description: 
+ * @props: 
+-->
 <template>
   <div class="rad-text">
     {{ text }}

@@ -13,7 +13,7 @@
     >
       <div
         class="special-icon"
-        :style="{ bottom: editor + 40 + 'px' }"
+        :style="{ bottom: iconBottom }"
         v-if="pagetype === 'editor' && showChars"
       >
         <div class="flx">
@@ -171,7 +171,11 @@ export default {
   computed: {
     ...mapState({
       pageData: (state) => state.editor.pageData
-    })
+    }),
+    iconBottom() {
+      let rd = this.element?.rd || 1
+      return this.editor / rd + 25 + 'px'
+    }
   },
   created () {
     if (this.pagetype === 'editor') {
@@ -303,12 +307,13 @@ export default {
       let _this = this
       _this.removeEditor()
       let cssData = ('body' + JSON.stringify(_this.cssData)).replace(/,/g, ';').replace(/"/g, "")
+      let rd = this.element?.rd || 1
       _this.reditor = window.KindEditor.create(
         `textarea[name='content${this.editorId}']`,
         {
           width: '100%',
-          height: `${this.editor}px`,
-          minHeight: this.editor,
+          height: `${this.editor / rd}px`,
+          minHeight: this.editor / rd,
           minWidth: '100%',
           items: _this.items,
           resizeType: 0,
@@ -429,19 +434,19 @@ export default {
     right: 0;
     max-width: 76%;
     max-height: 252px;
+    min-height: 28px;
     font-size: 13px;
     color: #131313;
     background: $page-bg-color;
     box-shadow: 0px -2px 4px 0px #c8ced4;
     padding: 4px;
   }
-  .ke-toolbar,
-  .ke-statusbar {
+  .ke-toolbar {
     background-color: transparent;
     border-bottom: 1px solid #adb1b8;
   }
   .ke-statusbar {
-    border-top: 1px solid #adb1b8;
+    display: none;
   }
   .ke-container {
     border-color: #adb1b8;
