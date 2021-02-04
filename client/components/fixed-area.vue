@@ -68,7 +68,7 @@ export default {
   width: 10px;
   height: 10px;
   background-color: $white;
-  border: 1px solid #59c7f9;
+  border: 1px solid #C2770E;
   border-radius: 10px;
   position: absolute;
   left: calc(50% - 5px);
@@ -96,7 +96,7 @@ export default {
   height: 50px;
   min-height: 20px;
   left: 0;
-  border: 1px solid #59c7f9;
+  border: 1px solid #C2770E;
 }
 
 .fixed-header {
@@ -115,7 +115,7 @@ export default {
   background-color: $page-bg-color;
   padding: 0 5px;
   opacity: 0.8;
-  color: #59c7f9;
+  color: #C2770E;
 }
 .fixed-tip-header {
   bottom: -6px;

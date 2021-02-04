@@ -101,7 +101,7 @@ export default {
      */
     conform(pageData = null, spCharacters = [], domainList = []) {
       if (this.tempCacheLength !== this.historyCache.length) {
-        this.$confirm(`${pageData?.name}模版内容已更改，是否保存?`, '提示', {
+        this.$confirm(`${pageData?.name || ''}模版内容已更改，是否保存?`, '提示', {
           confirmButtonText: '保存',
           cancelButtonText: '不保存',
           type: 'warning'

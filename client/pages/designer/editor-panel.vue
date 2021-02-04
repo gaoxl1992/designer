@@ -7,12 +7,13 @@
     <div class="editor-pane-inner">
       <div
         class="editor-pane-main"
+        :class="{'editor-pane-main-inactive': !inCanvas}"
         :style="{
           transform: 'scale(' + scale + ')',
           width: pageData.width + 'px',
           height: pageData.height + 'px',
           'background-image': pageData.backgroundImage,
-          'background-size': pageData.backgroundSize + 'px',
+          'background-size': pageData.backgroundSize + 'px'
         }"
         @mouseup="handMouseUp"
         @mousedown.left="onmousedownClick"
@@ -112,7 +113,8 @@ export default {
       start_x: '',
       start_x_y: '',
       end_x: '',
-      end_y: ''
+      end_y: '',
+      inCanvas: false
     }
   },
   computed: {
@@ -159,6 +161,12 @@ export default {
      * @return {*}
      */
     handleClickCanvas (e) {
+      console.log(e)
+      if (e.toElement.className === 'editor-pane-inner') {
+        this.inCanvas = false
+      } else {
+        this.inCanvas = true
+      }
       if (!e.target || !e.target.classList) {
         return
       }
@@ -343,6 +351,9 @@ export default {
     background: $page-bg-color;
     transform-origin: center top;
     min-width: 700px;
+  }
+  .editor-pane-main-inactive {
+    border-color: $line-color;
   }
   .page-preview-wrapper {
     height: 100%;
