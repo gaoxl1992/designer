@@ -26,9 +26,9 @@
             @click.stop="openaddFieldDialog"
           ></i>
           <el-option
-            v-for="item in pageData.domainList"
+            v-for="item in domainList"
             :key="item.option"
-            :label="item.option"
+            :label="'#' + item.name + ' ' + item.option"
             :value="item.option"
           >
           </el-option>
@@ -39,7 +39,7 @@
           size="small"
           @click="showDialog = true"
           :disabled="!activeElement.threshold"
-        >编辑事件</el-button>
+        ><i class="el-icon-edit"></i> 编辑事件</el-button>
         <el-checkbox
           class="hidden-on-print"
           v-model="activeElement.hideOnPrint"
@@ -144,7 +144,8 @@ export default {
       showAdd: false,
       dialogVisible: false,
       fieldName: '',
-      radio: 1
+      radio: 1,
+      domainList: []
     }
   },
   computed: {
@@ -154,8 +155,9 @@ export default {
     }),
     ...mapGetters(['activeElementIndex', 'activeElement'])
   },
-  mounted () {
+  created () {
     this.code = this.pageData.script
+    this.domainList = JSON.parse(JSON.stringify(this.pageData.domainList))
   },
   watch: {
     'activeElement.threshold' (val) {

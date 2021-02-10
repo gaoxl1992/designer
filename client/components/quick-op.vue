@@ -2,6 +2,10 @@
  * @Description: 
  * @props: 
 -->
+<!--
+ * @Description: 
+ * @props: 
+-->
 <template>
   <div
     class="page-wrapper-menu-operation menu-item-on-edit-panel"
@@ -65,8 +69,8 @@ export default {
 </script>
 <style lang="scss">
 .page-wrapper-menu-operation {
-  position: absolute;
-  right: 10px;
+  position: fixed;
+  right: 270px;
   top: 45px;
   width: 0;
   background: white;

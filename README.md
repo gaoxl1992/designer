@@ -160,13 +160,13 @@ import { Editor } from 'web-reseditor/index.js'
 ### 和富文本交互
 ```js
 // 追加内容
-window.reditor['阈值'].appendHtml(str)
+window.reditor['阈值'].edit.appendHtml(str)
 // 追加到光标
-window.reditor['阈值'].insertHtml(str);
+window.reditor['阈值'].edit.insertHtml(str);
 // 替换全部内容 可以是字符串或序列化的dom节点
-window.reditor['阈值'].html(str) 
+window.reditor['阈值'].edit.html(str) 
 // 获取内容
-window.reditor['阈值'].html()
+window.reditor['阈值'].edit.html()
 ```
 
 ## 预览

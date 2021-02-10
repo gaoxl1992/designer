@@ -15,6 +15,9 @@ export default {
     })
   },
   methods: {
+    setDomain(domainList = []) {
+      this.pageData.domainList = domainList
+    },
     /**
      * @description: 该方法提供给外部调用，可以根据数据结构更新当前模版----导入或复用可用此方法
      * @param {*} pageData
@@ -24,6 +27,7 @@ export default {
       this.$store.dispatch('setPageData')
       this.$store.dispatch('setActiveElementUUID', '')
       if (!pageData) {
+        this.pageData.domainList = domainList
         this.tempCacheLength = this.historyCache.length
         return
       }
@@ -93,7 +97,7 @@ export default {
         item.rd = rd
         setTimeout(() => {
           this.$store.dispatch('importElement', item)
-          this.tempCacheLength ++
+          this.tempCacheLength++
         }, 10)
       })
     }

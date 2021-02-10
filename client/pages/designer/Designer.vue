@@ -148,6 +148,13 @@ export default {
     width: 0;
     background-color: $page-bg-deepcolor;
     position: relative;
+    border: 1px solid $line-color;
+    border-width: 0 1px;
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 10px;
+      background: transparent !important;
+    }
   }
   .el-attr-edit-wrapper {
     min-width: 260px;
@@ -155,6 +162,7 @@ export default {
     padding: 0;
     height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
   }
   .control-bar-wrapper {
     position: fixed;

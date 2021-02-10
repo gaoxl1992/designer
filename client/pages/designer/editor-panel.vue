@@ -317,19 +317,11 @@ export default {
 
 <style lang="scss">
 .editor-pane {
-  overflow: auto;
   height: 100%;
   width: 100%;
-  border: 1px solid $line-color;
-  border-width: 0 1px;
   background-position: 0 0, 13px 13px;
   background-size: 26px 26px;
   background-color: $page-bg-deepcolor;
-  &::-webkit-scrollbar {
-    width: 0;
-    height: 10px;
-    background: transparent !important;
-  }
   .rectangular {
     background-color: rgba(235, 239, 243, 0.45);
     position: fixed;

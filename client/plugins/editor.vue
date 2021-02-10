@@ -382,7 +382,10 @@ export default {
         if (this.pagetype === 'editor') {
           window.reditor = window.reditor || {}
           if (this.element && this.element.threshold) {
-            window.reditor[this.element.threshold] = _this.reditor
+            window.reditor[this.element.threshold] = {
+              edit: _this.reditor,
+              label: this.label
+            }
           }
         }
       }

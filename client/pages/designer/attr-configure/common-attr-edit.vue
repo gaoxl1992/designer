@@ -32,65 +32,62 @@
         </el-form-item>
       </el-form>
     </div>
-    <div class="common-item-edit-wrapper">
-      <p class="attr-item-title">字体：</p>
-      <div class="attr-item-edit-wrapper">
-        <div class="attr-item-edit-input sel-width">
-          <el-select
-            size="mini"
-            v-model="fontFamily"
-            placeholder="请选择"
-            @change="throttleAddHistory"
-          >
-            <el-option
-              v-for="item in fontFamilyList"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+    <el-collapse v-model="activeNames">
+      <el-collapse-item
+        title="字符"
+        name="1"
+      >
+        <div class="word-wrapper">
+          <div class="word-edit-select">
+            <el-select
+              size="mini"
+              v-model="fontFamily"
+              @change="throttleAddHistory"
             >
-            </el-option>
-          </el-select>
-          <div class="attr-item-edit-input-des">字体</div>
+              <el-option
+                v-for="item in fontFamilyList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </div>
+          <div class="text-right">
+            <el-color-picker
+              size="mini"
+              @change="throttleAddHistory"
+              v-model="color"
+            ></el-color-picker>
+          </div>
         </div>
-        <div class="ml attr-item-edit-input">
-          <el-input-number
-            size="mini"
-            @change="throttleAddHistory"
-            v-model="fontSize"
-            controls-position="right"
-            :min="0"
-          />
-          <div class="attr-item-edit-input-des">字号</div>
+        <div class="word-wrapper">
+          <div class="word-edit-input text-left marginR5">
+            <el-input-number
+              size="mini"
+              @change="throttleAddHistory"
+              v-model="fontSize"
+              controls-position="right"
+              :min="0"
+            />
+          </div>
+          <div class="word-edit-input text-center marginR5">
+            <el-input-number
+              size="mini"
+              @change="throttleAddHistory"
+              v-model="fontWeight"
+              controls-position="right"
+              :min="300"
+              :step="100"
+              :max="900"
+            />
+          </div>
+          <div class="word-edit-input text-right">
+            <div class="ita"><span>I</span></div>
+          </div>
         </div>
-        <div class="ml attr-item-edit-input">
-          <el-input-number
-            size="mini"
-            @change="throttleAddHistory"
-            v-model="fontWeight"
-            controls-position="right"
-            :min="300"
-            :step="100"
-            :max="900"
-          />
-          <div class="attr-item-edit-input-des">粗细</div>
-        </div>
-        <div class="ml attr-item-edit-input">
-          <el-color-picker
-            size="mini"
-            @change="throttleAddHistory"
-            v-model="color"
-          ></el-color-picker>
-        </div>
-        <div class="ml attr-item-edit-input">
-          <el-checkbox
-            v-model="fontStyle"
-            @change="throttleAddHistory"
-          >
-            <span class="ita">A</span>
-          </el-checkbox>
-        </div>
-      </div>
-    </div>
+      </el-collapse-item>
+    </el-collapse>
     <div class="common-item-edit-wrapper">
       <p class="attr-item-title">快捷定位：</p>
       <div class="sizeAndPosition-wrapper">
@@ -157,7 +154,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import { alignTypeList, fontFamilyList } from '@/config/attr-config'
-import { ceil, subtract, divide, throttle } from 'lodash'
+import { throttle } from 'lodash'
 import AreaTitle from '@/components/area-title'
 
 export default {
@@ -174,6 +171,7 @@ export default {
   },
   data () {
     return {
+      activeNames: [],
       alignTypeList,
       fontFamilyList,
       fontFamily: '',
@@ -187,6 +185,7 @@ export default {
       numb: 1,
       mixLayout: '',
       activeElements: () => [],
+      maxXY: () => { }
     }
   },
   created () {
@@ -300,10 +299,26 @@ export default {
     // 初始化的时候对比多个element
     diffElementStyle () {
       let elements = this.pageData.elements
+      this.maxXY = {
+        l: 0,
+        r: 0,
+        t: 0,
+        b: 0
+      }
       this.activeElements = []
       for (let i = 0; i < elements.length; i++) {
         let element = elements[i]
         if (this.activeElementsUUID.indexOf(element.uuid) > -1) {
+          console.log(element)
+          const { top, left, height, width } = element.commonStyle
+          const bottom = top + height
+          let right = left + width
+
+          this.maxXY.t = this.maxXY.t === 0 ? top : (this.maxXY.t > top ? top : this.maxXY.t)
+          this.maxXY.l = this.maxXY.l === 0 ? left : (this.maxXY.l > left ? left : this.maxXY.l)
+          this.maxXY.b = this.maxXY.b === 0 ? bottom : (this.maxXY.b > bottom ? this.maxXY.b : bottom)
+          this.maxXY.r = this.maxXY.r === 0 ? right : (this.maxXY.r > right ? this.maxXY.r : right)
+
           this.activeElements.push(element)
         }
       }
@@ -379,33 +394,27 @@ export default {
     },
     // 处理吸边操作
     delWithElementAlignType (element, type) {
-      let canvasW = this.pageData.width
-      let canvasH = this.pageData.height
       let eleW = element.commonStyle.width
       let eleH = element.commonStyle.height
 
       switch (type) {
         case 't':
-          element.commonStyle.top = 0
+          element.commonStyle.top = this.maxXY.t || 0
           break
         case 'b':
-          element.commonStyle.top = subtract(canvasH - eleH - 20)
+          element.commonStyle.top = this.maxXY.b || 0
           break
         case 'l':
-          element.commonStyle.left = 0
+          element.commonStyle.left = this.maxXY.l || 0
           break
         case 'r':
-          element.commonStyle.left = subtract(canvasW - eleW) - 20
+          element.commonStyle.left = this.maxXY.r || 0
           break
         case 'tb':
-          element.commonStyle.top = ceil(
-            divide(subtract(canvasH - eleH - 20), 2),
-            2
-          )
+          element.commonStyle.top = this.maxXY.t + (this.maxXY.b - this.maxXY.t - eleH) / 2
           break
         case 'lr':
-          element.commonStyle.left =
-            ceil(divide(subtract(canvasW - eleW), 2), 2) - 10
+          element.commonStyle.left = this.maxXY.l + (this.maxXY.r - this.maxXY.l - eleW) / 2
           break
       }
     },
@@ -539,8 +548,33 @@ export default {
         color: $gray;
       }
     }
+  }
+  .el-collapse-item {
+    padding: 0 10px;
+  }
+  .word-wrapper {
+    display: flex;
+    width: 100%;
+    .word-edit-select {
+      width: 212px;
+    }
+    .word-edit-input {
+      width: fit-content;
+      .el-input-number--mini {
+        width: 104px;
+      }
+    }
     .ita {
       font-style: italic;
+      border: 1px solid #cbced4;
+      font-size: 12px;
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+      text-align: center;
+      line-height: 12px;
+      padding: 3px;
+      margin: 4px 0;
     }
   }
 }
