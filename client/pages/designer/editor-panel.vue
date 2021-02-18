@@ -346,7 +346,7 @@ export default {
     border-color: $line-color;
   }
   .page-preview-wrapper {
-    height: 100%;
+    height: calc(100% - 20px);
     position: relative;
     margin: 10px;
     pointer-events: inherit;

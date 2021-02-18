@@ -147,8 +147,8 @@ export default {
     this.editable = !this.disabled
     this.tempSize = this.size
     this.tempDatetime = this.datetime
-    this.tempFormat = this.format || this.formatList.date[0],
-      this.tempLabel = this.label
+    this.tempFormat = this.format || this.formatList.date[0]
+    this.tempLabel = this.label
   },
   watch: {
     size (val) {

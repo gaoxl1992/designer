@@ -11,6 +11,7 @@
           getCommonStyle({ 
             ...pageData.commonStyle,
             width: pageData.width,
+            height: pageData.height,
             paddingTop: nopt ? 0 : 10,
             paddingBottom: nopb ? 0 : 10
           })
@@ -24,8 +25,6 @@
               {
                 ...pageData.commonStyle,
                 top: 0,
-                height:  pageData.height,
-                width: pageData.width - 20,
                 position: 'relative',
               },
               scalingRatio

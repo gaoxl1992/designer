@@ -62,7 +62,7 @@ export default {
   },
   data () {
     return {
-      datemodel: '',
+      datemodel: null,
       disabledValue: this.disabled || this.pagetype === 'designer',
       previewDate: '',
       previewStyle: {
@@ -83,7 +83,8 @@ export default {
     }
   },
   created () {
-    this.datemodel = (this.element && this.element.value) || new Date()
+    this.datemodel = (this.element && this.element.value) || this.datetime.indexOf('range') === -1 ? new Date() : [new Date(), new Date()]
+
     if (this.pagetype === 'preview') {
       this.previewDate = this.formatDate(
         this.datemodel,
@@ -151,6 +152,7 @@ export default {
   .el-input__inner {
     background-color: transparent;
     border: 1px solid #adb1b8;
+    padding: 0;
   }
   .el-input__inner_preview {
     border: none;
@@ -187,6 +189,18 @@ export default {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+  }
+  .el-input__prefix,
+  .el-input__suffix,
+  .el-input__icon {
+    display: none;
+  }
+  .el-range-input {
+    width: calc((100% - 10px) / 2);
+  }
+  .el-range-separator {
+    padding: 0;
+    width: 10px;
   }
 }
 </style>
