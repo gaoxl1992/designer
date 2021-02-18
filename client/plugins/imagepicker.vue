@@ -149,8 +149,50 @@ export default {
   },
   created () {
     this.fileList = (this.element && this.element.value) || []
+    if (this.pagetype === 'editor' && this.element.threshold) {
+      window.imagePicker = window.imagePicker || {}
+      window.imagePicker[this.element.threshold] = {
+        resetPics: this.resetPics,
+        deletePics: this.deletePics,
+        insertPics: this.insertPics
+      }
+    }
   },
   methods: {
+    /**
+     * @description: 编辑模式挂载到window上的方法，用于全量替换图片
+     * @param {*} fileList
+     * @return {*}
+     */
+    resetPics (fileList = []) {
+      this.fileList = fileList
+    },
+    /**
+     * @description: 编辑模式挂载到window上的方法，用于批量删除图片
+     * @param {*} indexs
+     * @return {*}
+     */
+    deletePics (indexs = []) {
+      indexs.sort((a, b) => {
+        return b - a
+      })
+      indexs.forEach((index) => {
+        if (index >= 0) {
+          this.fileList.splice(index, 1)
+        }
+      })
+    },
+    /**
+     * @description: 编辑模式挂载到window上的方法，用于插入图片
+     * @param {*} files
+     * @param {*} index
+     * @return {*}
+     */
+    insertPics (files, index) {
+      if (index >= 0) {
+        this.fileList.splice(index, 0, files)
+      }
+    },
     handleRemove (idx) {
       this.fileList.splice(idx, 1)
     },
@@ -225,10 +267,7 @@ export default {
     width: 100%;
   }
   .el-upload-list__item {
-    align-items: center;
-    display: flex;
     margin-top: 0;
-    float: left;
     .el-icon-delete {
       color: $white;
     }

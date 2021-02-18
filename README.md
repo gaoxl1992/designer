@@ -169,6 +169,16 @@ window.reditor['阈值'].edit.html(str)
 window.reditor['阈值'].edit.html()
 ```
 
+### 和图片选择器交互
+```js
+// 重置图片列表
+window.imagePicker['阈值'].resetPics(pics = []) // 传入图片列表
+// 删除某几个图片
+window.imagePicker['阈值'].deletePics(index = []) // 传入要删除的图片下标
+// 插入图片到指定位置
+window.imagePicker['阈值'].insertPics(pics = [], index)
+```
+
 ## 预览
 ```js
 import { Preview } from 'web-reseditor/index.js'
