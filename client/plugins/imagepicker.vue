@@ -204,7 +204,6 @@ export default {
           sqr = maxRow
         }
         if (this.fixType === 2) {
-          this.lineStyle = {}
           return {
             width: `${(this.commonStyle.width - this.picDis * (sqr - 1)) / sqr}px`,
             height: `${(this.commonStyle.height - this.picDis * (sqr - 1)) / sqr}px`,
