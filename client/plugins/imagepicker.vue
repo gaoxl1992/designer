@@ -1,5 +1,6 @@
 <template>
   <div class="rad-imagepicker">
+    <!-- 设计模式 -->
     <div
       class="rad-imagepicker-inner"
       v-if="pagetype === 'designer'"
@@ -9,17 +10,18 @@
         <div class="imagepicker-placeholder-text">图片占位符</div>
       </div>
     </div>
-    <div
+    <!-- 编辑模式 || 预览模式已上传最大数量的图片 || 预览模式优先铺满宽度 -->
+    <vuedraggable
+      v-model="fileList"
+      @change="changeImages"
       class="pic-group"
       :style="groupStyle"
-      v-else
+      v-else-if="
+        pagetype === 'editor'"
     >
       <div
         :style="liStyle(idx)"
-        class="is-ready"
-        :class="{
-          'el-upload-list__item': pagetype === 'editor'
-        }"
+        class="is-ready el-upload-list__item"
         v-for="(item, idx) in fileList"
         :key="idx"
         @mouseover="hoverIndex = idx"
@@ -36,7 +38,7 @@
           />
           <span
             class="el-upload-list__item-actions"
-            v-show="hoverIndex === idx && pagetype==='editor'"
+            v-show="hoverIndex === idx"
           >
             <span
               class="el-upload-list__item-delete"
@@ -77,11 +79,26 @@
           class="el-icon-plus"
         ></i>
       </el-upload>
+    </vuedraggable>
+    <!-- 预览模式 自适应布局 -->
+    <div v-else>
+      <div
+        v-for="(item, idx) in fileList"
+        :key="idx"
+        :style="fixType === 1 ? liStyle(idx) : imgStyle(idx)"
+      >
+        <img
+          :src="item.url"
+          :style="imageStyle"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import vuedraggable from 'vuedraggable'
+import bus from '@/utils/bus'
 export default {
   name: 'RadImagepicker',
   props: {
@@ -109,8 +126,13 @@ export default {
     element: {
       type: Object,
       default: () => { }
+    },
+    fixType: {
+      type: Number,
+      default: 3
     }
   },
+  components: { vuedraggable },
   data () {
     return {
       fileList: [],
@@ -124,7 +146,8 @@ export default {
         height: '100%',
         margin: '0 auto',
         display: 'block'
-      }
+      },
+      relLinePics: this.linepics
     }
   },
   computed: {
@@ -142,19 +165,50 @@ export default {
           marginBottom:
             this.imagepicker - idx <= this.linepics ? 0 : `${this.rowDis}px`,
           paddingRight: (idx + 1) % this.linepics === 0 ? 0 : `${this.picDis}px`,
-          float: 'left'
+          display: 'inline-block'
         }
+      }
+    },
+    imgStyle () {
+      return function (idx) {
+        let len = this.fileList.length
+        let maxRow = Math.ceil(this.imagepicker / this.linepics)
+        let sqr = Math.sqrt(len)
+        // 恰好是 a*a
+        if (sqr % 1 === 0 && sqr <= maxRow) {
+          if (this.fixType === 2) {
+            return {
+              width: `${(this.commonStyle.width - this.picDis * (sqr - 1)) / sqr}px`,
+              height: `${(this.commonStyle.height - this.picDis * (sqr - 1)) / sqr}px`,
+              'text-align': 'left',
+              display: 'inline-block',
+              paddingRight: (idx + 1) % sqr === 0 ? 0 : `${this.picDis}px`
+            }
+          } else if (this.fixType === 3) {
+            let width = (this.commonStyle.width - this.picDis * (this.linepics - 1)) / this.linepics
+            return {
+              width: `${width}px`,
+              height: `${(this.commonStyle.height - this.picDis * (sqr - 1)) / sqr}px`,
+              'text-align': 'left',
+              display: 'inline-block',
+              paddingRight: (idx + 1) % sqr === 0 ? 0 : `${this.picDis}px`
+            }
+          }
+        }
+        return {}
       }
     }
   },
   created () {
+    console.log('---', this.imagepicker, this.fixType)
     this.fileList = (this.element && this.element.value) || []
     if (this.pagetype === 'editor' && this.element.threshold) {
       window.imagePicker = window.imagePicker || {}
       window.imagePicker[this.element.threshold] = {
         resetPics: this.resetPics,
         deletePics: this.deletePics,
-        insertPics: this.insertPics
+        insertPics: this.insertPics,
+        fileList: this.fileList
       }
     }
   },
@@ -195,6 +249,7 @@ export default {
     },
     handleRemove (idx) {
       this.fileList.splice(idx, 1)
+      this.changeImages()
     },
     handleFiles (file) {
       let reader = new FileReader()
@@ -203,6 +258,7 @@ export default {
         _this.fileList.push({
           url: e.target.result
         })
+        _this.changeImages()
       }
       reader.readAsDataURL(file.raw)
     },
@@ -219,6 +275,22 @@ export default {
           center: true
         }
       ).then(() => { })
+    },
+    changeImages () {
+      bus.$emit('updateImages', {
+        threshold: this.element?.threshold || null,
+        fileList: this.fileList || []
+      })
+    }
+  },
+  deactivated () {
+    if (this.element && this.element.threshold && window.imagePicker[this.element.threshold]) {
+      delete window.imagePicker[this.element.threshold]
+    }
+  },
+  beforeDestroy () {
+    if (this.element && this.element.threshold && window.imagePicker[this.element.threshold]) {
+      delete window.imagePicker[this.element.threshold]
     }
   },
   watch: {
@@ -256,7 +328,7 @@ export default {
     height: 100%;
   }
   .upload-demo {
-    display: flex;
+    display: inline-flex;
     align-items: center;
   }
   .el-image {

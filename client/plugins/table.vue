@@ -1,8 +1,10 @@
 <template>
   <div class="rad-table">
     <!-- 设计页和编辑页未选择模版状态  -->
-    <div class="rad-table-inner print-hidden"
-         v-if="pagetype === 'designer'">
+    <div
+      class="rad-table-inner print-hidden"
+      v-if="pagetype === 'designer'"
+    >
       <div class="table-placeholder">
         <i class="el-icon-menu"></i>
         <div class="table-placeholder-text">
@@ -10,39 +12,53 @@
         </div>
       </div>
     </div>
-    <div @click="selectTableModel"
-         class="rad-table-inner print-hidden"
-         v-if="pagetype === 'editor' && (!activeTpl || !activeTpl.id)">
+    <div
+      @click="selectTableModel"
+      class="rad-table-inner print-hidden"
+      v-if="pagetype === 'editor' && (!activeTpl || !activeTpl.id)"
+    >
       <div class="table-placeholder">
         <i class="el-icon-menu"></i>
         <div class="table-placeholder-text">点击选择表格模版</div>
       </div>
     </div>
-    <div v-if="pagetype !== 'preview' && activeTpl && activeTpl.id"
-         class="choose-tip print-hidden"
-         @click="selectTableModel"><i class="el-icon-s-grid"></i>重新选择模版</div>
-    <div class="table-container"
-         :id="editorId + 'container'"
-         v-if="activeTpl && activeTpl.id"
-         v-html="activeTpl.tpl"
-         @change="changeInner"
-         @click="bindUrFather">
+    <div
+      v-if="pagetype !== 'preview' && activeTpl && activeTpl.id"
+      class="choose-tip print-hidden"
+      @click="selectTableModel"
+    ><i class="el-icon-s-grid"></i>重新选择模版</div>
+    <div
+      class="table-container"
+      :id="editorId + 'container'"
+      v-if="activeTpl && activeTpl.id"
+      v-html="activeTpl.tpl"
+      @change="changeInner"
+      @click="bindUrFather"
+    >
     </div>
     <!-- 选择表格模板 -->
-    <el-dialog title="选择表格模板"
-               :visible.sync="showTableModel"
-               append-to-body
-               modal-append-to-body>
-      <ul class="table-model-list"
-          v-if="tableList && tableList.length">
+    <el-dialog
+      title="选择表格模板"
+      :visible.sync="showTableModel"
+      append-to-body
+      modal-append-to-body
+    >
+      <ul
+        class="table-model-list"
+        v-if="tableList && tableList.length"
+      >
         <template v-for="(item, index) in tableList">
-          <li class="table-model-item"
-              :key="index">
-            <i class="el-icon-document"></i>{{ item.name }}
-            <el-button class="apply-btn"
-                       size="mini"
-                       type="primary"
-                       @click="applyTemplate(item, index)">{{ activeTpl && item.id === activeTpl.id ? '取消应用' : '应用' }}</el-button>
+          <li
+            class="table-model-item"
+            :key="index"
+          >
+            <i class="el-icon-document"></i>{{ item.title }}
+            <el-button
+              class="apply-btn"
+              size="mini"
+              type="primary"
+              @click="applyTemplate(item, index)"
+            >{{ activeTpl && item.id === activeTpl.id ? '取消应用' : '应用' }}</el-button>
           </li>
         </template>
       </ul>
@@ -54,6 +70,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import { createUUID } from '@/utils/mUtils'
+import bus from '@/utils/bus'
 export default {
   name: 'RadTable',
   props: {
@@ -109,6 +126,17 @@ export default {
   mounted () {
     this.tableList = this.tableTpl
     this.activeTpl = (this.element && this.element.value) || null
+
+    bus.$on('applyTableTplDetail', (template) => {
+      let tpl = {
+        id: template.id,
+        name: template.title,
+        tpl: template.content,
+        departmentId: template.departmentId
+      }
+      this.activeTpl = tpl
+      this.$emit('update:value', tpl)
+    })
   },
   methods: {
     selectTableModel () {
@@ -125,8 +153,7 @@ export default {
         this.activeTpl = null
         this.$emit('update:value', null)
       } else {
-        this.activeTpl = JSON.parse(JSON.stringify(template))
-        this.$emit('update:value', template)
+        bus.$emit('applyTableTpl', template.id)
       }
       this.showTableModel = false
     },

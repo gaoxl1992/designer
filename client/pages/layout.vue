@@ -437,7 +437,6 @@ export default {
      * @return {*}
      */
     saveEditedPage (e) {
-      console.log(JSON.stringify(e))
       localStorage.setItem('editedPageData', JSON.stringify(e))
     },
     /**

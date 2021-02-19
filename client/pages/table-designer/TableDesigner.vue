@@ -91,8 +91,7 @@ export default {
     editTableTpl (e = {}) {
       this.editIndex = e.index !== null && e.index >= 0 ? e.index : -1
       this.bindAttrList = e?.rels || {}
-      this.content = e?.tpl || ''
-      this.tplName = e?.name || ''
+      this.$emit('editTableTpl', e)
     },
     /**
      * @description: 删除表格模版
@@ -101,6 +100,16 @@ export default {
      */
     deleteTableTpl (e) {
       this.$emit('deleteTableTpl', e)
+    },
+    /**
+     * @description: 外部重置富文本内容
+     * @param {*} tplDetail
+     * @return {*}
+     */
+    resetMce (tplDetail) {
+      this.content = tplDetail.content
+      this.tplName = tplDetail.title
+      this.extent.department.option = tplDetail.departmentId
     },
     /**
      * @description: 获取编辑器内部数据

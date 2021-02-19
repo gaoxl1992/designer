@@ -309,7 +309,6 @@ export default {
       for (let i = 0; i < elements.length; i++) {
         let element = elements[i]
         if (this.activeElementsUUID.indexOf(element.uuid) > -1) {
-          console.log(element)
           const { top, left, height, width } = element.commonStyle
           const bottom = top + height
           let right = left + width

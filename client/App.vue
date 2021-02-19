@@ -1,7 +1,3 @@
-<!--
- * @Description: 
- * @props: 
--->
 <template>
   <div id="app">
     <router-view />

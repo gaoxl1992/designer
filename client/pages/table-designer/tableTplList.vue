@@ -6,19 +6,27 @@
 <template>
   <div class="tpl-list">
     <p>表格模版列表(双击重新编辑)</p>
-    <div class="tpl-list-item"
-         v-for="(item, index) in tableTplList"
-         :key="item.id">
+    <div
+      class="tpl-list-item"
+      v-for="(item, index) in tableTplList"
+      :key="item.id"
+    >
       <div class="tpl-item">
-        <el-tooltip class="item"
-                    effect="dark"
-                    :content="item.name"
-                    placement="top-start">
-          <div class="tpl-item-name"
-               @dblclick="editTableTpl(item, index)">{{item.name}}</div>
+        <el-tooltip
+          class="item"
+          effect="dark"
+          :content="item.title"
+          placement="top-start"
+        >
+          <div
+            class="tpl-item-name"
+            @dblclick="editTableTpl(item, index)"
+          >{{item.title}}</div>
         </el-tooltip>
-        <i class="el-icon-close"
-           @click="deleteTableTpl(index)"></i>
+        <i
+          class="el-icon-close"
+          @click="deleteTableTpl(index, item)"
+        ></i>
       </div>
     </div>
     <div v-if="!tableTplList || tableTplList.length === 0">暂无模版</div>
@@ -39,19 +47,20 @@ export default {
      * @param {*} index
      * @return {*}
      */
-    deleteTableTpl(index) {
-      this.$emit('deleteTableTpl', index)
+    deleteTableTpl (index, item) {
+      this.$emit('deleteTableTpl', {
+        index,
+        id: item.id
+      })
     },
     /**
      * @description: 编辑模版
      * @param {*} item
      * @return {*}
      */
-    editTableTpl(item, index) {
+    editTableTpl (item, index) {
       this.$emit('editTableTpl', {
-        rels: item.rels,
-        tpl: item.tpl,
-        name: item.name,
+        id: item.id,
         index
       })
     }

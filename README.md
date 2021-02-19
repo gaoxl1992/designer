@@ -177,6 +177,14 @@ window.imagePicker['阈值'].resetPics(pics = []) // 传入图片列表
 window.imagePicker['阈值'].deletePics(index = []) // 传入要删除的图片下标
 // 插入图片到指定位置
 window.imagePicker['阈值'].insertPics(pics = [], index)
+
+// 在编辑器上拖拽图片或者删除上传
+@updateImages="updateImages"  // 监听事件 {返回
+
+updateImages(e) {
+  e.threshold // 阈值
+  e.fileList // 图片列表
+}
 ```
 
 ## 预览

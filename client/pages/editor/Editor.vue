@@ -89,8 +89,20 @@ export default {
     bus.$on('updateSpChars', (spCharacters) => {
       this.$emit('updateSpChars', spCharacters)
     })
+
+    // imagepicker内容有变化通知外部
+    bus.$on('updateImages', (res) => {
+      this.$emit('updateImages', res)
+    })
+
+    bus.$on('applyTableTpl', (id) => {
+      this.$emit('applyTableTpl', id)
+    })
   },
   methods: {
+    applyTable (tpl) {
+      bus.$emit('applyTableTplDetail', tpl)
+    },
     /**
      * @description: 保存编辑模版对象，用于重新编辑
      * @param {*}

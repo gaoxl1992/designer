@@ -1,7 +1,3 @@
-<!--
- * @Description: 
- * @props: 
--->
 <template>
   <div v-if="currentElementProps.length">
     <div class="attr-title fontBold">组件属性</div>
