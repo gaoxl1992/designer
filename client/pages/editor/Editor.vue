@@ -100,7 +100,7 @@ export default {
     })
   },
   methods: {
-    applyTable (tpl) {
+    applyTableTpl (tpl) {
       bus.$emit('applyTableTplDetail', tpl)
     },
     /**

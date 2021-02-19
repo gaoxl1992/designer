@@ -81,7 +81,10 @@
       </el-upload>
     </vuedraggable>
     <!-- 预览模式 自适应布局 -->
-    <div v-else>
+    <div
+      :style="lineStyle"
+      v-else
+    >
       <div
         v-for="(item, idx) in fileList"
         :key="idx"
@@ -169,30 +172,56 @@ export default {
         }
       }
     },
+    lineStyle () {
+      if (this.fixType === 3) {
+        let len = this.fileList.length
+        let maxRow = Math.ceil(this.imagepicker / this.linepics)
+        let sqr = Math.sqrt(len)
+        if (sqr % 1 !== 0) {
+          sqr = Math.ceil(sqr)
+        }
+        if (sqr > maxRow) {
+          sqr = maxRow
+        }
+        let width = (this.commonStyle.width - this.picDis * (this.linepics - 1)) / this.linepics
+        let lineWidth = width * sqr + this.picDis * (sqr - 1)
+        return {
+          width: lineWidth + 'px',
+          margin: '0 auto'
+        }
+      }
+      return {}
+    },
     imgStyle () {
       return function (idx) {
         let len = this.fileList.length
         let maxRow = Math.ceil(this.imagepicker / this.linepics)
         let sqr = Math.sqrt(len)
-        // 恰好是 a*a
-        if (sqr % 1 === 0 && sqr <= maxRow) {
-          if (this.fixType === 2) {
-            return {
-              width: `${(this.commonStyle.width - this.picDis * (sqr - 1)) / sqr}px`,
-              height: `${(this.commonStyle.height - this.picDis * (sqr - 1)) / sqr}px`,
-              'text-align': 'left',
-              display: 'inline-block',
-              paddingRight: (idx + 1) % sqr === 0 ? 0 : `${this.picDis}px`
-            }
-          } else if (this.fixType === 3) {
-            let width = (this.commonStyle.width - this.picDis * (this.linepics - 1)) / this.linepics
-            return {
-              width: `${width}px`,
-              height: `${(this.commonStyle.height - this.picDis * (sqr - 1)) / sqr}px`,
-              'text-align': 'left',
-              display: 'inline-block',
-              paddingRight: (idx + 1) % sqr === 0 ? 0 : `${this.picDis}px`
-            }
+        if (sqr % 1 !== 0) {
+          sqr = Math.ceil(sqr)
+        }
+        if (sqr > maxRow) {
+          sqr = maxRow
+        }
+        if (this.fixType === 2) {
+          this.lineStyle = {}
+          return {
+            width: `${(this.commonStyle.width - this.picDis * (sqr - 1)) / sqr}px`,
+            height: `${(this.commonStyle.height - this.picDis * (sqr - 1)) / sqr}px`,
+            'text-align': 'left',
+            display: 'inline-block',
+            paddingRight: (idx + 1) % sqr === 0 ? 0 : `${this.picDis}px`,
+            paddingBottom: idx < sqr * (sqr - 1) ? `${this.picDis}px` : 0
+          }
+        } else if (this.fixType === 3) {
+          let width = (this.commonStyle.width - this.picDis * (this.linepics - 1)) / this.linepics
+          return {
+            width: `${width}px`,
+            height: `${(this.commonStyle.height - this.picDis * (sqr - 1)) / sqr}px`,
+            'text-align': 'left',
+            display: 'inline-block',
+            paddingRight: (idx + 1) % sqr === 0 ? 0 : `${this.picDis}px`,
+            paddingBottom: idx < sqr * (sqr - 1) ? `${this.picDis}px` : 0
           }
         }
         return {}
@@ -200,7 +229,6 @@ export default {
     }
   },
   created () {
-    console.log('---', this.imagepicker, this.fixType)
     this.fileList = (this.element && this.element.value) || []
     if (this.pagetype === 'editor' && this.element.threshold) {
       window.imagePicker = window.imagePicker || {}
