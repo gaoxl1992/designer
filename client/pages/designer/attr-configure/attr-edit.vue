@@ -187,7 +187,7 @@ export default {
     },
     transmiteValue () {
       if (this.fieldName && this.fieldName.trim()) { // 添加的域值不为空
-        let fieldVal = (this.radio === 1 ? 'props_' : 'temp_') + this.fieldName.trim()
+        let fieldVal = (this.radio === 1 ? 'PROP_' : 'TEMP_') + this.fieldName.trim()
         // 处理域值重复
         if (this.pageData.domainList && this.pageData.domainList.length) {
           if (this.pageData.domainList.find(cols => cols.option === fieldVal)) {
