@@ -13,7 +13,6 @@ import $config from './index';
 let elementConfig = {
   elName: '', // 组件名
   isPlaceholder: false, // 占位控件标示
-  hasThreshold: true, // 组件类别默认有阈值
   threshold: '', // 控件阈值
   hideOnPrint: false, // 组件是否打印隐藏
   title: '', // 组件中文名
@@ -73,7 +72,6 @@ let pageConfig = {
   pageType: 'a4',
   spCharacters: [],
   domainList: [],
-  script: '',
   customHeight: 297,
   customWidth: 210,
   totalPages: 1,
@@ -100,7 +98,6 @@ let getElementConfig = function (element, extendStyle = {}) {
     isPlaceholder: elementData.isPlaceholder,
     hideOnPrint: elementData.hideOnPrint,
     threshold: elementData.threshold,
-    hasThreshold: elementData.hasThreshold,
     title: elementData.title,
     propsValue: deepClone(elementData.needProps || {})
   }

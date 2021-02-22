@@ -72,7 +72,8 @@ export default {
       showPreview: false,
       pageDataTpl: () => { },
       pageHeaderTpl: () => { },
-      pageFooterTpl: () => { }
+      pageFooterTpl: () => { },
+      pageType: 'editor'
     }
   },
   ...mapState({
@@ -82,6 +83,11 @@ export default {
   }),
   components: {
     EngineH5Swiper
+  },
+  watch: {
+    tpls (vals) {
+      this.$store.dispatch('setTableTpl', vals)
+    }
   },
   created () {
     this.$store.dispatch('setTableTpl', this.tpls)

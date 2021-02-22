@@ -38,8 +38,7 @@
           plain
           size="small"
           @click="showDialog = true"
-          :disabled="!activeElement.threshold"
-        ><i class="el-icon-edit"></i> 编辑事件</el-button>
+        ><i class="el-icon-edit"></i>编辑事件</el-button>
         <el-checkbox
           class="hidden-on-print"
           v-model="activeElement.hideOnPrint"
@@ -48,7 +47,9 @@
       </div>
     </div>
     <el-dialog :visible.sync="showDialog">
-      <template slot="title">编辑事件 #{{ activeElement.threshold }}</template>
+      <template slot="title">
+        {{ '编辑事件 ' + (activeElement.threshold ? ('#' + activeElement.threshold) : '（无域值）')  }}
+      </template>
       <template>
         <codemirror
           class="mirror"
@@ -107,8 +108,8 @@
         <el-button
           type="primary"
           @click="transmiteValue"
-        >确 定</el-button>
-        <el-button @click="dialogVisible = false">取 消</el-button>
+        >确定</el-button>
+        <el-button @click="dialogVisible = false">取消</el-button>
       </span>
     </el-dialog>
   </div>
@@ -118,9 +119,19 @@
 import BaseAttr from './attr-props-components/base-attr'
 import PropsAttr from './attr-props-components/props-attr/index.vue'
 import { codemirror } from 'vue-codemirror'
-import 'codemirror/lib/codemirror.css'
+require('codemirror/mode/javascript/javascript.js');
+require('codemirror/addon/fold/foldcode.js');
+require('codemirror/addon/fold/foldgutter.js');
+require('codemirror/addon/fold/brace-fold.js');
+require('codemirror/addon/fold/xml-fold.js');
+require('codemirror/addon/fold/indent-fold.js');
+require('codemirror/addon/fold/markdown-fold.js');
+require('codemirror/addon/fold/comment-fold.js');
 import { mapState, mapGetters } from 'vuex'
 import AreaTitle from '@/components/area-title'
+import {
+  scriptStr
+} from '@/config/attr-config'
 
 export default {
   props: {},
@@ -133,13 +144,15 @@ export default {
   data () {
     return {
       showDialog: false,
-      code: '',
+      code: scriptStr,
       cmOptions: {
-        tabSize: 4,
+        readOnly: false,
+        tabSize: 2,
+        indentUnit: 2,
         mode: 'text/javascript',
-        theme: 'base16-dark',
         lineNumbers: true,
-        line: true
+        line: true,
+        smartIndent: true
       },
       showAdd: false,
       dialogVisible: false,
@@ -150,13 +163,12 @@ export default {
   },
   computed: {
     ...mapState({
-      pageData: (state) => state.editor.pageData,
-      activeElementUUID: (state) => state.editor.activeElementUUID
+      pageData: (state) => state.editor.pageData
     }),
     ...mapGetters(['activeElementIndex', 'activeElement'])
   },
   created () {
-    this.code = this.pageData.script
+    this.code += this.activeElement.script
     this.domainList = JSON.parse(JSON.stringify(this.pageData.domainList))
   },
   watch: {
@@ -179,28 +191,22 @@ export default {
       this.code = newCode
     },
     confirmDialog () {
-      this.pageData.script = this.code
-      this.showDialog = false
+      this.activeElement.script = this.code.replace(/\/\*[\s\S]*?\*\//ig, '').replace(/ +/g, '').replace(/[\r\n]/g, '').trim()
+      this.closeDialog()
     },
     closeDialog () {
       this.showDialog = false
     },
+    /**
+     * @description: 非数据库阈值转换
+     * @param {*}
+     * @return {*}
+     */
     transmiteValue () {
-      if (this.fieldName && this.fieldName.trim()) { // 添加的域值不为空
-        let fieldVal = (this.radio === 1 ? 'PROP_' : 'TEMP_') + this.fieldName.trim()
-        // 处理域值重复
-        if (this.pageData.domainList && this.pageData.domainList.length) {
-          if (this.pageData.domainList.find(cols => cols.option === fieldVal)) {
-            this.$message({
-              message: '与已有域值重复，请重新输入！',
-              type: 'error',
-              showClose: true,
-            })
-            return false
-          }
-        }
-        this.fieldVal = fieldVal
-        this.activeElement.threshold = fieldVal
+      // 添加的域值不为空
+      if (this.fieldName && this.fieldName.trim()) {
+        let fieldPre = (this.radio === 1 ? 'PROP_' : 'TEMP_')
+        this.activeElement.threshold = this.fieldVal = fieldPre + this.fieldName.trim()
         this.dialogVisible = false
       } else {
         this.$message({
@@ -216,6 +222,9 @@ export default {
 <style lang="scss">
 .components-attr-edit {
   height: 100%;
+  .el-icon-edit {
+    padding-right: 10px;
+  }
   .el-form-item {
     margin-bottom: 10px;
   }

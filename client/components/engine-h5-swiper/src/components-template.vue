@@ -2,28 +2,43 @@
  * @Description: 模版引擎
 -->
 <template>
-  <div class="rad-element-wrapper"
-       :class="'rad-element-wrapper-preview' + editorId"
-       @click="handleClick">
-    <component @update:value="updateValue"
-               :is="element.elName"
-               :commonStyle="element.commonStyle"
-               :element="element"
-               class="rad-element ani"
-               v-bind="element.propsValue"
-               :editorId="'preview' + editorId"
-               :pagetype="pagetype" />
+  <div
+    class="rad-element-wrapper"
+    :class="'rad-element-wrapper-preview' + editorId"
+    @click="handleClick"
+  >
+    <component
+      @update:value="updateValue"
+      :is="element.elName"
+      :commonStyle="element.commonStyle"
+      :element="element"
+      class="rad-element ani"
+      v-bind="element.propsValue"
+      :editorId="'preview' + editorId"
+      :pagetype="pagetype"
+    />
   </div>
 </template>
 
 <script>
 import { _register_components_object } from '@/plugins/index'
+import {
+  dealWithScript
+} from '@/utils/mUtils'
+import {
+  mapState
+} from 'vuex'
 
 export default {
   name: 'components-template',
   components: {
     // 批量注册组件
     ..._register_components_object
+  },
+  computed: {
+    ...mapState({
+      pageData: (state) => state.editor.pageData
+    })
   },
   props: {
     loaded: Boolean,
@@ -40,10 +55,17 @@ export default {
   },
   methods: {
     async handleClick () {
+      // 编辑模式点击组件处理脚本
+      if (this.pagetype === 'editor') {
+        dealWithScript(this.element, 'onclick', this.pageData)
+      }
       this.$emit('handleElementClick', this.element.events, this.element)
     },
-    updateValue (e) {
-      this.element.value = e
+    updateValue (eleVal) {
+      this.element.value = eleVal
+      if (this.pagetype === 'editor') {
+        dealWithScript(this.element, 'onchange', this.pageData)
+      }
     }
   }
 }

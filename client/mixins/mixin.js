@@ -1,6 +1,10 @@
 import {
-  mapState
+  mapState,
+  mapGetters
 } from 'vuex'
+import {
+  dealWithScript
+} from '@/utils/mUtils'
 export default {
   created() {
     this.$store.dispatch('setPageData')
@@ -12,7 +16,8 @@ export default {
       activeElementUUID: (state) => state.editor.activeElementUUID,
       tableTpl: (state) => state.editor.tableTpl,
       historyCache: (state) => state.editor.historyCache
-    })
+    }),
+    ...mapGetters(['activeElement'])
   },
   methods: {
     setDomain(domainList = []) {
@@ -95,6 +100,10 @@ export default {
         item.commonStyle.top = item.commonStyle.top / rd
         item.commonStyle.height = item.commonStyle.height / rd
         item.rd = rd
+
+        if (this.pageType === 'editor' && item.script) {
+          dealWithScript(item, 'initPage', this.pageData)
+        }
         setTimeout(() => {
           this.$store.dispatch('importElement', item)
           this.tempCacheLength++

@@ -41,7 +41,7 @@
 
 <script>
 import ComponentLibs from './component-libs/Index'
-import EditorPan from './editor-panel'
+import EditorPan from './editorPanel'
 import AttrEdit from './attr-configure/attr-edit'
 import PageAttrEdit from './attr-configure/page-attr-edit'
 import CommonAttrEdit from './attr-configure/common-attr-edit'
@@ -80,7 +80,8 @@ export default {
       canvasConfig: {
         scale: 1
       },
-      tempCacheLength: 0
+      tempCacheLength: 0,
+      pageType: 'designer'
     }
   },
   computed: {

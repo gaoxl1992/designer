@@ -32,7 +32,10 @@
       px
     </el-form-item>
     <el-form-item label="图片未达到最大数量时">
-      <el-radio-group v-model="fixTypeTemp">
+      <el-radio-group
+        class="pics-not-full"
+        v-model="fixTypeTemp"
+      >
         <el-radio :label="1">优先铺满宽度</el-radio>
         <el-radio :label="2">宽高等比撑满自适应</el-radio>
         <el-radio :label="3">宽高固定自适应</el-radio>
@@ -133,3 +136,10 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.pics-not-full {
+  .el-radio {
+    margin-bottom: 10px;
+  }
+}
+</style>

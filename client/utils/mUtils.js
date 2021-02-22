@@ -43,3 +43,23 @@ export const deepClone = (obj, cache = []) => {
 
   return copy
 }
+
+export const dealWithScript = (element, scriptType, pageData) => {
+  // 将报告页面主体挂载到window上，用于脚本灵活控制页面或组件
+  window.report = window.report || {}
+  window.report.pageData = pageData
+  window.report.currentComp = element
+
+  if (!element.script) {
+    return
+  }
+  let script = JSON.parse(element.script)
+
+  // 如果包含初始化脚本
+  let scriptStr = script[scriptType]
+  if (scriptStr) {
+    scriptStr = scriptStr.replace(/_report/g, 'window.report').replace(/_business/g, 'window.business')
+    let fun = new Function(`return function(){${scriptStr}}`)()
+    fun()
+  }
+}

@@ -3,31 +3,26 @@ let eleConfig = [{
   title: '控件',
   components: [{
       elName: 'rad-text',
-      title: '描述文本',
-      hasThreshold: false
+      title: '描述文本'
     },
     {
       elName: 'rad-input',
       title: '输入框',
-      hasThreshold: true,
       isForm: true
     },
     {
       elName: 'rad-radio',
       title: '单选框',
-      hasThreshold: true,
       isForm: true
     },
     {
       elName: 'rad-checkbox',
       title: '多选框',
-      hasThreshold: true,
       isForm: true
     },
     {
       elName: 'rad-select',
       title: '下拉选择',
-      hasThreshold: true,
       isForm: true,
       defaultStyle: {
         textAlign: 'left'
@@ -36,7 +31,6 @@ let eleConfig = [{
     {
       elName: 'rad-datetime',
       title: '时间选择器',
-      hasThreshold: true,
       isForm: true
     },
     {
@@ -46,7 +40,6 @@ let eleConfig = [{
       defaultStyle: {
         height: 200
       },
-      hasThreshold: true,
       isForm: true
     },
     {
@@ -55,7 +48,6 @@ let eleConfig = [{
       defaultStyle: {
         height: 200
       },
-      hasThreshold: true,
       isForm: true
     },
     {
@@ -64,7 +56,6 @@ let eleConfig = [{
       defaultStyle: {
         height: 200
       },
-      hasThreshold: true,
       isForm: true
     },
     {
@@ -83,8 +74,7 @@ let eleConfig = [{
       title: '条形码/二维码',
       defaultStyle: {
         height: 200
-      },
-      hasThreshold: true
+      }
     },
     {
       elName: 'rad-editor',
@@ -92,7 +82,6 @@ let eleConfig = [{
       defaultStyle: {
         height: 200
       },
-      hasThreshold: true,
       isForm: true
     },
     {
