@@ -49,6 +49,7 @@
         @saveDesignerData="saveDesignerData"
         :unableEdit="true"
         :ref="activeName"
+        :style="{'overflow: auto': activeName === 'preview'}"
       ></component>
     </keep-alive>
   </div>
@@ -545,6 +546,7 @@ export default {
   .designer-wrapper,
   .editor-preview {
     flex: 1;
+    overflow: auto !important;
   }
   .iframe-wrapper {
     margin-top: 60px !important;

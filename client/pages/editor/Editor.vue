@@ -129,9 +129,7 @@ export default {
     savePrintTpl (obj, ext) {
       // 处理全部组件
       let eles = JSON.parse(JSON.stringify(obj)).elements
-      let pageHeight = obj.height
-      let offsetHeight = 0
-      let bodyEles = []
+      let pageHeight = obj.height, offsetHeight = 0, bodyEles = []
       const { fixedHeader, fixedFooter } = this.pageData
       let headerObj = {
         height: fixedHeader.openFixed ? fixedHeader.height : 0,
@@ -151,30 +149,29 @@ export default {
       for (let i = 0; i < eles.length; i++) {
         let last = eles[i - 1] || null
         let setHeight = 0
+
+        if (eles[i].elName === 'rad-imagepicker') {
+          let eleHeight = eles[i].commonStyle.height
+          eles[i].commonStyle.height = this.calcImagePickerRelHeight(eles[i], eleHeight, eleHeight)
+        }
+        // 根据上一个元素的特殊性处理偏移
         if (last) {
           setHeight = last.commonStyle.height
           clientHeight = inFooter ? clientHeight : last.commonStyle.height
           // 处理imagepicker高度
           if (last.elName === 'rad-imagepicker') {
-            const { imagepicker, linepics } = last.propsValue
-            clientHeight = last.value.length > 0 ?
-              ((setHeight * Math.ceil(last.value.length / linepics)) /
-                Math.ceil(imagepicker / linepics)) : 0
+            clientHeight = this.calcImagePickerRelHeight(last, clientHeight, setHeight)
           }
           // 处理表格高度
           if (last.elName === 'rad-table') {
             clientHeight = (document.getElementById(`preview${i - 1}container`) && document.getElementById(`preview${i - 1}container`)
               .clientHeight) || 0
           }
-
           // 处理富文本框高度
           if (last.elName === 'rad-editor') {
-            if (!last.innerHeight) {
-              last.innerHeight = 200
-            }
+            last.innerHeight = last.innerHeight || 200
             const { fontSize, lineHeight } = last.commonStyle
-            let titleHeight = last.title ? parseInt(fontSize) * lineHeight : 0
-            clientHeight = last.innerHeight + titleHeight
+            clientHeight = last.innerHeight + (last.title ? parseInt(fontSize) * lineHeight : 0)
             last.innerHeight = clientHeight
           }
         }
@@ -182,10 +179,7 @@ export default {
         // 碰到页尾内部的元素，因为元素是按top排序的，所以走到这一步，下面的元素都在页尾区域
         let tp = eles[i].commonStyle.top
         let eleStyle = eles[i].commonStyle
-        if (
-          fixedFooter.openFixed &&
-          fixedFooter.height > this.pageData.height - parseInt(tp)
-        ) {
+        if (fixedFooter.openFixed && fixedFooter.height > this.pageData.height - parseInt(tp)) {
           eleStyle.top =
             fixedFooter.height - this.pageData.height + parseInt(tp)
           footerObj.elements.push({
@@ -193,10 +187,7 @@ export default {
             ...eleStyle
           })
           inFooter = true
-        } else if (
-          fixedHeader.openFixed &&
-          fixedHeader.height > parseInt(tp) + eleStyle.height
-        ) {
+        } else if (fixedHeader.openFixed && fixedHeader.height > parseInt(tp) + eleStyle.height) {
           // 处理页眉内部元素
           headerObj.elements.push(eles[i])
         } else {
@@ -208,10 +199,7 @@ export default {
         }
       }
 
-      pageHeight =
-        bodyEles[bodyEles.length - 1].commonStyle.top +
-        clientHeight +
-        40
+      pageHeight = bodyEles[bodyEles.length - 1].commonStyle.top + clientHeight + 40
 
       // 构建渲染预览页面obj
       this.pageDataTpl = JSON.parse(
@@ -249,6 +237,43 @@ export default {
           ext
         })
       }, 500)
+    },
+    /**
+     * @description: 处理图片选择器的占位问题
+     * @param {*} last
+     * @param {*} clientHeight
+     * @return {*}
+     */
+    calcImagePickerRelHeight (last, clientHeight, setHeight) {
+      const { imagepicker, linepics, picDis, fixType } = last.propsValue
+      if (last.value.length === 0) {
+        clientHeight = 0
+      } else {
+        let maxRow = Math.ceil(imagepicker / linepics)
+        let sqr = Math.sqrt(last.value.length)
+        switch (fixType) {
+          case 1:
+            // 优先铺满宽度，高度需要根据实际图片数量计算
+            clientHeight = ((setHeight * Math.ceil(last.value.length / linepics)) /
+              Math.ceil(imagepicker / linepics))
+            break
+          case 2:
+            // 撑满预设高度
+            clientHeight = last.commonStyle.height
+            break
+          case 3:
+            // 宽高哦固定自适应，实际高度计算
+            if (sqr % 1 !== 0) {
+              sqr = Math.ceil(sqr)
+            }
+            if (sqr > maxRow) {
+              sqr = maxRow
+            }
+            clientHeight = (last.commonStyle.height - picDis * (sqr - 1)) / sqr
+          //  TODO 这种情况在一些数值下是有问题的
+        }
+      }
+      return clientHeight
     }
   }
 }

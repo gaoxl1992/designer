@@ -32,7 +32,6 @@ export default {
 </script>
 <style lang="scss">
 .editor-preview {
-  overflow: auto !important;
   width: fit-content;
   height: 100%;
   margin: 0 auto;

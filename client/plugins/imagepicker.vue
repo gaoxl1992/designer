@@ -187,7 +187,8 @@ export default {
         let lineWidth = width * sqr + this.picDis * (sqr - 1)
         return {
           width: lineWidth + 'px',
-          margin: '0 auto'
+          margin: '0 auto',
+          'text-align': 'left'
         }
       }
       return {}
