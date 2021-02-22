@@ -169,7 +169,7 @@
           </el-checkbox>
           <el-checkbox
             class="fullfill"
-            v-model="checkedBgColor"
+            v-model="checkedBorderColor"
           >
             <el-color-picker
               size="mini"
@@ -239,7 +239,7 @@
           </div>
         </div>
         <div class="quick outlook-group">
-          <div class="outlook-group-item marginR5">
+          <div class="outlook-group-item-w marginR5 ">
             <el-input-number
               size="mini"
               v-model="activeElement.commonStyle.top"
@@ -247,7 +247,7 @@
             />
             <div class="outlook-group-desc">X</div>
           </div>
-          <div class="outlook-group-item">
+          <div class="outlook-group-item-w">
             <el-input-number
               size="mini"
               v-model="activeElement.commonStyle.left"
@@ -264,7 +264,7 @@
         name="4"
       >
         <div class="quick outlook-group">
-          <div class="outlook-group-item marginR5">
+          <div class="outlook-group-item-w marginR5">
             <el-input-number
               size="mini"
               v-model="activeElement.commonStyle.width"
@@ -273,7 +273,7 @@
             />
             <div class="outlook-group-desc">宽度</div>
           </div>
-          <div class="outlook-group-item marginR5">
+          <div class="outlook-group-item-w marginR5">
             <el-input-number
               size="mini"
               v-model="activeElement.commonStyle.height"
@@ -332,6 +332,15 @@ export default {
     checkedBgColor: {
       get () {
         return !!this.activeElement.commonStyle.backgroundColor
+      },
+      set (val) {
+        return val
+      }
+    },
+    checkedBorderColor: {
+      get () {
+        let { borderColor, borderWidth } = this.activeElement.commonStyle
+        return !!borderColor && !!borderWidth
       },
       set (val) {
         return val
@@ -515,6 +524,9 @@ export default {
     justify-content: space-between;
     .outlook-group-item {
       width: 76px;
+    }
+    .outlook-group-item-w {
+      width: 113px;
     }
     .outlook-group-desc {
       text-align: center;

@@ -266,6 +266,11 @@ export default {
     color: $font-color-base;
     font-size: 14px;
   }
+  .props-attr-style {
+    .el-input {
+      width: auto;
+    }
+  }
   .common-attr-style {
     .el-icon-circle-plus-outline {
       position: absolute;
@@ -281,9 +286,9 @@ export default {
     }
     .el-select {
       width: 100%;
-      margin-bottom: 10px;
     }
     .el-button {
+      margin-top: 10px;
       margin-bottom: 20px;
       width: 100%;
     }

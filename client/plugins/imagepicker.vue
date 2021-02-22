@@ -141,9 +141,9 @@ export default {
       fileList: [],
       hoverIndex: -1,
       groupStyle: {
-        display: 'table',
         height: '100%',
-        width: '100%'
+        width: '100%',
+        'text-align': 'left'
       },
       imageStyle: {
         height: '100%',

@@ -560,7 +560,7 @@ export default {
     .word-edit-input {
       width: fit-content;
       .el-input-number--mini {
-        width: 104px;
+        width: 103px;
       }
     }
     .ita {
