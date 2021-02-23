@@ -1,4 +1,5 @@
-let stydyData = `  accurate
+let stydyData = `检查信息(_business.studyData)
+  accurate
   applyDepartment
   applyDoctor
   assistant
@@ -92,7 +93,8 @@ let stydyData = `  accurate
   xeguid
 `
 
-let pageData = `  elements: [], // 页面内的组件
+let pageData = `报告信息(_report.pageData)
+  elements: [], // 页面内的组件
   fixedHeader: { // 页眉
     openFixed // 是否开启
     height // 高度-毫米
@@ -110,7 +112,8 @@ let pageData = `  elements: [], // 页面内的组件
   height // 实际渲染高度 px
 `
 
-let curComp = `  elName // 组件名
+let curComp = `当前控件属性(_report.currentComp)
+  elName // 组件名
   threshold // 控件阈值
   hideOnPrint  // 组件是否打印隐藏
   title // 组件中文名
@@ -148,8 +151,8 @@ let curComp = `  elName // 组件名
     zIndex // 层级
     fontStyle // 是否斜体
   },
-  propsValue: {}, // 属性参数
-  value: '' // 当前组件的值
+  value: '', // 当前组件的值
+  propsValue: { // 组件预设属性
 `
 
 let elementsAttr = `_report.elements['阈值']，可访问属性同'_report.currentComp'`
