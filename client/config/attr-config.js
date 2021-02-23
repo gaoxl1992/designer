@@ -198,24 +198,6 @@ const tableRelations = {
   'not_inlist': '不在列表'
 }
 
-let scriptStr = `/** 可做条件判断参数
-  * _business 业务信息，可根据具体业务由业务层挂载
-  * _business.studyData.key值 - 检查信息中的值 - str
-  * _report 报告信息，当前报告的主体结构
-  * _report.currentComp.key值 - 当前编辑脚本组件
-  * _report.pageData - 控制报告内任何内容逻辑变化
-  * _report.elements - 最终已绑定阈值的控件
-    {
-      // 页面初始化
-      "initPage": "if(_business.studyData.crisisFlag===0){console.log('----')}",
-      // 点击组件
-      "onclick": "if(_business.studyData.crisisFlag===0){console.log('----')}",
-      // 值变化
-      "onchange": "if(_business.studyData.crisisFlag===0){console.log('----')}"
-    }
- */
-`
-
 
 export {
   alignTypeList,
@@ -223,6 +205,5 @@ export {
   fontFamilyList,
   compsLibs,
   menuOptions,
-  tableRelations,
-  scriptStr
+  tableRelations
 }

@@ -46,11 +46,20 @@
         <baseAttr></baseAttr>
       </div>
     </div>
-    <el-dialog :visible.sync="showDialog">
+    <el-dialog
+      :visible.sync="showDialog"
+      custom-class="codemirror-index"
+    >
       <template slot="title">
         {{ '编辑事件 ' + (activeElement.threshold ? ('#' + activeElement.threshold) : '（无域值）')  }}
       </template>
       <template>
+        <el-button
+          type="text"
+          @click="showDemoDrawer=true"
+        >
+          查看全部可操作属性和Demo
+        </el-button>
         <codemirror
           class="mirror"
           ref="cmEditor"
@@ -112,12 +121,21 @@
         <el-button @click="dialogVisible = false">取消</el-button>
       </span>
     </el-dialog>
+    <el-drawer
+      title="脚本指南"
+      :visible.sync="showDemoDrawer"
+      direction="rtl"
+      :modal="false"
+    >
+      <AttrScript></AttrScript>
+    </el-drawer>
   </div>
 </template>
 
 <script>
 import BaseAttr from './attr-props-components/base-attr'
 import PropsAttr from './attr-props-components/props-attr/index.vue'
+import AttrScript from './attr-script-preset/attr-script'
 import { codemirror } from 'vue-codemirror'
 require('codemirror/mode/javascript/javascript.js');
 require('codemirror/addon/fold/foldcode.js');
@@ -129,9 +147,6 @@ require('codemirror/addon/fold/markdown-fold.js');
 require('codemirror/addon/fold/comment-fold.js');
 import { mapState, mapGetters } from 'vuex'
 import AreaTitle from '@/components/area-title'
-import {
-  scriptStr
-} from '@/config/attr-config'
 
 export default {
   props: {},
@@ -139,12 +154,13 @@ export default {
     BaseAttr,
     PropsAttr,
     codemirror,
-    AreaTitle
+    AreaTitle,
+    AttrScript
   },
   data () {
     return {
       showDialog: false,
-      code: scriptStr,
+      code: '',
       cmOptions: {
         readOnly: false,
         tabSize: 2,
@@ -158,7 +174,8 @@ export default {
       dialogVisible: false,
       fieldName: '',
       radio: 1,
-      domainList: []
+      domainList: [],
+      showDemoDrawer: false
     }
   },
   computed: {
@@ -195,6 +212,7 @@ export default {
       this.closeDialog()
     },
     closeDialog () {
+      this.showDemoDrawer = false
       this.showDialog = false
     },
     /**
