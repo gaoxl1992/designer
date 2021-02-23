@@ -207,7 +207,7 @@ export default {
         if (this.fixType === 2) {
           return {
             width: `${(this.commonStyle.width - this.picDis * (sqr - 1)) / sqr}px`,
-            height: `${(this.commonStyle.height - this.picDis * (sqr - 1)) / sqr}px`,
+            height: `${(this.commonStyle.height - this.picDis * (Math.ceil(len / sqr) - 1)) / Math.ceil(len / sqr)}px`,
             'text-align': 'left',
             display: 'inline-block',
             paddingRight: (idx + 1) % sqr === 0 ? 0 : `${this.picDis}px`,
@@ -215,13 +215,14 @@ export default {
           }
         } else if (this.fixType === 3) {
           let width = (this.commonStyle.width - this.picDis * (this.linepics - 1)) / this.linepics
+          console.log(this.commonStyle.height)
           return {
             width: `${width}px`,
-            height: `${(this.commonStyle.height - this.picDis * (sqr - 1)) / sqr}px`,
+            height: `${this.commonStyle.height / Math.ceil(len / sqr)}px`,
             'text-align': 'left',
             display: 'inline-block',
-            paddingRight: (idx + 1) % sqr === 0 ? 0 : `${this.picDis}px`,
-            paddingBottom: idx < sqr * (sqr - 1) ? `${this.picDis}px` : 0
+            paddingRight: (idx + 1) % sqr === 0 ? 0 : `${this.picDis} px`,
+            paddingBottom: idx < sqr * (sqr - 1) ? `${this.picDis} px` : 0
           }
         }
         return {}
@@ -292,7 +293,7 @@ export default {
     },
     handleExceed (files, fileList) {
       this.$confirm(
-        `当前限制选择 ${this.imagepicker} 个文件,本次选择了 ${files.length
+        `当前限制选择 ${this.imagepicker} 个文件, 本次选择了 ${files.length
         } 个文件，共选择了 ${files.length + fileList.length
         } 个文件, 请重新选择。`,
         '提示',

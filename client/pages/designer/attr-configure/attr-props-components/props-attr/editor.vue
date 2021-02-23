@@ -24,7 +24,7 @@
     </el-form-item>
     <el-form-item label="预设富文本样式">
       <div class="attr-edit-wrapper">
-        <div class="attr-item-edit-input sel-width">
+        <div class="word-edit-select">
           <el-select
             size="mini"
             v-model="fontFamilyTemp"
@@ -38,18 +38,24 @@
             >
             </el-option>
           </el-select>
-          <div class="attr-item-edit-input-des">字体</div>
         </div>
-        <div class="ml attr-item-edit-input">
+        <div class="text-right">
+          <el-color-picker
+            size="mini"
+            v-model="colorTemp"
+          ></el-color-picker>
+        </div>
+      </div>
+      <div class="attr-edit-wrapper">
+        <div class="word-edit-input text-left marginR5">
           <el-input-number
             size="mini"
             v-model="fontSizeTemp"
             controls-position="right"
             :min="0"
           />
-          <div class="attr-item-edit-input-des">字号</div>
         </div>
-        <div class="ml attr-item-edit-input">
+        <div class="word-edit-input text-center marginR5">
           <el-input-number
             size="mini"
             v-model="fontWeightTemp"
@@ -58,18 +64,15 @@
             :step="100"
             :max="900"
           />
-          <div class="attr-item-edit-input-des">粗细</div>
         </div>
-        <div class="ml attr-item-edit-input">
-          <el-color-picker
-            size="mini"
-            v-model="colorTemp"
-          ></el-color-picker>
-        </div>
-        <div class="ml attr-item-edit-input">
-          <el-checkbox v-model="fontStyleTemp">
-            <span>A</span>
-          </el-checkbox>
+        <div
+          class="word-edit-input text-right"
+          @click="fontStyleTemp = !fontStyleTemp"
+        >
+          <div
+            class="ita"
+            :class="{'active': fontStyleTemp}"
+          ><span>I</span></div>
         </div>
       </div>
     </el-form-item>
@@ -155,7 +158,36 @@ export default {
 .attr-edit-wrapper {
   display: flex;
   width: 100%;
-  text-align: center;
+  line-height: 28px;
+  .word-edit-select {
+    width: 212px;
+    .el-select {
+      width: 100%;
+    }
+  }
+  .word-edit-input {
+    width: fit-content;
+    .el-input-number--mini {
+      width: 104px;
+    }
+  }
+  .ita {
+    font-style: italic;
+    border: 1px solid $border-color;
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    text-align: center;
+    line-height: 12px;
+    padding: 3px;
+    margin: 4px 0;
+    &.active {
+      border: 1px solid $primary;
+      background: $active-bg-color;
+      color: $primary;
+    }
+  }
   .attr-item-title {
     text-align: left;
     min-width: 78px;
@@ -177,7 +209,6 @@ export default {
   .el-input-number.is-controls-right .el-input__inner {
     padding-left: 2px;
     padding-right: 32px;
-    width: 90px;
   }
   .el-input-number--mini {
     width: 90px;

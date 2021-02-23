@@ -146,13 +146,13 @@ export default {
       }
       let clientHeight = 0
       let inFooter = false
+      let newImgPHeight = 0
       for (let i = 0; i < eles.length; i++) {
-        let last = eles[i - 1] || null
-        let setHeight = 0
+        let last = eles[i - 1] || null, setHeight = 0, eleHeight = eles[i].commonStyle.height
 
         if (eles[i].elName === 'rad-imagepicker') {
-          let eleHeight = eles[i].commonStyle.height
-          eles[i].commonStyle.height = this.calcImagePickerRelHeight(eles[i], eleHeight, eleHeight)
+          newImgPHeight = this.calcImagePickerRelHeight(eles[i], eleHeight, eleHeight)
+          console.log(newImgPHeight)
         }
         // 根据上一个元素的特殊性处理偏移
         if (last) {
@@ -161,6 +161,7 @@ export default {
           // 处理imagepicker高度
           if (last.elName === 'rad-imagepicker') {
             clientHeight = this.calcImagePickerRelHeight(last, clientHeight, setHeight)
+            bodyEles[i - 1].commonStyle.height = newImgPHeight
           }
           // 处理表格高度
           if (last.elName === 'rad-table') {
@@ -250,7 +251,8 @@ export default {
         clientHeight = 0
       } else {
         let maxRow = Math.ceil(imagepicker / linepics)
-        let sqr = Math.sqrt(last.value.length)
+        let len = last.value.length
+        let sqr = Math.sqrt(len)
         switch (fixType) {
           case 1:
             // 优先铺满宽度，高度需要根据实际图片数量计算
@@ -262,15 +264,15 @@ export default {
             clientHeight = last.commonStyle.height
             break
           case 3:
-            // 宽高哦固定自适应，实际高度计算
+            // 宽高固定自适应，实际高度计算
             if (sqr % 1 !== 0) {
               sqr = Math.ceil(sqr)
             }
             if (sqr > maxRow) {
               sqr = maxRow
             }
-            clientHeight = (last.commonStyle.height - picDis * (sqr - 1)) / sqr
-          //  TODO 这种情况在一些数值下是有问题的
+            // 判断图片是否占满高度
+            clientHeight = ((last.commonStyle.height - picDis * (sqr - 1)) / maxRow) * Math.ceil(len / sqr)
         }
       }
       return clientHeight
