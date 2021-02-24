@@ -167,6 +167,8 @@ window.reditor['阈值'].edit.insertHtml(str);
 window.reditor['阈值'].edit.html(str) 
 // 获取内容
 window.reditor['阈值'].edit.html()
+// 获取当前焦点所在的富文本框（有阈值才有）对应阈值
+window.focusedEditor
 ```
 
 ### 和图片选择器交互

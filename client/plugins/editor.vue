@@ -351,6 +351,9 @@ export default {
           afterFocus: () => {
             if (this.pagetype === 'editor') {
               this.inEditor = true
+              if (this.element && this.element.threshold) {
+                window.focusedEditor = this.element.threshold
+              }
               this.showCharspop()
             }
           },
@@ -438,6 +441,7 @@ export default {
     document.removeEventListener('click', this.handleLeave, false)
     if (this.element && this.element.threshold && window.reditor[this.element.threshold]) {
       delete window.reditor[this.element.threshold]
+      delete window.focusedEditor
     }
     window.hiddenChars = false
   },
@@ -446,6 +450,7 @@ export default {
     document.removeEventListener('click', this.handleLeave, false)
     if (this.element && this.element.threshold && window.reditor[this.element.threshold]) {
       delete window.reditor[this.element.threshold]
+      delete window.focusedEditor
     }
     window.hiddenChars = false
   }

@@ -161,7 +161,9 @@ export default {
           // 处理imagepicker高度
           if (last.elName === 'rad-imagepicker') {
             clientHeight = this.calcImagePickerRelHeight(last, clientHeight, setHeight)
-            bodyEles[i - 1].commonStyle.height = newImgPHeight
+            if (bodyEles[i - 1] && bodyEles[i - 1].commonStyle) {
+              bodyEles[i - 1].commonStyle.height = newImgPHeight
+            }
           }
           // 处理表格高度
           if (last.elName === 'rad-table') {

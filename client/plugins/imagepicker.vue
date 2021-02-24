@@ -148,7 +148,8 @@ export default {
       imageStyle: {
         height: '100%',
         margin: '0 auto',
-        display: 'block'
+        display: 'block',
+        width: '100%'
       },
       relLinePics: this.linepics
     }
