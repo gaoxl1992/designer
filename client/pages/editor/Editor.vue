@@ -289,7 +289,6 @@ export default {
   flex: 1;
   .editor-main {
     flex: 1;
-    overflow-y: auto;
     overflow-x: hidden;
     background-color: $page-bg-deepcolor;
     position: relative;
