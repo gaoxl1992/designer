@@ -63,3 +63,29 @@ export const dealWithScript = (element, scriptType, pageData) => {
     fun()
   }
 }
+
+/**
+ * 取出中括号内的内容
+ * @param text
+ * @returns {string}
+ */
+export function getBracketStr(text) {
+  let result = ''
+  if (!text) {
+    return result
+  }
+  let regex = /\{(.+?)\}/g;
+  let options = text.match(regex)
+  if (options && options[0]) {
+    options.forEach((option) => {
+      let inner = option.replace('{', '').replace('}', '')
+      // 如果业务中已将对应参数挂载到window上，则替换实际值
+      if (window.business && window.business.studyData && window.business.studyData[inner]) {
+        text = text.replace(option, window.business.studyData[inner])
+      }
+    })
+  }
+
+  result = text
+  return result
+}

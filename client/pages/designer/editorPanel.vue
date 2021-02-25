@@ -162,7 +162,7 @@ export default {
      * @return {*}
      */
     handleClickCanvas (e) {
-      if (e.toElement.className === 'editor-pane-inner') {
+      if (e.toElement && e.toElement.className === 'editor-pane-inner') {
         this.inCanvas = false
       } else {
         this.inCanvas = true

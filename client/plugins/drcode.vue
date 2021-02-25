@@ -1,20 +1,86 @@
 <template>
   <div class="rad-drcode">
-    <div class="rad-drcode-inner">
+    <div
+      class="rad-drcode-inner"
+      v-if="pagetype === 'designer'"
+    >
       <div class="drcode-placeholder">
         <i class="el-icon-full-screen"></i>
         <div class="drcode-placeholder-text">二维码/条形码</div>
       </div>
     </div>
+    <div v-else-if="drcodeTemp">
+      <vue-qr
+        v-if="!codeType"
+        class="bicode"
+        :logoScale="20"
+        :text="drcodeTemp"
+        :colorDark="drcodeColor"
+        colorLight="#fff"
+        :margin="0"
+        :dotScale="1"
+        ref="qr"
+      ></vue-qr>
+      <img
+        v-else
+        id="barcode"
+        alt=""
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import vueQr from 'vue-qr'
+import { getBracketStr } from '@/utils/mUtils'
+import jsbarcode from 'jsbarcode'
 export default {
   name: 'RadDrcode',
   props: {
-    table: String
-  }
+    drcode: {
+      type: String,
+      default: ''
+    },
+    pagetype: {
+      type: String,
+      default: ''
+    },
+    drcodeColor: {
+      type: String,
+      default: '#333'
+    },
+    element: {
+      type: Object,
+      default: () => { }
+    },
+    codeType: {
+      type: Boolean,
+      default: false
+    },
+    showNum: {
+      type: Boolean,
+      default: true
+    }
+  },
+  data () {
+    return {
+      drcodeTemp: getBracketStr(this.drcode)
+    }
+  },
+  components: {
+    vueQr
+  },
+  mounted () {
+    if (this.pagetype !== 'designer' && this.codeType && this.drcodeTemp) {
+      jsbarcode(
+        '#barcode',
+        this.drcodeTemp,
+        {
+          displayValue: this.showNum
+        }
+      )
+    }
+  },
 }
 </script>
 <style lang="scss">
