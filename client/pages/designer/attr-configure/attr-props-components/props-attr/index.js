@@ -9,6 +9,7 @@ import Button from './button.vue'
 import Line from './line.vue'
 import Editor from './editor.vue'
 import Imagepicker from './imagepicker.vue'
+import Drcode from './drcode.vue'
 
 export default {
   [Text.name]: Text,
@@ -21,5 +22,6 @@ export default {
   [Button.name]: Button,
   [Line.name]: Line,
   [Editor.name]: Editor,
-  [Imagepicker.name]: Imagepicker
+  [Imagepicker.name]: Imagepicker,
+  [Drcode.name]: Drcode
 }

@@ -252,6 +252,15 @@ export default {
 .rad-table {
   height: 100%;
   width: 100%;
+  td {
+    span {
+      word-break: break-all;
+      padding: 5px;
+    }
+    textarea {
+      max-height: 80%;
+    }
+  }
   .rad-table-inner {
     border: 1px solid #adb1b8;
     width: 100%;
@@ -291,15 +300,6 @@ export default {
   }
   .apply-btn {
     float: right;
-  }
-}
-td {
-  span {
-    word-break: break-all;
-    padding: 5px;
-  }
-  textarea {
-    max-height: 80%;
   }
 }
 .table-container {
