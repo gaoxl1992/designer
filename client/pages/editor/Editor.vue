@@ -152,9 +152,11 @@ export default {
             realText = obj.document.getElementById(id).value
           } else {
             let options = obj.document.getElementById(id).options
+            let checkedLen = 0
             for (let j = 0; j < options.length; j++) {
               if (options[j].selected) {
-                realText += (j === 0 ? '' : ',') + options[j].label
+                realText += (checkedLen === 0 ? '' : ',') + options[j].label
+                checkedLen++
               }
             }
           }
