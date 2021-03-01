@@ -79,8 +79,6 @@ export default {
     },
     activeName (newValue) {
       this.code = this[newValue]
-
-      console.log(this.activeElement)
       if (newValue === 'curComp') {
         let eleProps = Object.keys(this.activeElement.propsValue)
         eleProps.forEach((propKey) => {

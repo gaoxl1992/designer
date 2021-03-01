@@ -69,7 +69,7 @@
     <!-- 只读模式 -->
     <div
       v-else
-      class="preview-conFtent"
+      class="preview-content"
       :style="cssData"
       v-html="outContent"
     ></div>
@@ -242,6 +242,15 @@ export default {
         'font-weight': this.fontWeight,
         'font-size': this.fontSize,
         'color': this.color
+      },
+      formCssData: {
+        'font-size': 'inherit',
+        'font-family': 'inherit',
+        'color': 'inherit !important',
+        'backgrount-color': 'inherit !important',
+        'font-weight': 'inherit',
+        'font-style': 'inherit',
+        'width': '75'
       }
     }
   },
@@ -334,7 +343,11 @@ export default {
     initEditor () {
       let _this = this
       _this.removeEditor()
-      let cssData = ('body' + JSON.stringify(_this.cssData)).replace(/,/g, ';').replace(/"/g, "")
+      let cssData = (`
+        body${JSON.stringify(_this.cssData)}
+        input${JSON.stringify(_this.formCssData)}
+        select${JSON.stringify(_this.formCssData)}
+        `).replace(/,/g, ';').replace(/"/g, '')
       let rd = this.element?.rd || 1
       _this.reditor = window.KindEditor.create(
         `textarea[name='content${this.editorId}']`,

@@ -9,10 +9,13 @@
         <div class="drcode-placeholder-text">二维码/条形码</div>
       </div>
     </div>
-    <div v-else-if="drcodeTemp">
+    <div
+      v-else-if="drcodeTemp"
+      style="height:100%;widht:100%"
+    >
       <vue-qr
         v-if="!codeType"
-        class="bicode"
+        style="height:100%;widht:100%"
         :logoScale="20"
         :text="drcodeTemp"
         :colorDark="drcodeColor"
@@ -25,6 +28,7 @@
         v-else
         id="barcode"
         alt=""
+        style="height:100%;widht:100%"
       />
     </div>
   </div>

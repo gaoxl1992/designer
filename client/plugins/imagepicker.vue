@@ -216,7 +216,6 @@ export default {
           }
         } else if (this.fixType === 3) {
           let width = (this.commonStyle.width - this.picDis * (this.linepics - 1)) / this.linepics
-          console.log(this.commonStyle.height)
           return {
             width: `${width}px`,
             height: `${this.commonStyle.height / Math.ceil(len / sqr)}px`,

@@ -122,6 +122,48 @@ export default {
       this.savePrintTpl(obj, ext)
     },
     /**
+     * @description: 富文本框存为模版时，替换其中的输入框和下拉框
+     * @param {*} editorVal
+     * @return {*}
+     */
+    resetEditorValue (editorVal, editorIndex) {
+      // 处理输入框
+      editorVal = this.replaceFormInner('input', editorVal, editorIndex)
+      // 处理下拉框
+      editorVal = this.replaceFormInner('select', editorVal, editorIndex)
+      return editorVal
+    },
+    /**
+     * @description: 处理表单值替换
+     * @param {*} regexp 正则规则
+     * @param {*} editorVal 富文本内容字符串
+     * @param {*} editorIndex 富文本框下标
+     * @return {*}
+     */
+    replaceFormInner (type, editorVal, editorIndex) {
+      let regexp = type === 'input' ? new RegExp(/<input[\s\S]*?>/ig) : new RegExp(/<select[\s\S]*?<\/select>/ig)
+      let obj = document.getElementById(`preview${editorIndex}container`)?.getElementsByClassName('ke-edit-iframe')?.[0]?.contentWindow
+      let inps = editorVal.match(regexp)
+      if (inps && inps.length) {
+        for (let i = inps.length - 1; i >= 0; i--) {
+          const id = inps[i].match(/(id="(.*?)")/)[2]
+          let realText = ''
+          if (type === 'input') {
+            realText = obj.document.getElementById(id).value
+          } else {
+            let options = obj.document.getElementById(id).options
+            for (let j = 0; j < options.length; j++) {
+              if (options[j].selected) {
+                realText += (j === 0 ? '' : ',') + options[j].label
+              }
+            }
+          }
+          editorVal = editorVal.replace(regexp, realText)
+        }
+      }
+      return editorVal
+    },
+    /**
      * @description: 保存打印模版对象，用于后端生成打印快照和预览
      * @param {*} obj
      * @return {*}
@@ -152,7 +194,10 @@ export default {
 
         if (eles[i].elName === 'rad-imagepicker') {
           newImgPHeight = this.calcImagePickerRelHeight(eles[i], eleHeight, eleHeight)
-          console.log(newImgPHeight)
+        }
+        // 富文本框
+        if (eles[i].elName === 'rad-editor') {
+          eles[i].value = this.resetEditorValue(eles[i].value, i)
         }
         // 根据上一个元素的特殊性处理偏移
         if (last) {
