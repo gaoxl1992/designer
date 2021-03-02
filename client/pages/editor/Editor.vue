@@ -135,7 +135,7 @@ export default {
     },
     /**
      * @description: 处理表单值替换
-     * @param {*} regexp 正则规则
+     * @param {*} type 表单类型
      * @param {*} editorVal 富文本内容字符串
      * @param {*} editorIndex 富文本框下标
      * @return {*}

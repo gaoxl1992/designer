@@ -90,7 +90,6 @@ export default {
      */
     editTableTpl (e = {}) {
       this.editIndex = e.index !== null && e.index >= 0 ? e.index : -1
-      this.bindAttrList = e?.rels || {}
       this.$emit('editTableTpl', e)
     },
     /**
@@ -107,9 +106,16 @@ export default {
      * @return {*}
      */
     resetMce (tplDetail) {
-      this.content = tplDetail.content
-      this.tplName = tplDetail.title
-      this.extent.department.option = tplDetail.departmentId
+      if (tplDetail && tplDetail.id) {
+        this.content = tplDetail.content
+        this.tplName = tplDetail.title
+        if (this.extent && this.extent.department && this.extent.department.option) {
+          this.extent.department.option = tplDetail.departmentId
+        }
+      } else {
+        this.content = ''
+        this.tplName = ''
+      }
     },
     /**
      * @description: 获取编辑器内部数据
@@ -149,14 +155,13 @@ export default {
       // 编辑保存
       let id =
         this.editIndex !== -1 && e.index !== -1
-          ? this.tableTplList[this.editIndex].id
+          ? this.tableTplList[this.editIndex]?.id
           : createUUID()
       let index = this.editIndex !== -1 && e.index !== -1 ? this.editIndex : -1
       this.$emit('saveEdit', {
         tpl: this.innerContent,
         name: e.name,
         id,
-        rels: e.rels,
         index,
         extend: e.extent
       })

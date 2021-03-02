@@ -43,17 +43,13 @@
 </template>
 <script>
 import { tableRelations } from '@/config/attr-config'
-import Vue from 'vue'
+// import Vue from 'vue'
 export default {
   name: 'TableTplInfo',
   props: {
     tplName: {
       type: String,
       default: ''
-    },
-    bindAttrList: {
-      type: Object,
-      default: () => { }
     },
     editIndex: {
       type: Number,
@@ -66,62 +62,15 @@ export default {
   },
   data () {
     return {
-      options: ['attr1', 'attr2', 'attr3', 'attr4'], // mock
-      bindAttr: '',
       tableRelations,
-      bindRel: '',
       bindValue: '',
-      attrsList: () => { },
       tempTplName: ''
     }
   },
   created () {
-    this.attrsList = this.bindAttrList
     this.tempTplName = this.tplName
   },
   methods: {
-    /**
-     * @description: 删除绑定属性
-     * @param {*} key
-     * @return {*}
-     */
-    deleteAttr (key) {
-      Vue.delete(this.attrsList, key)
-    },
-    /**
-     * @description: 删除绑定关系
-     * @param {*} key
-     * @param {*} k
-     * @return {*}
-     */
-    deleteRel (key, k) {
-      let obj = {
-        ...this.attrsList[key]
-      }
-      Vue.delete(this.attrsList, key)
-      Vue.delete(obj, k)
-      if (Object.keys(obj).length) {
-        this.attrsList[key] = obj
-      }
-    },
-    /**
-     * @description: 新增属性
-     * @param {*}
-     * @return {*}
-     */
-    addAttr () {
-      // todo
-      let attr = this.attrsList[this.bindAttr] || {}
-
-      // 当前属性一绑定关联条件
-      // if (attr) {
-      //   let val = attr[this.bindRel]
-      // }
-      attr[this.bindRel] = this.bindValue
-      this.attrsList[this.bindAttr] = attr
-
-      this.resetData()
-    },
     /**
      * @description: 提交模版数据
      * @param {*}
@@ -149,8 +98,6 @@ export default {
       this.$emit('close')
     },
     resetData () {
-      this.bindAttr = ''
-      this.bindRel = ''
       this.bindValue = ''
     }
   }
