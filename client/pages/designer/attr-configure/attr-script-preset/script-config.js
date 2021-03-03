@@ -1,96 +1,7 @@
-let stydyData = `检查信息(_business.studyData)
-  accurate
-  applyDepartment
-  applyDoctor
-  assistant
-  backupField1
-  backupField2
-  backupField3
-  backupField4
-  backupField5
-  backupField6
-  bodyPartGroupName
-  bodyPartName
-  cardId
-  clinicalInfo
-  crises
-  crisisFlag
-  departmentId
-  deptStudyId
-  deviceName
-  deviceTypeName
-  diagnostician
-  disableFlag
-  doctorId1
-  doctorId2
-  doctorId3
-  doctorId4
-  doctorId5
-  doctorId6
-  doctorTime1
-  doctorTime2
-  doctorTime3
-  doctorTime4
-  doctorTime5
-  doctorTime6
-  emergencyFlag
-  favoriteFlag
-  filmState
-  followUpFlag
-  followUpState
-  followUpStateValue
-  hisApplicationId
-  imageCount
-  lockFlag
-  lockUser
-  nakedEyeSee
-  operateTime
-  operator
-  patientAddress
-  patientAge
-  patientAgeUnit
-  patientBirthday
-  patientEName
-  patientFolk
-  patientHeight
-  patientIdNumber
-  patientInPatientId
-  patientName
-  patientOutPatientId
-  patientPhoneNumber
-  patientSex
-  patientSickBed
-  patientSickRoom
-  patientTypeId
-  patientTypeName
-  patientWeight
-  performingPhysicianName
-  positiveFlag
-  queueName
-  registerTime
-  reportAdvice
-  reportDesc
-  reportDiagnose
-  reportPrintCount
-  reportTime
-  reviewer
-  rptPrintFlag
-  societyId
-  studyComment
-  studyDesc
-  studyDescribe
-  studyId
-  studyMethodName
-  studyStatus
-  studyStatusValue
-  studyTime
-  techRemarkFlag
-  technician
-  totalFee
-  typist
-  vipFlag
-  workingCompany
-  xeguid
+let studyData = `
+  业务属性脚本可取字段
+  业务中挂载到window.business.xxx
+  实际脚本通过_business.xxx读写业务数据
 `
 
 let pageData = `报告信息(_report.pageData)
@@ -152,7 +63,10 @@ let curComp = `当前控件属性(_report.currentComp)
     fontStyle // 是否斜体
   },
   value: '', // 当前组件的值
-  propsValue: { // 组件预设属性
+  propsValue: // 组件预设属性
+
+  操作人控件给获取签名 _report.currentComp.propsValue.imageUrl = _business.fetchUserSign;
+  
 `
 
 let elementsAttr = `_report.elements['阈值']，可访问属性同'_report.currentComp'`
@@ -170,7 +84,7 @@ let scriptStr = `json格式包含以下任意一个或多个方法：
 
 export {
   scriptStr,
-  stydyData,
+  studyData,
   pageData,
   curComp,
   elementsAttr

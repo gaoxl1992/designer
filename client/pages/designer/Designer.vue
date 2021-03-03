@@ -21,7 +21,7 @@
     <!--属性编辑区域-->
     <div class="el-attr-edit-wrapper scrollbar-wrapper">
       <!-- 点选单个控件 -->
-      <AttrEdit v-if="activeElementUUID" />
+      <AttrEdit v-if="activeElementUUID && activeElement" :studyData="studyData"/>
       <!-- 框选多个控件 -->
       <CommonAttrEdit
         v-else-if="activeElementsUUID && activeElementsUUID.length > 1"
@@ -72,6 +72,10 @@ export default {
     unableEdit: { // 常用组件是否可增删改
       type: Boolean,
       default: false
+    },
+    studyData: {
+      type: String,
+      default: ''
     }
   },
   data () {

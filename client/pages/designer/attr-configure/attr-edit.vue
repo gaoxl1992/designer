@@ -49,6 +49,7 @@
     <el-dialog
       :visible.sync="showDialog"
       custom-class="codemirror-index"
+      @close="closeDialog"
     >
       <template slot="title">
         {{ '编辑事件 ' + (activeElement.threshold ? ('#' + activeElement.threshold) : '（无域值）')  }}
@@ -60,12 +61,10 @@
         >
           查看全部可操作属性和Demo
         </el-button>
-        <codemirror
+        <codemirror v-if="showDialog"
           class="mirror"
-          ref="cmEditor"
-          :value="code"
+          v-model="code"
           :options="cmOptions"
-          @input="onCmCodeChange"
         />
       </template>
       <span
@@ -127,7 +126,7 @@
       direction="rtl"
       :modal="false"
     >
-      <AttrScript></AttrScript>
+      <AttrScript :busiStudyData="studyData"></AttrScript>
     </el-drawer>
   </div>
 </template>
@@ -149,7 +148,12 @@ import { mapState, mapGetters } from 'vuex'
 import AreaTitle from '@/components/area-title'
 
 export default {
-  props: {},
+  props: {
+    studyData: {
+      type: String,
+      default: ''
+    }
+  },
   components: {
     BaseAttr,
     PropsAttr,
@@ -159,8 +163,8 @@ export default {
   },
   data () {
     return {
-      showDialog: false,
       code: '',
+      showDialog: false,
       cmOptions: {
         readOnly: false,
         tabSize: 2,
@@ -185,7 +189,7 @@ export default {
     ...mapGetters(['activeElementIndex', 'activeElement'])
   },
   created () {
-    this.code += this.activeElement.script
+    this.code = this.activeElement?.script
     this.domainList = JSON.parse(JSON.stringify(this.pageData.domainList))
   },
   watch: {
@@ -193,6 +197,9 @@ export default {
       if (val) {
         this.activeElement.threshold = val.replace(/[^\w]/gi, '')
       }
+    },
+    'activeElement.script' (val) {
+      this.code = val
     }
   },
   methods: {
@@ -204,14 +211,12 @@ export default {
       this.dialogVisible = true
       this.$refs.singleSelect.blur()
     },
-    onCmCodeChange (newCode) {
-      this.code = newCode
-    },
     confirmDialog () {
       this.activeElement.script = this.code.replace(/\/\*[\s\S]*?\*\//ig, '').replace(/ +/g, '').replace(/[\r\n]/g, '').trim()
       this.closeDialog()
     },
     closeDialog () {
+      this.code = this.activeElement.script
       this.showDemoDrawer = false
       this.showDialog = false
     },

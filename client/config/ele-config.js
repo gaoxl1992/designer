@@ -90,6 +90,10 @@ let eleConfig = [{
       defaultStyle: {
         height: 200
       }
+    },
+    {
+      elName: 'rad-operator',
+      title: '操作人'
     }
   ]
 }]

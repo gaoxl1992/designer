@@ -10,6 +10,7 @@ import Line from './line.vue'
 import Editor from './editor.vue'
 import Imagepicker from './imagepicker.vue'
 import Drcode from './drcode.vue'
+import Operator from './operator.vue'
 
 export default {
   [Text.name]: Text,
@@ -23,5 +24,6 @@ export default {
   [Line.name]: Line,
   [Editor.name]: Editor,
   [Imagepicker.name]: Imagepicker,
-  [Drcode.name]: Drcode
+  [Drcode.name]: Drcode,
+  [Operator.name]: Operator
 }

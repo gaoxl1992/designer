@@ -6,7 +6,7 @@
     <el-tabs v-model="activeName">
       <el-tab-pane
         label="检查信息(_business.studyData)"
-        name="stydyData"
+        name="studyData"
       ></el-tab-pane>
       <el-tab-pane
         label="报告信息(_report.pageData)"
@@ -33,7 +33,7 @@
   </div>
 </template>
 <script>
-import { stydyData, pageData, curComp, scriptStr, elementsAttr } from './index'
+import { studyData, pageData, curComp, scriptStr, elementsAttr } from './script-config'
 import { codemirror } from 'vue-codemirror'
 require('codemirror/mode/javascript/javascript.js');
 require('codemirror/addon/fold/foldcode.js');
@@ -49,10 +49,16 @@ export default {
   components: {
     codemirror
   },
+  props: {
+    busiStudyData: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     return {
-      activeName: 'stydyData',
-      stydyData,
+      activeName: 'studyData',
+      studyData: this.busiStudyData || studyData,
       pageData,
       curComp,
       elementsAttr,
@@ -66,7 +72,7 @@ export default {
         line: true,
         smartIndent: true
       },
-      code: stydyData
+      code: this.busiStudyData || studyData
     }
   },
   computed: {
@@ -74,8 +80,8 @@ export default {
   },
   watch: {
     'activeElement.propsValue' () {
-      this.activeName = 'stydyData'
-      this.code = stydyData
+      this.activeName = 'studyData'
+      this.code = studyData
     },
     activeName (newValue) {
       this.code = this[newValue]

@@ -1,6 +1,6 @@
 <template>
   <div v-if="currentElementProps.length">
-    <div class="attr-title fontBold">组件属性</div>
+    <div class="attr-title fontBold marginB20">组件属性</div>
     <el-form>
       <component
         v-for="item in currentElementProps"
