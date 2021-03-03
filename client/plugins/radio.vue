@@ -2,6 +2,10 @@
  * @Description: 
  * @props: 
 -->
+<!--
+ * @Description: 
+ * @props: 
+-->
 <template>
   <div class="rad-radio">
     <el-radio-group v-model="defaultOption"
@@ -52,6 +56,9 @@ export default {
     }
   },
   watch: {
+    'element.value' (val) {
+      this.$emit('update:value', val)
+    },
     radio(val) {
       this.defaultOption = val - 1
     },

@@ -15,11 +15,11 @@
           :style="itemContentStyle"
         >
           <div
-            v-if="pagetype === 'designer' || (pagetype ==='editor' && !disabledValue)"
             class="el-input"
             :class="'el-input--' + size"
           >
             <input
+              v-if="pagetype === 'designer' || (pagetype ==='editor' && !disabledValue)"
               :disabled="disabledValue || pagetype==='designer'"
               v-model="inputValue"
               type="text"
@@ -28,12 +28,12 @@
               class="el-input__inner"
               :class="'el-input__inner_' +  pagetype"
             />
+            <div
+              class="preview-input"
+              :style="previewStyle"
+              v-else
+            >{{inputValue}}</div>
           </div>
-          <div
-            class="preview-input"
-            :style="previewStyle"
-            v-else
-          >{{inputValue}}</div>
         </div>
         <template v-if="openSign">
           <div
@@ -44,12 +44,12 @@
             签名控件
           </div>
           <div
-            v-else-if="imageUrl"
+            v-else-if="imageUrlTemp"
             class="operator-sign"
             :style="signStyle"
           >
             <img
-              :src="imageUrl"
+              :src="imageUrlTemp"
               alt=""
               style="height: 100%;width: 100%"
             />
@@ -135,7 +135,8 @@ export default {
       },
       itemContentStyle: {
         display: 'inline-block'
-      }
+      },
+      imageUrlTemp: this.imageUrl
     }
   },
   computed: {
@@ -151,6 +152,12 @@ export default {
     }
   },
   watch: {
+    'element.propsValue.imageUrl' (val) {
+      this.imageUrlTemp = val
+    },
+    'element.value' (val) {
+      this.inputValue = val
+    },
     operator (val) {
       this.inputValue = val
     },

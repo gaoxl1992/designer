@@ -110,6 +110,9 @@ export default {
     }
   },
   watch: {
+    'element.value' (val) {
+      this.inputValue = val
+    },
     input (val) {
       this.inputValue = val
     },

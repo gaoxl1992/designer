@@ -188,6 +188,10 @@ updateImages(e) {
   e.fileList // 图片列表
 }
 ```
+### 外部更改组件的值
+```
+this.$refs.editor.updateElement(域值, value, img) // 如果是操作人相关的传入img，签名同步更新
+```
 
 ## 预览
 ```js

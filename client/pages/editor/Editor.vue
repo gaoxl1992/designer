@@ -106,6 +106,22 @@ export default {
     })
   },
   methods: {
+    /**
+     * @description: 编辑报告时更新元素api
+     * @param {*} threshold
+     * @param {*} value
+     * @param {*} img
+     * @return {*}
+     */
+    updateElement (threshold, value, img = '') {
+      if (!threshold || !value) {
+        return
+      }
+      this.$store.dispatch('updateElementValue', { threshold, value })
+      if (img) {
+        this.$store.dispatch('updateElementSign', { threshold, img })
+      }
+    },
     applyTableTpl (tpl) {
       bus.$emit('applyTableTplDetail', tpl)
     },

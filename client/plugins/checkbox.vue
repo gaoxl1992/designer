@@ -1,7 +1,3 @@
-<!--
- * @Description: 
- * @props: 
--->
 <template>
   <div class="rad-checkbox">
     <el-checkbox-group v-model="tempCheckbox"
@@ -67,7 +63,10 @@ export default {
     },
     tempCheckbox(val) {
       this.$emit('update:value', val)
-    }
+    },
+    'element.value' (val) {
+      this.tempCheckbox = val
+    },
   }
 }
 </script>

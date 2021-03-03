@@ -93,6 +93,9 @@ export default {
     }
   },
   watch: {
+    'element.value' (val) {
+      this.datemodel = val
+    },
     disabled (val) {
       this.disabledValue = val
     },

@@ -1,7 +1,3 @@
-<!--
- * @Description: 
- * @props: 
--->
 <template>
   <div class="rad-select">
     <el-select v-if="pagetype !== 'preview'"
@@ -67,6 +63,9 @@ export default {
     }
   },
   watch: {
+    'element.value' (val) {
+      this.tempSelect = val
+    },
     disabled(val) {
       this.disabledValue = val
     },

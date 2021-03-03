@@ -275,6 +275,16 @@ const actions = {
     commit('resetElementCommonStyle', style)
     commit('addHistoryCache')
   },
+  updateElementValue({
+    commit
+  }, target) {
+    commit('updateElementValue', target)
+  },
+  updateElementSign({
+    commit
+  }, target) {
+    commit('updateElementSign', target)
+  },
   /**
    * @description: 记入历史纪录
    * @param commit
@@ -371,7 +381,25 @@ const mutations = {
     let activeElement = getters.activeElement(state)
     activeElement.commonStyle = merge(activeElement.commonStyle, style)
   },
-
+  /**
+   * @description: 更新元素值
+   * @param {*} state
+   * @param {*} value
+   * @return {*}
+   */
+  updateElementValue(state, target) {
+    let activeElement = getters.findThresholdEle(target.threshold)
+    if (activeElement) {
+      activeElement.value = target.value
+    }
+    console.log(state.pageData.elements)
+  },
+  updateElementSign(state, target) {
+    let activeElement = getters.findThresholdEle(target.threshold)
+    if (activeElement && activeElement.propsValue && activeElement.propsValue.imageUrl) {
+      activeElement.propsValue.imageUrl = target.img
+    }
+  },
   /**
    * 改变元素zIndex
    * @param state
@@ -497,6 +525,15 @@ const getters = {
     return state.pageData.elements.find(v => {
       return v.uuid === state.activeElementUUID
     })
+  },
+  findThresholdEle(threshold) {
+    if (!state.pageData || !state.pageData.elements) {
+      return {}
+    }
+    let el = state.pageData.elements.find(v => {
+      return v.threshold === threshold
+    })
+    return el
   },
   canUndo(state) {
     return state.currentHistoryIndex > 0

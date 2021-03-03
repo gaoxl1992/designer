@@ -1,9 +1,5 @@
-<!--
- * @Description: 
- * @props: 
--->
 <template>
-  <div class="rad-text">
+  <div class="rad-text" :style="lineHeight">
     {{ text }}
   </div>
 </template>
@@ -19,6 +15,13 @@ export default {
     element: {
       type: Object,
       default: () => { }
+    }
+  },
+  computed: {
+    lineHeight () {
+      return {
+        'line-height': (this.element?.commonStyle?.height || 40) + 'px'
+      }
     }
   },
   created () {

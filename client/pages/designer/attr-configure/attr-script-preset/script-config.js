@@ -80,6 +80,11 @@ let scriptStr = `json格式包含以下任意一个或多个方法：
   // 值变化
   "onchange": "if(_business.studyData.crisisFlag===0){console.log('----')}"
 }
+// 常用脚本
+// 初始化获取签名信息
+{
+  "initPage": "if(_business.userName){_report.currentComp.value=_business.userName}if(_business.userId){_report.currentComp.propsValue.imageUrl = _business.fetchUserSign}"
+}
 `
 
 export {
