@@ -47,7 +47,8 @@ export default {
         customWidth,
         customHeight,
         name,
-        id
+        id,
+        outerPadding
       } = pageData
       let rd = width / this.pageData.width
       this.$store.dispatch('setPageData', {
@@ -58,6 +59,7 @@ export default {
         totalPages,
         name,
         id,
+        outerPadding,
         spCharacters: spCharacters || [],
         domainList: domainList || [],
         fixedFooter: fixedFooter ? {

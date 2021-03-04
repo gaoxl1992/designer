@@ -110,6 +110,13 @@
         </el-option>
       </el-select>
     </div>
+    <div class="page-item-edit-wrapper">
+      <p class="attr-item-title">打印增加外边距（px）</p>
+      <el-input
+        size="small"
+        v-model="outerPadding"
+      ></el-input>
+    </div>
   </div>
 </template>
 
@@ -141,7 +148,8 @@ export default {
       customHeight: 297,
       openPixel: true,
       pixels: [5, 10, 20, 25, 50],
-      pixelSize: 20
+      pixelSize: 20,
+      outerPadding: 0
     }
   },
   components: {
@@ -157,7 +165,6 @@ export default {
   created () {
     this.customWidth = +this.pageData.customWidth || this.customWidth
     this.customHeight = +this.pageData.customHeight || this.customHeight
-    this.throttleAddHistory = throttle(this.addHistory, 3000)
   },
   methods: {
     opFixedArea (posi) {
@@ -198,6 +205,10 @@ export default {
     }
   },
   watch: {
+    outerPadding (val) {
+      console.log(val)
+      this.pageData.outerPadding = val
+    },
     customWidth (val) {
       this.pageData.customWidth = +val
       this.pageData.customHeight = +this.customHeight

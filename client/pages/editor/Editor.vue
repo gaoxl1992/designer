@@ -20,8 +20,8 @@
     </EngineH5Swiper>
     <EngineH5Swiper
       id="body"
-      :nopt="true"
-      :nopb="true"
+      :nopt="pageData.fixedHeader.openFixed ? true : false"
+      :nopb="pageData.fixedFooter.openFixed ? true : false"
       style="display: none"
       v-if="showPreview"
       @closePreview="showPreview = false"

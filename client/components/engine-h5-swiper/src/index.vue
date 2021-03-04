@@ -3,6 +3,7 @@
     <div
       class="swiper-container"
       :class="'swiper-container-' + pagetype"
+      :style="outerPadding"
     >
       <div
         class="swiper-slide flat relative"
@@ -13,7 +14,7 @@
             width: pageData.width,
             height: pageData.height,
             paddingTop: nopt ? 0 : 10,
-            paddingBottom: nopb ? 0 : 10
+            paddingBottom: nopb ? 0 : 10,
           })
         "
       >
@@ -95,10 +96,22 @@ export default {
     return {
       getCommonStyle: editorProjectConfig.getCommonStyle,
       scalingRatio: 1,
-      showTableModel: false
+      showTableModel: false,
+      outerPadding: {}
     }
   },
   created () {
+    // 预览页外边距
+    if (this.pagetype === 'preview') {
+      console.log(this.pageData.outerPadding)
+      const outerPd = this.pageData.outerPadding + 'px'
+      this.outerPadding = {
+        paddingTop: this.nopt ? 0 : outerPd,
+        paddingBottom: this.nopb ? 0 : outerPd,
+        paddingLeft: outerPd,
+        paddingRight: outerPd
+      }
+    }
     // 将组件加个状态标识
     this.pageData.elements.forEach((e) => {
       e._loaded = true
