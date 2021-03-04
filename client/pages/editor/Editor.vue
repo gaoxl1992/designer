@@ -302,6 +302,7 @@ export default {
             ${footStr}` : '',
           ext
         })
+        this.showPreview = false
       }, 500)
     },
     /**
