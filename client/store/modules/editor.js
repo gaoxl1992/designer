@@ -78,6 +78,7 @@ const actions = {
     commit
   }, height) {
     commit('updateCanvasHeight', height)
+    commit('addHistoryCache')
   },
   /**
    * @description: 更新页面
@@ -98,6 +99,7 @@ const actions = {
     commit
   }, image) {
     commit('updateGuideLine', image)
+    commit('addHistoryCache')
   },
   /**
    * @description: 画布参考线间距
@@ -108,6 +110,7 @@ const actions = {
     commit
   }, size) {
     commit('updateBackSize', size)
+    commit('addHistoryCache')
   },
   /**
    * @description: 添加元素
@@ -275,11 +278,21 @@ const actions = {
     commit('resetElementCommonStyle', style)
     commit('addHistoryCache')
   },
+  /**
+   * @description: 更新元素值--编辑
+   * @param {*}
+   * @return {*}
+   */
   updateElementValue({
     commit
   }, target) {
     commit('updateElementValue', target)
   },
+  /**
+   * @description: 更新签名
+   * @param {*}
+   * @return {*}
+   */
   updateElementSign({
     commit
   }, target) {

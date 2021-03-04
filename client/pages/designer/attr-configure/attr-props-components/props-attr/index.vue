@@ -1,5 +1,5 @@
 <template>
-  <div v-if="currentElementProps.length">
+  <div v-if="currentElementProps.length" @change="haveChanges">
     <div class="attr-title fontBold marginB20">组件属性</div>
     <el-form>
       <component
@@ -41,6 +41,11 @@ export default {
       })
       return keyList
     }
-  }
+  },
+  methods: {
+    haveChanges () {
+      this.$store.dispatch('addHistoryCache')
+    }
+  },
 }
 </script>

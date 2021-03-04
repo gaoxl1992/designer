@@ -121,6 +121,7 @@ export default {
     },
     tempType (val) {
       this.$emit('update:type', val)
+      this.$store.dispatch('addHistoryCache')
     }
   }
 }

@@ -11,7 +11,7 @@
       <div class="props-attr-style">
         <propsAttr></propsAttr>
       </div>
-      <div class="common-attr-style">
+      <div class="common-attr-style" @change="haveChanges">
         <p class="attr-item-title">域值</p>
         <el-select
           v-model="activeElement.threshold"
@@ -203,6 +203,9 @@ export default {
     }
   },
   methods: {
+    haveChanges() {
+      this.$store.dispatch('addHistoryCache')
+    },
     handleClose () {
       this.fieldName = ''
       this.radio = 1

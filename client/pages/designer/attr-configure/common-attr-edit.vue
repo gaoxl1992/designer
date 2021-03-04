@@ -5,7 +5,7 @@
       desc="编辑后同步更新选中组件"
     />
     <div class="common-item-edit-wrapper">
-      <el-form>
+      <el-form @change="throttleAddHistory">
         <el-form-item
           label="等分布局"
           size="mini"
@@ -37,12 +37,11 @@
         title="字符"
         name="1"
       >
-        <div class="word-wrapper">
+        <div class="word-wrapper" @change="throttleAddHistory">
           <div class="word-edit-select">
             <el-select
               size="mini"
               v-model="fontFamily"
-              @change="throttleAddHistory"
             >
               <el-option
                 v-for="item in fontFamilyList"
@@ -56,16 +55,14 @@
           <div class="text-right">
             <el-color-picker
               size="mini"
-              @change="throttleAddHistory"
               v-model="color"
             ></el-color-picker>
           </div>
         </div>
-        <div class="word-wrapper">
+        <div class="word-wrapper" @change="throttleAddHistory">
           <div class="word-edit-input text-left marginR5">
             <el-input-number
               size="mini"
-              @change="throttleAddHistory"
               v-model="fontSize"
               controls-position="right"
               :min="0"
@@ -74,7 +71,6 @@
           <div class="word-edit-input text-center marginR5">
             <el-input-number
               size="mini"
-              @change="throttleAddHistory"
               v-model="fontWeight"
               controls-position="right"
               :min="300"

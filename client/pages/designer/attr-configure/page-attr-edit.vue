@@ -157,6 +157,7 @@ export default {
   created () {
     this.customWidth = +this.pageData.customWidth || this.customWidth
     this.customHeight = +this.pageData.customHeight || this.customHeight
+    this.throttleAddHistory = throttle(this.addHistory, 3000)
   },
   methods: {
     opFixedArea (posi) {
