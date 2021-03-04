@@ -6,7 +6,6 @@
         <span>常用组件</span>
         <span class="op">
           <i
-            v-if="!unableEdit"
             class="el-icon-setting cursor-pointer"
             slot="reference"
             @click="dialogVisible = true"
@@ -19,6 +18,7 @@
         </span>
         <CusCompsSetting
           v-if="dialogVisible"
+          :dialogVisible="dialogVisible"
           :customComps="cusCompList"
           @close="dialogVisible = false"
         ></CusCompsSetting>
@@ -30,16 +30,18 @@
           class="clearfix"
           v-show="openCusComps"
         >
-          <template v-if="item.domains && item.domains.length">
+          <template v-if="showCat(item.domains)">
             <p class="cus-components-libs-title">{{ item.category }}</p>
-            <div
-              class="cus-components-lib-item"
-              v-for="(el, i) in item.domains"
-              :key="i"
-              @click="handleCusClick(el)"
-            >
-              <p class="lib-item-title">{{ el.name }}</p>
-            </div>
+            <template v-for="(el, i) in item.domains">
+              <div
+                v-if="!el.hidden"
+                class="cus-components-lib-item"
+                :key="i"
+                @click="handleCusClick(el)"
+              >
+                <p class="lib-item-title">{{ el.name }}</p>
+              </div>
+            </template>
           </template>
         </li>
       </template>
@@ -70,6 +72,7 @@ import { camelCase } from 'lodash'
 import { eleConfig, eleMap } from '@/config/ele-config'
 import { _register_components_object } from '@/plugins/index'
 import CusCompsSetting from './cus-coms-setting'
+import bus from '@/utils/bus'
 
 export default {
   name: 'ComponentLibs',
@@ -77,10 +80,6 @@ export default {
     customComps: {
       type: Array,
       default: () => []
-    },
-    unableEdit: {
-      type: Boolean,
-      default: false
     }
   },
   components: {
@@ -95,8 +94,33 @@ export default {
       moreHeight: ['rad-image', 'rad-imagepicker', 'rad-drcode', 'rad-editor', 'rad-rectangle']
     }
   },
+  computed: {
+    showCat() {
+      return function (domains) {
+        let show = false
+        for (let i = 0; i < domains.length; i++) {
+          if (!domains[i].hidden) {
+            show = true
+            break
+          }
+        }
+        return show
+      }
+    }
+  },
   created () {
     this.cusCompList = JSON.parse(JSON.stringify(this.customComps))
+    bus.$on('saveCustomNotDisplayComps', (comps) => {
+      this.cusCompList.forEach((cats) => {
+        cats.domains.forEach((cusComp) => {
+          if (comps && comps.indexOf(cusComp.option) !== -1) {
+            cusComp.hidden = true
+          } else {
+            cusComp.hidden = false
+          }
+        })
+      })
+    })
   },
   methods: {
     /**

@@ -50,6 +50,7 @@ import PreviewWrapper from '@/components/preview-wrapper'
 import mixin from '@/mixins/mixin'
 import { mapState } from 'vuex'
 import '@/common/styles/index.scss'
+import bus from '@/utils/bus'
 
 export default {
   name: 'Designer',
@@ -94,6 +95,11 @@ export default {
       activeElementUUID: (state) => state.editor.activeElementUUID,
       activeElementsUUID: (state) => state.editor.activeElementsUUID,
       historyCache: (state) => state.editor.historyCache
+    })
+  },
+  created () {
+    bus.$on('saveCustomNotDisplayComps', (comps) => {
+      this.$emit('saveCustomNotDisplayComps', comps)
     })
   },
   methods: {

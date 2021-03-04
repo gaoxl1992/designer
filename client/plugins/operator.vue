@@ -130,7 +130,6 @@ export default {
       labelStyle: {
         width: 'fit-content',
         'min-width': 'fit-content',
-        float: 'left',
         'padding-right': '5px'
       },
       itemContentStyle: {
@@ -183,6 +182,7 @@ export default {
 .rad-operator {
   .el-input {
     height: 100%;
+    width: 80px;
   }
   .operator-sign {
     display: inline-block;

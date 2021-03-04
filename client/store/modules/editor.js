@@ -392,7 +392,6 @@ const mutations = {
     if (activeElement) {
       activeElement.value = target.value
     }
-    console.log(state.pageData.elements)
   },
   updateElementSign(state, target) {
     let activeElement = getters.findThresholdEle(target.threshold)
