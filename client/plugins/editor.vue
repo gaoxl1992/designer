@@ -367,6 +367,9 @@ export default {
               if (this.element && this.element.threshold) {
                 window.focusedEditor = this.element.threshold
               }
+              if (window?.report?.currentComp) {
+                window.report.currentComp = this.element
+              }
               this.showCharspop()
             }
           },
