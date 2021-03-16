@@ -46,10 +46,15 @@ export const deepClone = (obj, cache = []) => {
 
 export const dealWithScript = (element, scriptType, pageData) => {
   // 将报告页面主体挂载到window上，用于脚本灵活控制页面或组件
-  window.report = window.report || {}
-  window.report.pageData = pageData
+  // window.report = window.report || {}
+  // console.log('pageData', window.report.pageData)
+  // window.report.pageData = window.report.pageData || pageData
   // 操作到哪个组件 currentComp就是哪个组件
   window.report.currentComp = element
+
+  if (element.elName !== 'rad-editor') {
+    window.focusedEditor = ''
+  }
 
   if (!element.script) {
     return

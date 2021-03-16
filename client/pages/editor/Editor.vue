@@ -117,6 +117,7 @@ export default {
       if (!threshold || !value) {
         return
       }
+      console.log(img)
       this.$store.dispatch('updateElementValue', { threshold, value })
       if (img) {
         this.$store.dispatch('updateElementSign', { threshold, img })

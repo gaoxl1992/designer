@@ -36,6 +36,8 @@ export default {
         this.tempCacheLength = this.historyCache.length
         return
       }
+      // 挂载绑定域值的组件，用于控件脚本取值
+      window.report = window.report || {};
       const {
         pageType,
         radio,
@@ -73,6 +75,7 @@ export default {
       })
       this.$store.dispatch('updateCanvasHeight', this.pageData.width * radio)
       this.resetEles(elements, rd)
+      window.report.pageData = this.pageData
     },
     /**
      * @description: 重载控件属性

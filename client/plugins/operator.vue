@@ -152,6 +152,7 @@ export default {
   },
   watch: {
     'element.propsValue.imageUrl' (val) {
+      console.log('imageURl changed', val)
       this.imageUrlTemp = val
     },
     'element.value' (val) {

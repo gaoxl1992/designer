@@ -407,9 +407,11 @@ const mutations = {
     }
   },
   updateElementSign(state, target) {
+    console.log('----', target.img)
     let activeElement = getters.findThresholdEle(target.threshold)
-    if (activeElement && activeElement.propsValue && activeElement.propsValue.imageUrl) {
+    if (activeElement && activeElement.propsValue) {
       activeElement.propsValue.imageUrl = target.img
+      console.log(activeElement)
     }
   },
   /**
