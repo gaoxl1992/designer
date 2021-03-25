@@ -131,12 +131,21 @@ export default {
      * @param {*}
      * @return {*}
      */
-    save (ext = false) {
+    save (isLeave) {
       let obj = {
         radio: this.pageData.height / this.pageData.width,
         ...this.pageData
       }
-      this.savePrintTpl(obj, ext)
+      if (isLeave) {
+        this.$emit('leaveEditor', {
+          editedData: {
+            ...obj,
+            height: obj.height
+          }
+        })
+      } else {
+        this.savePrintTpl(obj)
+      }
     },
     /**
      * @description: 富文本框存为模版时，替换其中的输入框和下拉框
@@ -187,7 +196,7 @@ export default {
      * @param {*} obj
      * @return {*}
      */
-    savePrintTpl (obj, ext) {
+    savePrintTpl (obj) {
       // 处理全部组件
       let eles = JSON.parse(JSON.stringify(obj)).elements
       let pageHeight = obj.height, offsetHeight = 0, bodyEles = []
@@ -285,6 +294,7 @@ export default {
         let inner = document.getElementById('body').innerHTML
         let header = document.getElementById('header').innerHTML
         let footer = document.getElementById('footer').innerHTML
+
         this.$emit('saveEditor', {
           editedData: {
             ...obj,
@@ -300,8 +310,7 @@ export default {
             ${+fixedFooter.page ? openFixedAreaStr : headStr}
             ${+fixedFooter.page ? pageStrStyleB + (+fixedFooter.page === 1 ? pageStr1 : pageStr2) : ''}
             ${footer}
-            ${footStr}` : '',
-          ext
+            ${footStr}` : ''
         })
         this.showPreview = false
       }, 500)

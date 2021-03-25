@@ -279,12 +279,10 @@ export default {
           dialog = dialogs[i]
         }
       }
-      if (
-        (editor &&
-          !editor.contains(event.target)) &&
-        (dialog && !dialog.contains(event.target))
-      ) {
-        this.doc.style.zIndex = this.zIndex
+      if ((editor &&!editor.contains(event.target)) && (dialog && !dialog.contains(event.target))) {
+        if (this?.doc?.style) {
+          this.doc.style.zIndex = this.zIndex
+        }
         this.showChars = false
       }
     },
@@ -375,9 +373,9 @@ export default {
           },
           afterBlur: () => {
             let iframe = this.reditor.edit.iframe[0].contentWindow
-            let innerHeight = iframe.document.getElementsByClassName(
+            let innerHeight = iframe.document?.getElementsByClassName(
               'ke-content'
-            )[0].offsetHeight
+            )?.[0]?.offsetHeight
             if (this.element) {
               this.element.innerHeight = innerHeight
             }
@@ -413,9 +411,7 @@ export default {
       if (this.pagetype !== 'editor' || window.hiddenChars) {
         return
       }
-      this.doc =
-        this.doc ||
-        document.getElementsByClassName(
+      this.doc = this.doc || document.getElementsByClassName(
           'rad-element-wrapper-' + this.editorId
         )[0]
       if (this.zIndex !== null) {
@@ -570,7 +566,8 @@ export default {
     }
     .iconclose {
       font-size: 13px;
-      line-height: 13px;
+      line-height: 24px;
+      height: 24px
     }
   }
 }

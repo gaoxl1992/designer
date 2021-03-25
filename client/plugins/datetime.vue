@@ -83,8 +83,7 @@ export default {
     }
   },
   created () {
-    this.datemodel = (this.element && this.element.value) || this.datetime.indexOf('range') === -1 ? new Date() : [new Date(), new Date()]
-
+    this.datemodel = (this.element && this.element.value) || (this.datetime.indexOf('range') === -1 ? new Date() : [new Date(), new Date()])
     if (this.pagetype === 'preview') {
       this.previewDate = this.formatDate(
         this.datemodel,

@@ -9,6 +9,7 @@
     ></div>
     <div
       style="position: relative;"
+      :style="{height: tplStr.realHeight + 'px'}"
       v-html="tplStr.PROP_PAGE_HTML"
     ></div>
     <div
