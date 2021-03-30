@@ -39,7 +39,9 @@
                 :key="i"
                 @click="handleCusClick(el)"
               >
-                <p class="lib-item-title">{{ el.name }}</p>
+                <el-tooltip class="item" effect="dark" :content="el.name" placement="top" open-delay="200">
+                  <p class="lib-item-title">{{ el.name }}</p>
+                </el-tooltip>
               </div>
             </template>
           </template>
