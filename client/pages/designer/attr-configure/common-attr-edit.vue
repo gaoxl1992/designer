@@ -79,7 +79,7 @@
             />
           </div>
           <div class="word-edit-input text-right">
-            <div class="ita"><span>I</span></div>
+            <div class="ita"><i class="iconfont iconItalic"></i></div>
           </div>
         </div>
       </el-collapse-item>
@@ -561,15 +561,17 @@ export default {
     }
     .ita {
       font-style: italic;
-      border: 1px solid #cbced4;
+      border: 1px solid $line-color;
       font-size: 12px;
-      width: 18px;
-      height: 18px;
       display: inline-block;
       text-align: center;
       line-height: 12px;
-      padding: 3px;
+      padding: 2px;
       margin: 4px 0;
+      border-radius: 2px;
+      .iconItalic {
+        font-size: 12px;
+      }
     }
   }
 }

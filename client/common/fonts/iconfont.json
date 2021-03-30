@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "20703830",
+      "name": "Italic",
+      "font_class": "Italic",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "19789003",
+      "name": "logo",
+      "font_class": "logo",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "19789004",
+      "name": "logo+text",
+      "font_class": "logotext",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "19687024",
+      "name": "returnfee",
+      "font_class": "returnfee",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
       "icon_id": "19653192",
       "name": "align_b",
       "font_class": "align_b",

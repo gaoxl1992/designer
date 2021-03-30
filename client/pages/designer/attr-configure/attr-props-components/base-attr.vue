@@ -57,7 +57,7 @@
             <div
               class="ita"
               :class="{'active': activeElement.commonStyle.fontStyle}"
-            ><span>I</span></div>
+            ><i class="iconfont iconItalic"></i></div>
           </div>
         </div>
       </el-collapse-item>
@@ -444,15 +444,17 @@ export default {
     }
     .ita {
       font-style: italic;
-      border: 1px solid $border-color;
+      border: 1px solid $line-color;
       font-size: 12px;
-      width: 18px;
-      height: 18px;
       display: inline-block;
       text-align: center;
       line-height: 12px;
-      padding: 3px;
+      padding: 2px;
       margin: 4px 0;
+      border-radius: 2px;
+      .iconItalic {
+        font-size: 12px;
+      }
       &.active {
         border: 1px solid $primary;
         background: $active-bg-color;

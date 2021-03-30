@@ -72,7 +72,7 @@
           <div
             class="ita"
             :class="{'active': fontStyleTemp}"
-          ><span>I</span></div>
+          ><i class="iconfont iconItalic"></i></div>
         </div>
       </div>
     </el-form-item>
@@ -168,20 +168,22 @@ export default {
   .word-edit-input {
     width: fit-content;
     .el-input-number--mini {
-      width: 104px;
+      width: 103px;
     }
   }
   .ita {
     font-style: italic;
-    border: 1px solid $border-color;
+    border: 1px solid $line-color;
     font-size: 12px;
-    width: 18px;
-    height: 18px;
     display: inline-block;
     text-align: center;
     line-height: 12px;
-    padding: 3px;
+    padding: 2px;
     margin: 4px 0;
+    border-radius: 2px;
+    .iconItalic {
+      font-size: 12px;
+    }
     &.active {
       border: 1px solid $primary;
       background: $active-bg-color;
