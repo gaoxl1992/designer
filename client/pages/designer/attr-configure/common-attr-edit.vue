@@ -551,12 +551,12 @@ export default {
     display: flex;
     width: 100%;
     .word-edit-select {
-      width: 212px;
+      width: 200px;
     }
     .word-edit-input {
       width: fit-content;
       .el-input-number--mini {
-        width: 103px;
+        width: 98px;
       }
     }
     .ita {
