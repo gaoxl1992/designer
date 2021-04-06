@@ -6,18 +6,17 @@
                v-model="tempSelect"
                placeholder="请选择"
                :size="size"
+               :collapse-tags="true"
                :disabled="disabledValue || pagetype==='designer'">
       <el-option v-for="(option, index) in options"
                  :key="index"
-                 :label="option"
-                 :value="option"
-                 :disabled="tempDisabledItems.includes(option)">
+                 :label="option.value"
+                 :disabled="option.disabled"
+                 :value="option.value">
       </el-option>
     </el-select>
     <div v-else>
-      <span class="select-item"
-            v-for="(option, index) in tempSelect"
-            :key="index">{{option}}</span>
+      <span class="select-item">{{ tempSelect.join('，') }}</span>
     </div>
   </div>
 </template>
@@ -26,23 +25,15 @@
 export default {
   name: 'RadSelect',
   props: {
-    options: {
-      type: Array,
-      default: () => []
-    },
-    size: {
+    size: { // 大小
       type: String,
       default: 'small'
     },
-    disabled: {
+    disabled: { // 禁用
       type: Boolean,
       default: false
     },
-    select: {
-      type: Array,
-      default: () => []
-    },
-    disabledItems: {
+    select: { // 全部选项
       type: Array,
       default: () => []
     },
@@ -50,30 +41,33 @@ export default {
     element: {
       type: Object,
       default: () => {}
+    },
+    defaultChecked: { // 默认选中项
+      type: Array,
+      default: () => []
     }
-  },
-  created() {
-    this.tempSelect = (this.element && this.element.value) || []
   },
   data() {
     return {
       disabledValue: this.disabled,
-      tempSelect: this.select,
-      tempDisabledItems: this.disabledItems
+      tempSelect: this.defaultChecked,
+      options: this.select
+    }
+  },
+  mounted () {
+    if (this.element?.value) {
+      this.tempSelect = this.element.value
     }
   },
   watch: {
-    'element.value' (val) {
-      this.tempSelect = val
-    },
     disabled(val) {
       this.disabledValue = val
     },
     select(val) {
-      this.tempSelect = val
+      this.options = val
     },
-    disabledItems(val) {
-      this.tempDisabledItems = val
+    defaultChecked (val) {
+      this.tempSelect = val
     },
     tempSelect(val) {
       this.$emit('update:value', val)

@@ -47,8 +47,12 @@ export default {
     return {
       disabledValue: false,
       tempCheckbox: this.defaultChecked || [],
-      tempDisabledItems: this.disabledItems || [],
       checkboxOptions: this.checkbox || []
+    }
+  },
+  mounted () {
+    if (this.element?.value) {
+      this.tempCheckbox = this.element.value
     }
   },
   watch: {
@@ -66,13 +70,6 @@ export default {
     },
     checkbox (val) {
       this.checkboxOptions = val
-    },
-    checkboxOptions: {
-      handler (val) {
-        console.log('cheeckbox', val)
-      },
-      deep: true,
-      immediate: true
     }
   }
 }

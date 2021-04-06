@@ -22,8 +22,8 @@
           width="160"
           trigger="hover">
           <ul>
-            <li class="pop-li" @click="addInput(index)">{{ option.addInput ? '移除' : '追加' }}输入框</li>
-            <li class="pop-li" @click="disabledOption(index)">{{ option.disabled ? '取消禁用' : '禁用选项' }}</li>
+            <li v-if="moreop.indexOf('addInput') > -1" class="pop-li" @click="addInput(index)">{{ option.addInput ? '移除' : '追加' }}输入框</li>
+            <li v-if="moreop.indexOf('disabledOption') > -1" class="pop-li" @click="disabledOption(index)">{{ option.disabled ? '取消禁用' : '禁用选项' }}</li>
           </ul>
           <i class="iconfont iconmore2" slot="reference"></i>
         </el-popover>
@@ -54,6 +54,10 @@ export default {
       type: Array,
       default: () => []
     },
+    moreop: {
+      type: Array,
+      default: () => ['addInput', 'disabledOption']
+    }
   },
   data () {
     return {
@@ -81,9 +85,7 @@ export default {
   methods: {
     // 追加输入框
     addInput (index) {
-      console.log('////1', index, this.options[index])
       this.options[index].addInput = !this.options[index].addInput
-      console.log('////2', index, this.options[index])
       this.$emit('chgSetOption', { options: this.options, selType: this.selType });
     },
     // 禁用选项
