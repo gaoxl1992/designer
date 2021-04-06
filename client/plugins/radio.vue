@@ -1,20 +1,19 @@
-<!--
- * @Description: 
- * @props: 
--->
-<!--
- * @Description: 
- * @props: 
--->
 <template>
   <div class="rad-radio">
     <el-radio-group v-model="defaultOption"
-                    :size="size"
                     :disabled="disabledValue || pagetype === 'designer'">
-      <el-radio v-for="(option, index) in options"
+      <el-radio v-for="(option, index) in radio"
                 :key="index"
-                :label="index">
-        {{ option }}
+                :label="option.value"
+                :disabled="option.disabled"
+                :class="{'input-len': option.addInput}">
+        {{ option.value }}
+        <el-input
+          size="mini"
+          v-if="option.addInput"
+          :disabled="option.disabled || disabledValue || pagetype === 'designer'" v-model="option.input"
+        >
+        </el-input>
       </el-radio>
     </el-radio-group>
   </div>
@@ -24,17 +23,9 @@
 export default {
   name: 'RadRadio', // 这个名字很重要，它就是未来的标签名<rad-text></rad-text>
   props: {
-    options: {
+    radio: {
       type: Array,
       default: () => []
-    },
-    radio: {
-      type: Number,
-      default: 1
-    },
-    size: {
-      type: String,
-      default: 'small'
     },
     disabled: {
       type: Boolean,
@@ -44,28 +35,31 @@ export default {
       type: Object,
       default: () => {}
     },
-    pagetype: String
+    pagetype: String,
+    defaultChecked: {
+      type: String,
+      default: ''
+    }
   },
-  created() {
-    this.defaultOption = (this.element && this.element.value) || 0
-  },
-  data() {
+  data () {
     return {
-      defaultOption: this.radio - 1,
-      disabledValue: this.disabled
+      disabledValue: this.disabled,
+      defaultOption: this.defaultChecked,
+    }
+  },
+  mounted () {
+    if (this.element?.value) {
+      this.defaultOption = this.element.value
     }
   },
   watch: {
-    'element.value' (val) {
-      this.$emit('update:value', val)
-    },
-    radio(val) {
-      this.defaultOption = val - 1
-    },
-    disabled(val) {
+    disabled (val) {
       this.disabledValue = val
     },
-    defaultOption(val) {
+    defaultChecked (val) {
+      this.defaultOption = val
+    },
+    defaultOption (val) {
       this.$emit('update:value', val)
     }
   }
@@ -80,6 +74,15 @@ export default {
     color: inherit !important;
     font-size: inherit !important;
     font-weight: inherit;
+  }
+  .el-input--mini .el-input__inner {
+    padding: 0;
+  }
+  .input-len {
+    display: block;
+  }
+  .el-input {
+    display: table-cell;
   }
 }
 </style>

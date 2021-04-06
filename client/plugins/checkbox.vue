@@ -47,8 +47,8 @@ export default {
   data() {
     return {
       disabledValue: false,
-      tempCheckbox: [],
-      tempDisabledItems: []
+      tempCheckbox: this.checkbox || [],
+      tempDisabledItems: this.disabledItems || []
     }
   },
   watch: {

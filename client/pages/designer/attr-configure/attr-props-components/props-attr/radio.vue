@@ -1,24 +1,6 @@
-<!--
- * @Description: 
- * @props: 
--->
 <template>
   <div class="attr-rad-radio">
-    <el-form-item label="选项">
-      <el-input type="text"
-                clearable
-                size="small"
-                :rows="1"
-                placeholder="英文逗号分隔"
-                v-model="tempOptions">
-      </el-input>
-    </el-form-item>
-    <el-form-item label="默认项">
-      <el-input-number v-model="tempIndex"
-                       size="small"
-                       :min="1"
-                       :max="options.length"></el-input-number>
-    </el-form-item>
+    <SetSelOption class="radio" @chgSetOption="chgSetOption" :supportType="['single']" selTypeParent="single" :optionsParent="tempOptions"></SetSelOption>
     <el-form-item>
       <el-checkbox v-model="editable">可编辑</el-checkbox>
     </el-form-item>
@@ -26,57 +8,67 @@
 </template>
 
 <script>
+import SetSelOption from '@/components/SetSelOption.vue'
 export default {
   name: 'attr-rad-radio',
+  components: {
+    SetSelOption
+  },
   props: {
-    options: {
+    radio: {
       type: Array,
       default: () => []
-    },
-    radio: {
-      type: Number,
-      default: 1
     },
     disabled: Boolean
   },
   data () {
     return {
-      tempOptions: '',
-      tempIndex: 1,
+      tempOptions: [],
       editable: true
     }
   },
   mounted () {
-    this.tempIndex = this.radio
-    this.tempOptions = this.options.join(',')
+    this.tempOptions = JSON.parse(JSON.stringify(this.radio))
     this.editable = !this.disabled
+  },
+  methods: {
+    chgSetOption (e) {
+      if (!e.options) {
+        return
+      }
+      this.tempOptions = JSON.parse(JSON.stringify(e.options))
+      this.tempOptions.forEach((item) => {
+        if (item.defaultFlag) {
+          this.$emit('update:defaultChecked', item.value)
+        }
+      })
+    }
   },
   watch: {
     radio (val) {
       this.tempIndex = val
     },
-    options (val) {
-      this.tempOptions = val.join(',')
-    },
     disabled (val) {
       this.tempDisabled = val
       this.editable = !val
     },
-    tempIndex (val) {
-      this.$emit('update:radio', val)
-    },
-    tempOptions (val, oldVal) {
-      let temp = val.split(',')
-      let oldTemp = oldVal.split(',')
-      if (temp[this.tempIndex - 1] !== oldTemp[this.tempIndex - 1]) {
-        this.tempIndex = 0
-      }
-
-      this.$emit('update:options', temp)
-    },
     editable (val) {
       this.$emit('update:disabled', !val)
+    },
+    tempOptions: {
+      handler (val) {
+        this.$emit('update:radio', val)
+      },
+      deep: true,
+      immediate: true
     }
   }
 }
 </script>
+<style lang="scss">
+.attr-rad-radio {
+  .options {
+    margin-bottom: 20px;
+  }
+}
+</style>

@@ -135,10 +135,21 @@ export default {
       if (!this.pageData || !this.pageData.elements || !this.pageData.elements[0]) {
         return
       }
-      this.$emit('saveDesignerData', {
+      let obj = {
         radio: this.pageData.height / this.pageData.width,
         ...this.pageData
-      })
+      }
+
+      if (!this.pageData.fixedHeader.openFixed) {
+        delete obj.fixedHeader
+      }
+      if (!this.pageData.fixedFooter.openFixed) {
+        delete obj.fixedFooter
+      }
+      delete obj.backgroundImage
+      delete obj.backgroundSize
+      
+      this.$emit('saveDesignerData', obj)
     }
   }
 }
