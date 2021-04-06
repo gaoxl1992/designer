@@ -45,9 +45,6 @@ export default {
     }
   },
   watch: {
-    radio (val) {
-      this.tempIndex = val
-    },
     disabled (val) {
       this.tempDisabled = val
       this.editable = !val

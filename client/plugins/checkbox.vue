@@ -1,12 +1,22 @@
 <template>
   <div class="rad-checkbox">
     <el-checkbox-group v-model="tempCheckbox"
-                       :size="size"
-                       :disabled="disabledValue || pagetype==='designer'">
-      <el-checkbox v-for="(option, index) in options"
+                       :disabled="disabledValue || pagetype!=='editor'">
+      <el-checkbox v-for="(option, index) in checkboxOptions"
                    :key="index"
-                   :label="option"
-                   :disabled="tempDisabledItems.includes(option)"></el-checkbox>
+                   :label="option.value"
+                   :class="{'input-len': option.addInput}"
+                   :disabled="option.disabled">
+        {{ option.value }}
+        <el-input
+          size="mini"
+          v-if="option.addInput && pagetype !== 'preview'"
+          :disabled="option.disabled || disabledValue || pagetype !== 'editor'"
+          v-model="option.input"
+        >
+        </el-input>
+        <span class="el-input__inner ellipsis" v-if="option.addInput && pagetype === 'preview'">{{option.input}}</span>
+      </el-checkbox>
     </el-checkbox-group>
   </div>
 </template>
@@ -15,14 +25,6 @@
 export default {
   name: 'RadCheckbox', // 这个名字很重要，它就是未来的标签名<rad-text></rad-text>
   props: {
-    options: {
-      type: Array,
-      default: () => []
-    },
-    size: {
-      type: String,
-      default: 'small'
-    },
     disabled: {
       type: Boolean,
       default: false
@@ -31,42 +33,47 @@ export default {
       type: Array,
       default: () => []
     },
-    disabledItems: {
-      type: Array,
-      default: () => []
-    },
     element: {
       type: Object,
       default: () => {}
     },
-    pagetype: String
-  },
-  created() {
-    this.tempCheckbox = (this.element && this.element.value) || []
+    pagetype: String,
+    defaultChecked: {
+      type: Array,
+      default: () => []
+    }
   },
   data() {
     return {
       disabledValue: false,
-      tempCheckbox: this.checkbox || [],
-      tempDisabledItems: this.disabledItems || []
+      tempCheckbox: this.defaultChecked || [],
+      tempDisabledItems: this.disabledItems || [],
+      checkboxOptions: this.checkbox || []
     }
   },
   watch: {
     disabled(val) {
       this.disabledValue = val
     },
-    checkbox(val) {
-      this.tempCheckbox = val
-    },
-    disabledItems(val) {
-      this.tempDisabledItems = val
-    },
-    tempCheckbox(val) {
-      this.$emit('update:value', val)
-    },
     'element.value' (val) {
       this.tempCheckbox = val
     },
+    defaultChecked (val) {
+      this.tempCheckbox = val
+    },
+    tempCheckbox (val) {
+      this.$emit('update:value', val)
+    },
+    checkbox (val) {
+      this.checkboxOptions = val
+    },
+    checkboxOptions: {
+      handler (val) {
+        console.log('cheeckbox', val)
+      },
+      deep: true,
+      immediate: true
+    }
   }
 }
 </script>
@@ -83,7 +90,20 @@ export default {
     font-weight: inherit;
   }
   .el-checkbox__label {
-    vertical-align: middle;
+    display: inline;
+  }
+  .input-len {
+    display: block;
+  }
+  .el-input {
+    display: table-cell;
+  }
+  .el-input__inner {
+    line-height: 1;
+    height: fit-content;
+    padding: 5px 15px;
+    display: inline-block;
+    width: 200px;
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="rad-radio">
     <el-radio-group v-model="defaultOption"
-                    :disabled="disabledValue || pagetype === 'designer'">
+                    :disabled="disabledValue || pagetype !== 'editor'">
       <el-radio v-for="(option, index) in radio"
                 :key="index"
                 :label="option.value"
@@ -10,10 +10,14 @@
         {{ option.value }}
         <el-input
           size="mini"
-          v-if="option.addInput"
-          :disabled="option.disabled || disabledValue || pagetype === 'designer'" v-model="option.input"
+          v-if="option.addInput && pagetype !== 'preview'"
+          :disabled="option.disabled || disabledValue || pagetype !== 'editor'"
+          v-model="option.input"
         >
         </el-input>
+        <span class="el-input__inner ellipsis" v-if="option.addInput && pagetype === 'preview'">
+          {{option.input}}
+        </span>
       </el-radio>
     </el-radio-group>
   </div>
@@ -75,14 +79,18 @@ export default {
     font-size: inherit !important;
     font-weight: inherit;
   }
-  .el-input--mini .el-input__inner {
-    padding: 0;
-  }
   .input-len {
     display: block;
   }
   .el-input {
     display: table-cell;
+  }
+  .el-input__inner {
+    line-height: 1;
+    height: fit-content;
+    padding: 5px 15px;
+    display: inline-block;
+    width: 200px;
   }
 }
 </style>

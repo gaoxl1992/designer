@@ -1,38 +1,12 @@
 <template>
   <div class="attr-rad-checkbox">
-    <el-form-item label="选项">
-      <el-input type="text"
-                clearable
-                size="small"
-                :rows="1"
-                placeholder="英文逗号分隔"
-                v-model="tempOptions">
-      </el-input>
-    </el-form-item>
-    <el-form-item label="默认项">
-      <el-select v-model="tempCheckbox"
-                 size="small"
-                 multiple
-                 placeholder="无默认项">
-        <el-option v-for="(item, index) in tempOptions1"
-                   :key="index"
-                   :label="item"
-                   :value="item">
-        </el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="禁用项">
-      <el-select v-model="tempDisabled"
-                 size="small"
-                 multiple
-                 placeholder="无禁用项">
-        <el-option v-for="(item, index) in tempOptions1"
-                   :key="index"
-                   :label="item"
-                   :value="item">
-        </el-option>
-      </el-select>
-    </el-form-item>
+    <SetSelOption
+      class="checkbox"
+      @chgSetOption="chgSetOption"
+      selTypeParent="multiply"
+      :supportType="['multiply']"
+      :optionsParent="tempOptions">
+    </SetSelOption>
     <el-form-item>
       <el-checkbox v-model="editable"
                    size="small">可编辑</el-checkbox>
@@ -41,64 +15,51 @@
 </template>
 
 <script>
+import SetSelOption from '@/components/SetSelOption.vue'
 export default {
   name: 'attr-rad-checkbox',
+  components: {
+    SetSelOption
+  },
   props: {
     disabled: Boolean,
     checkbox: {
-      type: Array,
-      default: () => []
-    },
-    disabeldList: {
-      type: Array,
-      default: () => []
-    },
-    options: {
       type: Array,
       default: () => []
     }
   },
   data () {
     return {
-      tempOptions: '',
-      editable: true,
-      tempCheckbox: [],
-      tempDisabled: [],
-      tempOptions1: []
+      tempOptions: [],
+      editable: true
     }
   },
   mounted () {
-    this.tempOptions = this.options.join(',')
+    this.tempOptions = JSON.parse(JSON.stringify(this.checkbox))
     this.editable = !this.disabled
-    this.tempCheckbox = this.checkbox
-    this.tempDisabled = this.disabeldList
+  },
+  methods: {
+    chgSetOption (e) {
+      if (!e.options) {
+        return
+      }
+      this.tempOptions = JSON.parse(JSON.stringify(e.options))
+      let list = []
+      this.tempOptions.forEach((item) => {
+        if (item.defaultFlag) {
+          list.push(item.value)
+        }
+      })
+      this.$emit('update:defaultChecked', list)
+    }
   },
   watch: {
-    checkbox (val) {
-      this.tempCheckbox = val
-    },
-    options (val) {
-      this.tempOptions = val.join(',')
-    },
-    disabeldList (val) {
-      this.tempDisabled = val
-    },
-    tempOptions (val) {
-      let list = val.split(',')
-      this.tempOptions1 = []
-      for (let value of list) {
-        if (value) {
-          this.tempOptions1.push(value)
-        }
-      }
-
-      this.$emit('update:options', list)
-    },
-    tempCheckbox (val) {
-      this.$emit('update:checkbox', val)
-    },
-    tempDisabled (val) {
-      this.$emit('update:disabledItems', val)
+    tempOptions: {
+      handler (val) {
+        this.$emit('update:checkbox', val)
+      },
+      deep: true,
+      immediate: true
     },
     editable (val) {
       this.$emit('update:disabled', !val)
