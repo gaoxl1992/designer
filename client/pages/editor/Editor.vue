@@ -369,7 +369,7 @@ export default {
   }
   .swiper-slide {
     margin: 0 auto;
-    background: $white;
+    background: $page-bg-color;
     overflow: visible;
   }
   .el-input__inner {

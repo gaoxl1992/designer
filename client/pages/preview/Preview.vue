@@ -5,15 +5,18 @@
   <div class="editor-preview">
     <div
       style="position: relative;"
+      class="preview-back"
       v-html="tplStr.PROP_HEADER_HTML"
     ></div>
     <div
       style="position: relative;"
       :style="{height: tplStr.realHeight + 'px'}"
+      class="preview-back"
       v-html="tplStr.PROP_PAGE_HTML"
     ></div>
     <div
       style="position: relative;"
+      class="preview-back"
       v-html="tplStr.PROP_FOOTER_HTML"
     ></div>
   </div>
@@ -37,5 +40,8 @@ export default {
   height: 100%;
   margin: 0 auto;
   background: $white;
+  .preview-back {
+    background-color: #e4e7ee;
+  }
 }
 </style>

@@ -24,15 +24,17 @@
           <div class="title">
             特殊符号
             <span class="tip">（双击应用）</span>
+          </div>
+          <span>
             <i
-              class="el-icon-s-tools"
+              class="icon iconfont iconset_fill"
               @click.prevent="showEditDialog"
             ></i>
-          </div>
-          <i
-            class="icon iconfont iconclose"
-            @click="closeSp"
-          ></i>
+            <i
+              class="icon iconfont iconclose"
+              @click="closeSp"
+            ></i>
+          </span>
         </div>
         <el-row
           class="charas"
@@ -470,10 +472,16 @@ export default {
 </script>
 <style lang="scss">
 .rad-editor {
+  .iconfont {
+    &:hover {
+      color: $primary;
+    }
+  }
   .rad-editor-inner {
     position: relative;
     .iconmore {
       right: 10px;
+      top: 2.5px;
       position: absolute;
     }
   }
@@ -487,13 +495,16 @@ export default {
     position: absolute;
     right: 0;
     max-width: 76%;
-    max-height: 252px;
+    min-width: 280px;
     min-height: 28px;
     font-size: 13px;
     color: #131313;
     background: $page-bg-color;
-    box-shadow: 0px -2px 4px 0px #c8ced4;
     padding: 10px;
+    border: 1px solid #c6c9cf;
+    border-radius: 4px;
+    background-color: #e4e7ee;
+    box-shadow: 0 2px 12px 0 #c8ced4;
   }
   .ke-toolbar {
     background-color: transparent;
@@ -509,6 +520,9 @@ export default {
     border: none;
   }
   .charas {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
     .char {
       margin-right: 12px;
       width: calc(100% - 10px);
@@ -543,13 +557,6 @@ export default {
     }
   }
 
-  .el-icon-s-tools {
-    padding-left: 10px;
-    color: #434343;
-  }
-  .el-icon-close {
-    margin-right: 10px;
-  }
   .flx {
     display: flex;
     justify-content: space-between;
@@ -564,10 +571,13 @@ export default {
       color: #707070;
       font-size: 13px;
     }
-    .iconclose {
-      font-size: 13px;
-      line-height: 24px;
-      height: 24px
+    .iconclose, .iconset_fill {
+      color: #434343;
+      font-size: 14px;
+    }
+    .iconset_fill {
+      padding-left: 10px;
+      padding-right: 10px;
     }
   }
 }

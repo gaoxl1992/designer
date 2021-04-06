@@ -22,8 +22,7 @@
           <el-image :src="tempFile"
                     alt=""
                     fit="fit" />
-          <input accept="image/jpg,image/png"
-                 class="upload-pic-input ab"
+          <input class="upload-pic-input ab"
                  type="file"
                  ref="input_file"
                  @change="fileChange" />
@@ -38,7 +37,7 @@
         </template>
       </div>
       <p class="reupload"
-         v-if="tempFile">点击图片区域重新选择</p>
+         v-if="tempFile">{{ desc }}</p>
     </el-form-item>
   </div>
 </template>
@@ -61,7 +60,8 @@ export default {
     return {
       tempImage: '',
       tempType: false,
-      tempFile: ''
+      tempFile: '',
+      desc: '点击图片区域可重新选择图片'
     }
   },
   mounted () {
@@ -72,6 +72,14 @@ export default {
   methods: {
     fileChange (e) {
       let file = e.target.files[0]
+      if (file.type.indexOf('image') === -1) {
+        this.$alert('请选择图片类型的文件。', '提示');   
+        return false;
+      }
+      if (file.size > 1024 * 1024 *3) { 
+        this.$alert('文件大小不能超过3M，请重新选择。', '提示');
+        return false;
+      }
       let imgSrc = []
       let reader = new FileReader()
       reader.onload = (value) => {
@@ -139,5 +147,6 @@ export default {
   left: 120px;
   position: absolute;
   bottom: 30px;
+  line-height: initial;
 }
 </style>

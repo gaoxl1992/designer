@@ -310,6 +310,20 @@ export default {
     .el-input__prefix {
       position: relative;
     }
+    .el-input--prefix .el-input__inner {
+      padding-left: 10px;
+    }
+    .el-input--suffix .el-input__inner {
+      padding-right: 50px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .outlook-group-item {
+      .el-input--suffix .el-input__inner {
+        padding-right: 15px;
+      }
+    }
     .el-select {
       width: 100%;
     }

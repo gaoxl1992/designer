@@ -16,8 +16,7 @@
       @change="changeImages"
       class="pic-group"
       :style="groupStyle"
-      v-else-if="
-        pagetype === 'editor'"
+      v-else-if="pagetype === 'editor'"
     >
       <div
         :style="liStyle(idx)"
@@ -62,9 +61,11 @@
             ')',
           height: perHeight + 'px',
         }"
+
         class="upload-demo"
         drag
         list-type="picture-card"
+        :id="uploadId"
         :auto-upload="false"
         action="#"
         :file-list="fileList"
@@ -151,7 +152,8 @@ export default {
         display: 'block',
         width: '100%'
       },
-      relLinePics: this.linepics
+      relLinePics: this.linepics,
+      uploadId: `imagepicker_${new Date().getTime()}_${this.element?.threshold || ''}`
     }
   },
   computed: {
@@ -231,15 +233,18 @@ export default {
   },
   created () {
     this.fileList = (this.element && this.element.value) || []
-    if (this.pagetype === 'editor' && this.element.threshold) {
+    if (this.pagetype === 'editor') {
       window.imagePicker = window.imagePicker || {}
-      window.imagePicker[this.element.threshold] = {
+      window.imagePicker[this.uploadId] = {
         resetPics: this.resetPics,
         deletePics: this.deletePics,
         insertPics: this.insertPics,
         fileList: this.fileList
       }
     }
+  },
+  destroyed () {
+    delete window.imagePicker[this.uploadId];
   },
   methods: {
     /**
