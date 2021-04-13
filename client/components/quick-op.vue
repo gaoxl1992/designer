@@ -1,16 +1,8 @@
-<!--
- * @Description: 
- * @props: 
--->
-<!--
- * @Description: 
- * @props: 
--->
 <template>
   <div
     class="page-wrapper-menu-operation menu-item-on-edit-panel"
     :style="getMenuOptionsPositionStyle"
-    :class="{ active: activeElementUUID }"
+    :class="{ actived: activeElementUUID }"
   >
     <el-tooltip
       v-for="(item, index) in menuOptions"
@@ -93,7 +85,7 @@ export default {
       color: $primary;
     }
   }
-  &.active {
+  &.actived {
     display: block;
     width: 45px;
     opacity: 1;

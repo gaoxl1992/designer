@@ -19,7 +19,6 @@
         editable
         :size="size"
         :disabled="disabledValue"
-        placeholder="选择日期时间"
       >
       </el-date-picker>
       <div
@@ -145,6 +144,8 @@ export default {
 .rad-datetime {
   .el-input {
     height: 100%;
+    display: table-cell;
+    width: 100%;
   }
   input {
     display: block;
@@ -152,9 +153,12 @@ export default {
     height: 100%;
   }
   .el-input__inner {
-    background-color: transparent;
+    background-color: inherit !important;
     border: 1px solid #adb1b8;
     padding: 0;
+    overflow: hidden;
+    display: block;
+    max-width: 100%;
   }
   .el-input__inner_preview {
     border: none;
@@ -162,7 +166,11 @@ export default {
   }
   .el-form-item {
     width: 100%;
-    white-space: nowrap;
+    display: table-row;
+    .el-data-editor {
+      display: table-cell;
+      width: 100%;
+    }
   }
   .el-form-item__label {
     width: fit-content;
