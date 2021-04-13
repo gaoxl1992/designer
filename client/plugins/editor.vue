@@ -249,10 +249,15 @@ export default {
         'font-size': 'inherit',
         'font-family': 'inherit',
         'color': 'inherit !important',
-        'backgrount-color': 'inherit !important',
+        'background-color': 'transparent !important',
         'font-weight': 'inherit',
         'font-style': 'inherit',
-        'width': '75'
+        'box-shadow': 'none !important',
+        'border': 'none !important',
+        'appearance': 'none',
+        '-moz-appearance': 'none', /* Firefox */
+        '-webkit-appearance': 'none', /* Safari 和 Chrome */
+        'text-decoration': 'underline !important'
       }
     }
   },
@@ -362,6 +367,7 @@ export default {
           themeType: this.editorId,
           cssData: cssData,
           afterFocus: () => {
+            // let iframe = this.reditor.edit.iframe[0].contentWindow.document.body
             if (this.pagetype === 'editor') {
               this.inEditor = true
               if (this.element && this.element.threshold) {
@@ -471,6 +477,11 @@ export default {
 }
 </script>
 <style lang="scss">
+.ke-content {
+  &:focus {
+    outline: none !important;
+  }
+}
 .rad-editor {
   .iconfont {
     &:hover {

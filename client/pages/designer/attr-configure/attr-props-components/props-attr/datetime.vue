@@ -155,7 +155,7 @@ export default {
       this.tempSize = val
     },
     disabled (val) {
-      this.editable = val
+      this.editable = !val
     },
     datetime (val) {
       this.tempDatetime = val
