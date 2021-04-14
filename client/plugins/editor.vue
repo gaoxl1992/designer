@@ -171,6 +171,11 @@ export default {
         return
       }
       this.showChars = val === this.editorId
+      if (this.showChars) {
+        this.reditor.focus()
+      } else {
+        this.reditor.blur()
+      }
     },
     editor () {
       this.initEditor()
