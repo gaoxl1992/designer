@@ -40,6 +40,8 @@
             :element="item"
             :editorId="index"
             :pagetype="pagetype"
+            @focusEditor="focusEditor"
+            :focusEditorId="focusEditorId"
             :style="
               getCommonStyle(
                 {
@@ -97,7 +99,8 @@ export default {
       getCommonStyle: editorProjectConfig.getCommonStyle,
       scalingRatio: 1,
       showTableModel: false,
-      outerPadding: {}
+      outerPadding: {},
+      focusEditorId: ''
     }
   },
   created () {
@@ -116,7 +119,12 @@ export default {
     this.pageData.elements.forEach((e) => {
       e._loaded = true
     })
-  }
+  },
+  methods: {
+    focusEditor (e) {
+      this.focusEditorId = e
+    }
+  },
 }
 </script>
 

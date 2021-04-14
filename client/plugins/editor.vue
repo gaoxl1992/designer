@@ -159,9 +159,19 @@ export default {
     fontFamily: {
       type: String,
       default: 'Microsoft YaHei'
+    },
+    focusEditorId: {
+      type: String,
+      default: ''
     }
   },
   watch: {
+    focusEditorId (val) {
+      if (!val) {
+        return
+      }
+      this.showChars = val === this.editorId
+    },
     editor () {
       this.initEditor()
     },
@@ -265,6 +275,7 @@ export default {
     closeSp () {
       this.doc.style.zIndex = this.zIndex
       this.showChars = false
+      this.$emit('focusEditor', '')
       window.hiddenChars = true
     },
     showCharspopAgain () {
@@ -291,6 +302,7 @@ export default {
           this.doc.style.zIndex = this.zIndex
         }
         this.showChars = false
+        this.$emit('focusEditor', '')
       }
     },
     closeDialog () {
@@ -367,7 +379,6 @@ export default {
           themeType: this.editorId,
           cssData: cssData,
           afterFocus: () => {
-            // let iframe = this.reditor.edit.iframe[0].contentWindow.document.body
             if (this.pagetype === 'editor') {
               this.inEditor = true
               if (this.element && this.element.threshold) {
@@ -427,6 +438,7 @@ export default {
       }
       this.doc.style.zIndex = 999
       this.showChars = true
+      this.$emit('focusEditor', this.editorId)
     },
     innerChange () {
       if (this.reditor) {

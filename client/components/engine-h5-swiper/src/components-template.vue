@@ -16,6 +16,8 @@
       v-bind="element.propsValue"
       :editorId="'preview' + editorId"
       :pagetype="pagetype"
+      @focusEditor="focusEditor"
+      :focusEditorId="focusEditorId"
     />
   </div>
 </template>
@@ -51,9 +53,16 @@ export default {
     pagetype: {
       type: String,
       default: ''
+    },
+    focusEditorId: {
+      type: String,
+      default: ''
     }
   },
   methods: {
+    focusEditor (e) {
+      this.$emit('focusEditor', e)
+    },
     async handleClick () {
       // 编辑模式点击组件处理脚本
       if (this.pagetype === 'editor') {
