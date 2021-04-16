@@ -329,7 +329,9 @@ export default {
             bus.$emit('updateSpChars', this.pageData.spCharacters)
           }
           this.showDialog = false
-        })
+        }).catch(() => {
+          this.showDialog = false // FIX-BUG:5762
+        });
       } else {
         this.showDialog = false
       }
