@@ -329,12 +329,14 @@ export default {
             bus.$emit('updateSpChars', this.pageData.spCharacters)
           }
           this.showDialog = false
+          this.showCharspop()
         }).catch(() => {
           this.showDialog = false // FIX-BUG:5762
           this.showCharspop()
         });
       } else {
         this.showDialog = false
+        this.showCharspop()
       }
     },
     confirmDialog () {
