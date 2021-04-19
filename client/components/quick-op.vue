@@ -68,7 +68,7 @@ export default {
   background: white;
   color: #333;
   text-align: center;
-  z-index: 1002;
+  z-index: 19;
   border-radius: 4px;
   display: none;
   transition: all 0.28s;

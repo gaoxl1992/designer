@@ -190,7 +190,7 @@ export default {
     position: fixed;
     right: 290px;
     bottom: 330px;
-    z-index: 1000;
+    z-index: 20;
     width: 38px;
   }
   .el-attr-edit-wrapper {

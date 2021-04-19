@@ -8,6 +8,8 @@ import {
 import editorProjectConfig from '../../config/DataModel'
 
 const state = {
+  // 打开的编辑器合集
+  projectData: {},
   // 当前编辑器编辑工程项目数据
   pageData: {},
   // 画板中选中的元素uuid
@@ -351,6 +353,8 @@ const mutations = {
   },
   setPageData(state, data) {
     state.pageData = data
+    let id = data.id
+    state.projectData[id] = data
   },
   setActiveElementUUID(state, data) {
     state.activeElementUUID = data

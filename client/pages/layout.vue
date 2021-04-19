@@ -282,7 +282,7 @@ export default {
     background: #a5afc7;
     display: flex;
     width: 100%;
-    z-index: 999;
+    z-index: 19;
     justify-content: center;
   }
   .designer-wrapper,

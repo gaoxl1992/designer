@@ -56,7 +56,6 @@ export const dealWithScript = (element, scriptType) => {
     window.focusedEditor = ''
   }
 
-  console.log('all script', element)
   if (!element.script) {
     return
   }
