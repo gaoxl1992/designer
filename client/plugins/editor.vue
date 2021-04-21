@@ -45,7 +45,7 @@
             :sm="6"
             :md="4"
             :lg="3"
-            v-for="(char, index) in pageData.spCharacters"
+            v-for="(char, index) in pageData[compId].spCharacters"
             :key="index"
           >
             <el-tooltip
@@ -163,6 +163,10 @@ export default {
     focusEditorId: {
       type: String,
       default: ''
+    },
+    compId: {
+      type: String,
+      default: ''
     }
   },
   watch: {
@@ -239,12 +243,7 @@ export default {
         'justifyright',
         '|',
         'insertorderedlist',
-        'lineheight',
-        '|',
-        'link',
-        'unlink',
-        '|',
-        'table'
+        'lineheight'
       ],
       inner: null,
       showChars: false,
@@ -268,11 +267,11 @@ export default {
         'font-weight': 'inherit',
         'font-style': 'inherit',
         'box-shadow': 'none !important',
-        'border': 'none !important',
-        'appearance': 'none',
-        '-moz-appearance': 'none', /* Firefox */
-        '-webkit-appearance': 'none', /* Safari 和 Chrome */
-        'text-decoration': 'underline !important'
+        // 'border': 'none !important',
+        // 'appearance': 'none',
+        // '-moz-appearance': 'none', /* Firefox */
+        // '-webkit-appearance': 'none', /* Safari 和 Chrome */
+        // 'text-decoration': 'underline !important'
       }
     }
   },
@@ -290,7 +289,7 @@ export default {
     showEditDialog () {
       this.showDialog = true
       this.mngCharStr = JSON.parse(
-        JSON.stringify(this.pageData.spCharacters)
+        JSON.stringify(this.pageData[this.compId].spCharacters)
       ).join('\n')
     },
     handleLeave (event) {
@@ -311,7 +310,7 @@ export default {
       }
     },
     closeDialog () {
-      let old = JSON.parse(JSON.stringify(this.pageData.spCharacters))
+      let old = JSON.parse(JSON.stringify(this.pageData[this.compId].spCharacters))
       if (old.join('\n') !== this.mngCharStr) {
         this.$alert('您有未保存的修改，是否保存?', '提示', {
           showCancelButton: true,
@@ -325,8 +324,8 @@ export default {
                 arr.splice(i, 1)
               }
             }
-            this.pageData.spCharacters = JSON.parse(JSON.stringify(arr))
-            bus.$emit('updateSpChars', this.pageData.spCharacters)
+            this.pageData[this.compId].spCharacters = JSON.parse(JSON.stringify(arr))
+            bus.$emit('updateSpChars', this.pageData[this.compId].spCharacters)
           }
           this.showDialog = false
           this.showCharspop()
@@ -346,8 +345,8 @@ export default {
           arr.splice(i, 1)
         }
       }
-      this.pageData.spCharacters = JSON.parse(JSON.stringify(arr))
-      bus.$emit('updateSpChars', this.pageData.spCharacters)
+      this.pageData[this.compId].spCharacters = JSON.parse(JSON.stringify(arr))
+      bus.$emit('updateSpChars', this.pageData[this.compId].spCharacters)
       this.showDialog = false
     },
     addClickFn () {
@@ -395,7 +394,7 @@ export default {
                 window.focusedEditor = this.element.threshold
               }
               if (window?.report?.currentComp) {
-                window.report.currentComp = this.element
+                window.report[this.compId].currentComp = this.element
               }
               this.showCharspop()
             }
@@ -427,8 +426,9 @@ export default {
         // 有阈值的富文本挂载到widnow上 供外部读写
         if (this.pagetype === 'editor') {
           window.reditor = window.reditor || {}
+          window.reditor[this.compId] = window.reditor[this.compId] || {}
           if (this.element && this.element.threshold) {
-            window.reditor[this.element.threshold] = {
+            window.reditor[this.compId][this.element.threshold] = {
               edit: _this.reditor,
               label: this.label
             }
@@ -481,8 +481,8 @@ export default {
     // keep-alive 离开时移除
     this.removeEditor()
     document.removeEventListener('click', this.handleLeave, false)
-    if (this.element && this.element.threshold && window.reditor[this.element.threshold]) {
-      delete window.reditor[this.element.threshold]
+    if (this.element && this.element.threshold && window.reditor[this.compId] && window.reditor[this.compId][this.element.threshold]) {
+      delete window.reditor[this.compId][this.element.threshold]
       delete window.focusedEditor
     }
     window.hiddenChars = false
@@ -490,8 +490,8 @@ export default {
   beforeDestroy () {
     this.removeEditor()
     document.removeEventListener('click', this.handleLeave, false)
-    if (this.element && this.element.threshold && window.reditor[this.element.threshold]) {
-      delete window.reditor[this.element.threshold]
+    if (this.element && this.element.threshold && window.reditor[this.compId] && window.reditor[this.compId][this.element.threshold]) {
+      delete window.reditor[this.compId][this.element.threshold]
       delete window.focusedEditor
     }
     window.hiddenChars = false
