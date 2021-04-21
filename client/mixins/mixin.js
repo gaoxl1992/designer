@@ -7,17 +7,37 @@ import {
 } from '@/utils/mUtils'
 export default {
   created() {
-    this.$store.dispatch('setPageData')
+    this.$store1.dispatch(this.modelId + '/setPageData')
   },
+  inject: ['modelId'],
   computed: {
     ...mapState({
-      pageData: (state) => state.editor.pageData,
-      activeElementsUUID: (state) => state.editor.activeElementsUUID,
-      activeElementUUID: (state) => state.editor.activeElementUUID,
-      tableTpl: (state) => state.editor.tableTpl,
-      historyCache: (state) => state.editor.historyCache
+      pageData () {
+        let state = this.$store1.state[this.modelId];
+        return state?.pageData || {}
+      },
+      activeElementsUUID () {
+        let state = this.$store1.state[this.modelId];
+        return state?.activeElementsUUID || []
+      },
+      activeElementUUID () {
+        let state = this.$store1.state[this.modelId];
+        return state?.activeElementUUID || ''
+      },
+      tableTpl () {
+        let state = this.$store1.state[this.modelId]
+        return state?.tableTpl || []
+      },
+      historyCache () {
+        let state = this.$store1.state[this.modelId]
+        return state?.historyCache || []
+      }
     }),
-    ...mapGetters(['activeElement'])
+    ...mapGetters({
+      activeElement () {
+        return this.modelId + '/activeElement'
+      }
+    })
   },
   methods: {
     setDomain(domainList = []) {
@@ -29,8 +49,8 @@ export default {
      * @return {*}
      */
     resetPage(pageData = null, spCharacters = [], domainList = []) {
-      this.$store.dispatch('setPageData')
-      this.$store.dispatch('setActiveElementUUID', '')
+      this.$store1.dispatch(this.modelId + '/setPageData')
+      this.$store1.dispatch(this.modelId + '/setActiveElementUUID', '')
       if (!pageData) {
         this.pageData.domainList = domainList
         this.tempCacheLength = this.historyCache.length
@@ -53,7 +73,7 @@ export default {
         outerPadding
       } = pageData
       let rd = width / this.pageData.width
-      this.$store.dispatch('setPageData', {
+      this.$store1.dispatch(this.modelId + '/setPageData', {
         ...this.pageData,
         customWidth,
         customHeight,
@@ -73,7 +93,7 @@ export default {
           height: fixedHeader.openFixed ? fixedHeader.height / rd : 0
         } : {}
       })
-      this.$store.dispatch('updateCanvasHeight', this.pageData.width * radio)
+      this.$store1.dispatch(this.modelId + '/updateCanvasHeight', this.pageData.width * radio)
       this.resetEles(elements, rd)
       window.report.pageData = this.pageData
     },
@@ -110,7 +130,7 @@ export default {
           dealWithScript(item, 'initPage', this.pageData)
         }
         setTimeout(() => {
-          this.$store.dispatch('importElement', item)
+          this.$store1.dispatch(this.modelId + '/importElement', item)
           this.tempCacheLength++
         }, 10)
       })

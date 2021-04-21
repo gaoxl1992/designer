@@ -87,6 +87,7 @@ export default {
   components: {
     CusCompsSetting
   },
+  inject: ['modelId'],
   data () {
     return {
       componentsList: eleConfig,
@@ -154,7 +155,7 @@ export default {
         let left = 0
         let oneEle = item.types.length === 1
         let props = this.getComponentProps(item.types[i])
-        this.$store.dispatch('addElement', {
+        this.$store1.dispatch(this.modelId + '/addElement', {
           elName: item.types[i],
           title: eleMap[item.types[i]],
           threshold: item.option,
@@ -175,7 +176,7 @@ export default {
      */
     handleClick (item) {
       let props = this.getComponentProps(item.elName)
-      this.$store.dispatch('addElement', { ...item, needProps: props })
+      this.$store1.dispatch(this.modelId + '/addElement', { ...item, needProps: props })
     },
     /**
      * 根据elname获取组件默认props数据

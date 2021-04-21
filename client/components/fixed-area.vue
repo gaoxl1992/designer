@@ -21,9 +21,13 @@ export default {
       default: 'header'
     }
   },
+  inject: ['modelId'],
   computed: {
     ...mapState({
-      pageData: (state) => state.editor.pageData
+      pageData () {
+        let state = this.$store1.state[this.modelId];
+        return state?.pageData || {}
+      }
     })
   },
   methods: {

@@ -154,13 +154,30 @@ import { throttle } from 'lodash'
 import AreaTitle from '@/components/area-title'
 
 export default {
+  inject: ['modelId'],
   computed: {
     ...mapState({
-      pageData: (state) => state.editor.pageData,
-      activeElementUUID: (state) => state.editor.activeElementUUID,
-      activeElementsUUID: (state) => state.editor.activeElementsUUID,
+      pageData () {
+        let state = this.$store1.state[this.modelId];
+        return state?.pageData || {}
+      },
+      activeElementsUUID () {
+        let state = this.$store1.state[this.modelId];
+        return state?.activeElementsUUID || []
+      },
+      activeElementUUID () {
+        let state = this.$store1.state[this.modelId];
+        return state?.activeElementUUID || ''
+      }
     }),
-    ...mapGetters(['activeElementIndex', 'activeElement']),
+    ...mapGetters({
+      activeElementIndex() {
+        return this.modelId + '/activeElementIndex'
+      },
+      activeElement() {
+        return this.modelId + '/activeElement'
+      }
+    }),
   },
   components: {
     AreaTitle,
@@ -381,7 +398,7 @@ export default {
     },
     // 纪录一条历史纪录
     addHistory () {
-      this.$store.dispatch('addHistoryCache')
+      this.$store1.dispatch(this.modelId + '/addHistoryCache')
     },
     // 更新样式
     changeAlignType (type) {

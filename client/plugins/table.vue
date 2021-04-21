@@ -85,10 +85,15 @@ export default {
       default: () => { }
     }
   },
+  inject: ['modelId'],
   computed: {
     ...mapState({
-      tableTpl: (state) => state.editor.tableTpl,
-      ...mapGetters(['activeElement'])
+      tableTpl: (state) => state?.tableTpl || [],
+    }),
+    ...mapGetters({
+      activeElement() {
+        return this.modelId + '/activeElement'
+      }
     }),
     isActiveTpl () {
       // let attr = window.mockData

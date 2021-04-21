@@ -37,9 +37,13 @@ export default {
     // 批量注册组件
     ..._register_components_object
   },
+  inject: ['modelId'],
   computed: {
     ...mapState({
-      pageData: (state) => state.editor.pageData
+      pageData () {
+        let state = this.$store1.state[this.modelId];
+        return state?.pageData || {}
+      }
     })
   },
   props: {

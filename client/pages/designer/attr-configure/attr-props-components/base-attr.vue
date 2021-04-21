@@ -322,13 +322,30 @@ export default {
       fontFamilyList
     }
   },
+  inject: ['modelId'],
   computed: {
     ...mapState({
-      pageData: (state) => state.editor.pageData,
-      activeElementUUID: (state) => state.editor.activeElementUUID,
-      activeAttrEditCollapse: (state) => state.editor.activeAttrEditCollapse
+      pageData () {
+        let state = this.$store1.state[this.modelId];
+        return state?.pageData || {}
+      },
+      activeElementUUID () {
+        let state = this.$store1.state[this.modelId];
+        return state?.activeElementUUID || ''
+      },
+      activeAttrEditCollapse () {
+        let state = this.$store1.state[this.modelId];
+        return state?.activeAttrEditCollapse || []
+      }
     }),
-    ...mapGetters(['activeElementIndex', 'activeElement']),
+    ...mapGetters({
+      activeElementIndex() {
+        return this.modelId + '/activeElementIndex'
+      },
+      activeElement() {
+        return this.modelId + '/activeElement'
+      }
+    }),
     checkedBgColor: {
       get () {
         return !!this.activeElement.commonStyle.backgroundColor
@@ -349,12 +366,13 @@ export default {
   },
   watch: {
     activeNames () {
-      this.$store.commit('updateActiveAttrEditCollapse', this.activeNames)
+      this.$store1.commit(this.modelId + '/updateActiveAttrEditCollapse', this.activeNames)
     }
   },
   created () {
     this.throttleAddHistory = throttle(this.addHistory, 3000)
   },
+  inject: ['modelId'],
   mounted () {
     this.activeNames = this.activeAttrEditCollapse
   },
@@ -363,7 +381,7 @@ export default {
      * 纪录一条历史纪录
      * */
     addHistory () {
-      this.$store.dispatch('addHistoryCache')
+      this.$store1.dispatch(this.modelId + '/addHistoryCache')
     },
     /**
      * 对齐方式

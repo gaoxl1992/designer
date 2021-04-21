@@ -62,9 +62,13 @@ export default {
       default: () => { }
     }
   },
+  inject: ['modelId'],
   computed: {
     ...mapState({
-      tplList: (state) => state.editor.tableTpl
+      tplList () {
+        let state = this.$store1.state[this.modelId];
+        return state?.tableTpl || []
+      }
     })
   },
   data () {

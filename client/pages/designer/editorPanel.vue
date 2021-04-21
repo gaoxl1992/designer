@@ -117,13 +117,30 @@ export default {
       inCanvas: false
     }
   },
+  inject: ['modelId'],
   computed: {
     ...mapState({
-      pageData: (state) => state.editor.pageData,
-      activeElementUUID: (state) => state.editor.activeElementUUID,
-      activeElementsUUID: (state) => state.editor.activeElementsUUID
+      pageData () {
+        let state = this.$store1.state[this.modelId];
+        return state?.pageData || {}
+      },
+      activeElementsUUID () {
+        let state = this.$store1.state[this.modelId];
+        return state?.activeElementsUUID || []
+      },
+      activeElementUUID () {
+        let state = this.$store1.state[this.modelId];
+        return state?.activeElementUUID || ''
+      }
     }),
-    ...mapGetters(['activeElementIndex', 'activeElement'])
+    ...mapGetters({
+      activeElementIndex () {
+        return this.modelId + '/activeElementIndex'
+      },
+      activeElement () {
+        return this.modelId + '/activeElement' 
+      }
+    })
   },
   mounted () {
     if (this.$refs.editorPane) {
@@ -137,7 +154,7 @@ export default {
      */
     handleElementClick (uuid) {
       this.inCanvas = true
-      this.$store.dispatch('setActiveElementUUID', uuid)
+      this.$store1.dispatch(this.modelId + '/setActiveElementUUID', uuid)
     },
     /**
      * 移动改变元素大小定位
@@ -146,7 +163,7 @@ export default {
      */
     handleElementResize (pos) {
       if (!pos) {
-        this.$store.dispatch('addHistoryCache')
+        this.$store1.dispatch(this.modelId + '/addHistoryCache')
         return
       }
       this.pageData.elements[this.activeElementIndex].commonStyle.left =
@@ -174,7 +191,7 @@ export default {
         !e.target.classList.contains('element-on-edit-pane') &&
         !e.target.classList.contains('menu-item-on-edit-panel')
       ) {
-        this.$store.dispatch('setActiveElementUUID', '')
+        this.$store1.dispatch(this.modelId + '/setActiveElementUUID', '')
       }
     },
     /**
@@ -309,7 +326,7 @@ export default {
       if (a == elements.length) {
         this.selectIdList = []
       }
-      this.$store.dispatch('setActiveElementsUUID', this.selectIdList)
+      this.$store1.dispatch(this.modelId + '/setActiveElementsUUID', this.selectIdList)
     }
   }
 }

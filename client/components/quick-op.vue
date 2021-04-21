@@ -29,13 +29,30 @@ import { mapState, mapGetters } from 'vuex'
 import { menuOptions } from '@/config/attr-config'
 export default {
   name: 'QuickOp',
+  inject: ['modelId'],
   computed: {
     ...mapState({
-      pageData: (state) => state.editor.pageData,
-      activeElementUUID: (state) => state.editor.activeElementUUID,
-      activeElementsUUID: (state) => state.editor.activeElementsUUID
+      pageData () {
+        let state = this.$store1.state[this.modelId];
+        return state?.pageData || {}
+      },
+      activeElementsUUID () {
+        let state = this.$store1.state[this.modelId];
+        return state?.activeElementsUUID || []
+      },
+      activeElementUUID () {
+        let state = this.$store1.state[this.modelId];
+        return state?.activeElementUUID || ''
+      }
     }),
-    ...mapGetters(['activeElementIndex', 'activeElement']),
+    ...mapGetters({
+      activeElementIndex() {
+        return this.modelId + '/activeElementIndex'
+      },
+      activeElement () {
+        return this.modelId + '/activeElement'
+      }
+    }),
     getMenuOptionsPositionStyle () {
       let both = (this.editorPaneWidth - this.pageData.width * this.scale) / 2
       let right = both < 60 ? 16 : both
@@ -54,7 +71,7 @@ export default {
      * 对元素进行操作命令
      */
     handleElementCommand (command) {
-      this.$store.dispatch('elementCommand', command)
+      this.$store1.dispatch(this.modelId + '/elementCommand', command)
     }
   }
 }

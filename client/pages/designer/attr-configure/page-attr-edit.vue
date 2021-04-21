@@ -155,12 +155,26 @@ export default {
   components: {
     AreaTitle,
   },
+  inject: ['modelId'],
   computed: {
     ...mapState({
-      pageData: (state) => state.editor.pageData,
-      activeElementUUID: (state) => state.editor.activeElementUUID
+      pageData () {
+        let state = this.$store1.state[this.modelId];
+        return state?.pageData || {}
+      },
+      activeElementUUID () {
+        let state = this.$store1.state[this.modelId];
+        return state?.activeElementUUID || ''
+      }
     }),
-    ...mapGetters(['activeElementIndex', 'activeElement'])
+    ...mapGetters({
+      activeElementIndex() {
+        return this.modelId + '/activeElementIndex'
+      },
+      activeElement() {
+        return this.modelId + '/activeElement'
+      }
+    })
   },
   created () {
     this.customWidth = +this.pageData.customWidth || this.customWidth
@@ -198,8 +212,8 @@ export default {
           radio = this.customHeight / this.customWidth
       }
       let customHeight = customWidth * radio
-      this.$store.dispatch(
-        'updateCanvasHeight',
+      this.$store1.dispatch(
+        this.modelId + '/updateCanvasHeight',
         customHeight * this.pageData.totalPages
       )
     }
@@ -214,8 +228,8 @@ export default {
       this.pageData.customHeight = +this.customHeight
       if (this.pageData.pageType === 'custom') {
         let radio = this.customHeight / val
-        this.$store.dispatch(
-          'updateCanvasHeight',
+        this.$store1.dispatch(
+          this.modelId + '/updateCanvasHeight',
           this.pageData.width * radio * this.pageData.totalPages
         )
       }
@@ -225,8 +239,8 @@ export default {
       this.pageData.customHeight = +val
       if (this.pageData.pageType === 'custom') {
         let radio = val / this.customWidth
-        this.$store.dispatch(
-          'updateCanvasHeight',
+        this.$store1.dispatch(
+          this.modelId + '/updateCanvasHeight',
           this.pageData.width * radio * this.pageData.totalPages
         )
       }
@@ -237,10 +251,10 @@ export default {
         image =
           'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZAgMAAAC5h23wAAAAAXNSR0IB2cksfwAAAAlQTFRF9fX18PDwAAAABQ8/pgAAAAN0Uk5T/yIA41y2EwAAABhJREFUeJxjYIAC0VAQcGCQWgUCDUONBgDH8Fwzu33LswAAAABJRU5ErkJggg==")'
       }
-      this.$store.dispatch('updateGuideLine', image)
+      this.$store1.dispatch(this.modelId + '/updateGuideLine', image)
     },
     pixelSize (val) {
-      this.$store.dispatch('updateBackSize', val)
+      this.$store1.dispatch(this.modelId + '/updateBackSize', val)
     }
   }
 }

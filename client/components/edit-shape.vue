@@ -34,9 +34,13 @@ export default {
     },
     uuid: String
   },
+  inject: ['modelId'],
   computed: {
     ...mapState({
-      activeElementsUUID: (state) => state.editor.activeElementsUUID
+      activeElementsUUID () {
+        let state = this.$store1.state[this.modelId];
+        return state?.activeElementsUUID || []
+      }
     })
   },
   data () {
@@ -101,7 +105,7 @@ export default {
      * 点击事件，点击后设置当前元素为选中元素
      */
     handleTopWrapperClick (e) {
-      this.$store.dispatch('setActiveElementsUUID', [])
+      this.$store1.dispatch(this.modelId + '/setActiveElementsUUID', [])
       e.stopPropagation()
       e.preventDefault()
     },

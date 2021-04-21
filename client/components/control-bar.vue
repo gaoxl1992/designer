@@ -111,17 +111,39 @@ export default {
       fitScreenType: 0
     }
   },
+  inject: ['modelId'],
   computed: {
-    ...mapGetters(['canUndo', 'canRedo']),
+    ...mapGetters({
+      canUndo () {
+        return this.modelId + '/canUndo'
+      },
+      canRedo () {
+        return this.modelId + '/canRedo'
+      }
+    }),
     ...mapState({
-      pageData: (state) => state.editor.pageData
+      pageData () {
+        let state = this.$store1.state[this.modelId];
+        return state?.pageData || {}
+      }
     })
   },
   created () {
     this.scaleValue = this.scale
   },
   methods: {
-    ...mapActions(['editorUndo', 'editorRedo']),
+    ...mapActions({
+      editorUndo () {
+        return {
+          type: this.modelId + '/editorUndo'
+        }
+      },
+      editorRedo () {
+        return {
+          type: this.modelId + 'editorRedo'
+        }
+      }
+    }),
     /**
      * @description: 使用屏宽或屏高
      * @param {*}

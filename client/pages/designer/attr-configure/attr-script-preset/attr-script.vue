@@ -55,6 +55,7 @@ export default {
       default: ''
     }
   },
+  inject: ['modelId'],
   data () {
     return {
       activeName: 'studyData',
@@ -76,7 +77,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['activeElement'])
+    ...mapGetters({
+      activeElement() {
+        return this.modelId + '/activeElement'
+      }
+    })
   },
   watch: {
     'activeElement.propsValue' () {

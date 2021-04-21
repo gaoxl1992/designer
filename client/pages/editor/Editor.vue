@@ -66,6 +66,7 @@ export default {
       default: () => []
     }
   },
+  inject: ['modelId'],
   mixins: [mixin],
   data () {
     return {
@@ -76,21 +77,16 @@ export default {
       pageType: 'editor'
     }
   },
-  ...mapState({
-    pageData: (state) => state.editor.pageData,
-    activeElementUUID: (state) => state.editor.activeElementUUID,
-    activeElementsUUID: (state) => state.editor.activeElementsUUID
-  }),
   components: {
     EngineH5Swiper
   },
   watch: {
     tpls (vals) {
-      this.$store.dispatch('setTableTpl', vals)
+      this.$store1.dispatch(this.modelId + '/setTableTpl', vals)
     }
   },
   created () {
-    this.$store.dispatch('setTableTpl', this.tpls)
+    this.$store1.dispatch(this.modelId + '/setTableTpl', this.tpls)
 
     bus.$on('updateSpChars', (spCharacters) => {
       this.$emit('updateSpChars', spCharacters)
@@ -118,9 +114,9 @@ export default {
         return
       }
       console.log(img)
-      this.$store.dispatch('updateElementValue', { threshold, value })
+      this.$store1.dispatch(this.modelId + '/updateElementValue', { threshold, value })
       if (img) {
-        this.$store.dispatch('updateElementSign', { threshold, img })
+        this.$store1.dispatch(this.modelId + '/updateElementSign', { threshold, img })
       }
     },
     applyTableTpl (tpl) {

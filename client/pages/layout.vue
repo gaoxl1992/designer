@@ -83,7 +83,9 @@ export default {
   },
   computed: {
     ...mapState({
-      pageData: (state) => state.editor.pageData
+      pageData: (state) => {
+        return state?.pageData || {}
+      }
     })
   },
   created () {

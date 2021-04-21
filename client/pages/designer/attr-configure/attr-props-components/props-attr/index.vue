@@ -20,12 +20,26 @@ export default {
   components: {
     ...attrComponents
   },
+  inject: ['modelId'],
   computed: {
     ...mapState({
-      pageData: (state) => state.editor.pageData,
-      activeElementUUID: (state) => state.editor.activeElementUUID
+      pageData () {
+        let state = this.$store1.state[this.modelId];
+        return state?.pageData || {}
+      },
+      activeElementUUID () {
+        let state = this.$store1.state[this.modelId];
+        return state?.activeElementUUID || ''
+      }
     }),
-    ...mapGetters(['activeElementIndex', 'activeElement']),
+    ...mapGetters({
+      activeElementIndex() {
+        return this.modelId + '/activeElementIndex'
+      },
+      activeElement() {
+        return this.modelId + '/activeElement'
+      }
+    }),
     /**
      * 当前选中元素需要编辑得props 列表
      */
@@ -44,7 +58,7 @@ export default {
   },
   methods: {
     haveChanges () {
-      this.$store.dispatch('addHistoryCache')
+      this.$store1.dispatch(this.modelId + '/addHistoryCache')
     }
   },
 }

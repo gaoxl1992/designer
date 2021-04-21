@@ -216,7 +216,7 @@ const actions = {
   }, elData) {
     let copyOrignData = elData ? elData : getters.activeElement(state)
     let data = editorProjectConfig.copyElement(copyOrignData, {
-      zIndex: state.pageData.elements.length
+      zIndex: state.pageData.elements.length || 1
     }, 'import')
     commit('addElement', data)
     commit('setActiveElementUUID', data.uuid)
@@ -353,8 +353,6 @@ const mutations = {
   },
   setPageData(state, data) {
     state.pageData = data
-    let id = data.id
-    state.projectData[id] = data
   },
   setActiveElementUUID(state, data) {
     state.activeElementUUID = data
@@ -561,9 +559,21 @@ const getters = {
   }
 }
 
-export default {
+export const options = {
+  namespaced: true,
   state,
   getters,
   actions,
   mutations
+}
+
+export function register($store, name) {
+  if ($store.state[name]) {
+    $store.unregisterModule(name)
+  }
+  $store.registerModule(name, options)
+}
+
+export function unregister($store, name) {
+  $store.unregisterModule(name)
 }

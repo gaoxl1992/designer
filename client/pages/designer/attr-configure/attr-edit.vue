@@ -182,11 +182,22 @@ export default {
       showDemoDrawer: false
     }
   },
+  inject: ['modelId'],
   computed: {
     ...mapState({
-      pageData: (state) => state.editor.pageData
+      pageData () {
+        let state = this.$store1.state[this.modelId];
+        return state?.pageData || {}
+      }
     }),
-    ...mapGetters(['activeElementIndex', 'activeElement'])
+    ...mapGetters({
+      activeElementIndex() {
+        return this.modelId + '/activeElementIndex'
+      },
+      activeElement() {
+        return this.modelId + '/activeElement'
+      }
+    })
   },
   created () {
     this.code = this.activeElement?.script
@@ -204,7 +215,7 @@ export default {
   },
   methods: {
     haveChanges() {
-      this.$store.dispatch('addHistoryCache')
+      this.$store1.dispatch(this.modelId + '/addHistoryCache')
     },
     handleClose () {
       this.fieldName = ''

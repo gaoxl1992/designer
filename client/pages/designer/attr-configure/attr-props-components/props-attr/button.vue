@@ -79,6 +79,7 @@ export default {
     this.tempIcon = this.icon
     this.tempType = this.type
   },
+  inject: ['modelId'],
   watch: {
     button (val) {
       this.tempButton = val
@@ -121,7 +122,7 @@ export default {
     },
     tempType (val) {
       this.$emit('update:type', val)
-      this.$store.dispatch('addHistoryCache')
+      this.$store1.dispatch(this.modelId + '/addHistoryCache')
     }
   }
 }

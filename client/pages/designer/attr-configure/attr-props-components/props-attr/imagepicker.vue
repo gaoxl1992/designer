@@ -92,8 +92,13 @@ export default {
     this.rowDisTemp = this.rowDis || 2
     this.fixTypeTemp = this.fixType || 3
   },
+  inject: ['modelId'],
   computed: {
-    ...mapGetters(['activeElement'])
+    ...mapGetters({
+      activeElement() {
+        return this.modelId + '/activeElement'
+      }
+    })
   },
   watch: {
     picDisTemp (val) {

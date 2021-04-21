@@ -208,9 +208,13 @@ export default {
       this.initEditor()
     }
   },
+  inject: ['modelId'],
   computed: {
     ...mapState({
-      pageData: (state) => state.editor.pageData
+      pageData () {
+        let state = this.$store1.state[this.modelId];
+        return state?.pageData || {}
+      }
     }),
     iconBottom () {
       let rd = this.element?.rd || 1

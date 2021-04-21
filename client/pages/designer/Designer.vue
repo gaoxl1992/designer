@@ -48,7 +48,6 @@ import CommonAttrEdit from './attr-configure/common-attr-edit'
 import ControlBar from '@/components/control-bar'
 import PreviewWrapper from '@/components/preview-wrapper'
 import mixin from '@/mixins/mixin'
-import { mapState } from 'vuex'
 import '@/common/styles/index.scss'
 import bus from '@/utils/bus'
 
@@ -88,14 +87,6 @@ export default {
       tempCacheLength: 0,
       pageType: 'designer'
     }
-  },
-  computed: {
-    ...mapState({
-      pageData: (state) => state.editor.pageData,
-      activeElementUUID: (state) => state.editor.activeElementUUID,
-      activeElementsUUID: (state) => state.editor.activeElementsUUID,
-      historyCache: (state) => state.editor.historyCache
-    })
   },
   created () {
     bus.$on('saveCustomNotDisplayComps', (comps) => {
