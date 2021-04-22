@@ -166,6 +166,7 @@ export default {
         this.$store1.dispatch(this.modelId + '/addHistoryCache')
         return
       }
+      debugger
       this.pageData.elements[this.activeElementIndex].commonStyle.left =
         pos.left
       // 更新元素commonStyle

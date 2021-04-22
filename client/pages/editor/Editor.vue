@@ -182,7 +182,7 @@ export default {
               }
             }
           }
-          editorVal = editorVal.replace(regexp, realText)
+          editorVal = editorVal.replace(inps[i], realText)
         }
       }
       return editorVal

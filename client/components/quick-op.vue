@@ -46,7 +46,7 @@ export default {
       }
     }),
     ...mapGetters({
-      activeElementIndex() {
+      activeElementIndex () {
         return this.modelId + '/activeElementIndex'
       },
       activeElement () {
