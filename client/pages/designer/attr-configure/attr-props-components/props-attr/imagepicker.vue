@@ -94,11 +94,9 @@ export default {
   },
   inject: ['modelId'],
   computed: {
-    ...mapGetters({
-      activeElement() {
-        return this.modelId + '/activeElement'
-      }
-    })
+    activeElement () {
+      return this.$store1.getters[this.modelId + '/activeElement']
+    }
   },
   watch: {
     picDisTemp (val) {

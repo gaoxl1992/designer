@@ -338,14 +338,12 @@ export default {
         return state?.activeAttrEditCollapse || []
       }
     }),
-    ...mapGetters({
-      activeElementIndex() {
-        return this.modelId + '/activeElementIndex'
-      },
-      activeElement() {
-        return this.modelId + '/activeElement'
-      }
-    }),
+    activeElementIndex () {
+      return this.$store1.getters[this.modelId + '/activeElementIndex']
+    },
+    activeElement () {
+      return this.$store1.getters[this.modelId + '/activeElement']
+    },
     checkedBgColor: {
       get () {
         return !!this.activeElement.commonStyle.backgroundColor

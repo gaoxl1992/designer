@@ -33,11 +33,9 @@ export default {
         return state?.historyCache || []
       }
     }),
-    ...mapGetters({
-      activeElement () {
-        return this.modelId + '/activeElement'
-      }
-    })
+    activeElement() {
+      return this.$store1.getters[this.modelId + '/activeElement']
+    }
   },
   methods: {
     setDomain(domainList = []) {

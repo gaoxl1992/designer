@@ -133,14 +133,12 @@ export default {
         return state?.activeElementUUID || ''
       }
     }),
-    ...mapGetters({
-      activeElementIndex () {
-        return this.modelId + '/activeElementIndex'
-      },
-      activeElement () {
-        return this.modelId + '/activeElement' 
-      }
-    })
+    activeElementIndex () {
+      return this.$store1.getters[this.modelId + '/activeElementIndex']
+    },
+    activeElement () {
+      return this.$store1.getters[this.modelId + '/activeElement']
+    }
   },
   mounted () {
     if (this.$refs.editorPane) {
@@ -166,7 +164,6 @@ export default {
         this.$store1.dispatch(this.modelId + '/addHistoryCache')
         return
       }
-      debugger
       this.pageData.elements[this.activeElementIndex].commonStyle.left =
         pos.left
       // 更新元素commonStyle

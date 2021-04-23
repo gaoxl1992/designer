@@ -90,11 +90,9 @@ export default {
     ...mapState({
       tableTpl: (state) => state?.tableTpl || [],
     }),
-    ...mapGetters({
-      activeElement() {
-        return this.modelId + '/activeElement'
-      }
-    }),
+    activeElement () {
+      return this.$store1.getters[this.modelId + '/activeElement']
+    },
     isActiveTpl () {
       // let attr = window.mockData
       // let _this = this

@@ -25,7 +25,7 @@
   </div>
 </template>
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import { menuOptions } from '@/config/attr-config'
 export default {
   name: 'QuickOp',
@@ -45,14 +45,12 @@ export default {
         return state?.activeElementUUID || ''
       }
     }),
-    ...mapGetters({
-      activeElementIndex () {
-        return this.modelId + '/activeElementIndex'
-      },
-      activeElement () {
-        return this.modelId + '/activeElement'
-      }
-    }),
+    activeElementIndex () {
+      return this.$store1.getters[this.modelId + '/activeElementIndex']
+    },
+    activeElement () {
+      return this.$store1.getters[this.modelId + '/activeElement']
+    },
     getMenuOptionsPositionStyle () {
       let both = (this.editorPaneWidth - this.pageData.width * this.scale) / 2
       let right = both < 60 ? 16 : both

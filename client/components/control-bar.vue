@@ -113,14 +113,12 @@ export default {
   },
   inject: ['modelId'],
   computed: {
-    ...mapGetters({
-      canUndo () {
-        return this.modelId + '/canUndo'
-      },
-      canRedo () {
-        return this.modelId + '/canRedo'
-      }
-    }),
+    canUndo () {
+      return this.$store1.getters[this.modelId + '/canUndo']
+    },
+    canRedo () {
+      return this.$store1.getters[this.modelId + '/canRedo']
+    },
     ...mapState({
       pageData () {
         let state = this.$store1.state[this.modelId];

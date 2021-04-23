@@ -32,14 +32,12 @@ export default {
         return state?.activeElementUUID || ''
       }
     }),
-    ...mapGetters({
-      activeElementIndex() {
-        return this.modelId + '/activeElementIndex'
-      },
-      activeElement() {
-        return this.modelId + '/activeElement'
-      }
-    }),
+    activeElementIndex () {
+      return this.$store1.getters[this.modelId + '/activeElementIndex']
+    },
+    activeElement () {
+      return this.$store1.getters[this.modelId + '/activeElement']
+    },
     /**
      * 当前选中元素需要编辑得props 列表
      */
