@@ -447,6 +447,9 @@ export default {
 
 <style lang="scss">
 .base-attr {
+  .el-slider--with-input {
+    padding-left: 10px;
+  }
   .word-wrapper {
     display: flex;
     width: 100%;
