@@ -65,7 +65,7 @@
               size="mini"
               v-model="fontSize"
               controls-position="right"
-              :min="0"
+              :min="1"
             />
           </div>
           <div class="word-edit-input text-center marginR5">
@@ -78,8 +78,8 @@
               :max="900"
             />
           </div>
-          <div class="word-edit-input text-right">
-            <div class="ita"><i class="iconfont iconItalic"></i></div>
+          <div class="word-edit-input text-right" @click="fontStyle = !fontStyle">
+            <div class="ita" :class="{'active': fontStyle}"><i class="iconfont iconItalic"></i></div>
           </div>
         </div>
       </el-collapse-item>
@@ -269,7 +269,7 @@ export default {
       }
     },
     selFontFamily (val, oldVal) {
-      if (oldVal) {
+      if (oldVal !== null) {
         this.updateStyle('fontFamily', val)
       }
     },
@@ -279,17 +279,17 @@ export default {
       }
     },
     fontSize (val, oldVal) {
-      if (oldVal) {
+      if (oldVal !== null) {
         this.updateStyle('fontSize', val)
       }
     },
     fontWeight (val, oldVal) {
-      if (oldVal) {
+      if (oldVal !== null) {
         this.updateStyle('fontWeight', val)
       }
     },
     color (val, oldVal) {
-      if (oldVal) {
+      if (oldVal !== null) {
         this.updateStyle('color', val)
       }
     },

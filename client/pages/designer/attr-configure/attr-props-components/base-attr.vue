@@ -36,7 +36,7 @@
               @change="throttleAddHistory"
               v-model="activeElement.commonStyle.fontSize"
               controls-position="right"
-              :min="0"
+              :min="1"
             />
           </div>
           <div class="word-edit-input text-center marginR5">
