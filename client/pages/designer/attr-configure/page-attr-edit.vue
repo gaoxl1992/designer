@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import AreaTitle from '@/components/area-title'
 export default {
   data () {
@@ -179,6 +179,9 @@ export default {
   created () {
     this.customWidth = +this.pageData.customWidth || this.customWidth
     this.customHeight = +this.pageData.customHeight || this.customHeight
+    this.openPixel = this.pageData.openPixel
+    this.pixelSize = this.pageData.pixelSize
+    this.outerPadding = this.pageData.outerPadding || 0
   },
   methods: {
     opFixedArea (posi) {
@@ -187,7 +190,7 @@ export default {
       }
     },
     handleChange () {
-      debugger
+      this.pageData.totalPages = Math.round(this.pageData.totalPages)
       this.changePaper()
     },
     changePaper () {
@@ -221,7 +224,6 @@ export default {
   },
   watch: {
     outerPadding (val) {
-      console.log(val)
       this.pageData.outerPadding = val
     },
     customWidth (val) {
@@ -247,6 +249,7 @@ export default {
       }
     },
     openPixel (val) {
+      this.pageData.openPixel = val
       let image
       if (val) {
         image =
@@ -255,6 +258,7 @@ export default {
       this.$store1.dispatch(this.modelId + '/updateGuideLine', image)
     },
     pixelSize (val) {
+      this.pageData.pixelSize = val
       this.$store1.dispatch(this.modelId + '/updateBackSize', val)
     }
   }

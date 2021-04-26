@@ -77,6 +77,8 @@ let pageConfig = {
   totalPages: 1,
   backgroundSize: 20,
   outerPadding: 0,
+  openPixel: true,
+  pixelSize: 20,
   width: $config.canvasH5Width > 700 ? $config.canvasH5Width : 700,
   height: $config.canvasH5Height,
   backgroundImage: 'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZAgMAAAC5h23wAAAAAXNSR0IB2cksfwAAAAlQTFRF9fX18PDwAAAABQ8/pgAAAAN0Uk5T/yIA41y2EwAAABhJREFUeJxjYIAC0VAQcGCQWgUCDUONBgDH8Fwzu33LswAAAABJRU5ErkJggg==")'
