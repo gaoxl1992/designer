@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
   name: 'attr-rad-imagepicker',
   props: {
@@ -92,7 +91,6 @@ export default {
     this.rowDisTemp = this.rowDis || 2
     this.fixTypeTemp = this.fixType || 3
   },
-  inject: ['modelId'],
   computed: {
     activeElement () {
       return this.$store1.getters[this.modelId + '/activeElement']

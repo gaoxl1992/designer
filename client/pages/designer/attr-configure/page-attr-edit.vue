@@ -55,6 +55,8 @@
         size="small"
         v-model="pageData.totalPages"
         :min="1"
+        :step="1"
+        :step-strictly="true"
         @change="handleChange"
       ></el-input-number>
     </div>
@@ -185,6 +187,7 @@ export default {
       }
     },
     handleChange () {
+      debugger
       this.changePaper()
     },
     changePaper () {

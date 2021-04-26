@@ -234,8 +234,9 @@ export default {
   created () {
     this.fileList = (this.element && this.element.value) || []
     if (this.pagetype === 'editor') {
-      window.imagePicker = window.imagePicker || {}
-      window.imagePicker[this.uploadId] = {
+      window[this.modelId] = window[this.modelId] || {}
+      window[this.modelId].imagePicker = window[this.modelId].imagePicker || {}
+      window[this.modelId].imagePicker[this.uploadId] = {
         resetPics: this.resetPics,
         deletePics: this.deletePics,
         insertPics: this.insertPics,
@@ -243,8 +244,11 @@ export default {
       }
     }
   },
+  inject: ['modelId'],
   destroyed () {
-    delete window.imagePicker[this.uploadId];
+    if (window?.[this.modelId]?.imagePicker?.[this.uploadId]) {
+      delete window[this.modelId].imagePicker[this.uploadId];
+    }
   },
   methods: {
     /**
@@ -318,13 +322,13 @@ export default {
     }
   },
   deactivated () {
-    if (this.element && this.element.threshold && window.imagePicker[this.element.threshold]) {
-      delete window.imagePicker[this.element.threshold]
+    if (this.element && this.element.threshold && window?.[this.modelId]?.imagePicker?.[this.element.threshold]) {
+      delete window[this.modelId].imagePicker[this.element.threshold]
     }
   },
   beforeDestroy () {
-    if (this.element && this.element.threshold && window.imagePicker[this.element.threshold]) {
-      delete window.imagePicker[this.element.threshold]
+    if (this.element && this.element.threshold && window?.[this.modelId]?.imagePicker?.[this.element.threshold]) {
+      delete window[this.modelId].imagePicker[this.element.threshold]
     }
   },
   watch: {

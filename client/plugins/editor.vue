@@ -395,10 +395,10 @@ export default {
             if (this.pagetype === 'editor') {
               this.inEditor = true
               if (this.element && this.element.threshold) {
-                window.focusedEditor = this.element.threshold
+                window[this.modelId].focusedEditor = this.element.threshold
               }
-              if (window?.report?.currentComp) {
-                window.report.currentComp = this.element
+              if (window?.[this.modelId]?.report?.currentComp) {
+                window[this.modelId].report.currentComp = this.element
               }
               this.showCharspop()
             }
@@ -429,11 +429,10 @@ export default {
         _this.reditor.readonly(this.pagetype !== 'editor')
         // 有阈值的富文本挂载到widnow上 供外部读写
         if (this.pagetype === 'editor') {
-          window.reditor = window.reditor || {}
-          window.reditor[this.modelId] = window.reditor[this.modelId] || {}
-          window.reditor[this.modelId] = window.reditor[this.modelId] || {}
+          window[this.modelId] = window[this.modelId] || {}
+          window[this.modelId].reditor = window[this.modelId].reditor || {}
           if (this.element && this.element.threshold) {
-            window.reditor[this.modelId][this.element.threshold] = {
+            window[this.modelId].reditor[this.element.threshold] = {
               edit: _this.reditor,
               label: this.label
             }
@@ -486,18 +485,18 @@ export default {
     // keep-alive 离开时移除
     this.removeEditor()
     document.removeEventListener('click', this.handleLeave, false)
-    if (this.element && this.element.threshold && window.reditor && window.reditor[this.modelId] && window.reditor[this.modelId][this.element.threshold]) {
+    if (this.element && this.element.threshold && window?.[this.modelId]?.reditor?.[this.element.threshold]) {
       // delete window.reditor[this.modelId][this.element.threshold]
-      delete window.focusedEditor
+      delete window[this.modelId].focusedEditor
     }
     window.hiddenChars = false
   },
   beforeDestroy () {
     this.removeEditor()
     document.removeEventListener('click', this.handleLeave, false)
-    if (this.element && this.element.threshold && window.reditor && window.reditor[this.element.threshold]) {
+    if (this.element && this.element.threshold && window?.[this.modelId]?.reditor?.[this.element.threshold]) {
       // delete window.reditor[this.modelId][this.element.threshold]
-      delete window.focusedEditor
+      delete window[this.modelId].focusedEditor
     }
     window.hiddenChars = false
   }

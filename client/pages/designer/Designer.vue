@@ -106,7 +106,9 @@ export default {
         this.$confirm(`${pageData?.name || ''}模版内容已更改，是否保存?`, '提示', {
           confirmButtonText: '保存',
           cancelButtonText: '不保存',
-          type: 'warning'
+          type: 'warning',
+          showClose: false,
+          closeOnClickModal: false
         }).then(() => {
           this.saveDesignerData()
         }).catch(() => {

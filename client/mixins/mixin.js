@@ -55,7 +55,8 @@ export default {
         return
       }
       // 挂载绑定域值的组件，用于控件脚本取值
-      window.report = window.report || {};
+      window[this.modelId] = window[this.modelId] || {}
+      window[this.modelId].report = window[this.modelId].report || {}
       const {
         pageType,
         radio,
@@ -93,7 +94,7 @@ export default {
       })
       this.$store1.dispatch(this.modelId + '/updateCanvasHeight', this.pageData.width * radio)
       this.resetEles(elements, rd)
-      window.report.pageData = this.pageData
+      window[this.modelId].report.pageData = this.pageData
     },
     /**
      * @description: 重载控件属性
@@ -125,7 +126,7 @@ export default {
         item.rd = rd
 
         if (this.pageType === 'editor' && item.script) {
-          dealWithScript(item, 'initPage', this.pageData)
+          dealWithScript(item, 'initPage', this.modelId)
         }
         setTimeout(() => {
           this.$store1.dispatch(this.modelId + '/importElement', item)

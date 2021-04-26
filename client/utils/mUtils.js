@@ -44,16 +44,13 @@ export const deepClone = (obj, cache = []) => {
   return copy
 }
 
-export const dealWithScript = (element, scriptType) => {
+export const dealWithScript = (element, scriptType, modelId) => {
   // 将报告页面主体挂载到window上，用于脚本灵活控制页面或组件
-  // window.report = window.report || {}
-  // console.log('pageData', window.report.pageData)
-  // window.report.pageData = window.report.pageData || pageData
   // 操作到哪个组件 currentComp就是哪个组件
-  window.report.currentComp = element
+  window[modelId].report.currentComp = element
 
   if (element.elName !== 'rad-editor') {
-    window.focusedEditor = ''
+    window[modelId].focusedEditor = ''
   }
 
   if (!element.script) {
@@ -63,7 +60,7 @@ export const dealWithScript = (element, scriptType) => {
   // 如果包含初始化脚本
   let scriptStr = script[scriptType]
   if (scriptStr) {
-    scriptStr = scriptStr.replace(/_report/g, 'window.report').replace(/_business/g, 'window.business')
+    scriptStr = scriptStr.replace(/_report/g, `window[${modelId}].report`).replace(/_business/g, `window[${modelId}].business`)
     console.log('script', scriptStr)
     let fun = new Function(`return function(){${scriptStr}}`)()
     fun()
@@ -86,8 +83,8 @@ export function getBracketStr(text) {
     options.forEach((option) => {
       let inner = option.replace('{', '').replace('}', '')
       // 如果业务中已将对应参数挂载到window上，则替换实际值
-      if (window.business && window.business.studyData && window.business.studyData[inner]) {
-        text = text.replace(option, window.business.studyData[inner])
+      if (window[this.modelId].business && window[this.modelId].business.studyData && window[this.modelId].business.studyData[inner]) {
+        text = text.replace(option, window[this.modelId].business.studyData[inner])
       }
     })
   }

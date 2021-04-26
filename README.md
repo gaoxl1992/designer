@@ -160,25 +160,25 @@ import { Editor } from 'web-reseditor/index.js'
 ### 和富文本交互
 ```js
 // 追加内容
-window.reditor['阈值'].edit.appendHtml(str)
+window['modelId'].reditor['阈值'].edit.appendHtml(str)
 // 追加到光标
-window.reditor['阈值'].edit.insertHtml(str);
+window['modelId'].reditor['阈值'].edit.insertHtml(str);
 // 替换全部内容 可以是字符串或序列化的dom节点
-window.reditor['阈值'].edit.html(str) 
+window['modelId'].reditor['阈值'].edit.html(str) 
 // 获取内容
-window.reditor['阈值'].edit.html()
+window['modelId'].reditor['阈值'].edit.html()
 // 获取当前焦点所在的富文本框（有阈值才有）对应阈值
-window.focusedEditor
+window['modelId'].focusedEditor
 ```
 
 ### 和图片选择器交互
 ```js
 // 重置图片列表
-window.imagePicker['阈值'].resetPics(pics = []) // 传入图片列表
+window['modelId'].imagePicker['阈值'].resetPics(pics = []) // 传入图片列表
 // 删除某几个图片
-window.imagePicker['阈值'].deletePics(index = []) // 传入要删除的图片下标
+window['modelId'].imagePicker['阈值'].deletePics(index = []) // 传入要删除的图片下标
 // 插入图片到指定位置
-window.imagePicker['阈值'].insertPics(pics = [], index)
+window['modelId'].imagePicker['阈值'].insertPics(pics = [], index)
 
 // 在编辑器上拖拽图片或者删除上传
 @updateImages="updateImages"  // 监听事件 {返回

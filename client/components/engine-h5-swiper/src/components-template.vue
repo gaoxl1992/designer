@@ -70,14 +70,14 @@ export default {
     async handleClick () {
       // 编辑模式点击组件处理脚本
       if (this.pagetype === 'editor') {
-        dealWithScript(this.element, 'onclick', this.pageData)
+        dealWithScript(this.element, 'onclick', this.modelId)
       }
       this.$emit('handleElementClick', this.element.events, this.element)
     },
     updateValue (eleVal) {
       this.element.value = eleVal
       if (this.pagetype === 'editor') {
-        dealWithScript(this.element, 'onchange', this.pageData)
+        dealWithScript(this.element, 'onchange', this.modelId)
       }
     }
   }
