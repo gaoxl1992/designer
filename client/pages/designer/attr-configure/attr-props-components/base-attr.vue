@@ -38,6 +38,7 @@
               controls-position="right"
               :min="1"
             />
+            <div class="outlook-group-desc">字号</div>
           </div>
           <div class="word-edit-input text-center marginR5">
             <el-input-number
@@ -49,6 +50,7 @@
               :step="100"
               :max="900"
             />
+            <div class="outlook-group-desc">粗细</div>
           </div>
           <div
             class="word-edit-input text-right"
@@ -456,6 +458,13 @@ export default {
       width: fit-content;
       .el-input-number--mini {
         width: 98px;
+      }
+      .outlook-group-desc {
+        text-align: center;
+        line-height: 1;
+        margin-top: 2px;
+        font-size: 12px;
+        color: $gray;
       }
     }
     .ita {
