@@ -32,7 +32,7 @@ let elementConfig = {
     marginRight: 0,
     marginBottom: 0,
     borderWidth: 0,
-    borderColor: '',
+    borderColor: '#161616',
     borderStyle: 'solid',
     borderRadius: 0,
     fontSize: 16,

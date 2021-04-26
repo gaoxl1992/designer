@@ -80,7 +80,7 @@ let eleConfig = [{
       elName: 'rad-editor',
       title: '富文本',
       defaultStyle: {
-        height: 200
+        height: 260
       },
       isForm: true
     },

@@ -176,7 +176,7 @@
             <el-color-picker
               size="mini"
               @change="throttleAddHistory"
-              v-model="activeElement.commonStyle.borderColor"
+              v-model="activeElement.commonStyle.borderColor || '#333333'"
             ></el-color-picker>描边
           </el-checkbox>
           <div class="outlook-group">
@@ -307,7 +307,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import { ceil, subtract, divide, throttle } from 'lodash'
 import {
   alignTypeList,
@@ -356,8 +356,8 @@ export default {
     },
     checkedBorderColor: {
       get () {
-        let { borderColor, borderWidth } = this.activeElement.commonStyle
-        return !!borderColor && !!borderWidth
+        let { borderWidth } = this.activeElement.commonStyle
+        return !!borderWidth
       },
       set (val) {
         return val
@@ -372,7 +372,6 @@ export default {
   created () {
     this.throttleAddHistory = throttle(this.addHistory, 3000)
   },
-  inject: ['modelId'],
   mounted () {
     this.activeNames = this.activeAttrEditCollapse
   },
