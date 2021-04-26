@@ -83,6 +83,7 @@
       append-to-body
       modal-append-to-body
       :id="'wrapper-' + editorId"
+      :before-close="closeDialog"
     >
       <div class="mng-chars">
         <div class="mng-chars-tip">每个选项单列一行</div>
