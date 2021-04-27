@@ -60,7 +60,7 @@ export const dealWithScript = (element, scriptType, modelId) => {
   // 如果包含初始化脚本
   let scriptStr = script[scriptType]
   if (scriptStr) {
-    scriptStr = scriptStr.replace(/_report/g, `window[${modelId}].report`).replace(/_business/g, `window[${modelId}].business`)
+    scriptStr = scriptStr.replace(/_report/g, `window['${modelId}'].report`).replace(/_business/g, `window['${modelId}'].business`)
     console.log('script', scriptStr)
     let fun = new Function(`return function(){${scriptStr}}`)()
     fun()
@@ -72,7 +72,7 @@ export const dealWithScript = (element, scriptType, modelId) => {
  * @param text
  * @returns {string}
  */
-export function getBracketStr(text) {
+export function getBracketStr(text, modelId) {
   let result = ''
   if (!text) {
     return result
@@ -83,8 +83,8 @@ export function getBracketStr(text) {
     options.forEach((option) => {
       let inner = option.replace('{', '').replace('}', '')
       // 如果业务中已将对应参数挂载到window上，则替换实际值
-      if (window[this.modelId].business && window[this.modelId].business.studyData && window[this.modelId].business.studyData[inner]) {
-        text = text.replace(option, window[this.modelId].business.studyData[inner])
+      if (window[modelId].business && window[modelId].business.studyData && window[modelId].business.studyData[inner]) {
+        text = text.replace(option, window[modelId].business.studyData[inner])
       }
     })
   }

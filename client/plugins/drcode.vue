@@ -66,9 +66,10 @@ export default {
       default: true
     }
   },
+  inject: ['modelId'],
   data () {
     return {
-      drcodeTemp: getBracketStr(this.drcode)
+      drcodeTemp: getBracketStr(this.drcode, this.modelId)
     }
   },
   components: {
