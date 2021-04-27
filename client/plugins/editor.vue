@@ -358,7 +358,7 @@ export default {
       document.addEventListener('click', this.handleLeave, false)
     },
     addHtml (char) {
-      this.reditor.appendHtml(char)
+      this.reditor.insertHtml(char)
     },
     removeEditor () {
       if (this.reditor) {
