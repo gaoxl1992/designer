@@ -281,6 +281,19 @@ export default {
      * @return {*}
      */
     insertPics (files, index) {
+      if (index >= this.imagepicker) {
+        this.$confirm(
+          `最多可以上传 ${this.imagepicker} 个图片`,
+          '提示',
+          {
+            confirmButtonText: '确定',
+            type: 'warning',
+            showCancelButton: false,
+            center: true
+          }
+        ).then(() => { })
+        return
+      }
       if (index >= 0) {
         this.fileList.splice(index, 0, files)
       }
