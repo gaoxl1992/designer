@@ -10,6 +10,7 @@
         size="mini"
         v-model="pageData.name"
         placeholder=""
+        :clearable="true"
       ></el-input>
     </div>
     <div class="page-item-edit-wrapper">
@@ -37,6 +38,7 @@
       <el-input
         size="small"
         v-model="customWidth"
+        :clearable="true"
       ></el-input>
     </div>
     <div
@@ -47,6 +49,7 @@
       <el-input
         size="small"
         v-model="customHeight"
+        :clearable="true"
       ></el-input>
     </div>
     <div class="page-item-edit-wrapper">
@@ -117,6 +120,7 @@
       <el-input
         size="small"
         v-model="outerPadding"
+        :clearable="true"
       ></el-input>
     </div>
   </div>
