@@ -85,25 +85,32 @@ export default {
   name: 'attr-rad-editor',
   props: {
     editor: {
-      type: Number
+      type: Number,
+      default: 200
     },
     label: {
-      type: String
+      type: String,
+      default: ''
     },
     fontStyle: {
-      type: String
+      type: String,
+      default: 'normal'
     },
     color: {
-      type: String
+      type: String,
+      default: '#000000'
     },
     fontWeight: {
-      type: Number
+      type: Number,
+      default: 500
     },
     fontSize: {
-      type: Number
+      type: Number,
+      default: 14
     },
     fontFamily: {
-      type: String
+      type: String,
+      default: 'Microsoft YaHei'
     }
   },
   data () {
@@ -128,6 +135,27 @@ export default {
     this.fontFamilyTemp = this.fontFamily || 'Microsoft YaHei'
   },
   watch: {
+    editor (val) {
+      this.tempEditor = val
+    },
+    label (val) {
+      this.tempLabel = val
+    },
+    fontStyle (val) {
+      this.fontStyleTemp = val !== 'normal' ? true : false
+    },
+    color (val) {
+      this.colorTemp = val
+    },
+    fontWeight (val) {
+      this.fontWeightTemp = val
+    },
+    fontSize (val) {
+      this.fontSizeTemp = val
+    },
+    fontFamily (val) {
+      this.fontFamilyTemp = val
+    },
     tempLabel (val) {
       this.$emit('update:label', val)
     },
