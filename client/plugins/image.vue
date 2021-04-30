@@ -4,13 +4,14 @@
 <template>
   <div
     class="rad-image"
-    style="height: 100%; width: 100%"
+    :id="'image' + editorId"
+    style="height: 100%; width: 100%; text-align:center"
   >
     <el-image
       v-if="pagetype !== 'preview'"
       :src="imageUrl"
       alt=""
-      fit="fit"
+      fit="contain"
     >
       <div
         slot="error"
@@ -21,7 +22,7 @@
     </el-image>
     <img
       v-else-if="imageUrl"
-      style="height: 100%; width: 100%"
+      :style="previewStyle"
       :src="imageUrl"
       alt=""
     />
@@ -47,11 +48,35 @@ export default {
     pagetype: {
       type: String,
       default: ''
-    }
+    },
+    editorId: {
+      type: String,
+      default: ''
+    },
   },
   data () {
     return {
-      imageUrl: this.type ? this.file[0] : this.image
+      imageUrl: this.type ? this.file[0] : this.image,
+      previewStyle: {}
+    }
+  },
+  mounted () {
+    let img = new Image();
+    img.src = this.imageUrl;
+    let width = img.width;
+    let height = img.height;
+    let imgParent = document.getElementById('image' + this.editorId).parentElement;
+    let { clientWidth, clientHeight } = imgParent;
+    if ((width / height) > (clientWidth / clientHeight)) {
+      this.previewStyle = {
+        width: '100%',
+        height: 'auto'
+      };
+    } else {
+      this.previewStyle = {
+        height: '100%',
+        width: 'auto'
+      };
     }
   },
   watch: {
@@ -81,7 +106,6 @@ export default {
   height: 100%;
   width: 100%;
   .el-image {
-    border: 1px solid rgb(185, 179, 179);
     width: 100%;
     height: 100%;
   }

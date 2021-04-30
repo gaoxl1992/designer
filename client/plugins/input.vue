@@ -18,18 +18,34 @@
       >
         <div
           v-if="pagetype === 'designer' || (pagetype ==='editor' && !disabledValue)"
-          class="el-input"
-          :class="'el-input--' + size"
+          :class="[
+            inputTypeValue==='text' ? 'el-input': 'el-textarea',
+            'el-input--' + size
+          ]"
         >
           <input
+            v-if="inputTypeValue === 'text'"
             :disabled="disabledValue || pagetype==='designer'"
             v-model="inputValue"
             :type="inputTypeValue"
             autocomplete="off"
             :placeholder="placeholderValue"
-            class="el-input__inner"
-            :class="'el-input__inner_' +  pagetype"
+            :class="[
+              inputTypeValue==='text' ? 'el-input__inner' : 'el-textarea__inner',
+              'el-input__inner_' +  pagetype
+            ]"
           />
+          <textarea
+            v-if="inputTypeValue === 'textarea'"
+            :disabled="disabledValue || pagetype==='designer'"
+            v-model="inputValue"
+            :type="inputTypeValue"
+            autocomplete="off"
+            :placeholder="placeholderValue"
+            :class="[
+              inputTypeValue==='text' ? 'el-input__inner' : 'el-textarea__inner'
+            ]"
+          ></textarea>
         </div>
         <div
           class="preview-input"
@@ -178,6 +194,10 @@ export default {
   }
   .el-form-item__content {
     overflow: hidden;
+  }
+  .el-textarea__inner {
+    resize: both !important;
+    min-height: 38px !important;
   }
 }
 </style>

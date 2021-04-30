@@ -21,7 +21,8 @@
         <template v-if="tempFile">
           <el-image :src="tempFile"
                     alt=""
-                    fit="fit" />
+                    style="height: 98px;width:98px;"
+                    fit="contain" />
           <input class="upload-pic-input ab"
                  type="file"
                  ref="input_file"
