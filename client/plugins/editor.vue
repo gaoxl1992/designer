@@ -371,8 +371,8 @@ export default {
       _this.removeEditor()
       let cssData = (`
         body${JSON.stringify(_this.cssData)}
-        .preview-content input${JSON.stringify(_this.formCssData)}
-        .preview-content select${JSON.stringify(_this.formCssData)}
+        .ke-content input${JSON.stringify(_this.formCssData)}
+        .ke-content select${JSON.stringify(_this.formCssData)}
         `).replace(/,/g, ';').replace(/"/g, '')
       let rd = this.element?.rd || 1
       _this.reditor = window.KindEditor.create(
