@@ -92,7 +92,8 @@ export default {
     }
   },
   created () {
-    this.inputValue = (this.element && this.element.value) || ''
+    console.log('created', this.input, this.element.value)
+    this.inputValue = (this.element && this.element.value) || this.input || ''
   },
   data () {
     return {
