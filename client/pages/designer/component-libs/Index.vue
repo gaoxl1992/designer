@@ -143,7 +143,7 @@ export default {
       let defaultStyle = {}
       if (item.types.length === 1) {
         defaultStyle = {
-          height: this.moreHeight.indexOf(item.types[0]) > -1 ? 200 : 40
+          height: this.moreHeight.indexOf(item.types[0]) > -1 ? 260 : 40
         }
       } else {
         defaultStyle = {

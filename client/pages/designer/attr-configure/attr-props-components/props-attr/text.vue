@@ -31,6 +31,7 @@ export default {
     },
     tempText (val) {
       this.$emit('update:text', val)
+      this.$emit('update:value', val)
     }
   }
 }
