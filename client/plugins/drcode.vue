@@ -81,7 +81,8 @@ export default {
         '#barcode',
         this.drcodeTemp,
         {
-          displayValue: this.showNum
+          displayValue: this.showNum,
+          lineColor: this.drcodeColor
         }
       )
     }
