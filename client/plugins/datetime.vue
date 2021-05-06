@@ -12,7 +12,7 @@
         v-if="labelValue"
       >{{ labelValue }}</label>
       <el-date-picker
-        v-if="pagetype !== 'preview'"
+        v-if="pagetype !== 'preview' && editable"
         v-model="datemodel"
         :type="datetime"
         :format="format"
@@ -83,7 +83,7 @@ export default {
   },
   created () {
     this.datemodel = (this.element && this.element.value) || (this.datetime.indexOf('range') === -1 ? new Date() : [new Date(), new Date()])
-    if (this.pagetype === 'preview') {
+    if (this.pagetype === 'preview' || (this.pagetype === 'editor' && this.disabled)) {
       this.previewDate = this.formatDate(
         this.datemodel,
         this.element.propsValue.format

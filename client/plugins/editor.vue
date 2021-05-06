@@ -271,12 +271,7 @@ export default {
         'background-color': 'transparent !important',
         'font-weight': 'inherit',
         'font-style': 'inherit',
-        'box-shadow': 'none !important',
-        // 'border': 'none !important',
-        // 'appearance': 'none',
-        // '-moz-appearance': 'none', /* Firefox */
-        // '-webkit-appearance': 'none', /* Safari 和 Chrome */
-        // 'text-decoration': 'underline !important'
+        'box-shadow': 'none !important'
       }
     }
   },
@@ -376,8 +371,8 @@ export default {
       _this.removeEditor()
       let cssData = (`
         body${JSON.stringify(_this.cssData)}
-        input${JSON.stringify(_this.formCssData)}
-        select${JSON.stringify(_this.formCssData)}
+        .preview-content input${JSON.stringify(_this.formCssData)}
+        .preview-content select${JSON.stringify(_this.formCssData)}
         `).replace(/,/g, ';').replace(/"/g, '')
       let rd = this.element?.rd || 1
       _this.reditor = window.KindEditor.create(

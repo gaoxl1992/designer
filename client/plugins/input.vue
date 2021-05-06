@@ -93,6 +93,7 @@ export default {
   },
   created () {
     this.inputValue = (this.element && this.element.value) || this.input || ''
+    this.$emit('update:value', this.inputValue)
   },
   data () {
     return {
