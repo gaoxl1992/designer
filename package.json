@@ -1,6 +1,6 @@
 {
   "name": "web-reseditor",
-  "version": "1.0.156",
+  "version": "1.0.157",
   "author": "gaoxl",
   "keywords": [
     "component",
@@ -42,7 +42,7 @@
     "radui": "^1.1.4",
     "redis": "^3.0.2",
     "sass-loader": "^7.1.0",
-    "tinymce": "^5.4.1",
+    "tinymce": "^5.5.0",
     "vue": "^2.6.10",
     "vue-cli": "^2.9.6",
     "vue-clipboard2": "^0.3.1",

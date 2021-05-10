@@ -369,10 +369,18 @@ export default {
     initEditor () {
       let _this = this
       _this.removeEditor()
+      let inputCssData = {
+        'width': '80px',
+        'display': 'inline-block',
+        ..._this.formCssData
+      }
       let cssData = (`
         body${JSON.stringify(_this.cssData)}
-        .ke-content input${JSON.stringify(_this.formCssData)}
+        .ke-content input${JSON.stringify(inputCssData)}
         .ke-content select${JSON.stringify(_this.formCssData)}
+        .ke-content input:hover {cursor:pointer}
+        .ke-content option:hover {cursor:pointer}
+        .ke-content select:hover {cursor:pointer}
         `).replace(/,/g, ';').replace(/"/g, '')
       let rd = this.element?.rd || 1
       _this.reditor = window.KindEditor.create(
