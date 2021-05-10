@@ -125,7 +125,7 @@ export default {
           'yyyy/MM/d',
           'yyyy/M/d'
         ],
-        week: ['yyyy第W周'],
+        week: ['yyyy 第 W 周'],
         year: ['yyyy'],
         month: ['yyyy-MM', 'yyyy-M', 'yyyy/M', 'yyyy/MM'],
         datetime: ['yyyy-MM-dd HH:mm:ss', 'yyyy/MM/dd HH:mm:ss'],

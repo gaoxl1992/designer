@@ -176,7 +176,7 @@
             <el-color-picker
               size="mini"
               @change="throttleAddHistory"
-              v-model="activeElement.commonStyle.borderColor || '#333333'"
+              v-model="activeElement.commonStyle.borderColor"
             ></el-color-picker>描边
           </el-checkbox>
           <div class="outlook-group">

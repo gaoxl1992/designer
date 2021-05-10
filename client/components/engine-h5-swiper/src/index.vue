@@ -116,9 +116,11 @@ export default {
       }
     }
     // 将组件加个状态标识
-    this.pageData.elements.forEach((e) => {
-      e._loaded = true
-    })
+    if (this?.pageData?.elements?.length) {
+      this.pageData.elements.forEach((e) => {
+        e._loaded = true
+      })
+    }
   },
   methods: {
     focusEditor (e) {

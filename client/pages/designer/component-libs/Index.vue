@@ -11,7 +11,7 @@
             @click="dialogVisible = true"
           ></i>
           <i
-            :class="{ 'el-icon-arrow-up': !openCusComps, 'el-icon-arrow-down': openCusComps,}"
+            :class="{ 'el-icon-arrow-up': openCusComps, 'el-icon-arrow-down': !openCusComps,}"
             class="cursor-pointer"
             @click="handleArrow"
           ></i>

@@ -1,6 +1,5 @@
 import {
-  mapState,
-  mapGetters
+  mapState
 } from 'vuex'
 import {
   dealWithScript

@@ -12,7 +12,7 @@
         v-if="labelValue"
       >{{ labelValue }}</label>
       <el-date-picker
-        v-if="pagetype !== 'preview' && editable"
+        v-if="pagetype !== 'preview' && !disabledValue"
         v-model="datemodel"
         :type="datetime"
         :format="format"
@@ -83,12 +83,10 @@ export default {
   },
   created () {
     this.datemodel = (this.element && this.element.value) || (this.datetime.indexOf('range') === -1 ? new Date() : [new Date(), new Date()])
-    if (this.pagetype === 'preview' || (this.pagetype === 'editor' && this.disabled)) {
-      this.previewDate = this.formatDate(
-        this.datemodel,
-        this.element.propsValue.format
-      )
-    }
+    this.previewDate = this.formatDate(
+      this.datemodel,
+      this.element.propsValue.format
+    )
   },
   watch: {
     'element.value' (val) {
@@ -105,6 +103,15 @@ export default {
     }
   },
   methods: {
+    getYearWeek (date) {
+      let year = date.getFullYear(),
+          month = date.getMonth() + 1,
+          day = date.getDate()
+      let date1 = new Date(year, parseInt(month) - 1, day),
+          date2 = new Date(year, 0, 1),
+          d = Math.round((date1.valueOf() - date2.valueOf()) / 86400000)
+      return Math.ceil((d + ((date2.getDay() + 1) - 1)) / 7) - 1
+    },
     formatDate (date, fmt = 'yyyy-MM-dd') {
       if (!date) {
         return ''
@@ -114,8 +121,10 @@ export default {
         'M+': date.getMonth() + 1, //月份
         'd+': date.getDate(), //日
         'h+': date.getHours(), //小时
+        'H+': date.getHours(), //小时
         'm+': date.getMinutes(), //分
         's+': date.getSeconds(), //秒
+        'W+': this.getYearWeek(date),
         'q+': Math.floor((date.getMonth() + 3) / 3), //季度
         S: date.getMilliseconds() //毫秒
       }
