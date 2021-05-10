@@ -395,6 +395,7 @@ export default {
           filterMode: false,
           themeType: this.editorId,
           cssData: cssData,
+          fontSizeTable: ['12px', '14px', '16px', '18px', '20px', '24px', '32px'],
           afterFocus: () => {
             if (this.pagetype === 'editor') {
               this.inEditor = true
