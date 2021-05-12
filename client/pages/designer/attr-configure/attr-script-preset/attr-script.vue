@@ -43,7 +43,6 @@ require('codemirror/addon/fold/xml-fold.js');
 require('codemirror/addon/fold/indent-fold.js');
 require('codemirror/addon/fold/markdown-fold.js');
 require('codemirror/addon/fold/comment-fold.js');
-import { mapGetters } from 'vuex'
 export default {
   name: 'AttrScript',
   components: {

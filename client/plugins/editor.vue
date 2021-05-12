@@ -429,7 +429,6 @@ export default {
           _this.reditor.html('默认样式')
         }
         if (this.element && this.element.value) {
-          debugger;
           console.log(this.element.value)
           _this.reditor.insertHtml(this.element.value)
         }

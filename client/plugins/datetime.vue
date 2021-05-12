@@ -12,7 +12,7 @@
         v-if="labelValue"
       >{{ labelValue }}</label>
       <el-date-picker
-        v-if="pagetype !== 'preview' && !disabledValue"
+        v-if="(pagetype === 'editor' && !disabledValue) || pagetype === 'designer'"
         v-model="datemodel"
         :type="datetime"
         :format="format"
@@ -175,7 +175,6 @@ export default {
   }
   .el-form-item {
     width: 100%;
-    display: table-row;
     .el-data-editor {
       display: table-cell;
       width: 100%;

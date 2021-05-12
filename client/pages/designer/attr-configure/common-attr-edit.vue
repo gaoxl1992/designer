@@ -150,7 +150,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import { alignTypeList, fontFamilyList } from '@/config/attr-config'
 import { throttle } from 'lodash'
 import AreaTitle from '@/components/area-title'

@@ -71,7 +71,10 @@
 export default {
   name: 'attr-rad-datetime',
   props: {
-    disabled: Boolean,
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     size: String,
     datetime: String,
     format: String,
