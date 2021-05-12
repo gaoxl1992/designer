@@ -44,7 +44,6 @@
 <script>
 import EngineH5Swiper from '@/components/engine-h5-swiper/src/index'
 import mixin from '@/mixins/mixin'
-import { mapState } from 'vuex'
 import bus from '@/utils/bus'
 import {
   headStr,

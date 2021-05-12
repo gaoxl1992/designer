@@ -15,8 +15,8 @@
             height: pageData.height,
             paddingTop: nopt ? 0 : 10,
             paddingBottom: nopb ? 0 : 10,
-          })
-        "
+            zoom: pagetype === 'preview' ? pageData.customWidth / 148 : 1
+          })"
       >
         <!--页面内容区域-->
         <div

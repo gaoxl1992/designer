@@ -61,6 +61,10 @@ export default {
     focusEditorId: {
       type: String,
       default: ''
+    },
+    zoom: {
+      type: String,
+      default: ''
     }
   },
   methods: {
