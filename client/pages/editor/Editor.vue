@@ -112,11 +112,8 @@ export default {
       if (!threshold || !value) {
         return
       }
-      console.log(img)
       this.$store1.dispatch(this.modelId + '/updateElementValue', { threshold, value })
-      if (img) {
-        this.$store1.dispatch(this.modelId + '/updateElementSign', { threshold, img })
-      }
+      this.$store1.dispatch(this.modelId + '/updateElementSign', { threshold, img })
     },
     applyTableTpl (tpl) {
       bus.$emit('applyTableTplDetail', tpl)

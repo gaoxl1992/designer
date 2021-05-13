@@ -428,10 +428,6 @@ export default {
         if (this.pagetype === 'designer') {
           _this.reditor.html('默认样式')
         }
-        if (this.element && this.element.value) {
-          console.log(this.element.value)
-          _this.reditor.insertHtml(this.element.value)
-        }
         _this.reditor.readonly(this.pagetype !== 'editor')
         // 有阈值的富文本挂载到widnow上 供外部读写
         if (this.pagetype === 'editor') {
