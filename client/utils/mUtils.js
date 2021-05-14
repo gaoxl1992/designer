@@ -56,7 +56,6 @@ export const dealWithScript = (element, scriptType, modelId) => {
   if (!element.script) {
     return
   }
-  debugger;
   let script = JSON.parse(element.script)
   // 如果包含初始化脚本
   let scriptStr = script[scriptType]
