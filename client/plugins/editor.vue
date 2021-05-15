@@ -378,6 +378,7 @@ export default {
         body${JSON.stringify(_this.cssData)}
         .ke-content input${JSON.stringify(inputCssData)}
         .ke-content select${JSON.stringify(_this.formCssData)}
+        .ke-content option {display:none}
         .ke-content input:hover {cursor:pointer}
         .ke-content option:hover {cursor:pointer}
         .ke-content select:hover {cursor:pointer}
