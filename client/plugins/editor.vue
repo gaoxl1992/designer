@@ -487,6 +487,8 @@ export default {
                 this.selectDialogShow = true
                 this.showChars = false
                 this.isInput = false
+
+                window.addEventListener('keydown', this.confirm, false)
               } else if (el.target.localName && el.target.localName === 'input') {
                 this.isInput = false
                 this.curId = el.target.id
