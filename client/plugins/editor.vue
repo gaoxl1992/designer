@@ -109,6 +109,23 @@
         >取消</el-button>
       </span>
     </el-dialog>
+    <el-dialog
+      :show-close="false"
+      custom-class="select-dialog"
+      :visible.sync="selectDialogShow"
+      :modal="false"
+      :close-on-click-modal="false"
+    >
+      <el-radio-group v-model="selectedOption">
+        <template v-for="(item, index) in options">
+          <el-radio :key="index" :label="index">
+            <el-input v-model="item.outerText" size="mini" @change="changeText($event, index)"></el-input>
+          </el-radio>
+        </template>
+      </el-radio-group>
+      <el-button size="mini" type="primary" plain @click="confirm">确定</el-button>
+      <el-button size="mini" plain @click="cancel">取消</el-button>
+    </el-dialog>
   </div>
 </template>
 
@@ -117,6 +134,7 @@ import 'kindeditor/kindeditor-all-min.js'
 import 'kindeditor/themes/default/default.css'
 import { mapState } from 'vuex'
 import bus from '@/utils/bus'
+import Vue from 'vue'
 export default {
   name: 'RadEditor',
   props: {
@@ -272,7 +290,12 @@ export default {
         'font-weight': 'inherit',
         'font-style': 'inherit',
         'box-shadow': 'none !important'
-      }
+      },
+      selectDialogShow: false,
+      options: [],
+      selectedOption: 0,
+      backOptions: [],
+      curId: ''
     }
   },
   methods: {
@@ -366,6 +389,42 @@ export default {
         }
       }
     },
+    cancel () {
+      this.selectDialogShow = false
+      this.options = JSON.parse(JSON.stringify(this.backOptions))
+      this.backOptions = []
+    },
+    changeText (value, index) {
+      this.options[index].outerText = value
+    },
+    confirm () {
+      debugger
+      let iframe = this.reditor.edit.iframe[0].contentWindow.document
+      let sel = iframe.getElementById(this.curId)
+      let controlinfo = JSON.parse(sel.dataset.controlinfo)
+      for (let i = 0; i < sel.options.length; i++) {
+        sel.options[i].innerHTML = this.options[i].outerText
+        sel.options[i].innerText = this.options[i].outerText
+        sel.options[i].value = this.options[i].outerText
+        controlinfo.options[i] = {
+          value: this.options[i].outerText,
+          defaultFlag: i === this.selectedOption ? 1 : false
+        }
+        if (i === this.selectedOption) {
+          // sel.options[i].selected = 'selected'
+          sel.getElementsByTagName('option')[i].setAttribute('selected', 'selected');
+        } else {
+          // sel.options[i].selected = false
+          sel.getElementsByTagName('option')[i].removeAttribute('selected')
+        }
+      }
+      controlinfo.default = this.options[this.selectedOption].outerText
+      sel.value = this.options[this.selectedOption].outerText
+      sel.dataset.controlinfo = JSON.stringify(controlinfo)
+      this.selectDialogShow = false
+      this.options = []
+      this.backOptions = []
+    },
     initEditor () {
       let _this = this
       _this.removeEditor()
@@ -398,16 +457,39 @@ export default {
           cssData: cssData,
           fontSizeTable: ['12px', '14px', '16px', '18px', '20px', '24px', '32px'],
           afterFocus: () => {
-            if (this.pagetype === 'editor') {
-              this.inEditor = true
-              if (this.element && this.element.threshold) {
-                window[this.modelId].focusedEditor = this.element.threshold
+            let iframe = this.reditor.edit.iframe[0].contentWindow
+            iframe.addEventListener('click', (el) => {
+              if (el.target.localName && el.target.localName === 'select') {
+                this.curId = el.target.id
+                this.options = []
+                let options = el.target.options
+                for (let i = 0; i < options.length; i++) {
+                  this.options.push({
+                    selected: options[i].selected,
+                    outerText: options[i].outerText
+                  });
+                  if (options[i].selected) {
+                    this.selectedOption = i
+                  }
+                }
+                this.backOptions = JSON.parse(JSON.stringify(this.options))
+                this.selectDialogShow = true
+                this.showChars = false
+              } else {
+                this.selectDialogShow = false
+                this.curId = ''
+                if (this.pagetype === 'editor') {
+                  this.inEditor = true
+                  if (this.element && this.element.threshold) {
+                    window[this.modelId].focusedEditor = this.element.threshold
+                  }
+                  if (window?.[this.modelId]?.report?.currentComp) {
+                    window[this.modelId].report.currentComp = this.element
+                  }
+                  this.showCharspop()
+                }
               }
-              if (window?.[this.modelId]?.report?.currentComp) {
-                window[this.modelId].report.currentComp = this.element
-              }
-              this.showCharspop()
-            }
+            });
           },
           afterBlur: () => {
             let iframe = this.reditor.edit.iframe[0].contentWindow
@@ -637,6 +719,37 @@ export default {
       height: 346px;
       overflow: auto;
     }
+  }
+}
+.rad-element-wrapper {
+  .select-dialog {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    width: 250px!important;
+    max-height: calc(100% - 10px) !important;
+    overflow-y: auto !important;
+  }
+}
+.select-dialog {
+  .el-radio-group {
+    margin-bottom: 10px;
+  }
+  .el-dialog__header {
+    display: none;
+  }
+  .el-dialog__body {
+    padding: 10px;
+  }
+  .el-radio, .el-radio__input {
+    display: inline !important;
+  }
+  .el-input {
+    width: 200px;
+  }
+  .el-button {
+    float: right;
+    margin-left: 10px;
+    margin-bottom: 10px;
   }
 }
 </style>
