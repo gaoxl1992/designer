@@ -761,9 +761,6 @@ export default {
   .el-dialog__body {
     padding: 10px;
   }
-  .el-radio, .el-radio__input {
-    display: inline !important;
-  }
   .el-input {
     width: 200px;
   }
