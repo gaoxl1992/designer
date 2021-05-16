@@ -134,7 +134,6 @@ import 'kindeditor/kindeditor-all-min.js'
 import 'kindeditor/themes/default/default.css'
 import { mapState } from 'vuex'
 import bus from '@/utils/bus'
-import Vue from 'vue'
 export default {
   name: 'RadEditor',
   props: {
@@ -189,6 +188,15 @@ export default {
     }
   },
   watch: {
+    isInput (val, oldVal) {
+      if (oldVal && !val) {
+        let dom = this.reditor.edit.iframe[0].contentWindow.document.getElementById(this.inputId)
+        let controlinfo = JSON.parse(dom.dataset.controlinfo)
+        controlinfo.default = dom.value
+        dom.dataset.controlinfo = JSON.stringify(controlinfo)
+        dom.setAttribute('value', dom.value);
+      }
+    },
     focusEditorId (val) {
       if (!val) {
         return
@@ -295,7 +303,9 @@ export default {
       options: [],
       selectedOption: 0,
       backOptions: [],
-      curId: ''
+      curId: '',
+      isInput: false,
+      inputId: ''
     }
   },
   methods: {
@@ -476,9 +486,16 @@ export default {
                 this.backOptions = JSON.parse(JSON.stringify(this.options))
                 this.selectDialogShow = true
                 this.showChars = false
+                this.isInput = false
+              } else if (el.target.localName && el.target.localName === 'input') {
+                this.isInput = false
+                this.curId = el.target.id
+                this.isInput = true
+                this.inputId = el.target.id
               } else {
                 this.selectDialogShow = false
                 this.curId = ''
+                this.isInput = false
                 if (this.pagetype === 'editor') {
                   this.inEditor = true
                   if (this.element && this.element.threshold) {
@@ -501,6 +518,7 @@ export default {
               this.element.innerHeight = innerHeight
             }
             this.innerChange()
+            this.isInput = false
             this.inEditor = false
           },
           afterChange: () => {
