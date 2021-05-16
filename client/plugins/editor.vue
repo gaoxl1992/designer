@@ -398,7 +398,6 @@ export default {
       this.options[index].outerText = value
     },
     confirm () {
-      debugger
       let iframe = this.reditor.edit.iframe[0].contentWindow.document
       let sel = iframe.getElementById(this.curId)
       let controlinfo = JSON.parse(sel.dataset.controlinfo)
@@ -424,6 +423,8 @@ export default {
       this.selectDialogShow = false
       this.options = []
       this.backOptions = []
+
+      this.innerChange()
     },
     initEditor () {
       let _this = this
