@@ -42,7 +42,7 @@
             <el-select
               size="mini"
               v-model="fontFamily"
-            >
+            > 
               <el-option
                 v-for="item in fontFamilyList"
                 :key="item.value"
@@ -270,7 +270,7 @@ export default {
         element.hideOnPrint = val
       }
     },
-    selFontFamily (val, oldVal) {
+    fontFamily (val, oldVal) {
       if (oldVal !== null) {
         this.updateStyle('fontFamily', val)
       }
