@@ -49,7 +49,15 @@
         </div>
         <div
           class="preview-input"
-          :style="previewStyle"
+          :style="{
+            'text-overflow': inputTypeValue!=='text' ? '' : 'ellipsis',
+            overflow: inputTypeValue!=='text' ? '' : 'hidden',
+            'white-space': inputTypeValue!=='text' ? 'normal' : 'nowrap',
+            'padding-left': '2px',
+            'text-align': 'left',
+            'line-height': 1.5,
+            display: 'table'
+          }"
           v-else
         >{{inputValue}}</div>
       </div>
@@ -106,13 +114,6 @@ export default {
       formItemStyle: {
         width: '100%',
         'white-space': 'nowrap',
-        'text-align': 'left'
-      },
-      previewStyle: {
-        'text-overflow': 'ellipsis',
-        overflow: 'hidden',
-        'white-space': 'nowrap',
-        'padding-left': '2px',
         'text-align': 'left'
       },
       labelStyle: {
