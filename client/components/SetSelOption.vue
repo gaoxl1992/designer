@@ -20,6 +20,7 @@
         <el-popover
           placement="top"
           width="160"
+          :open-delay="500"
           trigger="hover">
           <ul>
             <li v-if="moreop.indexOf('addInput') > -1" class="pop-li" @click="addInput(index)">{{ option.addInput ? '移除' : '追加' }}输入框</li>
