@@ -47,7 +47,8 @@
                 {
                   ...item.commonStyle,
                   scalingRatio,
-                  fontSize: item.elName === 'rad-table' ? 'auto' : item.commonStyle.fontSize
+                  fontSize: item.elName === 'rad-table' ? 'auto' : item.commonStyle.fontSize,
+                  width: item.elName === 'rad-text' ? 'fit-content' : item.commonStyle.width
                 })"
           >
           </componentsTemplate>

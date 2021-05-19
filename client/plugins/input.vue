@@ -55,8 +55,8 @@
             'white-space': inputTypeValue!=='text' ? 'normal' : 'nowrap',
             'padding-left': '2px',
             'text-align': 'left',
-            'line-height': 1.5,
-            display: 'table'
+            'line-height': inputTypeValue!=='text' ? '1.5' : '',
+            display: inputTypeValue!=='text' ? 'table' : ''
           }"
           v-else
         >{{inputValue}}</div>
