@@ -116,16 +116,17 @@
       :modal="false"
       :close-on-click-modal="false"
       append-to-body
+      destroy-on-close
     >
       <el-radio-group v-model="selectedOption">
         <template v-for="(item, index) in options">
-          <el-radio :key="index" :label="index">
+          <el-radio :key="index" :label="index" :id="'radio' + index" @change="confirm">
             <el-input v-model="item.outerText" size="mini" @change="changeText($event, index)"></el-input>
           </el-radio>
         </template>
       </el-radio-group>
-      <el-button size="mini" type="primary" plain @click="confirm">确定</el-button>
-      <el-button size="mini" plain @click="cancel">取消</el-button>
+      <!-- <el-button size="mini" type="primary" plain @click="confirm">确定</el-button>
+      <el-button size="mini" plain @click="cancel">取消</el-button> -->
     </el-dialog>
   </div>
 </template>
@@ -408,7 +409,7 @@ export default {
     changeText (value, index) {
       this.options[index].outerText = value
     },
-    confirm () {
+    confirm (e) {
       let iframe = this.reditor.edit.iframe[0].contentWindow.document
       let sel = iframe.getElementById(this.curId)
       let controlinfo = JSON.parse(sel.dataset.controlinfo)
@@ -455,6 +456,7 @@ export default {
         .ke-content select:hover {cursor:pointer}
         `).replace(/,/g, ';').replace(/"/g, '')
       let rd = this.element?.rd || 1
+      debugger;
       _this.reditor = window.KindEditor.create(
         `textarea[name='content${this.editorId}']`,
         {
@@ -491,6 +493,13 @@ export default {
                 this.showChars = false
                 this.isInput = false
                 this.calDialogPosi(el);
+
+                this.$nextTick(() => {
+                  let sel = document.getElementById('radio' + this.selectedOption)
+                  if (sel) {
+                    sel.focus();
+                  }
+                });
 
                 window.addEventListener('keydown', this.confirm, false)
               } else if (el.target.localName && el.target.localName === 'input') {
@@ -551,9 +560,35 @@ export default {
       }
     },
     calDialogPosi (el) {
-      let selectDialog = document.getElementsByClassName('select-dialog')[0];
-      selectDialog.style.top = 35 + el.target.clientTop + 'px';
-      selectDialog.style.left = el.target.offsetLeft + 'px';
+      let dom = document.getElementsByClassName('rad-element-wrapper-' + this.editorId)[0];
+      let offsetTop = dom.offsetTop;
+      let clientHeight = dom.getElementsByClassName('title')[0].clientHeight;
+      let selectDialogs = document.getElementsByClassName('select-dialog');
+      let scrollTop = document.getElementById('scale_' + this.modelId.split('_')[1]).scrollTop;
+      if (selectDialogs?.length) {
+        for (let i = 0 ; i < selectDialogs.length; i++) {
+          selectDialogs[i].style.top = this.getOffsetTop(dom) - scrollTop + clientHeight + el.target.offsetTop + 'px';
+          selectDialogs[i].style.left = this.getOffsetLeft(dom) + el.target.offsetLeft + 'px';
+        }
+      }
+    },
+    getOffsetTop (obj) {
+      let tmp = obj.offsetTop;
+      let val = obj.offsetParent;
+      while (val != null) {
+        tmp += val.offsetTop;
+        val = val.offsetParent;
+      }
+      return tmp;
+    },
+    getOffsetLeft (obj) {
+      let tmp = obj.offsetLeft;
+      let val = obj.offsetParent;
+      while (val != null) {
+        tmp += val.offsetLeft;
+        val = val.offsetParent;
+      }
+      return tmp;
     },
     showCharspop () {
       if (this.pagetype !== 'editor' || window.hiddenChars) {
@@ -751,15 +786,12 @@ export default {
     }
   }
 }
-.rad-element-wrapper {
-  .select-dialog {
-    position: absolute;
-    width: 250px !important;
-    max-height: 500px;
-    overflow-y: auto !important;
-  }
-}
 .select-dialog {
+  position: absolute;
+  width: 250px !important;
+  max-height: 500px;
+  overflow-y: auto !important;
+  margin: 0 !important;
   .el-radio-group {
     margin-bottom: 10px;
   }
