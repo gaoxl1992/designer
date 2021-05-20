@@ -289,6 +289,7 @@ export default {
             confirmButtonText: '确定',
             type: 'warning',
             showCancelButton: false,
+            closeOnClickModal: false
           }
         ).then(() => { })
         return
@@ -322,7 +323,7 @@ export default {
           confirmButtonText: '确定',
           type: 'warning',
           showCancelButton: false,
-          center: true
+          closeOnClickModal: false
         }
       ).then(() => { })
     },
