@@ -289,7 +289,6 @@ export default {
             confirmButtonText: '确定',
             type: 'warning',
             showCancelButton: false,
-            center: true
           }
         ).then(() => { })
         return
