@@ -81,7 +81,7 @@
       title="管理字符和词汇"
       :visible.sync="showDialog"
       append-to-body
-      modal-append-to-body
+      :modal-append-to-body="true"
       :id="'wrapper-' + editorId"
       :before-close="closeDialog"
     >
@@ -115,6 +115,7 @@
       :visible.sync="selectDialogShow"
       :modal="false"
       :close-on-click-modal="false"
+      append-to-body
     >
       <el-radio-group v-model="selectedOption">
         <template v-for="(item, index) in options">
@@ -469,7 +470,9 @@ export default {
           fontSizeTable: ['12px', '14px', '16px', '18px', '20px', '24px', '32px'],
           afterFocus: () => {
             let iframe = this.reditor.edit.iframe[0].contentWindow
-            iframe.addEventListener('click', (el) => {
+            // 鼠标右键选择框
+            iframe.addEventListener('contextmenu', (el) => {
+              el.preventDefault();
               if (el.target.localName && el.target.localName === 'select') {
                 this.curId = el.target.id
                 this.options = []
@@ -487,6 +490,7 @@ export default {
                 this.selectDialogShow = true
                 this.showChars = false
                 this.isInput = false
+                this.calDialogPosi(el);
 
                 window.addEventListener('keydown', this.confirm, false)
               } else if (el.target.localName && el.target.localName === 'input') {
@@ -545,6 +549,11 @@ export default {
           }
         }
       }
+    },
+    calDialogPosi (el) {
+      let selectDialog = document.getElementsByClassName('select-dialog')[0];
+      selectDialog.style.top = 35 + el.target.clientTop + 'px';
+      selectDialog.style.left = el.target.offsetLeft + 'px';
     },
     showCharspop () {
       if (this.pagetype !== 'editor' || window.hiddenChars) {
@@ -744,10 +753,9 @@ export default {
 }
 .rad-element-wrapper {
   .select-dialog {
-    margin-bottom: 0 !important;
-    margin-top: 0 !important;
-    width: 250px!important;
-    max-height: calc(100% - 10px) !important;
+    position: absolute;
+    width: 250px !important;
+    max-height: 500px;
     overflow-y: auto !important;
   }
 }
