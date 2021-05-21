@@ -114,7 +114,7 @@
       custom-class="select-dialog"
       :visible.sync="selectDialogShow"
       :modal="false"
-      :close-on-click-modal="false"
+      :close-on-click-modal="true"
       append-to-body
       destroy-on-close
     >
@@ -408,6 +408,9 @@ export default {
     },
     changeText (value, index) {
       this.options[index].outerText = value
+      if (this.selectedOption === index) {
+        this.confirm()
+      }
     },
     confirm (e) {
       let iframe = this.reditor.edit.iframe[0].contentWindow.document
@@ -456,7 +459,6 @@ export default {
         .ke-content select:hover {cursor:pointer}
         `).replace(/,/g, ';').replace(/"/g, '')
       let rd = this.element?.rd || 1
-      debugger;
       _this.reditor = window.KindEditor.create(
         `textarea[name='content${this.editorId}']`,
         {
@@ -560,35 +562,35 @@ export default {
       }
     },
     calDialogPosi (el) {
-      let dom = document.getElementsByClassName('rad-element-wrapper-' + this.editorId)[0];
-      let offsetTop = dom.offsetTop;
-      let clientHeight = dom.getElementsByClassName('title')[0].clientHeight;
-      let selectDialogs = document.getElementsByClassName('select-dialog');
-      let scrollTop = document.getElementById('scale_' + this.modelId.split('_')[1]).scrollTop;
+      let dom = document.getElementsByClassName('rad-element-wrapper-' + this.editorId)[0]
+      let offsetTop = dom.offsetTop
+      let clientHeight = dom.getElementsByClassName('title')[0].clientHeight
+      let selectDialogs = document.getElementsByClassName('select-dialog')
+      let scrollTop = document.getElementById('scale_' + this.modelId.split('_')[1]).scrollTop
       if (selectDialogs?.length) {
         for (let i = 0 ; i < selectDialogs.length; i++) {
-          selectDialogs[i].style.top = this.getOffsetTop(dom) - scrollTop + clientHeight + el.target.offsetTop + 'px';
-          selectDialogs[i].style.left = this.getOffsetLeft(dom) + el.target.offsetLeft + 'px';
+          selectDialogs[i].style.top = this.getOffsetTop(dom) - scrollTop + clientHeight + el.target.offsetTop + 'px'
+          selectDialogs[i].style.left = this.getOffsetLeft(dom) + el.target.offsetLeft + 'px'
         }
       }
     },
     getOffsetTop (obj) {
-      let tmp = obj.offsetTop;
-      let val = obj.offsetParent;
+      let tmp = obj.offsetTop
+      let val = obj.offsetParent
       while (val != null) {
-        tmp += val.offsetTop;
-        val = val.offsetParent;
+        tmp += val.offsetTop
+        val = val.offsetParent
       }
-      return tmp;
+      return tmp
     },
     getOffsetLeft (obj) {
-      let tmp = obj.offsetLeft;
-      let val = obj.offsetParent;
+      let tmp = obj.offsetLeft
+      let val = obj.offsetParent
       while (val != null) {
-        tmp += val.offsetLeft;
-        val = val.offsetParent;
+        tmp += val.offsetLeft
+        val = val.offsetParent
       }
-      return tmp;
+      return tmp
     },
     showCharspop () {
       if (this.pagetype !== 'editor' || window.hiddenChars) {
