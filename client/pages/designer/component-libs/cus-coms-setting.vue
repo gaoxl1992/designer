@@ -104,7 +104,8 @@ export default {
       if (JSON.stringify(this.cusNotDisplayComps) !== JSON.stringify(cusNotDisplayCompsNew)) {
         this.$confirm('检测到您有未保存的变更，是否关闭？', '确认', {
           confirmButtonText: '关闭',
-          cancelButtonText: '保存并关闭'
+          cancelButtonText: '保存并关闭',
+          closeOnClickModal: false
         }).then(() => {
           this.$emit('close')
         }).catch(() => {
