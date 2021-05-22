@@ -299,7 +299,8 @@ export default {
         'background-color': 'transparent !important',
         'font-weight': 'inherit',
         'font-style': 'inherit',
-        'box-shadow': 'none !important'
+        'box-shadow': 'none !important',
+        'display': 'none !important'
       },
       selectDialogShow: false,
       options: [],
@@ -412,9 +413,17 @@ export default {
         this.confirm()
       }
     },
-    confirm (e) {
+    confirm () {
       let iframe = this.reditor.edit.iframe[0].contentWindow.document
-      let sel = iframe.getElementById(this.curId)
+      let sel = null
+      let sels = iframe.getElementsByTagName('select');
+      if (sels ?. length) {
+        for (let i = 0; i < sels.length; i++) {
+          if (sels[i].id === this.curId) {
+            sel = sels[i];
+          }
+        }
+      }
       let controlinfo = JSON.parse(sel.dataset.controlinfo)
       for (let i = 0; i < sel.options.length; i++) {
         sel.options[i].innerHTML = this.options[i].outerText
@@ -425,16 +434,15 @@ export default {
           defaultFlag: i === this.selectedOption ? 1 : false
         }
         if (i === this.selectedOption) {
-          // sel.options[i].selected = 'selected'
           sel.getElementsByTagName('option')[i].setAttribute('selected', 'selected');
         } else {
-          // sel.options[i].selected = false
           sel.getElementsByTagName('option')[i].removeAttribute('selected')
         }
       }
-      controlinfo.default = this.options[this.selectedOption].outerText
+      controlinfo.default =  this.options[this.selectedOption].outerText
       sel.value = this.options[this.selectedOption].outerText
       sel.dataset.controlinfo = JSON.stringify(controlinfo)
+      iframe.getElementById(this.curId).innerText = this.options[this.selectedOption].outerText
       this.selectDialogShow = false
       this.options = []
       this.backOptions = []
@@ -456,7 +464,10 @@ export default {
         .ke-content option {display:none}
         .ke-content input:hover {cursor:pointer}
         .ke-content option:hover {cursor:pointer}
-        .ke-content select:hover {cursor:pointer}
+        .ke-content select:hover {cursor:pointer;}
+        .ke-content .aspan {color:#0A68B3;cursor:pointer;text-decoration:underline;}
+        .ke-content .aspan:hover {color:#F00;text-decoration:underline;}
+        .ke-content .aspan:active {color:#F00;text-decoration:underline;}
         `).replace(/,/g, ';').replace(/"/g, '')
       let rd = this.element?.rd || 1
       _this.reditor = window.KindEditor.create(
@@ -474,13 +485,53 @@ export default {
           fontSizeTable: ['12px', '14px', '16px', '18px', '20px', '24px', '32px'],
           afterFocus: () => {
             let iframe = this.reditor.edit.iframe[0].contentWindow
+            iframe.addEventListener('click', (el) => {
+              if (el.target.classList && el.target.classList[0] === 'aspan') {
+                el.target.addEventListener('mouseleave', (ele) => {
+                  let newText = ele.target.innerText
+                  let sels = iframe.document.getElementsByTagName('select');
+                  let sel = null
+                  if (sels ?. length) {
+                    for (let i = 0; i < sels.length; i++) {
+                      if (sels[i].id === el.target.id) {
+                        sel = sels[i];
+                      }
+                    }
+                  }
+                  let controlinfo = JSON.parse(sel.dataset.controlinfo)
+                  let seletedIndex = 0
+                  for (let i = 0; i < sel.options.length; i++) {
+                    if (sel.options[i].selected) {
+                      seletedIndex = i
+                    }
+                  }
+                  sel.options[seletedIndex].innerHTML = newText
+                  sel.options[seletedIndex].innerText = newText
+                  sel.options[seletedIndex].value = newText
+                  controlinfo.options[seletedIndex].value = newText
+                  sel.dataset.controlinfo = JSON.stringify(controlinfo)
+                  el.target.removeEventListener('mouseleave', function (event) {
+                    event.preventDefault()
+                  }, false)
+                })
+              }
+            })
             // 鼠标右键选择框
             iframe.addEventListener('contextmenu', (el) => {
               el.preventDefault();
-              if (el.target.localName && el.target.localName === 'select') {
+              if (el.target.classList && el.target.classList[0] === 'aspan') {
+                let sels = iframe.document.getElementsByTagName('select');
+                let targetSel = null;
+                if (sels ?. length) {
+                  for (let i = 0; i < sels.length; i++) {
+                    if (sels[i].id === el.target.id) {
+                      targetSel = sels[i];
+                    }
+                  }
+                }
                 this.curId = el.target.id
                 this.options = []
-                let options = el.target.options
+                let options = targetSel.options
                 for (let i = 0; i < options.length; i++) {
                   this.options.push({
                     selected: options[i].selected,
@@ -563,7 +614,6 @@ export default {
     },
     calDialogPosi (el) {
       let dom = document.getElementsByClassName('rad-element-wrapper-' + this.editorId)[0]
-      let offsetTop = dom.offsetTop
       let clientHeight = dom.getElementsByClassName('title')[0].clientHeight
       let selectDialogs = document.getElementsByClassName('select-dialog')
       let scrollTop = document.getElementById('scale_' + this.modelId.split('_')[1]).scrollTop

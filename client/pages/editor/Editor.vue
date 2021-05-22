@@ -169,14 +169,14 @@ export default {
           if (type === 'input') {
             realText = obj.document.getElementById(id).value
           } else {
-            let options = obj.document.getElementById(id).options
-            let checkedLen = 0
-            for (let j = 0; j < options.length; j++) {
-              if (options[j].selected) {
-                realText += (checkedLen === 0 ? '' : ',') + options[j].label
-                checkedLen++
-              }
-            }
+            // let options = obj.document.getElementById(id).options
+            // let checkedLen = 0
+            // for (let j = 0; j < options.length; j++) {
+            //   if (options[j].selected) {
+            //     realText += (checkedLen === 0 ? '' : ',') + options[j].label
+            //     checkedLen++
+            //   }
+            // }
           }
           editorVal = editorVal.replace(inps[i], realText)
         }
