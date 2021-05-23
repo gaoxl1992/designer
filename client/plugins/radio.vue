@@ -87,7 +87,7 @@ export default {
   }
   .el-input__inner {
     line-height: 1;
-    height: fit-content;
+    height: 100%;
     padding: 5px 15px;
     display: inline-block;
     width: 200px;
