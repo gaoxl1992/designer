@@ -11,8 +11,8 @@
       <span class="sel-list-default">默认值</span>
     </p>
     <ul class="sel-option-list">
-      <li v-for="(option, index) in options" :key="index">
-        <i class="iconfont icondrag" draggable="true" @dragstart="onDragStart($event, index)" @dragover="onDragOver($event, index)" @drop="onDragEnd($event, index)"></i>
+      <li v-for="(option, index) in options" :key="index" draggable="true"  @dragstart="onDragStart($event, index)" @dragover="onDragOver($event, index)" @drop="onDragEnd($event, index)">
+        <i class="iconfont icondrag"></i>
         <el-input maxlength='50' @change='chgOptionValue' v-model="option.value" size='mini' placeholder="请输入内容"></el-input>
         <el-checkbox @change='chgDefaultFlag' v-if='selType === "multiply"' v-model="option.defaultFlag"></el-checkbox>
         <el-radio @change='(val) => {chgDefaultFlag(val, index)}' :label="index + 1" v-else v-model="option.defaultFlag">{{''}}</el-radio>

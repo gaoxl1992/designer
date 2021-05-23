@@ -41,7 +41,7 @@
           >
             <span
               class="el-upload-list__item-delete"
-              @click="handleRemove(idx)"
+              @click="handleRemove(idx, item)"
             >
               <i class="el-icon-delete"></i>
             </span>
@@ -298,8 +298,12 @@ export default {
         this.fileList.splice(index, 0, files)
       }
     },
-    handleRemove (idx) {
+    handleRemove (idx, item) {
       this.fileList.splice(idx, 1)
+      // 向总线发事件通知外部当前图片被删除
+      bus.$emit('removeImages', {
+        id: item.id
+      })
       this.changeImages()
     },
     handleFiles (file) {

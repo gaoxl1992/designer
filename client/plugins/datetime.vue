@@ -85,7 +85,7 @@ export default {
     this.datemodel = (this.element && this.element.value) || (this.datetime.indexOf('range') === -1 ? new Date() : [new Date(), new Date()])
     this.previewDate = this.formatDate(
       this.datemodel,
-      this.element.propsValue.format
+      this.element?.propsValue?.format || this.format
     )
   },
   watch: {

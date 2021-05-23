@@ -95,6 +95,9 @@ export default {
     bus.$on('updateImages', (res) => {
       this.$emit('updateImages', res)
     })
+    bus.$on('removeImages', (res) => {
+      this.$emit('removeImages', res)
+    })
 
     bus.$on('applyTableTpl', (id) => {
       this.$emit('applyTableTpl', id)
