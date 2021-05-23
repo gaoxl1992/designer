@@ -292,6 +292,9 @@ export default {
             closeOnClickModal: false
           }
         ).then(() => { })
+        bus.$emit('removeImages', {
+          id: files[index].id
+        });
         return
       }
       if (index >= 0) {
