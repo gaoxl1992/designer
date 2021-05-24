@@ -154,10 +154,12 @@ export default {
       editorVal = this.replaceFormInner('select', editorVal, editorIndex)
       // 处理span class="aspan"
       let spans = editorVal.match(/&nbsp;<span class="aspan"[\s\S]*?<\/span>&nbsp;/g)
-      spans.forEach((span) => {
-        let newSpan = span.replaceAll('&nbsp;', '')
-        editorVal = editorVal.replace(span, newSpan)
-      })
+      if (spans) {
+        spans.forEach((span) => {
+          let newSpan = span.replaceAll('&nbsp;', '')
+          editorVal = editorVal.replace(span, newSpan)
+        })
+      }
       return editorVal
     },
     /**

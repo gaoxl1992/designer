@@ -61,7 +61,6 @@
             ')',
           height: perHeight + 'px',
         }"
-
         class="upload-demo"
         drag
         list-type="picture-card"
@@ -310,6 +309,13 @@ export default {
       this.changeImages()
     },
     handleFiles (file) {
+      if (file?.raw?.type) {
+        let type = file.raw.type;
+        if (type.indexOf('image') === -1) {
+          this.$alert('请选择图片类型的文件。', '提示'); 
+          return
+        }
+      }
       let reader = new FileReader()
       let _this = this
       reader.onload = function (e) {
