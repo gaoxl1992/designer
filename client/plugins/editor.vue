@@ -488,6 +488,7 @@ export default {
           afterFocus: () => {
             let iframe = this.reditor.edit.iframe[0].contentWindow
             iframe.addEventListener('click', (el) => {
+              this.selectDialogShow = false
               if (el.target.classList && el.target.classList[0] === 'aspan') {
                 el.target.addEventListener('mouseleave', (ele) => {
                   let newText = ele.target.innerText
@@ -631,6 +632,9 @@ export default {
           selectDialogs[i].style.marginTop = '0 !important'
         }
       }
+    },
+    closeDialog () {
+      this.selectDialogShow = false
     },
     getOffsetTop (obj) {
       let tmp = obj.offsetTop

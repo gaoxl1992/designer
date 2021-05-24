@@ -152,6 +152,12 @@ export default {
       editorVal = this.replaceFormInner('input', editorVal, editorIndex)
       // 处理下拉框
       editorVal = this.replaceFormInner('select', editorVal, editorIndex)
+      // 处理span class="aspan"
+      let spans = editorVal.match(/&nbsp;<span class="aspan"[\s\S]*?<\/span>&nbsp;/g)
+      spans.forEach((span) => {
+        let newSpan = span.replaceAll('&nbsp;', '')
+        editorVal = editorVal.replace(span, newSpan)
+      })
       return editorVal
     },
     /**
@@ -171,15 +177,6 @@ export default {
           let realText = ''
           if (type === 'input') {
             realText = obj.document.getElementById(id).value
-          } else {
-            // let options = obj.document.getElementById(id).options
-            // let checkedLen = 0
-            // for (let j = 0; j < options.length; j++) {
-            //   if (options[j].selected) {
-            //     realText += (checkedLen === 0 ? '' : ',') + options[j].label
-            //     checkedLen++
-            //   }
-            // }
           }
           editorVal = editorVal.replace(inps[i], realText)
         }
