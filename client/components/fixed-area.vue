@@ -1,7 +1,7 @@
 <template>
   <div
     :class="'fixed-' + pos"
-    :style="{ height: pageData[pos === 'header' ? 'fixedHeader' : 'fixedFooter'].height + 'px' }"
+    :style="{ height: height + 'px' }"
     v-if="pageData[pos === 'header' ? 'fixedHeader' : 'fixedFooter'].openFixed"
   >
     <div
@@ -21,6 +21,11 @@ export default {
       default: 'header'
     }
   },
+  data() {
+    return {
+      height: this.pageData?.[this.pos === 'header' ? 'fixedHeader' : 'fixedFooter']?.height || 50
+    }
+  },
   inject: ['modelId'],
   computed: {
     ...mapState({
@@ -29,6 +34,18 @@ export default {
         return state?.pageData || {}
       }
     })
+  },
+  mounted () {
+    this.height = this.pageData?.[this.pos === 'header' ? 'fixedHeader' : 'fixedFooter']?.height || 50
+  },
+  watch: {
+    pageData: {
+      handler (val) {
+        this.height = val?.[this.pos === 'header' ? 'fixedHeader' : 'fixedFooter']?.height || 50
+      },
+      deep: true,
+      immediate: true
+    }
   },
   methods: {
     /**
@@ -40,10 +57,9 @@ export default {
       let downEvent = event
       downEvent.stopPropagation()
       downEvent.preventDefault()
-      let height =
-        this.pos === 'header'
-          ? this.pageData.fixedHeader.height
-          : this.pageData.fixedFooter.height
+      let height = this.pos === 'header'
+          ? (this.pageData?.fixedHeader?.height || 50)
+          : (this.pageData?.fixedFooter?.height || 50)
 
       let startY = downEvent.clientY
       let move = (moveEvent) => {
@@ -52,8 +68,10 @@ export default {
         let newHeight = +height + (this.pos === 'header' ? disY : -disY)
         if (this.pos === 'header') {
           this.pageData.fixedHeader.height = newHeight > 0 ? newHeight : 0
+          this.height = this.pageData.fixedHeader.height
         } else {
           this.pageData.fixedFooter.height = newHeight > 0 ? newHeight : 0
+          this.height = this.pageData.fixedFooter.height
         }
       }
       let up = () => {
@@ -97,7 +115,6 @@ export default {
 .fixed-footer {
   position: absolute;
   width: 100%;
-  height: 50px;
   min-height: 20px;
   left: 0;
   border: 1px solid #C2770E;

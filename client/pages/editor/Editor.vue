@@ -156,7 +156,7 @@ export default {
       let spans = editorVal.match(/&nbsp;<span class="aspan"[\s\S]*?<\/span>&nbsp;/g)
       if (spans) {
         spans.forEach((span) => {
-          let newSpan = span.replaceAll('&nbsp;', '')
+          let newSpan = span.replace('&nbsp;', '')
           editorVal = editorVal.replace(span, newSpan)
         })
       }
@@ -198,12 +198,14 @@ export default {
       let headerObj = {
         height: fixedHeader.openFixed ? fixedHeader.height : 0,
         width: this.pageData.width,
-        elements: []
+        elements: [],
+        customWidth: this.pageData.customWidth
       }
       let footerObj = {
         height: fixedFooter.openFixed ? fixedFooter.height : 0,
         width: this.pageData.width,
-        elements: []
+        elements: [],
+        customWidth: this.pageData.customWidth
       }
       if (!eles || eles.length === 0) {
         return
