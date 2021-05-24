@@ -211,7 +211,9 @@ export default {
       }
     },
     editor () {
-      this.initEditor()
+      if (this.pagetype === 'designer') {
+        this.initEditor()
+      }
     },
     inner (val) {
       this.$emit('update:value', val)
@@ -474,7 +476,7 @@ export default {
         `textarea[name='content${this.editorId}']`,
         {
           width: '100%',
-          height: `${this.editor / rd}px`,
+          height: this.editor / rd,
           minHeight: this.editor / rd,
           minWidth: '100%',
           items: _this.items,
@@ -601,6 +603,7 @@ export default {
         _this.reditor.readonly(this.pagetype !== 'editor')
         // 有阈值的富文本挂载到widnow上 供外部读写
         if (this.pagetype === 'editor') {
+          document.getElementsByClassName('ke-container-' + this.editorId)[0].getElementsByClassName('ke-edit')[0].style.height = `${this.editor / rd}px`
           window[this.modelId] = window[this.modelId] || {}
           window[this.modelId].reditor = window[this.modelId].reditor || {}
           if (this.element && this.element.threshold) {
