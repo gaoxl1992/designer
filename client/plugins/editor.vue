@@ -605,6 +605,7 @@ export default {
         // 有阈值的富文本挂载到widnow上 供外部读写
         if (this.pagetype === 'editor') {
           document.getElementsByClassName('ke-container-' + this.editorId)[0].getElementsByClassName('ke-edit')[0].style.height = `${this.editor / rd}px`
+          this.element.propsValue.editor = this.editor / rd
           window[this.modelId] = window[this.modelId] || {}
           window[this.modelId].reditor = window[this.modelId].reditor || {}
           if (this.element && this.element.threshold) {
