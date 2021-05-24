@@ -619,8 +619,13 @@ export default {
       let scrollTop = document.getElementById('scale_' + this.modelId.split('_')[1]).scrollTop
       if (selectDialogs?.length) {
         for (let i = 0 ; i < selectDialogs.length; i++) {
-          selectDialogs[i].style.top = this.getOffsetTop(dom) - scrollTop + clientHeight + el.target.offsetTop + 'px'
-          selectDialogs[i].style.left = this.getOffsetLeft(dom) + el.target.offsetLeft + 'px'
+          selectDialogs[i].parentNode.style.top = this.getOffsetTop(dom) - scrollTop + clientHeight + el.target.offsetTop + 50 + 'px'
+          selectDialogs[i].parentNode.style.left = this.getOffsetLeft(dom) + el.target.offsetLeft + 'px'
+          selectDialogs[i].parentNode.style.width = '250px'
+          selectDialogs[i].parentNode.style.maxHeight = '500px'
+          selectDialogs[i].style.top = 0
+          selectDialogs[i].style.left = 0
+          selectDialogs[i].style.marginTop = '0 !important'
         }
       }
     },
@@ -838,12 +843,13 @@ export default {
     }
   }
 }
-.select-dialog {
+.theme-light .select-dialog {
   position: absolute;
   width: 250px !important;
   max-height: 500px;
   overflow-y: auto !important;
-  margin: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
   .el-radio-group {
     margin-bottom: 10px;
   }
