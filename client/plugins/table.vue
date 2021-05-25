@@ -88,33 +88,13 @@ export default {
   inject: ['modelId'],
   computed: {
     ...mapState({
-      tableTpl: (state) => state?.tableTpl || [],
+      tableTpl () {
+        let state = this.$store1.state[this.modelId]
+        return state?.tableTpl || []
+      }
     }),
     activeElement () {
       return this.$store1.getters[this.modelId + '/activeElement']
-    },
-    isActiveTpl () {
-      // let attr = window.mockData
-      // let _this = this
-      // return function (tpl) {
-      //   let tplAttrs = tpl.rels
-      //   let t = Object.getOwnPropertyNames(tplAttrs)
-      //   // let w = Object.getOwnPropertyNames(attr)
-      //   let flag = true
-      //   for (var i = 0; i < t.length; i++) {
-      //     let key = t[i]
-      //     // 根据key 是min max等做判断计算逻辑
-      //     if (attr[key] !== tplAttrs[key]) {
-      //       flag = false
-      //       break
-      //     }
-      //   }
-      //   if (flag) {
-      //     _this.hasMatchTpl = true
-      //   }
-      //   return flag
-      // }
-      return true
     }
   },
   data () {
@@ -140,8 +120,14 @@ export default {
       this.activeTpl = tpl
       this.$emit('update:value', tpl)
     })
+
+    window.addEventListener('keydown', this.inputDown, false)
   },
   methods: {
+    inputDown (el) {
+      console.log('------', el)
+      debugger
+    },
     selectTableModel () {
       if (this.pagetype === 'editor') {
         this.showTableModel = true
@@ -204,7 +190,7 @@ export default {
 
       let t = event.target
       // 如果点击的是下拉框或者输入框，赋予唯一的id
-      if ((t.localName === 'select' || t.localName === 'textarea') && !t.id) {
+      if ((t.localName === 'select' || t.localName === 'input') && !t.id) {
         t.id = createUUID()
       }
 
@@ -212,12 +198,7 @@ export default {
       if (t.localName === 'option') {
         return
       }
-      if (
-        t.localName === 'td' &&
-        t.innerHTML !== '&nbsp;' &&
-        (t.childNodes.length === 0 ||
-          (t.childNodes[0] && !t.childNodes[0].localName))
-      ) {
+      if (t.localName === 'td' && t.innerHTML !== '&nbsp;' && (t.childNodes.length === 0 || (t.childNodes[0] && !t.childNodes[0].localName))) {
         return
       }
 
@@ -228,7 +209,7 @@ export default {
 
       //  点击单元格且内容为空
       if (t.localName === 'td' && t.innerHTML === '&nbsp;') {
-        t.innerHTML = `<textarea class="table-input" id="${createUUID()}">`
+        t.innerHTML = `<input class="table-input" id="${createUUID()}">`
         return
       }
 
@@ -315,6 +296,8 @@ export default {
     text-align: -webkit-match-parent;
     font-size: inherit;
     width: 100%;
+    height: inherit;
+    background: transparent;
     &:hover {
       border: none;
       outline: none;
