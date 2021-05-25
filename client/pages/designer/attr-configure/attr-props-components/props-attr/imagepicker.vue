@@ -17,7 +17,7 @@
     <el-form-item label="图片间距">
       <el-input-number
         v-model="picDisTemp"
-        :min="2"
+        :min="5"
         :max="50"
         size="small"
       ></el-input-number>
@@ -30,16 +30,6 @@
         size="small"
       ></el-input-number>
       px
-    </el-form-item>
-    <el-form-item label="图片未达到最大数量时">
-      <el-radio-group
-        class="pics-not-full"
-        v-model="fixTypeTemp"
-      >
-        <el-radio :label="1">优先铺满宽度</el-radio>
-        <el-radio :label="2">宽高等比撑满自适应</el-radio>
-        <el-radio :label="3">宽高固定自适应</el-radio>
-      </el-radio-group>
     </el-form-item>
   </div>
 </template>
@@ -77,7 +67,7 @@ export default {
     return {
       maxPicsNum: this.imagepicker || 1,
       maxLinePics: this.linepics || 1,
-      picDisTemp: this.picDis || 2,
+      picDisTemp: this.picDis || 5,
       rowHeightTemp: this.rowHeight || 200,
       rowDisTemp: this.rowDis || 2,
       fixTypeTemp: this.fixType || 3
@@ -86,7 +76,7 @@ export default {
   mounted () {
     this.maxPicsNum = this.imagepicker || 1
     this.maxLinePics = this.linepics || 1
-    this.picDisTemp = this.picDis || 2
+    this.picDisTemp = this.picDis || 5
     this.rowHeightTemp = this.rowHeight || 200
     this.rowDisTemp = this.rowDis || 2
     this.fixTypeTemp = this.fixType || 3

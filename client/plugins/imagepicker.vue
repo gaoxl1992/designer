@@ -31,9 +31,8 @@
           style="height: 100%;width: 100%;"
         >
           <img
-            style="height: 100%;"
             :src="item.url"
-            :style="imageStyle"
+            :style="imageStyle(item.url)"
           />
           <span
             class="el-upload-list__item-actions"
@@ -88,11 +87,11 @@
       <div
         v-for="(item, idx) in fileList"
         :key="idx"
-        :style="fixType === 1 ? liStyle(idx) : imgStyle(idx)"
+        :style="fixType === 1 ? preLiStyle(idx) : imgStyle(idx)"
       >
         <img
           :src="item.url"
-          :style="imageStyle"
+          :style="imageStylePre(item.url)"
         />
       </div>
     </div>
@@ -145,12 +144,6 @@ export default {
         width: '100%',
         'text-align': 'left'
       },
-      imageStyle: {
-        height: '100%',
-        margin: '0 auto',
-        display: 'block',
-        width: '100%'
-      },
       relLinePics: this.linepics,
       uploadId: `imagepicker_${new Date().getTime()}_${this.element?.threshold || ''}`
     }
@@ -162,14 +155,87 @@ export default {
         (this.commonStyle.height - rows * this.element.propsValue.rowDis) / rows
       )
     },
+    imageStyle () {
+      return function (url) {
+        let img = new Image();
+        img.src = url;
+        let width = img.width;
+        let height = img.height;
+        let clientWidth = `${(this.commonStyle.width - this.picDis * (this.linepics - 1)) / this.linepics}`;
+        // let width = `${(this.commonStyle.width - this.picDis * (this.linepics - 1)) / this.linepics}px`;
+        let clientHeight = `${this.perHeight}`;
+        if ((width / height) > (clientWidth / clientHeight)) {
+          return {
+            width: '100%',
+            height: 'auto',
+            'font-size': 0
+          }
+        } else {
+          return {
+            height: (height > clientHeight ? clientHeight : height) + 'px',
+            width: (height > clientHeight ? (clientHeight / height) * width : width) + 'px',
+            'font-size': 0,
+            display: 'block',
+            margin: '0 auto'
+          }
+        }
+      };
+    },
+    imageStylePre () {
+      return function (url) {
+        let img = new Image();
+        img.src = url;
+        let width = img.width;
+        let height = img.height;
+
+        let clientWidth = `${(this.commonStyle.width - this.picDis * (this.linepics - 1)) / this.linepics}`;
+        let fileLength = this.fileList.length;
+        if (this.linepics > this.fileList.length) {
+          clientWidth = `${(this.commonStyle.width - this.picDis * (fileLength - 1)) / fileLength}px`
+        }
+        let clientHeight = `${this.perHeight}`;
+        if ((width / height) > (clientWidth / clientHeight)) {
+          return {
+            width: '100%',
+            height: 'auto',
+            'font-size': 0
+          }
+        } else {
+          return {
+            height: (height > clientHeight ? clientHeight : height) + 'px',
+            width: (height > clientHeight ? (clientHeight / height) * width : width) + 'px',
+            'font-size': 0,
+            display: 'block',
+            margin: '0 auto'
+          }
+        }
+      };
+    },
     liStyle () {
       return function (idx) {
         return {
           width: `${(this.commonStyle.width - this.picDis * (this.linepics - 1)) / this.linepics}px`,
-          height: `${this.perHeight}px`,
           marginBottom:
             this.imagepicker - idx <= this.linepics ? 0 : `${this.rowDis}px`,
           paddingRight: (idx + 1) % this.linepics === 0 ? 0 : `${this.picDis}px`,
+          display: 'inline-block'
+        }
+      }
+    },
+    preLiStyle () {
+      let width = `${(this.commonStyle.width - this.picDis * (this.linepics - 1)) / this.linepics}px`;
+      let fileLength = this.fileList.length;
+      let linePics = this.linepics;
+      if (this.linepics > this.fileList.length) {
+        width = `${(this.commonStyle.width - this.picDis * (fileLength - 1)) / fileLength}px`;
+        linePics = this.fileList.length;
+      }
+      return function (idx) {
+        return {
+          width: width,
+          marginBottom:
+            this.imagepicker - idx <= linePics ? 0 : `${this.rowDis}px`,
+          paddingRight: (idx + 1) % linePics === 0 ? 0 : `${this.picDis}px`,
           display: 'inline-block'
         }
       }
@@ -290,10 +356,11 @@ export default {
             showCancelButton: false,
             closeOnClickModal: false
           }
-        ).then(() => { })
-        bus.$emit('removeImages', {
-          id: files[index].id
-        });
+        ).then(() => {
+          bus.$emit('removeImages', {
+            id: files[index].id
+          });
+        })
         return
       }
       if (index >= 0) {
