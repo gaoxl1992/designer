@@ -16,6 +16,7 @@
       @closePreview="showPreview = false"
       :pageData="pageHeaderTpl"
       pagetype="preview"
+      :isBody="false"
     >
     </EngineH5Swiper>
     <EngineH5Swiper
@@ -24,6 +25,7 @@
       :nopb="pageData.fixedFooter.openFixed ? true : false"
       style="display: none"
       v-if="showPreview"
+      :isBody="true"
       @closePreview="showPreview = false"
       :pageData="pageDataTpl"
       pagetype="preview"
@@ -37,6 +39,7 @@
       @closePreview="showPreview = false"
       :pageData="pageFooterTpl"
       pagetype="preview"
+      :isBody="false"
     >
     </EngineH5Swiper>
   </div>
@@ -222,6 +225,7 @@ export default {
         // 富文本框
         if (eles[i].elName === 'rad-editor') {
           eles[i].value = this.resetEditorValue(eles[i].value, i)
+
         }
         // 根据上一个元素的特殊性处理偏移
         if (last) {
@@ -241,10 +245,11 @@ export default {
           }
           // 处理富文本框高度
           if (last.elName === 'rad-editor') {
-            last.innerHeight = last.innerHeight || 200
+            last.innerHeight = last.innerHeight || 20
             const { fontSize, lineHeight } = last.commonStyle
             clientHeight = last.innerHeight + (last.title ? parseInt(fontSize) * lineHeight : 0)
             last.innerHeight = clientHeight
+            clientHeight = (last.title ? parseInt(fontSize) * lineHeight : 0) + document.getElementsByClassName('ke-container-preview' + (i - 1))[0].getElementsByClassName('ke-edit-iframe')[0].contentDocument.getElementsByTagName('body')[0].offsetHeight;
           }
         }
 

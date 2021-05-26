@@ -12,7 +12,7 @@
           getCommonStyle({ 
             ...pageData.commonStyle,
             width: pageData.width,
-            height: (pagetype === 'preview' && !nopb && !nopt) ? 'auto' : pageData.height,
+            height: (pagetype === 'preview' && isBody) ? 'auto' : pageData.height,
             paddingTop: nopt ? 0 : 10,
             paddingBottom: nopb ? 0 : 10,
             zoom: pagetype === 'preview' ? pageData.customWidth / 148 : 1
@@ -91,6 +91,10 @@ export default {
       default: false
     },
     nopb: {
+      type: Boolean,
+      default: false
+    },
+    isBody: {
       type: Boolean,
       default: false
     }

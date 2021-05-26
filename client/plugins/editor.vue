@@ -291,7 +291,7 @@ export default {
         'font-style': this.fontStyle,
         'font-family': this.fontFamily,
         'font-weight': this.fontWeight,
-        'font-size': this.fontSize,
+        'font-size': this.fontSize + 'px',
         'color': this.color
       },
       formCssData: {
