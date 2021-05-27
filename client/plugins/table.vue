@@ -126,7 +126,6 @@ export default {
   methods: {
     inputDown (el) {
       console.log('------', el)
-      debugger
     },
     selectTableModel () {
       if (this.pagetype === 'editor') {
