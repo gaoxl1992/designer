@@ -2,6 +2,7 @@
   <el-form
     class="rad-input"
     :inline="true"
+    @submit.native.prevent
   >
     <div
       class="el-form-item"
