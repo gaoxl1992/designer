@@ -358,7 +358,7 @@ export default {
           }
         ).then(() => {
           bus.$emit('removeImages', {
-            id: files[index].id
+            id: files.id
           });
         })
         return
