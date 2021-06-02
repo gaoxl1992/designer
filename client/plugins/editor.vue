@@ -354,13 +354,16 @@ export default {
             bus.$emit('updateSpChars', this.pageData.spCharacters)
           }
           this.showDialog = false
+          this.selectDialogShow = false
           this.showCharspop()
         }).catch(() => {
           this.showDialog = false // FIX-BUG:5762
+          this.selectDialogShow = false
           this.showCharspop()
         });
       } else {
         this.showDialog = false
+        this.selectDialogShow = false
         this.showCharspop()
       }
     },
@@ -622,9 +625,6 @@ export default {
           selectDialogs[i].style.marginTop = '0 !important'
         }
       }
-    },
-    closeDialog () {
-      this.selectDialogShow = false
     },
     getOffsetTop (obj) {
       let tmp = obj.offsetTop

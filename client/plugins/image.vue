@@ -4,7 +4,7 @@
 <template>
   <div
     class="rad-image"
-    :id="'image' + editorId"
+    :id="editorId"
     style="height: 100%; width: 100%; text-align:center"
   >
     <el-image
@@ -65,7 +65,7 @@ export default {
     img.src = this.imageUrl;
     let width = img.width;
     let height = img.height;
-    let imgParent = document.getElementById('image' + this.editorId).parentElement;
+    let imgParent = document.getElementById(this.editorId).parentElement;
     let { clientWidth, clientHeight } = imgParent;
     if ((width / height) > (clientWidth / clientHeight)) {
       this.previewStyle = {
