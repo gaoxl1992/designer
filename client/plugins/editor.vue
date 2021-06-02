@@ -456,8 +456,6 @@ export default {
         .ke-content option:hover {cursor:pointer}
         .ke-content select:hover {cursor:pointer;}
         .ke-content .aspan {color:#0A68B3;cursor:pointer;text-decoration:underline;}
-        .ke-content .aspan:hover {color:#F00;text-decoration:underline;}
-        .ke-content .aspan:active {color:#F00;text-decoration:underline;}
         `).replace(/,/g, ';').replace(/"/g, '')
       let rd = this.element?.rd || 1
       _this.reditor = window.KindEditor.create(
@@ -472,6 +470,7 @@ export default {
           filterMode: false,
           themeType: this.editorId,
           cssData: cssData,
+          // pasteType: 1,
           fontSizeTable: ['12px', '14px', '16px', '18px', '20px', '24px', '32px'],
           afterFocus: () => {
             let iframe = this.reditor.edit.iframe[0].contentWindow
