@@ -26,10 +26,7 @@
         @mouseover="hoverIndex = idx"
         @mouseleave="hoverIndex = -1"
       >
-        <div
-          class="img-container"
-          style="height: 100%;width: 100%;"
-        >
+        <div class="img-container" :style="{'height': perHeight + 'px'}">
           <img
             :src="item.url"
             :style="imageStyle(item.url)"
@@ -161,8 +158,30 @@ export default {
         img.src = url;
         let width = img.width;
         let height = img.height;
+        if (!width || !height) {
+          return setTimeout(() => {
+            let width = img.width;
+            let height = img.height;
+            let clientWidth = `${(this.commonStyle.width - this.picDis * (this.linepics - 1)) / this.linepics}`;
+            let clientHeight = `${this.perHeight}`;
+            if ((width / height) > (clientWidth / clientHeight)) {
+              return {
+                width: '100%',
+                height: 'auto',
+                'font-size': 0
+              }
+            } else {
+              return {
+                height: (height > clientHeight ? clientHeight : height) + 'px',
+                width: (height > clientHeight ? (clientHeight / height) * width : width) + 'px',
+                'font-size': 0,
+                display: 'block',
+                margin: '0 auto'
+              }
+            }
+          });
+        }
         let clientWidth = `${(this.commonStyle.width - this.picDis * (this.linepics - 1)) / this.linepics}`;
-        // let width = `${(this.commonStyle.width - this.picDis * (this.linepics - 1)) / this.linepics}px`;
         let clientHeight = `${this.perHeight}`;
         if ((width / height) > (clientWidth / clientHeight)) {
           return {
