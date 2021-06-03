@@ -411,7 +411,7 @@ export default {
       }
     },
     confirm () {
-      window.removeEventListener('keydown');
+      window.removeEventListener('keydown', this.confirm);
       let iframe = this.reditor.edit.iframe[0].contentWindow.document
       let sel = null
       let sels = iframe.getElementsByTagName('select');
@@ -526,7 +526,7 @@ export default {
             iframe.addEventListener('contextmenu', (el) => {
               el.preventDefault();
               if (el.target.classList && el.target.classList[0] === 'aspan') {
-                window.removeEventListener('keydown');
+                window.removeEventListener('keydown', this.confirm);
                 let sels = iframe.document.getElementsByTagName('select');
                 let targetSel = null;
                 if (sels ?. length) {
