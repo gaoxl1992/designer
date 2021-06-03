@@ -266,7 +266,10 @@ export default {
         'fontname', 'fontsize', '|',
         'bold', 'italic', 'underline', 'forecolor', 'hilitecolor', '|',
         'justifyleft', 'justifycenter', 'justifyright', '|',
-        'insertorderedlist', 'lineheight', '|', 'undo', 'redo'
+        'insertorderedlist', 'lineheight', '|',
+        'undo', 'redo', '|',
+        'cut', 'copy', 'paste', '|',
+        'fullscreen'
       ],
       inner: null,
       showChars: false,
@@ -475,6 +478,18 @@ export default {
           cssData: cssData,
           // pasteType: 1,
           fontSizeTable: ['12px', '14px', '16px', '18px', '20px', '24px', '32px'],
+          'fontname.fontName' : {
+            'SimSun' : '宋体',
+            'NSimSun' : '新宋体',
+            'FangSong' : '仿宋',
+            'KaiTi' : '楷体',
+            'SimHei' : '黑体',
+            'Microsoft YaHei' : '微软雅黑',
+            'Times New Roman' : 'Times New Roman',
+            'Courier New' : 'Courier New',
+            'Tahoma' : 'Tahoma',
+            'Verdana' : 'Verdana'
+          },
           afterFocus: () => {
             let iframe = this.reditor.edit.iframe[0].contentWindow
             iframe.addEventListener('click', (el) => {
@@ -507,6 +522,8 @@ export default {
                     event.preventDefault()
                   }, false)
                 })
+              } else {
+                this.showCharspop()
               }
             })
             // 鼠标右键选择框
