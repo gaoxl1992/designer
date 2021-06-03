@@ -6,17 +6,20 @@
     <div
       style="position: relative;"
       class="preview-back"
+      :style="{height: tplStr.headerHeight + 'px'}"
       v-html="tplStr.PROP_HEADER_HTML"
     ></div>
     <div
       style="position: relative;"
       :style="{height: tplStr.realHeight + 'px'}"
       class="preview-back"
+      id="preview-body"
       v-html="tplStr.PROP_PAGE_HTML"
     ></div>
     <div
       style="position: relative;"
       class="preview-back"
+      :style="{height: tplStr.footerHeight + 'px'}"
       v-html="tplStr.PROP_FOOTER_HTML"
     ></div>
   </div>
@@ -39,7 +42,6 @@ export default {
   width: fit-content;
   height: 100%;
   margin: 0 auto;
-  background: $white;
   .preview-back {
     background-color: #e4e7ee;
   }
