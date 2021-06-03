@@ -301,7 +301,8 @@ export default {
       backOptions: [],
       curId: '',
       isInput: false,
-      inputId: ''
+      inputId: '',
+      fullscreenMode: false
     }
   },
   methods: {
@@ -410,6 +411,7 @@ export default {
       }
     },
     confirm () {
+      window.removeEventListener('keydown');
       let iframe = this.reditor.edit.iframe[0].contentWindow.document
       let sel = null
       let sels = iframe.getElementsByTagName('select');
@@ -476,22 +478,16 @@ export default {
           filterMode: false,
           themeType: this.editorId,
           cssData: cssData,
-          // pasteType: 1,
-          fontSizeTable: ['12px', '14px', '16px', '18px', '20px', '24px', '32px'],
-          'fontname.fontName' : {
-            'SimSun' : '宋体',
-            'NSimSun' : '新宋体',
-            'FangSong' : '仿宋',
-            'KaiTi' : '楷体',
-            'SimHei' : '黑体',
-            'Microsoft YaHei' : '微软雅黑',
-            'Times New Roman' : 'Times New Roman',
-            'Courier New' : 'Courier New',
-            'Tahoma' : 'Tahoma',
-            'Verdana' : 'Verdana'
-          },
           afterFocus: () => {
             let iframe = this.reditor.edit.iframe[0].contentWindow
+            iframe.addEventListener('keydown', (e) => {
+              const keyCode = e.keyCode;
+              if (keyCode === 122) {
+                e.preventDefault();
+                _this.fullscreenMode = !_this.fullscreenMode;
+                _this.reditor.fullscreen(_this.fullscreenMode);
+              }
+            });
             iframe.addEventListener('click', (el) => {
               this.selectDialogShow = false
               if (el.target.classList && el.target.classList[0] === 'aspan') {
@@ -530,6 +526,7 @@ export default {
             iframe.addEventListener('contextmenu', (el) => {
               el.preventDefault();
               if (el.target.classList && el.target.classList[0] === 'aspan') {
+                window.removeEventListener('keydown');
                 let sels = iframe.document.getElementsByTagName('select');
                 let targetSel = null;
                 if (sels ?. length) {
@@ -564,7 +561,7 @@ export default {
                   }
                 });
 
-                window.addEventListener('keydown', this.confirm, false)
+                window.addEventListener('keydown', this.confirm, false);
               } else if (el.target.localName && el.target.localName === 'input') {
                 this.isInput = false
                 this.curId = el.target.id
