@@ -187,7 +187,7 @@ export default {
       activeNames: [],
       alignTypeList,
       fontFamilyList,
-      fontFamily: '',
+      fontFamily: 'Microsoft YaHei',
       fontStyle: null,
       fontSize: null,
       fontWeight: null,

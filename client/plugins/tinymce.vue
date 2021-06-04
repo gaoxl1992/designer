@@ -74,8 +74,7 @@ export default {
         language: 'zh_CN',
         skin_url: './tinymce/skins/ui/oxide',
         fontsize_formats: '10px 12px 14px 16px 18px 20px 24px 36px',
-        font_formats:
-          '微软雅黑=Microsoft YaHei,Helvetica Neue,PingFang SC,sans-serif;苹果苹方=PingFang SC,Microsoft YaHei,sans-serif;宋体=simsun,serif;仿宋体=FangSong,serif;黑体=SimHei,sans-serif;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;',
+        font_formats: '宋体=simsun,serif;新宋体=NSimSun;仿宋=FangSong;楷体=KaiTi;黑体=SimHei;微软雅黑="Microsoft YaHei";Times New Roman="Times New Roman";隶书=LiSu;幼圆=YouYuan',
         block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3',
         height:
           document.body.getBoundingClientRect().bottom -
