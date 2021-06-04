@@ -268,7 +268,7 @@ export default {
         'justifyleft', 'justifycenter', 'justifyright', '|',
         'insertorderedlist', 'lineheight', '|',
         'undo', 'redo', '|',
-        'cut', 'copy', 'paste', '|',
+        'cut', 'copy', '|',
         'fullscreen'
       ],
       inner: null,
