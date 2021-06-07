@@ -223,8 +223,10 @@ export default {
           childs[0].style = {}
         }
         childs[0].style.display = 'inline-block'
-        childs[0].value = childs[1].innerHTML
-        parent.removeChild(childs[1])
+        if (childs[1].localName && childs[1].localName !== 'span') {
+          childs[0].value = childs[1].innerHTML
+          parent.removeChild(childs[1])
+        }
       }
       this.lastEvent = childs[0]
     }

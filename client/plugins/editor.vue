@@ -480,6 +480,7 @@ export default {
           cssData: cssData,
           afterFocus: () => {
             let iframe = this.reditor.edit.iframe[0].contentWindow
+            iframe.addEventListener('paste', this.handlePaste, false)
             iframe.addEventListener('keydown', (e) => {
               const keyCode = e.keyCode;
               if (keyCode === 122) {
@@ -487,7 +488,7 @@ export default {
                 _this.fullscreenMode = !_this.fullscreenMode;
                 _this.reditor.fullscreen(_this.fullscreenMode);
               }
-            });
+            })
             iframe.addEventListener('click', (el) => {
               this.selectDialogShow = false
               if (el.target.classList && el.target.classList[0] === 'aspan') {
@@ -579,7 +580,6 @@ export default {
                   if (window?.[this.modelId]?.report?.currentComp) {
                     window[this.modelId].report.currentComp = this.element
                   }
-                  this.showCharspop()
                 }
               }
             });
@@ -638,6 +638,15 @@ export default {
           selectDialogs[i].style.left = 0
           selectDialogs[i].style.marginTop = '0 !important'
         }
+      }
+    },
+    handlePaste (event) {
+      if (event.clipboardData || event.originalEvent) {
+        let clipboardData = (event.clipboardData || window.clipboardData)
+        let val = clipboardData.getData('text')
+        this.reditor.insertHtml(val)
+        event.preventDefault()
+        document.removeEventListener('paste', this.handlePaste);
       }
     },
     getOffsetTop (obj) {
