@@ -1,19 +1,18 @@
-const host = location.host
 const headStr = `
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8"/>
   <style>
-    @font-face{font-family: "SimSun";src:url('http://${host}/fonts/simsun.svg') format('svg');}
-    @font-face{font-family: "NSimSun";src:url('http://${host}/fonts/simsun.svg') format('svg');}
-    @font-face{font-family: "FangSong";src:url('http://${host}/fonts/simfang.svg') format('svg');}
-    @font-face{font-family: "KaiTi";src:url('http://${host}/fonts/simkai.svg') format('svg');}
-    @font-face{font-family: "SimHei";src:url('http://${host}/fonts/simhei.svg') format('svg');}
-    @font-face{font-family: "Microsoft YaHei";src:url('http://${host}/fonts/msyh.svg') format('svg');}
-    @font-face{font-family: "Times New Roman";src:url('http://${host}/fonts/times.svg') format('svg');}
-    @font-face{font-family: "LiSu";src:url('http://${host}/fonts/simli.svg') format('svg');}
-    @font-face{font-family: "YouYuan";src:url('http://${host}/fonts/simyou.svg') format('svg');}
+    @font-face{font-family: "SimSun";src:url('{fontPath}/simsun.svg') format('svg');}
+    @font-face{font-family: "NSimSun";src:url('{fontPath}/simsun.svg') format('svg');}
+    @font-face{font-family: "FangSong";src:url('{fontPath}/simfang.svg') format('svg');}
+    @font-face{font-family: "KaiTi";src:url('{fontPath}/simkai.svg') format('svg');}
+    @font-face{font-family: "SimHei";src:url('{fontPath}/simhei.svg') format('svg');}
+    @font-face{font-family: "Microsoft YaHei";src:url('{fontPath}/msyh.svg') format('svg');}
+    @font-face{font-family: "Times New Roman";src:url('{fontPath}/times.svg') format('svg');}
+    @font-face{font-family: "LiSu";src:url('{fontPath}/simli.svg') format('svg');}
+    @font-face{font-family: "YouYuan";src:url('{fontPath}/simyou.svg') format('svg');}
   </style>
 </head>
 <body style="margin: 0">
@@ -28,15 +27,15 @@ const openFixedAreaStr = `
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8">
   <style>
-    @font-face{font-family: "SimSun";src:url('http://${host}/fonts/simsun.svg') format('svg');}
-    @font-face{font-family: "NSimSun";src:url('http://${host}/fonts/simsun.svg') format('svg');}
-    @font-face{font-family: "FangSong";src:url('http://${host}/fonts/simfang.svg') format('svg');}
-    @font-face{font-family: "KaiTi";src:url('http://${host}/fonts/simkai.svg') format('svg');}
-    @font-face{font-family: "SimHei";src:url('http://${host}/fonts/simhei.svg') format('svg');}
-    @font-face{font-family: "Microsoft YaHei";src:url('http://${host}/fonts/msyh.svg') format('svg');}
-    @font-face{font-family: "Times New Roman";src:url('http://${host}/fonts/times.svg') format('svg');}
-    @font-face{font-family: "LiSu";src:url('http://${host}/fonts/simli.svg') format('svg');}
-    @font-face{font-family: "YouYuan";src:url('http://${host}/fonts/simyou.svg') format('svg');}
+    @font-face{font-family: "SimSun";src:url('{fontPath}/simsun.svg') format('svg');}
+    @font-face{font-family: "NSimSun";src:url('{fontPath}/simsun.svg') format('svg');}
+    @font-face{font-family: "FangSong";src:url('{fontPath}/simfang.svg') format('svg');}
+    @font-face{font-family: "KaiTi";src:url('{fontPath}/simkai.svg') format('svg');}
+    @font-face{font-family: "SimHei";src:url('{fontPath}/simhei.svg') format('svg');}
+    @font-face{font-family: "Microsoft YaHei";src:url('{fontPath}/msyh.svg') format('svg');}
+    @font-face{font-family: "Times New Roman";src:url('{fontPath}/times.svg') format('svg');}
+    @font-face{font-family: "LiSu";src:url('{fontPath}/simli.svg') format('svg');}
+    @font-face{font-family: "YouYuan";src:url('{fontPath}/simyou.svg') format('svg');}
   </style>
 	<script>
 		function subst() {
