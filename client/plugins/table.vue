@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import { createUUID } from '@/utils/mUtils'
 import bus from '@/utils/bus'
 export default {
@@ -171,7 +171,18 @@ export default {
       if (target.id) {
         target.removeAttribute('id')
       }
-      parentNode.appendChild(spanEle)
+      let spanIndex = 1
+      for (let i = 0; i < parentNode.childNodes.length; i++) {
+        if (parentNode.childNodes[i].localName && parentNode.childNodes[i].localName === 'input') {
+          spanIndex = i + 1
+          break
+        }
+      }
+      if (spanIndex === parentNode.childNodes.length) {
+        parentNode.appendChild(spanEle)
+      } else {
+        parentNode.insertBefore(spanEle, parentNode.childNodes[spanIndex]) 
+      }
 
       this.lastEvent = null
       this.activeTpl.tpl = document.getElementById(
@@ -183,6 +194,7 @@ export default {
      * 绑定所点击元素的父元素
      */
     bindUrFather (event) {
+      // 预览模式不转换
       if (this.pagetype === 'preview') {
         return
       }
@@ -193,10 +205,11 @@ export default {
         t.id = createUUID()
       }
 
-      // 点击的是下拉选项或者非空单元格不做处理
+      // 下拉选项不做处理
       if (t.localName === 'option') {
         return
       }
+      // 非空单元格不做处理
       if (t.localName === 'td' && t.innerHTML !== '&nbsp;' && (t.childNodes.length === 0 || (t.childNodes[0] && !t.childNodes[0].localName))) {
         return
       }
@@ -204,6 +217,10 @@ export default {
       // 如果上一次事件没有闭环
       if (this.lastEvent && this.lastEvent !== event.target) {
         this.changeInner(this.lastEvent)
+      }
+
+      if (t.localName === 'td' && t.innerHTML !== '&nbsp;') {
+        return
       }
 
       //  点击单元格且内容为空
@@ -218,17 +235,26 @@ export default {
       }
 
       let childs = parent.childNodes
+      // 输入框和span组合
+      let inputIndex = 0
       if (childs.length > 1) {
-        if (!childs[0].style) {
-          childs[0].style = {}
+        for (let i = 0; i < childs.length; i++) {
+          if (childs[i].localName === 'input') {
+            inputIndex = i
+            break
+          }
         }
-        childs[0].style.display = 'inline-block'
-        if (childs[1].localName && childs[1].localName !== 'span') {
-          childs[0].value = childs[1].innerHTML
-          parent.removeChild(childs[1])
+        if (!childs[inputIndex].style) {
+          childs[inputIndex].style = {}
+        }
+        childs[inputIndex].style.display = 'inline-block'
+        let max = inputIndex + 1
+        if (childs[max].localName && childs[max].localName === 'span' && childs[max].id) {
+          childs[inputIndex].value = childs[max].innerHTML
+          parent.removeChild(childs[max])
         }
       }
-      this.lastEvent = childs[0]
+      this.lastEvent = childs[inputIndex]
     }
   }
 }
@@ -296,7 +322,7 @@ export default {
     outline: none;
     text-align: -webkit-match-parent;
     font-size: inherit;
-    width: 100%;
+    // width: 100%;
     height: inherit;
     background: transparent;
     &:hover {
