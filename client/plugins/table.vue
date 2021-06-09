@@ -82,7 +82,7 @@ export default {
     },
     element: {
       type: Object,
-      default: () => { }
+      default: () => {}
     }
   },
   inject: ['modelId'],
@@ -111,19 +111,24 @@ export default {
     this.activeTpl = (this.element && this.element.value) || null
 
     bus.$on('applyTableTplDetail', (template) => {
-      let tpl = {
-        id: template.id,
-        name: template.title,
-        tpl: template.content,
-        departmentId: template.departmentId
-      }
-      this.activeTpl = tpl
-      this.$emit('update:value', tpl)
+      this.doApplyTableContent(template)
     })
 
     window.addEventListener('keydown', this.inputDown, false)
   },
   methods: {
+    doApplyTableContent (template) {
+      let content = template.content.match(/<table[\s\S]*?<\/table>/g)?.[0] || ''
+
+      let tpl = {
+        id: template.id,
+        name: template.title,
+        tpl: content,
+        departmentId: template.departmentId
+      }
+      this.activeTpl = tpl
+      this.$emit('update:value', tpl)
+    },
     inputDown (el) {
       console.log('------', el)
     },
@@ -157,6 +162,19 @@ export default {
       }
       let parentNode = target.parentNode
       if (target.localName === 'span' || parentNode.localName === 'span') {
+        return
+      }
+      if (target.localName === 'select' || parentNode.localName === 'select') {
+        let selVal = target.value
+        let options = document.getElementById(target.id).getElementsByTagName('option')
+        for (let i = 0; i < target.options.length; i++){  
+          target.options[i].selected = (target.options[i].value === selVal ? 'selected' : false);
+          if (options[i].innerHTML !== selVal) {
+            options[i].outerHTML = options[i].outerHTML.replaceAll(/selected="selected"/, '')
+          } else {
+            options[i].outerHTML = options[i].outerHTML.replaceAll(/<option /, '<option selected=\"selected\" ')
+          }
+        }
         return
       }
       // 创建新的span标签用来展示
@@ -201,7 +219,7 @@ export default {
 
       let t = event.target
       // 如果点击的是下拉框或者输入框，赋予唯一的id
-      if ((t.localName === 'select' || t.localName === 'input') && !t.id) {
+      if ((t.localName === 'input') && !t.id) {
         t.id = createUUID()
       }
 
@@ -210,7 +228,7 @@ export default {
         return
       }
       // 非空单元格不做处理
-      if (t.localName === 'td' && t.innerHTML !== '&nbsp;' && (t.childNodes.length === 0 || (t.childNodes[0] && !t.childNodes[0].localName))) {
+      if ((t.localName === 'td' && t.innerHTML !== '&nbsp;' && (t.childNodes.length === 0 || (t.childNodes[0] && !t.childNodes[0].localName))) || t.localName === 'select') {
         return
       }
 
@@ -220,7 +238,16 @@ export default {
       }
 
       if (t.localName === 'td' && t.innerHTML !== '&nbsp;') {
-        return
+        let childs = t.childNodes
+        let hasInput = false
+        for (let i = 0; i < childs.length; i++) {
+          if (childs[i].localName === 'input') {
+            hasInput = true
+          }
+        }
+        if (!hasInput) {
+          return
+        }
       }
 
       //  点击单元格且内容为空

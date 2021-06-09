@@ -4,15 +4,15 @@ const headStr = `
 <head>
 	<meta charset="utf-8"/>
   <style>
-    @font-face{font-family: "SimSun";src:url('{fontPath}/simsun.svg') format('svg');}
-    @font-face{font-family: "NSimSun";src:url('{fontPath}/simsun.svg') format('svg');}
-    @font-face{font-family: "FangSong";src:url('{fontPath}/simfang.svg') format('svg');}
-    @font-face{font-family: "KaiTi";src:url('{fontPath}/simkai.svg') format('svg');}
-    @font-face{font-family: "SimHei";src:url('{fontPath}/simhei.svg') format('svg');}
-    @font-face{font-family: "Microsoft YaHei";src:url('{fontPath}/msyh.svg') format('svg');}
-    @font-face{font-family: "Times New Roman";src:url('{fontPath}/times.svg') format('svg');}
-    @font-face{font-family: "LiSu";src:url('{fontPath}/simli.svg') format('svg');}
-    @font-face{font-family: "YouYuan";src:url('{fontPath}/simyou.svg') format('svg');}
+    @font-face{font-family: "SimSun";src:url('{fontPath}/simsun.ttf') format('truetype');}
+    @font-face{font-family: "NSimSun";src:url('{fontPath}/nsimsun.ttf') format('truetype');}
+    @font-face{font-family: "FangSong";src:url('{fontPath}/simfang.ttf') format('truetype');}
+    @font-face{font-family: "KaiTi";src:url('{fontPath}/simkai.ttf') format('truetype');}
+    @font-face{font-family: "SimHei";src:url('{fontPath}/simhei.ttf') format('truetype');}
+    @font-face{font-family: "Microsoft YaHei";src:url('{fontPath}/msyh.ttf') format('truetype');}
+    @font-face{font-family: "Times New Roman";src:url('{fontPath}/times.ttf') format('truetype');}
+    @font-face{font-family: "LiSu";src:url('{fontPath}/simli.ttf') format('truetype');}
+    @font-face{font-family: "YouYuan";src:url('{fontPath}/simyou.ttf') format('truetype');}
   </style>
 </head>
 <body style="margin: 0">
@@ -27,15 +27,15 @@ const openFixedAreaStr = `
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8">
   <style>
-    @font-face{font-family: "SimSun";src:url('{fontPath}/simsun.svg') format('svg');}
-    @font-face{font-family: "NSimSun";src:url('{fontPath}/simsun.svg') format('svg');}
-    @font-face{font-family: "FangSong";src:url('{fontPath}/simfang.svg') format('svg');}
-    @font-face{font-family: "KaiTi";src:url('{fontPath}/simkai.svg') format('svg');}
-    @font-face{font-family: "SimHei";src:url('{fontPath}/simhei.svg') format('svg');}
-    @font-face{font-family: "Microsoft YaHei";src:url('{fontPath}/msyh.svg') format('svg');}
-    @font-face{font-family: "Times New Roman";src:url('{fontPath}/times.svg') format('svg');}
-    @font-face{font-family: "LiSu";src:url('{fontPath}/simli.svg') format('svg');}
-    @font-face{font-family: "YouYuan";src:url('{fontPath}/simyou.svg') format('svg');}
+    @font-face{font-family: "SimSun";src:url('{fontPath}/simsun.ttf') format('truetype');}
+    @font-face{font-family: "NSimSun";src:url('{fontPath}/nsimsun.ttf') format('truetype');}
+    @font-face{font-family: "FangSong";src:url('{fontPath}/simfang.ttf') format('truetype');}
+    @font-face{font-family: "KaiTi";src:url('{fontPath}/simkai.ttf') format('truetype');}
+    @font-face{font-family: "SimHei";src:url('{fontPath}/simhei.ttf') format('truetype');}
+    @font-face{font-family: "Microsoft YaHei";src:url('{fontPath}/msyh.ttf') format('truetype');}
+    @font-face{font-family: "Times New Roman";src:url('{fontPath}/times.ttf') format('truetype');}
+    @font-face{font-family: "LiSu";src:url('{fontPath}/simli.ttf') format('truetype');}
+    @font-face{font-family: "YouYuan";src:url('{fontPath}/simyou.ttf') format('truetype');}
   </style>
 	<script>
 		function subst() {

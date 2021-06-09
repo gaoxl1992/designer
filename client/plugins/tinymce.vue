@@ -122,11 +122,11 @@ export default {
                   }
 
                   let options = data.options.split(',')
-                  let innerContent = '<select>'
+                  let innerContent = `<select id="${new Date().getTime()}">`
                   for (let i = 0; i < options.length; i++) {
-                    innerContent += `<option value='${options[i]}'>${options[i]}</option>`
+                    innerContent += `<option ${i===0 ? 'selected' : ''} value='${options[i]}'>${options[i]}</option>`
                   }
-                  innerContent += '</select>'
+                  innerContent += `</select>`
 
                   editor.insertContent(innerContent)
                   api.close()

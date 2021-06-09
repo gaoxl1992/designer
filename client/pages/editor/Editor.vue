@@ -219,13 +219,17 @@ export default {
       for (let i = 0; i < eles.length; i++) {
         let last = eles[i - 1] || null, setHeight = 0, eleHeight = eles[i].commonStyle.height
 
+        // 图片选择器
         if (eles[i].elName === 'rad-imagepicker') {
           newImgPHeight = this.calcImagePickerRelHeight(eles[i], eleHeight, eleHeight)
         }
         // 富文本框
         if (eles[i].elName === 'rad-editor') {
           eles[i].value = this.resetEditorValue(eles[i].value, i)
-
+        }
+        // 表格
+        if (eles[i].elName === 'rad-table') {
+          eles[i].value = this.resetTableValue(eles[i].value, i)
         }
         // 根据上一个元素的特殊性处理偏移
         if (last) {
@@ -315,6 +319,19 @@ export default {
         })
         this.showPreview = false
       }, 500)
+    },
+    resetTableValue (value, index) {
+      if (!value?.tpl) {
+        return
+      }
+      value.tpl = value.tpl.replaceAll(/<input[^>]*>/gi, '')
+      let sels = value.tpl.match(/<select[^>]*>[\s\S]*?<\/select>/gi)
+      sels && sels.forEach((sel) => {
+        let id = sel.match(/(id="(.*?)")/ig)?.[0]?.replace(/[^0-9]/ig, '')
+        let val = document.getElementById(id).value
+        value.tpl = value.tpl.replaceAll(sel, `<span id="${id}">${val}</span>`)
+      })
+      return value
     },
     /**
      * @description: 处理图片选择器的占位问题
