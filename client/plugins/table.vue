@@ -344,13 +344,17 @@ export default {
   table {
     table-layout: fixed;
   }
+  td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .table-input {
     border: none;
     outline: none;
     text-align: -webkit-match-parent;
     font-size: inherit;
     // width: 100%;
-    height: inherit;
     background: transparent;
     &:hover {
       border: none;
