@@ -628,9 +628,10 @@ export default {
       let clientHeight = dom.getElementsByClassName('title')[0].clientHeight
       let selectDialogs = document.getElementsByClassName('select-dialog')
       let scrollTop = document.getElementById('scale_' + this.modelId.split('_')[1]).scrollTop
+      let edtorScrollTop = dom.getElementsByTagName('iframe')[0].contentDocument.getElementsByClassName('ke-content')[0].scrollTop
       if (selectDialogs?.length) {
         for (let i = 0 ; i < selectDialogs.length; i++) {
-          selectDialogs[i].parentNode.style.top = this.getOffsetTop(dom) - scrollTop + clientHeight + el.target.offsetTop + 50 + 'px'
+          selectDialogs[i].parentNode.style.top = this.getOffsetTop(dom) - scrollTop + clientHeight + el.target.offsetTop + 50 - edtorScrollTop + 'px'
           selectDialogs[i].parentNode.style.left = this.getOffsetLeft(dom) + el.target.offsetLeft + 'px'
           selectDialogs[i].parentNode.style.width = '250px'
           selectDialogs[i].parentNode.style.maxHeight = '500px'
