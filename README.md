@@ -204,3 +204,6 @@ import { Preview } from 'web-reseditor/index.js'
 ```
 
 - pageTpl编辑器导出的模版字符串
+
+## 版本说明&changelog
+- v1.1.0 第一个稳定版本，适配锐达可配置化结构化报告功能，已上线使用。
